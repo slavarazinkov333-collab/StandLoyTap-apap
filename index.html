@@ -47,7 +47,6 @@
             align-items: center; flex-direction: column; padding: 20px;
         }
 
-        /* КОЛЕСО */
         .wheel-wrapper {
             position: relative; width: 300px; height: 300px;
             display: flex; justify-content: center; align-items: center;
@@ -144,7 +143,6 @@
             min-width: 40px; text-align: right;
         }
 
-        /* ПРОЦЕНТЫ */
         .percent-list {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 10px; margin-top: 20px;
@@ -164,6 +162,14 @@
         .result .subtitle { font-size: 14px; color: #888; }
         .result.win .title { color: #4CAF50; }
         .result.lose .title { color: #ff4444; }
+
+        .withdraw-btn {
+            background: linear-gradient(135deg, #ffd700, #e6a800);
+            color: #1a1a2e; border: none;
+            padding: 10px 20px; border-radius: 20px;
+            font-weight: 700; font-size: 12px; cursor: pointer;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -198,6 +204,9 @@
         </button>
         <button class="nav-btn" onclick="openScreen('upgradeScreen')">
             <span class="icon">⬆️</span><span>Прокачать</span>
+        </button>
+        <button class="nav-btn" onclick="openScreen('withdrawScreen')">
+            <span class="icon">📤</span><span>Вывод</span>
         </button>
     </div>
 
@@ -248,6 +257,16 @@
                 <input type="range" id="speedRange" min="1" max="30" value="20" onchange="changeSpeed()">
                 <span class="value" id="speedValue">20с</span>
             </div>
+        </div>
+    </div>
+
+    <div class="screen" id="withdrawScreen">
+        <div class="screen-header">
+            <h2>📤 Вывод</h2>
+            <button class="close-btn" onclick="closeScreen('withdrawScreen')">✕</button>
+        </div>
+        <div class="screen-body">
+            <p style="text-align:center; color:#888;">Вывод скоро появится!</p>
         </div>
     </div>
 
@@ -377,7 +396,6 @@
                 btn.classList.remove('selected');
                 if (btn.innerText === p + '%') btn.classList.add('selected');
             });
-            // Меняем цвета колеса
             const winAngle = (p / 100) * 360;
             document.getElementById('wheel').style.setProperty('--win-angle', winAngle + 'deg');
         }
