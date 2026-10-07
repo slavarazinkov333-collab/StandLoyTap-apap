@@ -409,10 +409,10 @@ document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div cl
 }
 document.getElementById('counter').innerText = 'Выбрано: ' + (selectedItems.length || 1) + ' из 5';
 
-// Цифры процентов — ВСЕГДА серые
+// Цифры процентов — серые всегда
 document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb gray">${p}%</button>`).join('');
 
-// Множители — ВСЕГДА серые
+// Множители — серые всегда
 document.querySelectorAll('.mb').forEach(b=>{b.classList.add('gray');b.classList.remove('sel')});
 
 // Кнопка Прокачать — активна если есть скин и цель
