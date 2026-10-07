@@ -23,10 +23,10 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .slot .sl{font-size:9px;color:#888;margin-top:2px}
 .slot .spr{font-size:11px;color:#4CAF50;margin-top:4px;font-weight:700}
 .wheel-box{position:relative;width:280px;height:280px;margin:10px 0}
-.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 180deg,#ffd700 0deg, #ff8c00 var(--wa,90deg), #0a0a0f var(--wa,90deg) 360deg);border:8px solid #2a2a4e;position:relative;display:flex;justify-content:center;align-items:center}
+.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 180deg,#ffd700 0deg, #ff8c00 var(--wa,90deg), #0a0a0f var(--wa,90deg) 360deg);border:8px solid #2a2a4e;position:relative;display:flex;justify-content:center;align-items:center;transition:background 0.8s ease}
 .pt{font-size:36px;font-weight:900;color:#ffd700;z-index:2}
 .pl{position:absolute;bottom:35%;font-size:12px;color:#aaa;z-index:2}
-.arrow{position:absolute;top:0;left:50%;transform-origin:center 140px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 10px rgba(255,215,0,.9));z-index:10}
+.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 10px rgba(255,215,0,.9));z-index:10}
 .ubtn{width:100%;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:10px}
 .ubtn:disabled{background:#2a2a4e;color:#666;cursor:not-allowed}
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
@@ -305,10 +305,10 @@ const names = available.map(s=>`<span style="color:${s.color}">${s.name}</span>`
 document.getElementById('rightSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="spr">+${bonus} голды</div><div class="sl">Итог: ${total} голды</div><div style="font-size:9px;color:#888;margin-top:6px;">Доступно:<br>${names||'—'}</div>`;
 }
 document.getElementById('pt').innerText=p.toFixed(1)+'%';
-const a = document.getElementById('arrow');
+const wheel = document.getElementById('wheel');
 const wa = (p/100)*360;
-a.style.transition='transform 1s cubic-bezier(0.4,0,0.2,1)';
-a.style.transform = `translateX(-50%) rotate(${wa}deg)`;
+wheel.style.transition = 'background 0.8s ease';
+wheel.style.setProperty('--wa', wa+'deg');
 rendMain();
 }
 function setMulti(v){
@@ -324,16 +324,8 @@ if(selPct===null){toast('❌ Выбери процент','lose');return}
 if(isSpinning)return;
 isSpinning=true;
 const a=document.getElementById('arrow');
-let deg;
-if(adminAlwaysWin){
-const wa=(selPct/100)*360;
-const stopAngle = Math.random()*wa;
-deg = 1440 + stopAngle;
-}else{
-deg = Math.floor(Math.random()*1440)+1440;
-}
 a.style.transition='transform 6s cubic-bezier(0.15,0.6,0.3,1)';
-a.style.transform=`translateX(-50%) rotate(${deg}deg)`;
+a.style.transform=`translateX(-50%) rotate(1440deg)`;
 setTimeout(()=>{
 let ec=selPct;
 if(gold<1000)ec=60;else ec=30;
