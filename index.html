@@ -36,6 +36,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .mult{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin-top:6px}
 .mb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .mb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
+.mb.gray{color:#666;border-color:#1a1a2e;cursor:not-allowed}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0f0f1a;padding:8px;display:flex;justify-content:space-around;border-top:1px solid #2a2a4e;z-index:100}
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
@@ -72,8 +73,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .inv-empty .icon{font-size:60px;margin-bottom:10px}
 .inv-empty .title{font-size:18px;font-weight:700;color:#aaa}
 .inv-empty .sub{font-size:12px;color:#666;margin-top:5px}
-
-/* СЕТКА */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
 .card{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:all .2s}
 .card:active{transform:scale(.97);border-color:#7b61ff}
@@ -82,17 +81,14 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .card .price{font-size:11px;color:#ffd700;margin-top:4px;font-weight:700}
 .card .buy{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:6px 10px;border-radius:12px;font-size:10px;font-weight:700;margin-top:6px;cursor:pointer;width:100%}
 .card .buy:disabled{background:#2a2a4e;color:#666}
-
 .footer-block{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:16px;margin-top:20px;text-align:center;width:100%}
 .footer-block .ft-title{font-size:14px;font-weight:700;color:#7b61ff;margin-bottom:8px}
 .footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
 .footer-block .ft-btn{display:inline-block;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none;margin:4px}
-
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);background:#0f0f1a;border:2px solid #7b61ff;border-radius:16px;padding:20px 30px;color:#fff;font-size:15px;font-weight:700;z-index:999;opacity:0;pointer-events:none;transition:all .3s;box-shadow:0 0 40px rgba(123,97,255,.5);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .toast.win{border-color:#4CAF50;box-shadow:0 0 40px rgba(76,175,80,.5)}
 .toast.lose{border-color:#ff4444;box-shadow:0 0 40px rgba(255,68,68,.5)}
-
 .confetti{position:fixed;width:10px;height:10px;background:#ffd700;z-index:998;pointer-events:none;animation:fall 3s linear forwards}
 @keyframes fall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 </style>
@@ -109,7 +105,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="set" onclick="openS('settingsScreen')">☰</button>
 </div>
 </div>
-
 <div class="main">
 <div class="skins">
 <div class="slot" id="leftSlot"><div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div></div>
@@ -122,32 +117,28 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆️ ПРОКАЧАТЬ</button>
 <div class="pcnt" id="pcntList"></div>
 <div class="mult">
-<button class="mb" onclick="setMulti(2)">x2</button>
-<button class="mb" onclick="setMulti(4)">x4</button>
-<button class="mb" onclick="setMulti(5)">x5</button>
-<button class="mb" onclick="setMulti(10)">x10</button>
+<button class="mb gray" onclick="setMulti(2)">x2</button>
+<button class="mb gray" onclick="setMulti(4)">x4</button>
+<button class="mb gray" onclick="setMulti(5)">x5</button>
+<button class="mb gray" onclick="setMulti(10)">x10</button>
 </div>
-
 <div class="inv-tabs">
 <div class="inv-tab active" onclick="switchInv('inv')">🎒 Инвентарь</div>
 <div class="inv-tab" onclick="switchInv('shop')">🛒 Магазин</div>
 </div>
 <div class="inv-search"><span>🔍</span><input type="text" placeholder="Поиск..." id="invSearch" oninput="rendInv()"></div>
 <div id="invList"></div>
-
 <div class="footer-block">
 <div class="ft-title">🏢 Моя компания</div>
 <div class="ft-sub">StandFliutApap — торговая площадка скинов</div>
 <a href="https://t.me/Hak2ud" class="ft-btn">💬 Связь с поддержкой</a>
 </div>
 </div>
-
 <div class="bottom">
 <button class="nb" onclick="spinUpgradeFast()"><span class="ic">⚡</span><span>Быстро</span></button>
 <button class="nb" onclick="openS('casesScreen')"><span class="ic">📦</span><span>Кейсы</span></button>
 <button class="nb" onclick="openS('tasksScreen')"><span class="ic">📋</span><span>Задания</span></button>
 </div>
-
 <div class="scr" id="profileScreen">
 <div class="sh"><h2>👤 Профиль</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div>
 <div class="sb">
@@ -157,17 +148,14 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div style="margin-top:16px;color:#888;font-size:12px;">Баланс: <span id="profileBal" style="color:#ffd700;font-weight:700;">0</span></div>
 </div>
 </div>
-
 <div class="scr" id="casesScreen">
 <div class="sh"><h2>📦 Кейсы</h2><button class="cb" onclick="closeS('casesScreen')">✕</button></div>
 <div class="sb" id="casesBody"></div>
 </div>
-
 <div class="scr" id="tasksScreen">
 <div class="sh"><h2>📋 Задания</h2><button class="cb" onclick="closeS('tasksScreen')">✕</button></div>
 <div class="sb" id="tasksBody"></div>
 </div>
-
 <div class="scr" id="settingsScreen">
 <div class="sh"><h2>⚙️ Настройки</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div>
 <div class="sb">
@@ -181,9 +169,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
 let gold=20000,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false,multi=1;
 let stats={spins:0,wins:0,loses:0};
@@ -191,7 +177,6 @@ let inv=[];
 let invMode='inv';
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
-
 const allSkins=[
 {name:'AKR «Ржавый»',icon:'🔫',price:50,color:'#888'},
 {name:'AKR «Синий»',icon:'🔫',price:100,color:'#4a9eff'},
@@ -213,13 +198,11 @@ const allSkins=[
 {name:'Перчатки «Боец»',icon:'🧤',price:200,color:'#888'},
 {name:'Перчатки «Золото»',icon:'🧤',price:1000,color:'#ffd700'}
 ];
-
 const cases=[
 {name:'Обычный кейс',icon:'📦',price:100,chances:{legendary:5,red:10,epic:20,blue:20,uncommon:45}},
 {name:'Редкий кейс',icon:'🎁',price:500,chances:{legendary:10,red:20,epic:30,blue:20,uncommon:20}},
 {name:'Легендарный кейс',icon:'💎',price:2000,chances:{legendary:30,red:30,epic:20,blue:10,uncommon:10}}
 ];
-
 const tasks=[
 {name:'Первый спин',done:false,reward:10},
 {name:'10 спинов',done:false,reward:50},
@@ -227,7 +210,6 @@ const tasks=[
 {name:'5 побед',done:false,reward:100},
 {name:'Открыть кейс',done:false,reward:30}
 ];
-
 function toast(msg,type){
 const t=document.getElementById('toast');
 t.className='toast '+(type||'')+' show';
@@ -257,7 +239,6 @@ g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);
 o.start();o.stop(ctx.currentTime+0.3);
 }catch(e){}
 }
-
 function updateBal(){document.getElementById('gold').innerText=gold;document.getElementById('profileBal').innerText=gold}
 function openS(id){
 if(id==='profileScreen')rendProf();
@@ -266,7 +247,6 @@ if(id==='tasksScreen')rendTasks();
 document.getElementById(id).classList.add('open');
 }
 function closeS(id){document.getElementById(id).classList.remove('open')}
-
 function rendProf(){
 document.getElementById('pAv').innerText=curAv;
 document.getElementById('pName').innerText=document.getElementById('nick').innerText;
@@ -274,7 +254,6 @@ document.getElementById('avList').innerHTML=avatars.map(a=>`<div class="ao ${a==
 document.getElementById('profileBal').innerText=gold;
 }
 function setAv(a){curAv=a;document.getElementById('topAv').innerText=a;document.getElementById('pAv').innerText=a}
-
 function switchInv(mode){
 invMode=mode;
 document.querySelectorAll('.inv-tab').forEach((t,i)=>{t.classList.toggle('active',i===(mode==='inv'?0:1))});
@@ -297,15 +276,19 @@ return `<div class="card"><div class="icon">${s.icon}</div><div class="name" sty
 }
 function buySkin(n,ic,p){
 if(gold<p){toast('❌ Мало голды','lose');return}
-gold-=p;inv.push({name:n,icon:ic,price:p});updateBal();rendInv();toast('✅ Куплено: '+n,'win');sound('win');confetti();
+gold-=p;inv.push({name:n,icon:ic,price:p});updateBal();rendInv();
+toast('✅ Куплено: '+n+'\n- '+p+' голды','win');
+sound('win');confetti();
 }
 function selI(i){selItem=inv[i];rendMain();toast('✅ Выбран: '+selItem.name,'win')}
-
 function rendMain(){
 if(!selItem){document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>'}
 else{document.getElementById('leftSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Мой скин</div>`}
 document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери процент</div>';
 document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb ${selItem?'':'gray'}" onclick="${selItem?`selP(${p})`:''}">${p}%</button>`).join('');
+const mbBtns=document.querySelectorAll('.mb');
+const canMulti = selItem && selPct!==null;
+mbBtns.forEach(b=>{b.classList.toggle('gray',!canMulti)});
 const btn=document.getElementById('upgradeBtn');
 if(selItem&&selPct!==null){btn.disabled=false;btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)'}
 else{btn.disabled=true;btn.style.background='#2a2a4e'}
@@ -323,7 +306,13 @@ document.getElementById('pt').innerText=p.toFixed(1)+'%';
 document.getElementById('wheel').style.setProperty('--wa',(p/100*360)+'deg');
 rendMain();
 }
-function setMulti(v){multi=v;document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')})}
+function setMulti(v){
+if(!selItem || selPct===null){toast('❌ Сначала выбери скин и процент','lose');return}
+multi=v;
+document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')});
+toast('✅ Множитель: x'+v,'win');
+sound('win');
+}
 function spinUpgrade(){
 if(!selItem){toast('❌ Выбери скин','lose');return}
 if(selPct===null){toast('❌ Выбери процент','lose');return}
@@ -352,7 +341,7 @@ if(win){
 stats.wins++;
 const bonus = Math.round((selItem.price||0) * (selPct/100)) * multi;
 gold += bonus;updateBal();
-toast('🎉 Улучшено! +'+bonus+' голды','win');
+toast('🎉 Улучшено! +'+bonus+' голды (x'+multi+')','win');
 sound('win');confetti();
 }else{
 stats.loses++;
@@ -360,14 +349,14 @@ toast('😢 Сгорел! '+selItem.name,'lose');
 sound('lose');
 inv=inv.filter(i=>i!==selItem);
 }
-isSpinning=false;selItem=null;selPct=null;
+isSpinning=false;selItem=null;selPct=null;multi=1;
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
 document.getElementById('wheel').style.setProperty('--wa','90deg');
+document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');b.classList.add('gray')});
 rendMain();rendInv();
 },6000);
 }
 function spinUpgradeFast(){if(!selItem){toast('❌ Выбери скин','lose');return}if(selPct===null){toast('❌ Выбери процент','lose');return}spinUpgrade()}
-
 function rendCases(){
 const b=document.getElementById('casesBody');
 b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><div class="cn">${c.name}</div><div class="cp">${c.price} голды</div><div class="cr">🎰 ${c.chances.legendary}% / 🔴 ${c.chances.red}% / 🟣 ${c.chances.epic}% / 🔵 ${c.chances.blue}% / ⚪ ${c.chances.uncommon}%</div><button class="bb" style="margin-top:8px" onclick="openCase(${i})">Открыть</button></div>`).join('');
@@ -397,7 +386,6 @@ function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').v
 function adminToggleFunc(){adminAlwaysWin=document.getElementById('adminToggle').checked}
 function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();toast('✅ Купон активирован!','win');sound('win');confetti()}else toast('❌ Неверный купон','lose')}
 function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n}
-
 updateBal();rendMain();rendInv();
 </script>
 </body>
