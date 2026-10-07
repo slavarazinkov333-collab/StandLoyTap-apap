@@ -54,18 +54,15 @@
         }
         .wheel {
             width: 100%; height: 100%; border-radius: 50%;
-            background: radial-gradient(circle at 50% 50%, #1a1a2e, #0a0a0f);
+            background: conic-gradient(
+                #ffd700 0deg var(--win-angle, 180deg),
+                #2a2a4e var(--win-angle, 180deg) 360deg
+            );
             border: 4px solid #7b61ff;
             box-shadow: 0 0 50px rgba(123, 97, 255, 0.5), inset 0 0 40px rgba(0,0,0,0.8);
             transition: transform 20s cubic-bezier(0.1, 0.7, 0.1, 1);
             display: flex; justify-content: center; align-items: center;
             position: relative;
-            overflow: hidden;
-        }
-        .wheel .spoke {
-            position: absolute; width: 2px; height: 50%;
-            background: linear-gradient(to top, transparent, #7b61ff);
-            top: 0; left: 50%; transform-origin: bottom center;
         }
         .wheel-center {
             width: 70px; height: 70px; border-radius: 50%;
@@ -75,10 +72,13 @@
             box-shadow: 0 0 25px rgba(123, 97, 255, 0.9);
         }
         .arrow {
-            position: absolute; top: -15px; left: 50%;
+            position: absolute; top: -20px; left: 50%;
             transform: translateX(-50%);
-            font-size: 50px; color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+            width: 0; height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #ffd700;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.9));
             z-index: 10;
         }
 
@@ -124,7 +124,6 @@
         .close-btn { background: none; border: none; color: #7b61ff; font-size: 22px; cursor: pointer; }
         .screen-body { flex: 1; overflow-y: auto; padding: 16px; }
 
-        /* НАСТРОЙКИ */
         .setting-row {
             display: flex; justify-content: space-between;
             align-items: center; padding: 14px;
@@ -165,13 +164,6 @@
         .result .subtitle { font-size: 14px; color: #888; }
         .result.win .title { color: #4CAF50; }
         .result.lose .title { color: #ff4444; }
-
-        /* СКИН В ЦЕНТРЕ */
-        .skin-in-wheel {
-            position: absolute;
-            font-size: 30px;
-            z-index: 3;
-        }
     </style>
 </head>
 <body>
@@ -189,7 +181,7 @@
 
     <div class="center">
         <div class="wheel-wrapper">
-            <div class="arrow">▼</div>
+            <div class="arrow"></div>
             <div class="wheel" id="wheel">
                 <div class="wheel-center" id="wheelCenter">🎰</div>
             </div>
@@ -255,10 +247,6 @@
                 <label>Скорость прокрутки</label>
                 <input type="range" id="speedRange" min="1" max="30" value="20" onchange="changeSpeed()">
                 <span class="value" id="speedValue">20с</span>
-            </div>
-            <div class="setting-row">
-                <label>Показывать проценты</label>
-                <input type="checkbox" id="showPercents" checked onchange="togglePercents()">
             </div>
         </div>
     </div>
@@ -389,6 +377,9 @@
                 btn.classList.remove('selected');
                 if (btn.innerText === p + '%') btn.classList.add('selected');
             });
+            // Меняем цвета колеса
+            const winAngle = (p / 100) * 360;
+            document.getElementById('wheel').style.setProperty('--win-angle', winAngle + 'deg');
         }
 
         function confirmUpgrade() {
@@ -431,6 +422,7 @@
                 selectedItem = null;
                 closeScreen('upgradeScreen');
                 document.getElementById('wheelCenter').innerText = '🎰';
+                document.getElementById('wheel').style.setProperty('--win-angle', '180deg');
             }, spinSpeed * 1000);
         }
 
@@ -454,12 +446,6 @@
             const val = document.getElementById('speedRange').value;
             spinSpeed = parseInt(val);
             document.getElementById('speedValue').innerText = val + 'с';
-        }
-
-        function togglePercents() {
-            const show = document.getElementById('showPercents').checked;
-            const list = document.getElementById('percentList');
-            if (list) list.style.display = show ? 'grid' : 'none';
         }
 
         updateBalance();
