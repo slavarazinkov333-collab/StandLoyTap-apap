@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: radial-gradient(circle at 50% 30%, #1a1a2e, #0a0a0f);
+            background: #0a0a0f;
             color: white;
             font-family: -apple-system, Arial, sans-serif;
             display: flex;
@@ -19,196 +19,152 @@
 
         /* ВЕРХНЯЯ ПАНЕЛЬ */
         .top-bar {
-            background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+            background: #0f0f1a;
             padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #f0c419;
-            box-shadow: 0 4px 20px rgba(240, 196, 25, 0.15);
+            border-bottom: 1px solid #2a2a4e;
         }
         .account { display: flex; align-items: center; gap: 10px; }
         .avatar {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: linear-gradient(135deg, #f0c419, #e6a800);
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, #7b61ff, #4a3aff);
             display: flex; justify-content: center; align-items: center;
-            font-size: 18px; border: 2px solid #fff3b0;
+            font-size: 16px; border: 2px solid #9b8aff;
         }
-        .nickname { font-size: 13px; font-weight: bold; }
-        .balance-item { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: bold; }
-        .coins { color: #f0c419; }
-        .gold { color: #ffd700; }
+        .nickname { font-size: 13px; font-weight: 600; }
+        .balance-item {
+            display: flex; align-items: center; gap: 5px;
+            font-size: 13px; font-weight: 700; color: #ffd700;
+        }
 
-        /* ЦЕНТР — СПИН */
+        /* ЦЕНТР — КОЛЕСО */
         .center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            flex: 1; display: flex; justify-content: center;
+            align-items: center; flex-direction: column; padding: 20px;
+        }
+        .wheel-wrapper {
+            position: relative; width: 300px; height: 300px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .wheel {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: conic-gradient(
+                #1a1a2e 0deg 45deg, #16162a 45deg 90deg,
+                #1a1a2e 90deg 135deg, #16162a 135deg 180deg,
+                #1a1a2e 180deg 225deg, #16162a 225deg 270deg,
+                #1a1a2e 270deg 315deg, #16162a 315deg 360deg
+            );
+            border: 3px solid #7b61ff;
+            box-shadow: 0 0 40px rgba(123, 97, 255, 0.4), inset 0 0 30px rgba(0,0,0,0.8);
+            transition: transform 20s cubic-bezier(0.1, 0.7, 0.1, 1);
+            display: flex; justify-content: center; align-items: center;
             position: relative;
-            padding: 20px;
         }
-        .spin-wrapper {
-            position: relative;
-            width: 280px;
-            height: 280px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .wheel::before {
+            content: ''; position: absolute; width: 90%; height: 90%;
+            border-radius: 50%; border: 2px dashed rgba(123, 97, 255, 0.4);
         }
-        .spin-circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #2a2a4e, #0f0f1a);
-            border: 5px solid #f0c419;
-            box-shadow: 0 0 60px rgba(240, 196, 25, 0.5), inset 0 0 40px rgba(0,0,0,0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            cursor: pointer;
-            transition: all 0.3s;
+        .wheel::after {
+            content: ''; position: absolute; width: 70%; height: 70%;
+            border-radius: 50%; border: 2px solid rgba(123, 97, 255, 0.3);
         }
-        .spin-circle:active { transform: scale(0.95); }
-        .spin-circle .icon { font-size: 60px; margin-bottom: 5px; }
-        .spin-circle .text { font-size: 16px; font-weight: bold; color: #f0c419; letter-spacing: 1px; }
-
+        .wheel-center {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: linear-gradient(135deg, #7b61ff, #4a3aff);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 24px; z-index: 2;
+            box-shadow: 0 0 20px rgba(123, 97, 255, 0.8);
+        }
         .arrow {
-            position: absolute;
-            top: -10px;
-            left: 50%;
+            position: absolute; top: -15px; left: 50%;
             transform: translateX(-50%);
-            font-size: 50px;
-            color: #ffcc00;
-            text-shadow: 0 0 20px rgba(255, 204, 0, 0.9);
+            font-size: 45px; color: #ffd700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
             z-index: 10;
         }
 
-        /* КНОПКА УЛУЧШИТЬ */
         .upgrade-btn {
-            margin-top: 30px;
-            background: linear-gradient(135deg, #f0c419, #e6a800);
-            color: #1a1a2e;
-            border: none;
-            padding: 14px 50px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(240, 196, 25, 0.4);
+            margin-top: 25px;
+            background: linear-gradient(135deg, #7b61ff, #4a3aff);
+            color: white; border: none;
+            padding: 14px 50px; border-radius: 50px;
+            font-weight: 700; font-size: 15px; cursor: pointer;
+            box-shadow: 0 5px 20px rgba(123, 97, 255, 0.4);
             transition: all 0.2s;
         }
         .upgrade-btn:active { transform: scale(0.95); }
 
         /* НИЖНЯЯ ПАНЕЛЬ */
         .bottom-bar {
-            background: linear-gradient(0deg, #1a1a2e, #0f0f1a);
-            padding: 12px 8px;
-            display: flex;
-            justify-content: space-around;
-            border-top: 2px solid #f0c419;
-            box-shadow: 0 -4px 20px rgba(240, 196, 25, 0.15);
+            background: #0f0f1a;
+            padding: 10px 8px;
+            display: flex; justify-content: space-around;
+            border-top: 1px solid #2a2a4e;
         }
         .nav-btn {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 11px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            padding: 8px 16px;
-            transition: all 0.2s;
-            border-radius: 12px;
+            background: none; border: none; color: #666;
+            font-size: 10px; cursor: pointer;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 3px; padding: 6px 14px;
+            transition: all 0.2s; border-radius: 10px;
         }
-        .nav-btn .icon { font-size: 24px; }
-        .nav-btn:active { background: rgba(240, 196, 25, 0.15); color: #f0c419; transform: scale(0.95); }
+        .nav-btn .icon { font-size: 22px; }
+        .nav-btn:active { background: rgba(123, 97, 255, 0.15); color: #7b61ff; }
 
         /* ЭКРАНЫ */
         .screen {
-            display: none;
-            position: fixed;
+            display: none; position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: #0a0a0f;
-            z-index: 50;
-            flex-direction: column;
+            background: #0a0a0f; z-index: 50; flex-direction: column;
         }
         .screen.open { display: flex; }
         .screen-header {
-            padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #f0c419;
-            background: #1a1a2e;
+            padding: 16px; display: flex;
+            justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #2a2a4e; background: #0f0f1a;
         }
-        .screen-header h2 { color: #f0c419; font-size: 18px; }
-        .close-btn { background: none; border: none; color: #f0c419; font-size: 24px; cursor: pointer; }
+        .screen-header h2 { color: #7b61ff; font-size: 17px; }
+        .close-btn { background: none; border: none; color: #7b61ff; font-size: 22px; cursor: pointer; }
         .screen-body { flex: 1; overflow-y: auto; padding: 16px; }
 
-        /* ПРЕДМЕТЫ */
         .item {
-            background: #1a1a2e;
-            border: 1px solid #2a2a4e;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s;
+            background: #12121f; border: 1px solid #2a2a4e;
+            border-radius: 12px; padding: 14px; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; transition: all 0.2s;
         }
-        .item:active { border-color: #f0c419; transform: scale(0.98); }
+        .item:active { border-color: #7b61ff; transform: scale(0.98); }
         .item-info { display: flex; align-items: center; gap: 12px; }
-        .item-icon { font-size: 28px; }
-        .item-name { font-size: 14px; font-weight: bold; }
-        .item-price { font-size: 12px; color: #f0c419; }
+        .item-icon { font-size: 26px; }
+        .item-name { font-size: 14px; font-weight: 600; }
+        .item-price { font-size: 12px; color: #ffd700; }
         .buy-btn {
-            background: linear-gradient(135deg, #f0c419, #e6a800);
-            color: #1a1a2e;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
+            background: linear-gradient(135deg, #7b61ff, #4a3aff);
+            color: white; border: none; padding: 8px 16px;
+            border-radius: 20px; font-weight: 600; font-size: 12px; cursor: pointer;
         }
-        .buy-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+        .buy-btn:disabled { background: #2a2a4e; color: #666; cursor: not-allowed; }
 
         /* ПРОЦЕНТЫ */
         .percent-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 20px;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 10px; margin-top: 20px;
         }
         .percent-btn {
-            background: #1a1a2e;
-            border: 2px solid #2a2a4e;
-            border-radius: 12px;
-            padding: 16px;
-            color: #fff;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
+            background: #12121f; border: 2px solid #2a2a4e;
+            border-radius: 12px; padding: 16px; color: white;
+            font-size: 17px; font-weight: 700; cursor: pointer;
             transition: all 0.2s;
         }
-        .percent-btn:active { border-color: #f0c419; background: rgba(240, 196, 25, 0.1); }
-        .percent-btn.selected { border-color: #f0c419; background: rgba(240, 196, 25, 0.2); }
+        .percent-btn:active { border-color: #7b61ff; }
+        .percent-btn.selected { border-color: #7b61ff; background: rgba(123, 97, 255, 0.15); }
 
-        /* РЕЗУЛЬТАТ */
-        .result {
-            text-align: center;
-            padding: 30px;
-        }
-        .result .big-icon { font-size: 80px; margin-bottom: 20px; }
-        .result .title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-        .result .subtitle { font-size: 14px; color: #aaa; }
+        .result { text-align: center; padding: 30px; }
+        .result .big-icon { font-size: 70px; margin-bottom: 20px; }
+        .result .title { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+        .result .subtitle { font-size: 14px; color: #888; }
         .result.win .title { color: #4CAF50; }
         .result.lose .title { color: #ff4444; }
     </style>
@@ -221,19 +177,17 @@
             <div class="avatar">👤</div>
             <div class="nickname">Игрок</div>
         </div>
-        <div style="display:flex; gap:12px;">
-            <div class="balance-item coins"><span>💰</span><span id="coins">100</span></div>
-            <div class="balance-item gold"><span>⭐</span><span id="gold">0</span></div>
+        <div class="balance-item">
+            <span>⭐</span><span id="gold">4000</span>
         </div>
     </div>
 
-    <!-- ЦЕНТР — СПИН -->
+    <!-- ЦЕНТР — КОЛЕСО -->
     <div class="center">
-        <div class="spin-wrapper">
+        <div class="wheel-wrapper">
             <div class="arrow">▼</div>
-            <div class="spin-circle" id="spinCircle" onclick="spinWheel()">
-                <span class="icon">🎰</span>
-                <span class="text">КРУТИТЬ</span>
+            <div class="wheel" id="wheel">
+                <div class="wheel-center">🎰</div>
             </div>
         </div>
         <button class="upgrade-btn" onclick="openScreen('upgradeScreen')">⬆️ УЛУЧШИТЬ</button>
@@ -277,7 +231,7 @@
             <button class="close-btn" onclick="closeScreen('percentScreen')">✕</button>
         </div>
         <div class="screen-body">
-            <div id="percentTitle" style="text-align:center; margin-bottom:15px; color:#f0c419; font-size:16px;"></div>
+            <div id="percentTitle" style="text-align:center; margin-bottom:15px; color:#7b61ff; font-size:15px;"></div>
             <div class="percent-list" id="percentList"></div>
             <button class="upgrade-btn" style="width:100%; margin-top:20px;" onclick="confirmPercent()">✅ ПОДТВЕРДИТЬ</button>
         </div>
@@ -295,24 +249,21 @@
     </div>
 
     <script>
-        let coins = 40000;
-        let gold = 2000;
+        let gold = 4000;
         let isSpinning = false;
-        let inventory = [];
+        let inventory = [
+            { id: 'akr', name: 'AKR «Дракон»', icon: '🔫' },
+            { id: 'm4', name: 'M4A1 «Ворон»', icon: '🔫' },
+            { id: 'awm', name: 'AWM «Хищник»', icon: '🎯' },
+            { id: 'knife', name: 'Нож «Тень»', icon: '🔪' },
+            { id: 'gloves', name: 'Перчатки «Боец»', icon: '🧤' },
+        ];
         let selectedItem = null;
         let selectedPercent = null;
-
-        const shopItems = [
-            { id: 'akr', name: 'AKR «Дракон»', icon: '🔫', price: 500 },
-            { id: 'm4', name: 'M4A1 «Ворон»', icon: '🔫', price: 400 },
-            { id: 'awm', name: 'AWM «Хищник»', icon: '🎯', price: 800 },
-            { id: 'knife', name: 'Нож «Тень»', icon: '🔪', price: 1000 },
-        ];
 
         const percents = [90, 67, 55, 44, 33, 22];
 
         function updateBalance() {
-            document.getElementById('coins').innerText = coins;
             document.getElementById('gold').innerText = gold;
         }
 
@@ -329,15 +280,21 @@
         function renderShop() {
             const body = document.getElementById('shopBody');
             body.innerHTML = '';
+            const shopItems = [
+                { id: 'akr2', name: 'AKR «Огонь»', icon: '🔫', price: 500 },
+                { id: 'm42', name: 'M4A1 «Лёд»', icon: '🔫', price: 400 },
+                { id: 'awm2', name: 'AWM «Пустыня»', icon: '🎯', price: 800 },
+                { id: 'knife2', name: 'Нож «Золото»', icon: '🔪', price: 1000 },
+            ];
             shopItems.forEach(item => {
-                const canBuy = coins >= item.price;
+                const canBuy = gold >= item.price;
                 body.innerHTML += `
-                    <div class="item" onclick="buyItem('${item.id}')">
+                    <div class="item" onclick="buyItem('${item.id}', '${item.name}', '${item.icon}', ${item.price})">
                         <div class="item-info">
                             <span class="item-icon">${item.icon}</span>
                             <div>
                                 <div class="item-name">${item.name}</div>
-                                <div class="item-price">${item.price} монет</div>
+                                <div class="item-price">${item.price} голды</div>
                             </div>
                         </div>
                         <button class="buy-btn" ${canBuy ? '' : 'disabled'}>${canBuy ? 'Купить' : 'Мало'}</button>
@@ -346,14 +303,13 @@
             });
         }
 
-        function buyItem(id) {
-            const item = shopItems.find(i => i.id === id);
-            if (!item || coins < item.price) return;
-            coins -= item.price;
-            inventory.push(item);
+        function buyItem(id, name, icon, price) {
+            if (gold < price) return;
+            gold -= price;
+            inventory.push({ id, name, icon });
             updateBalance();
             renderShop();
-            alert(`✅ Куплено: ${item.name}`);
+            alert(`✅ Куплено: ${name}`);
         }
 
         function renderInventory() {
@@ -412,10 +368,10 @@
             if (isSpinning) return;
             isSpinning = true;
 
-            const circle = document.getElementById('spinCircle');
+            const wheel = document.getElementById('wheel');
             const randomDegree = Math.floor(Math.random() * 360) + 3600;
-            circle.style.transition = 'transform 20s cubic-bezier(0.1, 0.7, 0.1, 1)';
-            circle.style.transform = `rotate(${randomDegree}deg)`;
+            wheel.style.transition = 'transform 20s cubic-bezier(0.1, 0.7, 0.1, 1)';
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
 
             setTimeout(() => {
                 const chance = selectedPercent;
@@ -423,10 +379,9 @@
                 const win = roll <= chance;
 
                 if (win) {
-                    coins += 200;
-                    gold += 10;
+                    gold += 200;
                     updateBalance();
-                    showResult(true, `Ты улучшил ${selectedItem.name}!`, `+200 монет, +10 голды`);
+                    showResult(true, `Ты улучшил ${selectedItem.name}!`, `+200 голды`);
                 } else {
                     showResult(false, `Неудача!`, `Ты потерял ${selectedItem.name}`);
                     inventory = inventory.filter(i => i !== selectedItem);
@@ -453,4 +408,4 @@
     </script>
 
 </body>
-    </html>
+</html>
