@@ -36,8 +36,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .mult{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin-top:6px}
 .mb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .mb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
-
-/* НИЖНЯЯ ПАНЕЛЬ — ФИКСИРОВАННАЯ */
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0f0f1a;padding:8px;display:flex;justify-content:space-around;border-top:1px solid #2a2a4e;z-index:100}
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
@@ -56,12 +54,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .pr{font-size:13px;color:#ffd700;font-weight:600}
 .al{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
 .ao{font-size:24px;text-align:center;padding:8px;background:#12121f;border:2px solid #2a2a4e;border-radius:10px;cursor:pointer}
-.it{background:#12121f;border:1px solid #2a2a4e;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.it .ii{display:flex;align-items:center;gap:10px}
-.it .ic{font-size:22px}
-.it .nm{font-size:13px;font-weight:600}
-.it .pr{font-size:11px;color:#ffd700}
-.bb{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:7px 14px;border-radius:18px;font-weight:600;font-size:11px;cursor:pointer}
 .admin-panel{background:#1a0a0a;border:2px solid #ff4444;border-radius:12px;padding:12px;margin-bottom:10px}
 .admin-panel h3{color:#ff4444;font-size:14px;margin-bottom:8px}
 .admin-panel .row{background:#2a0a0a;border-color:#ff4444}
@@ -80,6 +72,17 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .inv-empty .icon{font-size:60px;margin-bottom:10px}
 .inv-empty .title{font-size:18px;font-weight:700;color:#aaa}
 .inv-empty .sub{font-size:12px;color:#666;margin-top:5px}
+
+/* СЕТКА */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.card{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:all .2s}
+.card:active{transform:scale(.97);border-color:#7b61ff}
+.card .icon{font-size:32px;margin-bottom:6px}
+.card .name{font-size:11px;font-weight:600;line-height:1.2}
+.card .price{font-size:11px;color:#ffd700;margin-top:4px;font-weight:700}
+.card .buy{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:6px 10px;border-radius:12px;font-size:10px;font-weight:700;margin-top:6px;cursor:pointer;width:100%}
+.card .buy:disabled{background:#2a2a4e;color:#666}
+
 .footer-block{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:16px;margin-top:20px;text-align:center;width:100%}
 .footer-block .ft-title{font-size:14px;font-weight:700;color:#7b61ff;margin-bottom:8px}
 .footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
@@ -90,7 +93,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .toast.win{border-color:#4CAF50;box-shadow:0 0 40px rgba(76,175,80,.5)}
 .toast.lose{border-color:#ff4444;box-shadow:0 0 40px rgba(255,68,68,.5)}
 
-/* КОНФЕТТИ */
 .confetti{position:fixed;width:10px;height:10px;background:#ffd700;z-index:998;pointer-events:none;animation:fall 3s linear forwards}
 @keyframes fall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 </style>
@@ -284,15 +286,13 @@ const q=document.getElementById('invSearch').value.toLowerCase();
 if(invMode==='inv'){
 const filtered=inv.filter(it=>it.name.toLowerCase().includes(q));
 if(filtered.length===0){b.innerHTML='<div class="inv-empty"><div class="icon">📦</div><div class="title">Инвентарь пуст</div><div class="sub">У вас пока нет предметов</div></div>';return}
-b.innerHTML=filtered.map((it,i)=>`<div class="it" onclick="selI(${i})"><div class="ii"><span class="ic">${it.icon}</span><div><div class="nm">${it.name}</div><div class="pr">Нажми, чтобы выбрать</div></div></div></div>`).join('');
+b.innerHTML='<div class="grid">'+filtered.map((it,i)=>`<div class="card" onclick="selI(${i})"><div class="icon">${it.icon}</div><div class="name">${it.name}</div><div class="price">${it.price||0} голды</div></div>`).join('')+'</div>';
 }else{
 const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
-b.innerHTML=filtered.map(s=>{
+b.innerHTML='<div class="grid">'+filtered.map(s=>{
 const can=gold>=s.price;
-return `<div class="it" onclick="buySkin('${s.name}','${s.icon}',${s.price})">
-<div class="ii"><span class="ic">${s.icon}</span><div><div class="nm" style="color:${s.color}">${s.name}</div><div class="pr">${s.price} голды</div></div></div>
-<button class="bb" ${can?'':'disabled'}>${can?'Купить':'Мало'}</button></div>`;
-}).join('');
+return `<div class="card"><div class="icon">${s.icon}</div><div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div><button class="buy" ${can?'':'disabled'} onclick="buySkin('${s.name}','${s.icon}',${s.price})">${can?'Купить':'Мало'}</button></div>`;
+}).join('')+'</div>';
 }
 }
 function buySkin(n,ic,p){
@@ -351,7 +351,7 @@ const win=roll<=ec;
 stats.spins++;
 if(win){
 stats.wins++;
-const bonus = Math.round((selItem.price||0) * (selPct/100));
+const bonus = Math.round((selItem.price||0) * (selPct/100)) * multi;
 gold += bonus;updateBal();
 toast('🎉 Улучшено! +'+bonus+' голды','win');
 sound('win');confetti();
