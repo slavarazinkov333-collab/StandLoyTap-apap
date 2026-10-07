@@ -332,15 +332,34 @@ return `<div class="card ${isLocked?'locked':''}" onclick="${isLocked?`toast('�
 }
 function setTarget(name, icon, price, color){
 targetSkin = {name, icon, price, color};
-closeS('inventoryScreen');
-if(selectedItems.length>0){
+// === ЖЁСТКО ставим процент автоматически ===
+if(selectedItems.length > 0){
 const myPrice = selectedItems[0].price || 50;
 const ratio = myPrice / price;
 selPct = Math.max(1, Math.min(99, Math.round(ratio * 100)));
+}else{
+selPct = 1;
 }
+// Обновляем визуал колеса
+const wheel = document.getElementById('wheel');
+const wa = (selPct/100)*360;
+wheel.style.transition = 'background 0.8s ease';
+wheel.style.setProperty('--wa', wa+'deg');
+// Обновляем правый слот
+document.getElementById('rightSlot').innerHTML = `
+<div class="si">${targetSkin.icon}</div>
+<div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div>
+<div class="sl">Цель: ${targetSkin.price} голды</div>
+<div class="spr">Шанс: ${selPct}%</div>
+`;
+// Обновляем текст процента в центре колеса
+document.getElementById('pt').innerText = selPct + '%';
+// Выходим из инвентаря и обновляем главный экран
+closeS('inventoryScreen');
 rendMain();
-toast('🎯 Цель: '+name+' ('+selPct+'%)','win');
+toast('🎯 Цель: ' + name + ' | Шанс: ' + selPct + '%', 'win');
 sound('win');
+}
 }
 let menuItemIndex=-1;
 function openSkinMenu(i){
