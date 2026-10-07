@@ -34,7 +34,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .pb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
-.pb.gray{color:#666;border-color:#1a1a2e;cursor:not-allowed}
+.pb.gray{color:#666;border-color:#1a1a2e}
 .mult{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin-top:6px}
 .mb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .mb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
@@ -330,9 +330,8 @@ return `<div class="card ${isLocked?'locked':''}" onclick="${isLocked?`toast('�
 }).join('')+'</div>';
 }
 }
-function setTarget(name, icon, price, color)
+function setTarget(name, icon, price, color){
 targetSkin = {name, icon, price, color};
-// === ЖЁСТКО ставим процент автоматически ===
 if(selectedItems.length > 0){
 const myPrice = selectedItems[0].price || 50;
 const ratio = myPrice / price;
@@ -340,26 +339,21 @@ selPct = Math.max(1, Math.min(99, Math.round(ratio * 100)));
 }else{
 selPct = 1;
 }
-// Обновляем визуал колеса
 const wheel = document.getElementById('wheel');
 const wa = (selPct/100)*360;
 wheel.style.transition = 'background 0.8s ease';
 wheel.style.setProperty('--wa', wa+'deg');
-// Обновляем правый слот
 document.getElementById('rightSlot').innerHTML = `
 <div class="si">${targetSkin.icon}</div>
 <div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div>
 <div class="sl">Цель: ${targetSkin.price} голды</div>
 <div class="spr">Шанс: ${selPct}%</div>
 `;
-// Обновляем текст процента в центре колеса
 document.getElementById('pt').innerText = selPct + '%';
-// Выходим из инвентаря и обновляем главный экран
 closeS('inventoryScreen');
 rendMain();
 toast('🎯 Цель: ' + name + ' | Шанс: ' + selPct + '%', 'win');
 sound('win');
-}
 }
 let menuItemIndex=-1;
 function openSkinMenu(i){
@@ -410,7 +404,7 @@ const icons = selectedItems.map(s=>`<span class="icon">${s.icon}</span>`).join('
 document.getElementById('leftSlot').innerHTML=`<div class="multi-items">${icons}</div><div class="sn">Выбрано скинов</div>`;
 }
 if(targetSkin){
-document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div>`;
+document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div><div class="spr">Шанс: ${selPct}%</div>`;
 }else{
 document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери в Прокачать до</div>';
 }
@@ -428,7 +422,7 @@ function selP(p){
 selPct=p;
 document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
 if(targetSkin){
-document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div>`;
+document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div><div class="spr">Шанс: ${selPct}%</div>`;
 }
 document.getElementById('pt').innerText=p.toFixed(1)+'%';
 const wheel = document.getElementById('wheel');
