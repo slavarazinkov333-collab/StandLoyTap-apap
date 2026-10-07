@@ -72,6 +72,19 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .case .cn{font-size:14px;font-weight:600;margin-top:6px}
 .case .cp{font-size:12px;color:#ffd700;margin-top:4px}
 .case .cr{font-size:11px;color:#888;margin-top:4px}
+.inv-tabs{display:flex;gap:8px;margin-bottom:10px}
+.inv-tab{flex:1;padding:12px;background:#12121f;border:2px solid #2a2a4e;border-radius:12px;color:#888;font-weight:700;font-size:13px;cursor:pointer;text-align:center}
+.inv-tab.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700}
+.inv-search{display:flex;align-items:center;gap:8px;background:#12121f;border:1px solid #2a2a4e;border-radius:10px;padding:10px;margin-bottom:10px}
+.inv-search input{flex:1;background:none;border:none;color:#fff;font-size:13px;outline:none}
+.inv-empty{text-align:center;padding:60px 20px;color:#666}
+.inv-empty .icon{font-size:60px;margin-bottom:10px}
+.inv-empty .title{font-size:18px;font-weight:700;color:#aaa}
+.inv-empty .sub{font-size:12px;color:#666;margin-top:5px}
+.footer-block{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:16px;margin-top:20px;text-align:center;width:100%}
+.footer-block .ft-title{font-size:14px;font-weight:700;color:#7b61ff;margin-bottom:8px}
+.footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
+.footer-block .ft-btn{display:inline-block;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none;margin:4px}
 </style>
 </head>
 <body>
@@ -98,6 +111,13 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 <button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆️ ПРОКАЧАТЬ</button>
 <div class="pcnt" id="pcntList"></div>
+
+<div class="footer-block">
+<div class="ft-title">🏢 Моя компания</div>
+<div class="ft-sub">StandFliutApap — торговая площадка скинов</div>
+<a href="https://t.me/твой_юзер" class="ft-btn">💬 Связь с поддержкой</a>
+<a href="https://t.me/твой_юзер" class="ft-btn">📩 Написать мне</a>
+</div>
 </div>
 
 <div class="bottom">
@@ -105,6 +125,18 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="nb" onclick="spinUpgradeFast()"><span class="ic">⚡</span><span>Быстро</span></button>
 <button class="nb" onclick="openS('casesScreen')"><span class="ic">📦</span><span>Кейсы</span></button>
 <button class="nb" onclick="openS('tasksScreen')"><span class="ic">📋</span><span>Задания</span></button>
+</div>
+
+<div class="scr" id="inventoryScreen">
+<div class="sh"><h2>🎒 Инвентарь</h2><button class="cb" onclick="closeS('inventoryScreen')">✕</button></div>
+<div class="sb">
+<div class="inv-tabs">
+<div class="inv-tab active" onclick="switchInv('inv')">🎒 Инвентарь</div>
+<div class="inv-tab" onclick="switchInv('shop')">🛒 Магазин</div>
+</div>
+<div class="inv-search"><span>🔍</span><input type="text" placeholder="Поиск по инвентарю" id="invSearch" oninput="rendInv()"></div>
+<div id="invList"></div>
+</div>
 </div>
 
 <div class="scr" id="profileScreen">
@@ -115,16 +147,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="al" id="avList"></div>
 <div style="margin-top:16px;color:#888;font-size:12px;">Баланс: <span id="profileBal" style="color:#ffd700;font-weight:700;">0</span></div>
 </div>
-</div>
-
-<div class="scr" id="shopScreen">
-<div class="sh"><h2>🛒 Магазин</h2><button class="cb" onclick="closeS('shopScreen')">✕</button></div>
-<div class="sb" id="shopBody"></div>
-</div>
-
-<div class="scr" id="inventoryScreen">
-<div class="sh"><h2>🎒 Инвентарь</h2><button class="cb" onclick="closeS('inventoryScreen')">✕</button></div>
-<div class="sb" id="invBody"></div>
 </div>
 
 <div class="scr" id="casesScreen">
@@ -151,11 +173,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 </div>
 
-<div class="scr" id="withdrawScreen">
-<div class="sh"><h2>📤 Вывод</h2><button class="cb" onclick="closeS('withdrawScreen')">✕</button></div>
-<div class="sb"><p style="text-align:center;color:#888">Вывод скоро появится!</p></div>
-</div>
-
 <div class="scr" id="resultScreen">
 <div class="sh"><h2>Результат</h2><button class="cb" onclick="closeS('resultScreen')">✕</button></div>
 <div class="sb"><div class="res" id="resBody"></div></div>
@@ -164,18 +181,17 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <script>
 const ADMIN_ID = 8683946808;
 let isAdmin = false;
-
 try {
 const tg = window.Telegram.WebApp;
 if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-const userId = tg.initDataUnsafe.user.id;
-if (userId === ADMIN_ID) isAdmin = true;
+if (tg.initDataUnsafe.user.id === ADMIN_ID) isAdmin = true;
 }
 } catch(e) {}
 
 let gold=20000,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false;
 let stats={spins:0,wins:0,loses:0};
 let inv=[];
+let invMode='inv';
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
 
@@ -217,7 +233,6 @@ const tasks=[
 
 function updateBal(){document.getElementById('gold').innerText=gold;document.getElementById('profileBal').innerText=gold}
 function openS(id){
-if(id==='shopScreen')rendShop();
 if(id==='inventoryScreen')rendInv();
 if(id==='profileScreen')rendProf();
 if(id==='casesScreen')rendCases();
@@ -234,25 +249,34 @@ document.getElementById('profileBal').innerText=gold;
 }
 function setAv(a){curAv=a;document.getElementById('topAv').innerText=a;document.getElementById('pAv').innerText=a}
 
-function rendShop(){
-const b=document.getElementById('shopBody');
-b.innerHTML=allSkins.map(s=>{
+function switchInv(mode){
+invMode=mode;
+document.querySelectorAll('.inv-tab').forEach((t,i)=>{t.classList.toggle('active',i===(mode==='inv'?0:1))});
+rendInv();
+}
+function rendInv(){
+const b=document.getElementById('invList');
+const q=document.getElementById('invSearch').value.toLowerCase();
+if(invMode==='inv'){
+const filtered=inv.filter(it=>it.name.toLowerCase().includes(q));
+if(filtered.length===0){b.innerHTML='<div class="inv-empty"><div class="icon">📦</div><div class="title">Инвентарь пуст</div><div class="sub">У вас пока нет предметов</div></div>';return}
+b.innerHTML=filtered.map((it,i)=>`<div class="it" onclick="selI(${i})"><div class="ii"><span class="ic">${it.icon}</span><div><div class="nm">${it.name}</div><div class="pr">Нажми, чтобы выбрать</div></div></div></div>`).join('');
+}else{
+const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
+b.innerHTML=filtered.map(s=>{
 const can=gold>=s.price;
 return `<div class="it" onclick="buySkin('${s.name}','${s.icon}',${s.price})">
 <div class="ii"><span class="ic">${s.icon}</span><div><div class="nm" style="color:${s.color}">${s.name}</div><div class="pr">${s.price} голды</div></div></div>
 <button class="bb" ${can?'':'disabled'}>${can?'Купить':'Мало'}</button></div>`;
 }).join('');
 }
+}
 function buySkin(n,ic,p){
 if(gold<p)return;
-gold-=p;inv.push({name:n,icon:ic});updateBal();rendShop();alert('✅ Куплено: '+n);
-}
-function rendInv(){
-const b=document.getElementById('invBody');
-if(inv.length===0){b.innerHTML='<div style="text-align:center;padding:40px;color:#666"><div style="font-size:60px">📦</div><div style="font-size:18px;font-weight:700;margin-top:10px">Инвентарь пуст</div><div style="font-size:12px;color:#888;margin-top:5px">У вас пока нет предметов</div></div>';return}
-b.innerHTML=inv.map((it,i)=>`<div class="it" onclick="selI(${i})"><div class="ii"><span class="ic">${it.icon}</span><div><div class="nm">${it.name}</div><div class="pr">Нажми, чтобы выбрать</div></div></div></div>`).join('');
+gold-=p;inv.push({name:n,icon:ic});updateBal();rendInv();alert('✅ Куплено: '+n);
 }
 function selI(i){selItem=inv[i];closeS('inventoryScreen');rendMain()}
+
 function rendMain(){
 if(!selItem){document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>'}
 else{document.getElementById('leftSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Мой скин</div>`}
