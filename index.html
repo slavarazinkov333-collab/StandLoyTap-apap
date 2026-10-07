@@ -44,12 +44,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .row{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#12121f;border:1px solid #2a2a4e;border-radius:10px;margin-bottom:8px}
 .row label{font-size:13px}
 .row input[type=text]{background:#0a0a0f;border:1px solid #2a2a4e;color:#fff;padding:7px 10px;border-radius:7px;font-size:13px;width:130px}
-.res{text-align:center;padding:24px}
-.res .bi{font-size:60px;margin-bottom:16px}
-.res .t{font-size:20px;font-weight:700;margin-bottom:8px}
-.res .s{font-size:13px;color:#888}
-.res.win .t{color:#4CAF50}
-.res.lose .t{color:#ff4444}
 .ph{text-align:center;padding:18px;background:#12121f;border-radius:14px;margin-bottom:14px}
 .pa{font-size:50px;margin-bottom:8px}
 .pn{font-size:18px;font-weight:700;margin-bottom:4px}
@@ -85,6 +79,12 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .footer-block .ft-title{font-size:14px;font-weight:700;color:#7b61ff;margin-bottom:8px}
 .footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
 .footer-block .ft-btn{display:inline-block;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none;margin:4px}
+
+/* СВОЯ ТАБЛИЧКА */
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);background:#0f0f1a;border:2px solid #7b61ff;border-radius:16px;padding:20px 30px;color:#fff;font-size:15px;font-weight:700;z-index:999;opacity:0;pointer-events:none;transition:all .3s;box-shadow:0 0 40px rgba(123,97,255,.5)}
+.toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.toast.win{border-color:#4CAF50;box-shadow:0 0 40px rgba(76,175,80,.5)}
+.toast.lose{border-color:#ff4444;box-shadow:0 0 40px rgba(255,68,68,.5)}
 </style>
 </head>
 <body>
@@ -112,31 +112,24 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆️ ПРОКАЧАТЬ</button>
 <div class="pcnt" id="pcntList"></div>
 
+<div class="inv-tabs" style="margin-top:20px;">
+<div class="inv-tab active" onclick="switchInv('inv')">🎒 Инвентарь</div>
+<div class="inv-tab" onclick="switchInv('shop')">🛒 Магазин</div>
+</div>
+<div class="inv-search"><span>🔍</span><input type="text" placeholder="Поиск..." id="invSearch" oninput="rendInv()"></div>
+<div id="invList"></div>
+
 <div class="footer-block">
 <div class="ft-title">🏢 Моя компания</div>
 <div class="ft-sub">StandFliutApap — торговая площадка скинов</div>
-<a href="https://t.me/твой_юзер" class="ft-btn">💬 Связь с поддержкой</a>
-<a href="https://t.me/твой_юзер" class="ft-btn">📩 Написать мне</a>
+<a href="https://t.me/Hak2ud" class="ft-btn">💬 Связь с поддержкой</a>
 </div>
 </div>
 
 <div class="bottom">
-<button class="nb" onclick="openS('inventoryScreen')"><span class="ic">🎒</span><span>Инвентарь</span></button>
 <button class="nb" onclick="spinUpgradeFast()"><span class="ic">⚡</span><span>Быстро</span></button>
 <button class="nb" onclick="openS('casesScreen')"><span class="ic">📦</span><span>Кейсы</span></button>
 <button class="nb" onclick="openS('tasksScreen')"><span class="ic">📋</span><span>Задания</span></button>
-</div>
-
-<div class="scr" id="inventoryScreen">
-<div class="sh"><h2>🎒 Инвентарь</h2><button class="cb" onclick="closeS('inventoryScreen')">✕</button></div>
-<div class="sb">
-<div class="inv-tabs">
-<div class="inv-tab active" onclick="switchInv('inv')">🎒 Инвентарь</div>
-<div class="inv-tab" onclick="switchInv('shop')">🛒 Магазин</div>
-</div>
-<div class="inv-search"><span>🔍</span><input type="text" placeholder="Поиск по инвентарю" id="invSearch" oninput="rendInv()"></div>
-<div id="invList"></div>
-</div>
 </div>
 
 <div class="scr" id="profileScreen">
@@ -173,10 +166,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 </div>
 
-<div class="scr" id="resultScreen">
-<div class="sh"><h2>Результат</h2><button class="cb" onclick="closeS('resultScreen')">✕</button></div>
-<div class="sb"><div class="res" id="resBody"></div></div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
 const ADMIN_ID = 8683946808;
@@ -231,9 +221,15 @@ const tasks=[
 {name:'Открыть кейс',done:false,reward:30}
 ];
 
+function toast(msg,type){
+const t=document.getElementById('toast');
+t.className='toast '+(type||'')+' show';
+t.innerText=msg;
+setTimeout(()=>t.classList.remove('show'),2000);
+}
+
 function updateBal(){document.getElementById('gold').innerText=gold;document.getElementById('profileBal').innerText=gold}
 function openS(id){
-if(id==='inventoryScreen')rendInv();
 if(id==='profileScreen')rendProf();
 if(id==='casesScreen')rendCases();
 if(id==='tasksScreen')rendTasks();
@@ -272,10 +268,10 @@ return `<div class="it" onclick="buySkin('${s.name}','${s.icon}',${s.price})">
 }
 }
 function buySkin(n,ic,p){
-if(gold<p)return;
-gold-=p;inv.push({name:n,icon:ic});updateBal();rendInv();alert('✅ Куплено: '+n);
+if(gold<p){toast('❌ Мало голды','lose');return}
+gold-=p;inv.push({name:n,icon:ic});updateBal();rendInv();toast('✅ Куплено: '+n,'win');
 }
-function selI(i){selItem=inv[i];closeS('inventoryScreen');rendMain()}
+function selI(i){selItem=inv[i];rendMain();toast('✅ Выбран: '+selItem.name,'win')}
 
 function rendMain(){
 if(!selItem){document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>'}
@@ -296,8 +292,8 @@ document.getElementById('wheel').style.setProperty('--wa',(p/100*360)+'deg');
 rendMain();
 }
 function spinUpgrade(){
-if(!selItem){alert('Выбери скин!');return}
-if(selPct===null){alert('Выбери процент!');return}
+if(!selItem){toast('❌ Выбери скин','lose');return}
+if(selPct===null){toast('❌ Выбери процент','lose');return}
 if(isSpinning)return;
 isSpinning=true;
 const a=document.getElementById('arrow');
@@ -313,15 +309,15 @@ if(adminAlwaysWin)ec=100;
 const roll=Math.floor(Math.random()*100)+1;
 const win=roll<=ec;
 stats.spins++;
-if(win){stats.wins++;gold+=5;updateBal();showRes(true,'🎉 Улучшено!',`${selItem.name} стал лучше! +5 голды`)}
-else{stats.loses++;showRes(false,'😢 Сгорел!',`${selItem.name} потерян.`);inv=inv.filter(i=>i!==selItem)}
+if(win){stats.wins++;gold+=5;updateBal();toast('🎉 Улучшено! +5 голды','win')}
+else{stats.loses++;toast('😢 Сгорел!','lose');inv=inv.filter(i=>i!==selItem)}
 isSpinning=false;selItem=null;selPct=null;
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
 document.getElementById('wheel').style.setProperty('--wa','90deg');
 rendMain();
 },6000);
 }
-function spinUpgradeFast(){if(!selItem){alert('Выбери скин!');return}if(selPct===null){alert('Выбери процент!');return}spinUpgrade()}
+function spinUpgradeFast(){if(!selItem){toast('❌ Выбери скин','lose');return}if(selPct===null){toast('❌ Выбери процент','lose');return}spinUpgrade()}
 
 function rendCases(){
 const b=document.getElementById('casesBody');
@@ -329,7 +325,7 @@ b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><
 }
 function openCase(i){
 const c=cases[i];
-if(gold<c.price){alert('Мало голды!');return}
+if(gold<c.price){toast('❌ Мало голды','lose');return}
 gold-=c.price;updateBal();
 const roll=Math.floor(Math.random()*100)+1;
 let skin;
@@ -339,22 +335,21 @@ else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic)skin=allSkins.fin
 else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic+c.chances.blue)skin=allSkins.find(s=>s.color==='#4a9eff')||allSkins[0];
 else skin=allSkins.find(s=>s.color==='#888')||allSkins[0];
 inv.push({name:skin.name,icon:skin.icon});
-alert('📦 Выпало: '+skin.name);
+toast('📦 Выпало: '+skin.name,'win');
 rendCases();
 }
 function rendTasks(){
 const b=document.getElementById('tasksBody');
 b.innerHTML=tasks.map((t,i)=>`<div class="it"><div class="ii"><span class="ic">📋</span><div><div class="nm">${t.name}</div><div class="pr">${t.done?'✅ Выполнено':'⏳ Не выполнено'}</div></div></div>${t.done?'':'<button class="bb" onclick="doneTask('+i+')">+'+t.reward+'</button>'}</div>`).join('');
 }
-function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();alert('✅ +'+tasks[i].reward+' голды')}
-function adminSetBalance(){const v=parseInt(document.getElementById('adminBalance').value);if(!isNaN(v)){gold=v;updateBal();alert('✅ Баланс: '+v)}}
+function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();toast('✅ +'+tasks[i].reward+' голды','win')}
+function adminSetBalance(){const v=parseInt(document.getElementById('adminBalance').value);if(!isNaN(v)){gold=v;updateBal();toast('✅ Баланс: '+v,'win')}}
 function adminToggleWin(){adminAlwaysWin=document.getElementById('adminAlwaysWin').checked}
-function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();alert('✅ Купон активирован! +100 голды')}else alert('❌ Неверный купон')}
-function showRes(w,t,s){const c=document.getElementById('resBody');c.className='res '+(w?'win':'lose');c.innerHTML=`<div class="bi">${w?'🎉':'😢'}</div><div class="t">${t}</div><div class="s">${s}</div>`;openS('resultScreen')}
+function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();toast('✅ Купон активирован!','win')}else toast('❌ Неверный купон','lose')}
 function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n}
 
 if(isAdmin){document.getElementById('adminPanel').classList.add('visible')}
-updateBal();rendMain();
+updateBal();rendMain();rendInv();
 </script>
 </body>
 </html>
