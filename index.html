@@ -31,8 +31,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .wheel .scale-mark.major{height:16px;background:rgba(255,255,255,.6)}
 
 /* СТРЕЛКА КРУТИТСЯ ПО КРУГУ */
-.arrow-wrap{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10}
-.arrow{position:absolute;top:0;left:50%;transform-origin:center 140px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ff8c00;filter:drop-shadow(0 0 10px rgba(255,140,0,.9))}
+.arrow{position:absolute;top:0;left:50%;transform-origin:center 140px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ff8c00;filter:drop-shadow(0 0 10px rgba(255,140,0,.9));z-index:10}
 
 .upgrade-btn{width:100%;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:10px;box-shadow:0 5px 20px rgba(123,97,255,.4)}
 .upgrade-btn:active{transform:scale(.97)}
@@ -118,9 +117,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 
 <div class="wheel-box">
-<div class="arrow-wrap">
 <div class="arrow" id="arrow"></div>
-</div>
 <div class="wheel" id="wheel">
 <div class="scale" id="scale"></div>
 <div class="percent-text" id="percentText">37.4%</div>
