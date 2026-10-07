@@ -87,6 +87,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .card.selected{border-color:#ff4444;background:rgba(255,68,68,.1)}
 .card.locked{opacity:0.4;cursor:not-allowed}
 .card.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px}
+.card img{width:60px;height:60px;object-fit:contain;margin-bottom:6px}
 .footer-block{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:16px;margin-top:20px;text-align:center;width:100%}
 .footer-block .ft-title{font-size:14px;font-weight:700;color:#7b61ff;margin-bottom:8px}
 .footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
@@ -208,37 +209,133 @@ let targetSkin=null;
 const MAX_SELECT=5;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
+
+// ========== ОРУЖИЕ И СКИНЫ STANDOFF 2 ==========
 const allSkins=[
-{name:'AKR «Ржавый»',icon:'🔫',price:50,color:'#888'},
-{name:'AKR «Синий»',icon:'🔫',price:100,color:'#4a9eff'},
-{name:'AKR «Красный»',icon:'🔫',price:200,color:'#ff4444'},
-{name:'AKR «Фиолетовый»',icon:'🔫',price:500,color:'#9b8aff'},
-{name:'AKR «Золотой»',icon:'🔫',price:1000,color:'#ffd700'},
-{name:'AKR «Легендарный»',icon:'🔫',price:5000,color:'#ff00ff'},
-{name:'M4A1 «Ворон»',icon:'🔫',price:50,color:'#888'},
-{name:'M4A1 «Лёд»',icon:'🔫',price:100,color:'#4a9eff'},
-{name:'M4A1 «Огонь»',icon:'🔫',price:200,color:'#ff4444'},
-{name:'M4A1 «Фиолет»',icon:'🔫',price:500,color:'#9b8aff'},
-{name:'M4A1 «Золото»',icon:'🔫',price:1000,color:'#ffd700'},
-{name:'M4A1 «Легенда»',icon:'🔫',price:5000,color:'#ff00ff'},
-{name:'AWM «Хищник»',icon:'🎯',price:50,color:'#888'},
-{name:'AWM «Пустыня»',icon:'🎯',price:100,color:'#c2a878'},
-{name:'AWM «Лёд»',icon:'🎯',price:200,color:'#4a9eff'},
-{name:'AWM «Фиолет»',icon:'🎯',price:500,color:'#9b8aff'},
-{name:'AWM «Золото»',icon:'🎯',price:1000,color:'#ffd700'},
-{name:'AWM «Легенда»',icon:'🎯',price:5000,color:'#ff00ff'},
-{name:'Нож «Тень»',icon:'🔪',price:50,color:'#888'},
-{name:'Нож «Синий»',icon:'🔪',price:100,color:'#4a9eff'},
-{name:'Нож «Красный»',icon:'🔪',price:200,color:'#ff4444'},
-{name:'Нож «Золото»',icon:'🔪',price:1000,color:'#ffd700'},
-{name:'Перчатки «Боец»',icon:'🧤',price:200,color:'#888'},
-{name:'Перчатки «Фиолет»',icon:'🧤',price:500,color:'#9b8aff'},
-{name:'Перчатки «Золото»',icon:'🧤',price:1000,color:'#ffd700'},
-{name:'Пистолет «Гром»',icon:'🔫',price:150,color:'#4a9eff'},
-{name:'Пистолет «Огонь»',icon:'🔫',price:300,color:'#ff4444'},
-{name:'Щит «Сталь»',icon:'🛡️',price:400,color:'#888'},
-{name:'Щит «Золото»',icon:'🛡️',price:1500,color:'#ffd700'}
+// AKR 12
+{name:'AKR 12', icon:'🔫', price:50, color:'#888'},
+{name:'AKR 12 «Tag King»', icon:'🔫', price:500, color:'#ffd700'},
+{name:'AKR 12 «Steam Beast»', icon:'🔫', price:1000, color:'#ff8c00'},
+{name:'AKR 12 «Treasure Hunter»', icon:'🔫', price:2000, color:'#c2a878'},
+// M4A1
+{name:'M4A1', icon:'🔫', price:50, color:'#888'},
+{name:'M4A1 «Sour»', icon:'🔫', price:500, color:'#4CAF50'},
+{name:'M4A1 «Samurai»', icon:'🔫', price:1500, color:'#ff4444'},
+// Desert Eagle
+{name:'Desert Eagle', icon:'🔫', price:50, color:'#888'},
+{name:'Desert Eagle «Glory»', icon:'🔫', price:800, color:'#ffd700'},
+{name:'Desert Eagle «Dust Devil»', icon:'🔫', price:1200, color:'#c2a878'},
+{name:'Desert Eagle «Predator»', icon:'🔫', price:1000, color:'#ff4444', img:'https://static.wikia.nocookie.net/standoff-2/images/8/8c/%D0%9F%D1%80%D0%B5%D0%B2%D1%8C%D1%8E_%E2%80%94_Desert_Eagle_%22Predator%22.png/revision/latest/scale-to-width-down/340?cb=20240807180205&path-prefix=ru'},
+// P350
+{name:'P350', icon:'🔫', price:30, color:'#888'},
+{name:'P350 «Tag King»', icon:'🔫', price:400, color:'#ffd700'},
+{name:'P350 «Impact»', icon:'🔫', price:900, color:'#4a9eff'},
+// P90
+{name:'P90', icon:'🔫', price:60, color:'#888'},
+{name:'P90 «Oops»', icon:'🔫', price:600, color:'#9b8aff'},
+{name:'P90 «Storm»', icon:'🔫', price:1100, color:'#4a9eff'},
+// UMP45
+{name:'UMP45', icon:'🔫', price:60, color:'#888'},
+{name:'UMP45 «Predator»', icon:'🔫', price:700, color:'#ff4444'},
+// MP5
+{name:'MP5', icon:'🔫', price:60, color:'#888'},
+{name:'MP5 «Cyber»', icon:'🔫', price:800, color:'#00ffff'},
+// MP7
+{name:'MP7', icon:'🔫', price:60, color:'#888'},
+// MP40
+{name:'MP40', icon:'🔫', price:60, color:'#888'},
+// M16
+{name:'M16', icon:'🔫', price:60, color:'#888'},
+// FAMAS
+{name:'FAMAS', icon:'🔫', price:60, color:'#888'},
+// FABM
+{name:'FABM', icon:'🔫', price:60, color:'#888'},
+// AWM
+{name:'AWM', icon:'🎯', price:100, color:'#888'},
+{name:'AWM «Dragon Lore»', icon:'🎯', price:5000, color:'#ffd700'},
+// M40
+{name:'M40', icon:'🎯', price:80, color:'#888'},
+// M110
+{name:'M110', icon:'🎯', price:80, color:'#888'},
+// SVD
+{name:'SVD', icon:'🎯', price:80, color:'#888'},
+// SM1014
+{name:'SM1014', icon:'🔫', price:70, color:'#888'},
+// M60
+{name:'M60', icon:'🔫', price:70, color:'#888'},
+{name:'M60 «Grunge»', icon:'🔫', price:700, color:'#888'},
+// Berettas
+{name:'Berettas', icon:'🔫', price:40, color:'#888'},
+// TEC-9
+{name:'TEC-9', icon:'🔫', price:40, color:'#888'},
+// USP
+{name:'USP', icon:'🔫', price:40, color:'#888'},
+// F/S
+{name:'F/S', icon:'🔫', price:40, color:'#888'},
+// G22
+{name:'G22', icon:'🔫', price:40, color:'#888'},
+// Ножи
+{name:'M9 Bayonet', icon:'🔪', price:500, color:'#888'},
+{name:'M9 Bayonet «Dragon Glass»', icon:'🔪', price:5000, color:'#ffd700'},
+{name:'M9 Bayonet «Blue Blood»', icon:'🔪', price:3000, color:'#4a9eff'},
+{name:'Karambit', icon:'🔪', price:500, color:'#888'},
+{name:'Karambit «Claw»', icon:'🔪', price:4000, color:'#ff4444'},
+{name:'Karambit «Gold»', icon:'🔪', price:5000, color:'#ffd700'},
+{name:'Butterfly', icon:'🔪', price:800, color:'#888'},
+{name:'Butterfly «Black Widow»', icon:'🔪', price:6000, color:'#ff4444'},
+{name:'Flip', icon:'🔪', price:500, color:'#888'},
+{name:'Kunai', icon:'🔪', price:500, color:'#888'},
+{name:'Scorpion', icon:'🔪', price:500, color:'#888'},
+{name:'Tanto', icon:'🔪', price:500, color:'#888'},
+{name:'Dual Daggers', icon:'🔪', price:500, color:'#888'},
+{name:'Kukri', icon:'🔪', price:500, color:'#888'},
+{name:'Stiletto', icon:'🔪', price:500, color:'#888'},
+{name:'Fang', icon:'🔪', price:500, color:'#888'},
+// НАКЛЕЙКИ
+{name:'Sticker «Devilish»', icon:'🏷️', price:100, color:'#ff4444'},
+{name:'Sticker «Snow Queen»', icon:'🏷️', price:100, color:'#4a9eff'},
+{name:'Sticker «Full Metal»', icon:'🏷️', price:150, color:'#888'},
+{name:'Sticker «At Gunpoint»', icon:'🏷️', price:150, color:'#ff8c00'},
+{name:'Sticker «Ice Killer»', icon:'🏷️', price:200, color:'#00ffff'},
+{name:'Sticker «Angry Tree»', icon:'🏷️', price:200, color:'#4CAF50'},
+{name:'Sticker «ALPHA7»', icon:'🏷️', price:300, color:'#ffd700'},
+{name:'Sticker «Kitsune Dreams»', icon:'🏷️', price:250, color:'#ff8c00'},
+{name:'Sticker «2 Years»', icon:'🏷️', price:500, color:'#ffd700'},
+{name:'Sticker «Twilight»', icon:'🏷️', price:200, color:'#9b8aff'},
+{name:'Sticker «Dragon»', icon:'🏷️', price:400, color:'#ff4444'},
+{name:'Sticker «Skull»', icon:'🏷️', price:100, color:'#888'},
+{name:'Sticker «Lightning»', icon:'🏷️', price:150, color:'#ffd700'},
+{name:'Sticker «Star»', icon:'🏷️', price:80, color:'#ffd700'},
+{name:'Sticker «Heart»', icon:'🏷️', price:80, color:'#ff4444'},
+{name:'Sticker «Crown»', icon:'🏷️', price:300, color:'#ffd700'},
+{name:'Sticker «Ghost»', icon:'🏷️', price:200, color:'#fff'},
+{name:'Sticker «Fire»', icon:'🏷️', price:250, color:'#ff8c00'},
+{name:'Sticker «Wolf»', icon:'🏷️', price:150, color:'#888'},
+{name:'Sticker «Eagle»', icon:'🏷️', price:200, color:'#c2a878'},
+// БРЕЛКИ
+{name:'Charm «Voodoo Doll»', icon:'🔑', price:200, color:'#ff4444'},
+{name:'Charm «Katana»', icon:'🔑', price:300, color:'#888'},
+{name:'Charm «Octopus»', icon:'🔑', price:150, color:'#9b8aff'},
+{name:'Charm «Splash»', icon:'🔑', price:100, color:'#4a9eff'},
+{name:'Charm «Boom»', icon:'🔑', price:250, color:'#ff8c00'},
+{name:'Charm «Hohei Tashio»', icon:'🔑', price:400, color:'#ffd700'},
+{name:'Charm «Queen of the Sands»', icon:'🔑', price:500, color:'#ffd700'},
+{name:'Charm «Winged»', icon:'🔑', price:150, color:'#fff'},
+{name:'Charm «Cyberpunk»', icon:'🔑', price:300, color:'#00ffff'},
+{name:'Charm «Phoenix»', icon:'🔑', price:600, color:'#ff4444'},
+{name:'Charm «Poseidon»', icon:'🔑', price:600, color:'#4a9eff'},
+{name:'Charm «Dragon»', icon:'🔑', price:500, color:'#ffd700'},
+{name:'Charm «Skull»', icon:'🔑', price:200, color:'#888'},
+{name:'Charm «Star»', icon:'🔑', price:100, color:'#ffd700'},
+{name:'Charm «Heart»', icon:'🔑', price:100, color:'#ff4444'},
+{name:'Charm «Fire»', icon:'🔑', price:250, color:'#ff8c00'},
+{name:'Charm «Ice»', icon:'🔑', price:250, color:'#00ffff'},
+{name:'Charm «Ghost»', icon:'🔑', price:200, color:'#fff'},
+{name:'Charm «Wolf»', icon:'🔑', price:150, color:'#888'},
+{name:'Charm «Eagle»', icon:'🔑', price:200, color:'#c2a878'}
 ];
+// ========== КОНЕЦ СПИСКА ==========
+
 const cases=[
 {name:'Обычный кейс',icon:'📦',price:100,chances:{legendary:5,red:10,epic:20,blue:20,uncommon:45}},
 {name:'Редкий кейс',icon:'🎁',price:500,chances:{legendary:10,red:20,epic:30,blue:20,uncommon:20}},
@@ -312,20 +409,23 @@ const filtered=inv.filter(it=>it.name.toLowerCase().includes(q));
 if(filtered.length===0){b.innerHTML='<div class="inv-empty"><div class="icon">📦</div><div class="title">Инвентарь пуст</div><div class="sub">У вас пока нет предметов</div></div>';return}
 b.innerHTML='<div class="grid">'+filtered.map((it,i)=>{
 const sel=selectedItems.includes(it);
-return `<div class="card ${sel?'selected':''}" onclick="openSkinMenu(${i})"><div class="icon">${it.icon}</div><div class="name">${it.name}</div><div class="price">${it.price||0} голды</div></div>`;
+const iconHtml = it.img ? `<img src="${it.img}" onerror="this.style.display='none'">` : `<div class="icon">${it.icon}</div>`;
+return `<div class="card ${sel?'selected':''}" onclick="openSkinMenu(${i})">${iconHtml}<div class="name">${it.name}</div><div class="price">${it.price||0} голды</div></div>`;
 }).join('')+'</div>';
 }else if(invMode==='shop'){
 const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
 b.innerHTML='<div class="grid">'+filtered.map(s=>{
 const can=gold>=s.price;
-return `<div class="card"><div class="icon">${s.icon}</div><div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div><button class="buy" ${can?'':'disabled'} onclick="buySkin('${s.name}','${s.icon}',${s.price})">${can?'Купить':'Мало'}</button></div>`;
+const iconHtml = s.img ? `<img src="${s.img}" onerror="this.style.display='none'">` : `<div class="icon">${s.icon}</div>`;
+return `<div class="card">${iconHtml}<div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div><button class="buy" ${can?'':'disabled'} onclick="buySkin('${s.name}','${s.icon}',${s.price})">${can?'Купить':'Мало'}</button></div>`;
 }).join('')+'</div>';
 }else if(invMode==='target'){
 const myPrice = selectedItems.length>0 ? (selectedItems[0].price||50) : 0;
 const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
 b.innerHTML='<div class="grid">'+filtered.map(s=>{
 const isLocked = s.price <= myPrice;
-return `<div class="card ${isLocked?'locked':''}" onclick="${isLocked?`toast('🔒 Цена должна быть выше ${myPrice} голды','lose')`:`setTarget('${s.name}','${s.icon}',${s.price},'${s.color}')`}"><div class="icon">${s.icon}</div><div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div></div>`;
+const iconHtml = s.img ? `<img src="${s.img}" onerror="this.style.display='none'">` : `<div class="icon">${s.icon}</div>`;
+return `<div class="card ${isLocked?'locked':''}" onclick="${isLocked?`toast('🔒 Цена должна быть выше ${myPrice} голды','lose')`:`setTarget('${s.name}','${s.icon}',${s.price},'${s.color}')`}">${iconHtml}<div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div></div>`;
 }).join('')+'</div>';
 }
 }
@@ -391,7 +491,11 @@ document.getElementById('targetTab').classList.remove('gray');
 }
 function buySkin(n,ic,p){
 if(gold<p){toast('❌ Мало голды','lose');return}
-gold-=p;inv.push({name:n,icon:ic,price:p});updateBal();rendInv();
+gold-=p;
+// Находим скин в allSkins, чтобы сохранить img
+const skinData = allSkins.find(s=>s.name===n);
+inv.push({name:n, icon:ic, price:p, img: skinData ? skinData.img : null});
+updateBal();rendInv();
 toast('✅ Куплено: '+n+'\n- '+p+' голды','win');
 sound('win');confetti();
 }
@@ -399,7 +503,10 @@ function rendMain(){
 if(selectedItems.length===0){
 document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>';
 }else{
-const icons = selectedItems.map(s=>`<span class="icon">${s.icon}</span>`).join('');
+const icons = selectedItems.map(s=>{
+if(s.img) return `<img src="${s.img}" style="width:40px;height:40px;object-fit:contain;margin:2px" onerror="this.style.display='none'">`;
+return `<span class="icon">${s.icon}</span>`;
+}).join('');
 document.getElementById('leftSlot').innerHTML=`<div class="multi-items">${icons}</div><div class="sn">Выбрано скинов</div>`;
 }
 if(targetSkin){
@@ -410,7 +517,6 @@ document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div cl
 document.getElementById('counter').innerText = 'Выбрано: ' + (selectedItems.length || 1) + ' из 5';
 
 const hasSkin = selectedItems.length > 0;
-
 document.getElementById('pcntList').innerHTML=pcts.map(p=>{
 if(!hasSkin) return `<button class="pb gray">${p}%</button>`;
 return `<button class="pb ${selPct===p?'sel':''}" onclick="selP(${p})">${p}%</button>`;
@@ -472,7 +578,6 @@ isSpinning=true;
 const a=document.getElementById('arrow');
 const wheel = document.getElementById('wheel');
 
-// Крутим стрелку на случайный угол
 const randomAngle = Math.floor(Math.random()*360);
 const totalDeg = 1440 + randomAngle;
 
@@ -489,9 +594,7 @@ if(tickCount>20)clearInterval(tickInterval);
 setTimeout(()=>{
 clearInterval(tickInterval);
 
-// Проверяем: попал ли угол в жёлтую зону
 const winAngle = (selPct/100)*360;
-// Стрелка указывает на угол: 360 - randomAngle (т.к. conic-gradient отсчёт от верха по часовой)
 const pointerAngle = (360 - randomAngle) % 360;
 const inOrange = adminAlwaysWin || (pointerAngle <= winAngle);
 const win = inOrange;
@@ -533,7 +636,7 @@ else if(roll<=c.chances.legendary+c.chances.red)skin=allSkins.find(s=>s.color===
 else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic)skin=allSkins.find(s=>s.color==='#9b8aff')||allSkins[0];
 else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic+c.chances.blue)skin=allSkins.find(s=>s.color==='#4a9eff')||allSkins[0];
 else skin=allSkins.find(s=>s.color==='#888')||allSkins[0];
-inv.push({name:skin.name,icon:skin.icon,price:skin.price});
+inv.push({name:skin.name,icon:skin.icon,price:skin.price,img:skin.img||null});
 toast('📦 Выпало: '+skin.name,'win');
 sound('win');confetti();
 rendCases();
