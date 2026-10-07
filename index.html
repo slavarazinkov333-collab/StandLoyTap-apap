@@ -297,7 +297,6 @@ return `<div class="card"><div class="icon">${s.icon}</div><div class="name" sty
 }
 function buySkin(n,ic,p){
 if(gold<p){toast('❌ Мало голды','lose');return}
-if(!confirm('Купить '+n+' за '+p+' голды?'))return;
 gold-=p;inv.push({name:n,icon:ic,price:p});updateBal();rendInv();toast('✅ Куплено: '+n,'win');sound('win');confetti();
 }
 function selI(i){selItem=inv[i];rendMain();toast('✅ Выбран: '+selItem.name,'win')}
@@ -376,7 +375,6 @@ b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><
 function openCase(i){
 const c=cases[i];
 if(gold<c.price){toast('❌ Мало голды','lose');return}
-if(!confirm('Открыть '+c.name+' за '+c.price+' голды?'))return;
 gold-=c.price;updateBal();
 const roll=Math.floor(Math.random()*100)+1;
 let skin;
