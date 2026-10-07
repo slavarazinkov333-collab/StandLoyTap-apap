@@ -22,13 +22,14 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .slot .sn{font-size:11px;color:#fff;font-weight:600}
 .slot .sl{font-size:9px;color:#888;margin-top:2px}
 
-.ww{position:relative;width:240px;height:240px;display:flex;justify-content:center;align-items:center;margin:10px 0}
-.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(#ffd700 0deg var(--wa,180deg),#2a2a4e var(--wa,180deg) 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);display:flex;justify-content:center;align-items:center;position:relative;transition:background .3s}
+/* ПОЛУКРУГ */
+.ww{position:relative;width:240px;height:150px;display:flex;justify-content:center;align-items:flex-start;margin:10px 0;overflow:hidden}
+.wheel{width:240px;height:240px;border-radius:50%;background:conic-gradient(#ffd700 0deg var(--wa,180deg),#2a2a4e var(--wa,180deg) 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);display:flex;justify-content:center;align-items:center;position:relative;transition:background .3s;margin-top:0}
 .wheel .marks{position:absolute;width:100%;height:100%;border-radius:50%}
 .wheel .mark{position:absolute;width:2px;height:12px;background:rgba(255,255,255,.2);top:0;left:50%;transform-origin:bottom center;transform:translateX(-50%) rotate(var(--r))}
 .wheel .mark-inner{position:absolute;width:100%;height:100%;border-radius:50%;border:2px dashed rgba(255,255,255,.15);transform:scale(.85)}
-.wc{font-size:50px;color:#fff;font-weight:900;z-index:2;text-shadow:0 0 20px rgba(0,0,0,.8)}
-.arrow{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #ffd700;filter:drop-shadow(0 0 12px rgba(255,215,0,.9));z-index:10;transform-origin:center 130px}
+.wc{font-size:50px;color:#fff;font-weight:900;z-index:2;text-shadow:0 0 20px rgba(0,0,0,.8);position:absolute;top:40%}
+.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #ffd700;filter:drop-shadow(0 0 12px rgba(255,215,0,.9));z-index:10;transform-origin:center 120px}
 
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
@@ -41,6 +42,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
 .nb:active{background:rgba(123,97,255,.15);color:#7b61ff}
+.nb.fast{color:#ffd700}
 
 .scr{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0f;z-index:50;flex-direction:column}
 .scr.open{display:flex}
@@ -51,7 +53,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .row{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#12121f;border:1px solid #2a2a4e;border-radius:10px;margin-bottom:8px}
 .row label{font-size:13px}
 .row input[type=text]{background:#0a0a0f;border:1px solid #2a2a4e;color:#fff;padding:7px 10px;border-radius:7px;font-size:13px;width:130px}
-.row input[type=range]{width:130px;accent-color:#7b61ff}
 .res{text-align:center;padding:24px}
 .res .bi{font-size:60px;margin-bottom:16px}
 .res .t{font-size:20px;font-weight:700;margin-bottom:8px}
@@ -111,6 +112,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 
 <div class="bottom">
 <button class="nb" onclick="openS('inventoryScreen')"><span class="ic">🎒</span><span>Инвентарь</span></button>
+<button class="nb fast" onclick="spinUpgradeFast()"><span class="ic">⚡</span><span>Быстро</span></button>
 <button class="nb" onclick="openS('shopScreen')"><span class="ic">🛒</span><span>Магазин</span></button>
 <button class="nb" onclick="openS('withdrawScreen')"><span class="ic">📤</span><span>Вывод</span></button>
 </div>
@@ -144,7 +146,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="sh"><h2>⚙️ Настройки</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div>
 <div class="sb">
 <div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
-<div class="row"><label>Скорость стрелки</label><input type="range" id="speedIn" min="1" max="10" value="5" onchange="changeSpeed()"><span style="color:#7b61ff;font-weight:700" id="speedVal">5с</span></div>
 </div>
 </div>
 
@@ -159,14 +160,13 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 
 <script>
-let gold=4000,isSpinning=false,spinSpeed=5,curAv='👤';
+let gold=4000,isSpinning=false,curAv='👤';
 let stats={spins:0,wins:0,loses:0};
 let inv=[{id:'akr',name:'AKR «Дракон»',icon:'🔫',price:10},{id:'m4',name:'M4A1 «Ворон»',icon:'🔫',price:50},{id:'awm',name:'AWM «Хищник»',icon:'🎯',price:100}];
 let selItem=null,selPct=null;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
 
-// Скины для улучшения в зависимости от процента
 const upgradeRewards={
 90:{name:'AKR «Ржавый»',icon:'🔫'},
 67:{name:'AKR «Синий»',icon:'🔫'},
@@ -262,14 +262,15 @@ document.getElementById('rightSlot').innerHTML=`<div class="si">${reward.icon}</
 }
 document.getElementById('wheel').style.setProperty('--wa',(p/100*360)+'deg');
 }
-function spinUpgrade(){
+function spinUpgrade(fast){
 if(!selItem){alert('Выбери скин в инвентаре!');return}
 if(!selPct){alert('Выбери процент!');return}
 if(isSpinning)return;
 isSpinning=true;
 const a=document.getElementById('arrow');
 const deg=Math.floor(Math.random()*360)+720;
-a.style.transition=`transform ${spinSpeed}s cubic-bezier(.1,.7,.1,1)`;
+const speed=fast?1:3;
+a.style.transition=`transform ${speed}s cubic-bezier(.1,.7,.1,1)`;
 a.style.transform=`rotate(${deg}deg)`;
 setTimeout(()=>{
 const roll=Math.floor(Math.random()*100)+1;
@@ -290,8 +291,9 @@ a.style.transition='none';
 a.style.transform='rotate(0deg)';
 document.getElementById('wheel').style.setProperty('--wa','180deg');
 renderMain();
-},spinSpeed*1000);
+},speed*1000);
 }
+function spinUpgradeFast(){spinUpgrade(true)}
 function showRes(win,title,sub){
 const c=document.getElementById('resBody');
 c.className='res '+(win?'win':'lose');
@@ -302,11 +304,6 @@ function changeName(){
 const n=document.getElementById('nameIn').value;
 document.getElementById('nick').innerText=n;
 document.getElementById('pName').innerText=n;
-}
-function changeSpeed(){
-const v=document.getElementById('speedIn').value;
-spinSpeed=parseInt(v);
-document.getElementById('speedVal').innerText=v+'с';
 }
 
 updateBal();
