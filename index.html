@@ -13,6 +13,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7b61ff,#4a3aff);display:flex;justify-content:center;align-items:center;font-size:15px;border:2px solid #9b8aff}
 .nick{font-size:12px;font-weight:600}
 .bal{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#ffd700}
+.plus{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;width:24px;height:24px;border-radius:50%;font-size:16px;font-weight:700;cursor:pointer;margin-left:6px;line-height:1}
 .set{background:none;border:none;color:#7b61ff;font-size:20px;cursor:pointer;margin-left:8px}
 .main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px;position:relative;z-index:1;min-height:100vh}
 
@@ -22,14 +23,14 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .slot .sn{font-size:11px;color:#fff;font-weight:600}
 .slot .sl{font-size:9px;color:#888;margin-top:2px}
 
-/* БАРАБАН — СЕРЫЙ ВМЕСТО ЧЁРНОГО */
+/* БАРАБАН — КАК В КС */
 .ww{position:relative;width:100%;height:260px;overflow:hidden;margin:10px 0}
-.wheel{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:conic-gradient(from 270deg,#ffd700 0deg var(--wa,90deg),#555 var(--wa,90deg) 180deg,#555 180deg 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);transition:background .3s}
+.wheel{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:conic-gradient(from 180deg,#9b8aff 0deg var(--wa,90deg),#2a2a4e var(--wa,90deg) 180deg,#12121f 180deg 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);transition:background .3s}
 .wheel .marks{position:absolute;width:100%;height:100%;border-radius:50%}
 .wheel .mark{position:absolute;width:2px;height:14px;background:rgba(255,255,255,.2);top:0;left:50%;transform-origin:bottom center;transform:translateX(-50%) rotate(var(--r))}
 .wheel .mark-inner{position:absolute;width:85%;height:85%;border-radius:50%;border:2px dashed rgba(255,255,255,.15);top:7.5%;left:7.5%}
 .arrow-wrap{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:300px;pointer-events:none;z-index:10}
-.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);transform-origin:center 150px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid #ffd700;filter:drop-shadow(0 0 12px rgba(255,215,0,.9))}
+.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);transform-origin:center 150px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid #9b8aff;filter:drop-shadow(0 0 12px rgba(155,138,255,.9))}
 
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
@@ -42,7 +43,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
 .nb:active{background:rgba(123,97,255,.15);color:#7b61ff}
-.nb.fast{color:#ffd700}
+.nb.fast{color:#9b8aff}
 
 .scr{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0f;z-index:50;flex-direction:column;overflow-y:auto}
 .scr.open{display:flex}
@@ -57,7 +58,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .res .bi{font-size:60px;margin-bottom:16px}
 .res .t{font-size:20px;font-weight:700;margin-bottom:8px}
 .res .s{font-size:13px;color:#888}
-.res.win .t{color:#4CAF50}
+.res.win .t{color:#9b8aff}
 .res.lose .t{color:#ff4444}
 .ph{text-align:center;padding:18px;background:#12121f;border-radius:14px;margin-bottom:14px}
 .pa{font-size:50px;margin-bottom:8px}
@@ -87,6 +88,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 <div style="display:flex;align-items:center">
 <div class="bal"><span>⭐</span><span id="gold">4000</span></div>
+<button class="plus" onclick="openS('shopScreen')">+</button>
 <button class="set" onclick="openS('settingsScreen')">⚙️</button>
 </div>
 </div>
@@ -147,6 +149,8 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="sh"><h2>⚙️ Настройки</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div>
 <div class="sb">
 <div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
+<div class="row"><label>Реферальный код</label><span style="color:#7b61ff;font-weight:700" id="refCode">STAND123</span></div>
+<div class="row"><label>Купон</label><input type="text" placeholder="Введи купон" id="couponIn"></div>
 </div>
 </div>
 
