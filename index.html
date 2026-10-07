@@ -17,7 +17,6 @@
             user-select: none;
         }
 
-        /* ВЕРХНЯЯ ПАНЕЛЬ */
         .top-bar {
             background: #0f0f1a;
             padding: 12px 16px;
@@ -39,7 +38,6 @@
             font-size: 13px; font-weight: 700; color: #ffd700;
         }
 
-        /* ЦЕНТР — КОЛЕСО */
         .center {
             flex: 1; display: flex; justify-content: center;
             align-items: center; flex-direction: column; padding: 20px;
@@ -96,7 +94,6 @@
         }
         .upgrade-btn:active { transform: scale(0.95); }
 
-        /* НИЖНЯЯ ПАНЕЛЬ */
         .bottom-bar {
             background: #0f0f1a;
             padding: 10px 8px;
@@ -113,7 +110,6 @@
         .nav-btn .icon { font-size: 22px; }
         .nav-btn:active { background: rgba(123, 97, 255, 0.15); color: #7b61ff; }
 
-        /* ЭКРАНЫ */
         .screen {
             display: none; position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -147,15 +143,61 @@
         }
         .buy-btn:disabled { background: #2a2a4e; color: #666; cursor: not-allowed; }
 
-        /* ПРОЦЕНТЫ */
+        /* ЭКРАН УЛУЧШЕНИЯ */
+        .upgrade-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .upgrade-skin {
+            flex: 1;
+            background: #12121f;
+            border: 2px solid #2a2a4e;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+        .upgrade-skin .icon { font-size: 60px; margin-bottom: 10px; }
+        .upgrade-skin .name { font-size: 14px; font-weight: 600; color: #fff; }
+        .upgrade-skin .label { font-size: 11px; color: #888; margin-top: 5px; }
+
+        .upgrade-wheel {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mini-wheel {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #4CAF50 0deg 180deg, #ff4444 180deg 360deg
+            );
+            border: 3px solid #7b61ff;
+            box-shadow: 0 0 30px rgba(123, 97, 255, 0.4);
+            transition: transform 8s cubic-bezier(0.1, 0.7, 0.1, 1);
+            position: relative;
+        }
+        .mini-wheel .arrow-small {
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px; color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+            z-index: 5;
+        }
+
         .percent-list {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 10px; margin-top: 20px;
         }
         .percent-btn {
             background: #12121f; border: 2px solid #2a2a4e;
-            border-radius: 12px; padding: 16px; color: white;
-            font-size: 17px; font-weight: 700; cursor: pointer;
+            border-radius: 12px; padding: 14px; color: white;
+            font-size: 16px; font-weight: 700; cursor: pointer;
             transition: all 0.2s;
         }
         .percent-btn:active { border-color: #7b61ff; }
@@ -171,7 +213,6 @@
 </head>
 <body>
 
-    <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
     <div class="top-bar">
         <div class="account">
             <div class="avatar">👤</div>
@@ -182,7 +223,6 @@
         </div>
     </div>
 
-    <!-- ЦЕНТР — КОЛЕСО -->
     <div class="center">
         <div class="wheel-wrapper">
             <div class="arrow">▼</div>
@@ -193,7 +233,6 @@
         <button class="upgrade-btn" onclick="openScreen('upgradeScreen')">⬆️ УЛУЧШИТЬ</button>
     </div>
 
-    <!-- НИЖНЯЯ ПАНЕЛЬ -->
     <div class="bottom-bar">
         <button class="nav-btn" onclick="openScreen('inventoryScreen')">
             <span class="icon">🎒</span><span>Инвентарь</span>
@@ -206,7 +245,6 @@
         </button>
     </div>
 
-    <!-- ЭКРАН: МАГАЗИН -->
     <div class="screen" id="shopScreen">
         <div class="screen-header">
             <h2>🛒 Магазин</h2>
@@ -215,7 +253,6 @@
         <div class="screen-body" id="shopBody"></div>
     </div>
 
-    <!-- ЭКРАН: ИНВЕНТАРЬ -->
     <div class="screen" id="inventoryScreen">
         <div class="screen-header">
             <h2>🎒 Инвентарь</h2>
@@ -224,20 +261,33 @@
         <div class="screen-body" id="inventoryBody"></div>
     </div>
 
-    <!-- ЭКРАН: ВЫБОР ПРОЦЕНТА -->
-    <div class="screen" id="percentScreen">
+    <div class="screen" id="upgradeScreen">
         <div class="screen-header">
-            <h2>🎯 Выбери процент</h2>
-            <button class="close-btn" onclick="closeScreen('percentScreen')">✕</button>
+            <h2>⬆️ Улучшение скина</h2>
+            <button class="close-btn" onclick="closeScreen('upgradeScreen')">✕</button>
         </div>
         <div class="screen-body">
-            <div id="percentTitle" style="text-align:center; margin-bottom:15px; color:#7b61ff; font-size:15px;"></div>
+            <div class="upgrade-layout">
+                <div class="upgrade-skin" id="skinPreview">
+                    <div class="icon">🔫</div>
+                    <div class="name">AKR «Дракон»</div>
+                    <div class="label">Твой скин</div>
+                </div>
+                <div class="upgrade-wheel">
+                    <div class="mini-wheel" id="miniWheel">
+                        <div class="arrow-small">▼</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center; color:#7b61ff; font-size:14px; margin-top:10px;">
+                Выбери шанс улучшения:
+            </div>
             <div class="percent-list" id="percentList"></div>
-            <button class="upgrade-btn" style="width:100%; margin-top:20px;" onclick="confirmPercent()">✅ ПОДТВЕРДИТЬ</button>
+            <button class="upgrade-btn" style="width:100%; margin-top:20px;" onclick="confirmUpgrade()">🎰 КРУТИТЬ</button>
         </div>
     </div>
 
-    <!-- ЭКРАН: РЕЗУЛЬТАТ -->
     <div class="screen" id="resultScreen">
         <div class="screen-header">
             <h2>Результат</h2>
@@ -256,7 +306,6 @@
             { id: 'm4', name: 'M4A1 «Ворон»', icon: '🔫' },
             { id: 'awm', name: 'AWM «Хищник»', icon: '🎯' },
             { id: 'knife', name: 'Нож «Тень»', icon: '🔪' },
-            { id: 'gloves', name: 'Перчатки «Боец»', icon: '🧤' },
         ];
         let selectedItem = null;
         let selectedPercent = null;
@@ -270,6 +319,7 @@
         function openScreen(id) {
             if (id === 'shopScreen') renderShop();
             if (id === 'inventoryScreen') renderInventory();
+            if (id === 'upgradeScreen') renderUpgradeScreen();
             document.getElementById(id).classList.add('open');
         }
 
@@ -334,17 +384,28 @@
         function selectItem(index) {
             selectedItem = inventory[index];
             closeScreen('inventoryScreen');
-            openPercentScreen();
+            openScreen('upgradeScreen');
         }
 
-        function openPercentScreen() {
-            document.getElementById('percentTitle').innerText = `Улучшаем: ${selectedItem.name}`;
+        function renderUpgradeScreen() {
+            if (!selectedItem) {
+                document.getElementById('skinPreview').innerHTML = `
+                    <div class="icon">❓</div>
+                    <div class="name">Скин не выбран</div>
+                    <div class="label">Выбери скин в инвентаре</div>
+                `;
+            } else {
+                document.getElementById('skinPreview').innerHTML = `
+                    <div class="icon">${selectedItem.icon}</div>
+                    <div class="name">${selectedItem.name}</div>
+                    <div class="label">Твой скин</div>
+                `;
+            }
             const list = document.getElementById('percentList');
             list.innerHTML = '';
             percents.forEach(p => {
                 list.innerHTML += `<button class="percent-btn" onclick="selectPercent(${p})">${p}%</button>`;
             });
-            openScreen('percentScreen');
         }
 
         function selectPercent(p) {
@@ -355,23 +416,26 @@
             });
         }
 
-        function confirmPercent() {
+        function confirmUpgrade() {
+            if (!selectedItem) {
+                alert('Выбери скин в инвентаре!');
+                return;
+            }
             if (!selectedPercent) {
                 alert('Выбери процент!');
                 return;
             }
-            closeScreen('percentScreen');
-            spinWheel();
+            spinUpgrade();
         }
 
-        function spinWheel() {
+        function spinUpgrade() {
             if (isSpinning) return;
             isSpinning = true;
 
-            const wheel = document.getElementById('wheel');
-            const randomDegree = Math.floor(Math.random() * 360) + 3600;
-            wheel.style.transition = 'transform 20s cubic-bezier(0.1, 0.7, 0.1, 1)';
-            wheel.style.transform = `rotate(${randomDegree}deg)`;
+            const miniWheel = document.getElementById('miniWheel');
+            const randomDegree = Math.floor(Math.random() * 360) + 1440;
+            miniWheel.style.transition = 'transform 8s cubic-bezier(0.1, 0.7, 0.1, 1)';
+            miniWheel.style.transform = `rotate(${randomDegree}deg)`;
 
             setTimeout(() => {
                 const chance = selectedPercent;
@@ -381,16 +445,17 @@
                 if (win) {
                     gold += 200;
                     updateBalance();
-                    showResult(true, `Ты улучшил ${selectedItem.name}!`, `+200 голды`);
+                    showResult(true, `🎉 Улучшено!`, `${selectedItem.name} стал новым! +200 голды`);
                 } else {
-                    showResult(false, `Неудача!`, `Ты потерял ${selectedItem.name}`);
+                    showResult(false, `😢 Сгорел!`, `${selectedItem.name} потерян.`);
                     inventory = inventory.filter(i => i !== selectedItem);
                 }
 
                 isSpinning = false;
                 selectedPercent = null;
                 selectedItem = null;
-            }, 20000);
+                closeScreen('upgradeScreen');
+            }, 8000);
         }
 
         function showResult(win, title, subtitle) {
