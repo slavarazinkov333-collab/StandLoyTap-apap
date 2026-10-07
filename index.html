@@ -37,6 +37,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .arrow{position:absolute;top:0;left:50%;transform-origin:center 140px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 10px rgba(255,215,0,.9));z-index:10}
 .ubtn{width:100%;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:10px}
 .ubtn:disabled{background:#2a2a4e;color:#666;cursor:not-allowed}
+.cancel-btn{width:100%;background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;border:none;padding:12px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;margin-top:6px}
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .pb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
@@ -89,10 +90,9 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .inv-empty .title{font-size:18px;font-weight:700;color:#aaa}
 .inv-empty .sub{font-size:12px;color:#666;margin-top:5px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
-.card{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.card:active{transform:scale(.97);border-color:#7b61ff}
+.card{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:10px;text-align:center;position:relative}
 .card .icon{font-size:32px;margin-bottom:6px}
-.card .name{font-size:11px;font-weight:600;line-height:1.2}
+.card .name{font-size:11px;font-weight:600;line-height:1.2;min-height:26px}
 .card .price{font-size:11px;color:#ffd700;margin-top:4px;font-weight:700}
 .card .buy{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:6px 10px;border-radius:12px;font-size:10px;font-weight:700;margin-top:6px;cursor:pointer;width:100%}
 .card .buy:disabled{background:#2a2a4e;color:#666}
@@ -100,6 +100,10 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .card.locked{opacity:0.4;cursor:not-allowed}
 .card.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px}
 .card img{width:60px;height:60px;object-fit:contain;margin-bottom:6px}
+.card-actions{display:flex;gap:4px;margin-top:6px}
+.card-actions button{flex:1;padding:6px 4px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;border:none;color:#fff}
+.btn-sell-card{background:linear-gradient(135deg,#ff4444,#cc0000)}
+.btn-upg-card{background:linear-gradient(135deg,#4a9eff,#0066cc)}
 .footer-block{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:16px;margin-top:20px;text-align:center;width:100%}
 .footer-block .ft-title{font-size:14px;font-weight:700;color:#7b61ff;margin-bottom:8px}
 .footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
@@ -110,16 +114,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .toast.lose{border-color:#ff4444;box-shadow:0 0 40px rgba(255,68,68,.5)}
 .confetti{position:fixed;width:10px;height:10px;background:#ffd700;z-index:998;pointer-events:none;animation:fall 3s linear forwards}
 @keyframes fall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-.skin-menu{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:200;display:none;justify-content:center;align-items:center;padding:20px}
-.skin-menu.open{display:flex}
-.skin-menu-content{background:#0f0f1a;border:2px solid #7b61ff;border-radius:20px;padding:24px;width:100%;max-width:340px;text-align:center}
-.skin-menu-content .icon{font-size:60px;margin-bottom:10px}
-.skin-menu-content .name{font-size:16px;font-weight:700;margin-bottom:20px}
-.skin-menu-content button{width:100%;padding:14px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;border:none}
-.btn-sell{background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff}
-.btn-withdraw{background:linear-gradient(135deg,#ff8c00,#cc6600);color:#fff}
-.btn-upgrade{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff}
-.btn-close{background:#2a2a4e;color:#fff}
 .pay-card{background:#12121f;border:2px solid #2a2a4e;border-radius:12px;padding:16px;margin-bottom:10px;text-align:center}
 .pay-card .pck-title{font-size:16px;font-weight:700;color:#ff8c00;margin-bottom:6px}
 .pay-card .pck-price{font-size:14px;color:#fff;font-weight:700;margin-bottom:10px}
@@ -151,6 +145,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="wheel" id="wheel"><div class="pt" id="pt">?%</div><div class="pl">средний шанс</div></div>
 </div>
 <button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆️ ПРОКАЧАТЬ</button>
+<button class="cancel-btn" id="cancelBtn" onclick="cancelUpgrade()" style="display:none">❌ ОТМЕНА</button>
 <div class="pcnt" id="pcntList"></div>
 <div class="mult">
 <button class="mb gray" onclick="setMulti(2)">x2</button>
@@ -176,16 +171,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="nb nb-topup" onclick="openS('topupScreen')"><span class="ic">+</span><span>Баланс</span></button>
 <button class="nb" onclick="openS('casesScreen')"><span class="ic">📦</span><span>Кейсы</span></button>
 <button class="nb" onclick="openS('tasksScreen')"><span class="ic">📋</span><span>Задания</span></button>
-</div>
-<div class="skin-menu" id="skinMenu">
-<div class="skin-menu-content">
-<div class="icon" id="menuIcon">🔫</div>
-<div class="name" id="menuName">Скин</div>
-<button class="btn-sell" onclick="sellSkin()">💸 Продать</button>
-<button class="btn-withdraw" onclick="withdrawSkin()">📤 Вывести</button>
-<button class="btn-upgrade" onclick="upgradeSkin()">⬆️ Апгрейд</button>
-<button class="btn-close" onclick="closeSkinMenu()">Закрыть</button>
-</div>
 </div>
 <div class="scr" id="profileScreen">
 <div class="sh"><h2>👤 Профиль</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div>
@@ -275,6 +260,7 @@ let inv=[];
 let invMode='inv';
 let selectedItems=[];
 let targetSkin=null;
+let soundEnabled=true;
 const MAX_SELECT=5;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
@@ -404,6 +390,42 @@ const tasks=[
 {name:'5 побед',done:false,reward:100},
 {name:'Открыть кейс',done:false,reward:30}
 ];
+
+// ==== ЗВУКИ ====
+let audioCtx=null;
+function initAudio(){
+if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+}
+function beep(freq,type,dur,vol){
+if(!soundEnabled)return;
+try{
+initAudio();
+if(!audioCtx)return;
+const o=audioCtx.createOscillator();
+const g=audioCtx.createGain();
+o.connect(g);g.connect(audioCtx.destination);
+o.frequency.value=freq;o.type=type||'sine';
+g.gain.setValueAtTime(vol||0.1,audioCtx.currentTime);
+g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+dur);
+o.start();o.stop(audioCtx.currentTime+dur);
+}catch(e){}
+}
+function sound(type){
+if(type==='win'){beep(800,'sine',0.4,0.15);setTimeout(()=>beep(1200,'sine',0.3,0.12),100);}
+else if(type==='lose'){beep(200,'sawtooth',0.4,0.12);}
+else if(type==='tick'){beep(1500,'sine',0.06,0.08);}
+else if(type==='click'){beep(600,'square',0.05,0.06);}
+else if(type==='buy'){beep(1000,'sine',0.15,0.12);setTimeout(()=>beep(1400,'sine',0.15,0.1),80);}
+else if(type==='sell'){beep(700,'sine',0.15,0.12);setTimeout(()=>beep(500,'sine',0.15,0.1),80);}
+else if(type==='cancel'){beep(400,'square',0.1,0.1);setTimeout(()=>beep(300,'square',0.15,0.1),80);}
+else if(type==='open'){beep(500,'sine',0.1,0.08);}
+else{beep(400,'sine',0.1,0.08);}
+}
+document.addEventListener('click',e=>{
+if(e.target.tagName==='BUTTON'||e.target.closest('button')){sound('click');}
+},true);
+// ==== КОНЕЦ ЗВУКОВ ====
+
 function toast(msg,type){
 const t=document.getElementById('toast');
 t.className='toast '+(type||'')+' show';
@@ -420,17 +442,6 @@ c.style.animationDelay=Math.random()*0.5+'s';
 document.body.appendChild(c);
 setTimeout(()=>c.remove(),3500);
 }
-}
-function sound(type){
-try{
-const ctx=new (window.AudioContext||window.webkitAudioContext)();
-const o=ctx.createOscillator();
-const g=ctx.createGain();
-o.connect(g);g.connect(ctx.destination);
-if(type==='win'){o.frequency.value=800;o.type='sine';g.gain.setValueAtTime(0.15,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);o.start();o.stop(ctx.currentTime+0.4);}
-else if(type==='tick'){o.frequency.value=1500;o.type='sine';g.gain.setValueAtTime(0.08,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.06);o.start();o.stop(ctx.currentTime+0.06);}
-else{o.frequency.value=200;o.type='sawtooth';g.gain.setValueAtTime(0.1,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);o.start();o.stop(ctx.currentTime+0.3);}
-}catch(e){}
 }
 function updateBal(){document.getElementById('gold').innerText=gold;document.getElementById('profileBal').innerText=gold}
 function openS(id){
@@ -463,10 +474,16 @@ const q=document.getElementById('invSearch').value.toLowerCase();
 if(invMode==='inv'){
 const filtered=inv.filter(it=>it.name.toLowerCase().includes(q));
 if(filtered.length===0){b.innerHTML='<div class="inv-empty"><div class="icon">📦</div><div class="title">Инвентарь пуст</div><div class="sub">У вас пока нет предметов</div></div>';return}
-b.innerHTML='<div class="grid">'+filtered.map((it,i)=>{
+b.innerHTML='<div class="grid">'+filtered.map((it)=>{
+const idx=inv.indexOf(it);
 const sel=selectedItems.includes(it);
 const iconHtml = it.img ? `<img src="${it.img}" onerror="this.style.display='none'">` : `<div class="icon">${it.icon}</div>`;
-return `<div class="card ${sel?'selected':''}" onclick="openSkinMenu(${i})">${iconHtml}<div class="name">${it.name}</div><div class="price">${it.price||0} G</div></div>`;
+return `<div class="card ${sel?'selected':''}">${iconHtml}<div class="name">${it.name}</div><div class="price">${it.price||0} G</div>
+<div class="card-actions">
+<button class="btn-sell-card" onclick="event.stopPropagation();sellSkinDirect(${idx})">💸 Продать</button>
+<button class="btn-upg-card" onclick="event.stopPropagation();upgradeSkinDirect(${idx})">⬆️ Апгрейд</button>
+</div>
+</div>`;
 }).join('')+'</div>';
 }else if(invMode==='shop'){
 const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
@@ -497,52 +514,47 @@ selPct = 1;
 const wheel = document.getElementById('wheel');
 const wa = (selPct/100)*360;
 wheel.style.setProperty('--wa', wa+'deg');
-document.getElementById('rightSlot').innerHTML = `
-<div class="si">${targetSkin.icon}</div>
-<div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div>
-<div class="sl">Цель: ${targetSkin.price} G</div>
-<div class="spr">Шанс: ${selPct}%</div>
-`;
 document.getElementById('pt').innerText = selPct + '%';
 closeS('inventoryScreen');
 rendMain();
 toast('🎯 Цель: ' + name + ' | Шанс: ' + selPct + '%', 'win');
 sound('win');
 }
-let menuItemIndex=-1;
-function openSkinMenu(i){
-menuItemIndex=i;
-const it=inv[i];
-document.getElementById('menuIcon').innerText=it.icon;
-document.getElementById('menuName').innerText=it.name;
-document.getElementById('skinMenu').classList.add('open');
-}
-function closeSkinMenu(){document.getElementById('skinMenu').classList.remove('open')}
-function sellSkin(){
-if(menuItemIndex<0)return;
-const it=inv[menuItemIndex];
+function sellSkinDirect(idx){
+if(idx<0||idx>=inv.length)return;
+const it=inv[idx];
 const sellPrice = Math.round((it.price||50) * 0.7);
 gold += sellPrice;updateBal();
-inv.splice(menuItemIndex,1);
+inv.splice(idx,1);
 selectedItems = selectedItems.filter(x=>x!==it);
-closeSkinMenu();rendInv();rendMain();
+rendInv();rendMain();
 toast('💸 ПРОДАНО!\n+'+sellPrice+' G','win');
-sound('win');confetti();
+sound('sell');confetti();
 }
-function withdrawSkin(){toast('📤 Вывод скоро появится!','lose');closeSkinMenu();}
-function upgradeSkin(){
-if(menuItemIndex<0)return;
-const it=inv[menuItemIndex];
+function upgradeSkinDirect(idx){
+if(idx<0||idx>=inv.length)return;
+const it=inv[idx];
 if(!selectedItems.includes(it)){
 if(selectedItems.length>=MAX_SELECT){toast('❌ Максимум '+MAX_SELECT+' скинов','lose');return}
 selectedItems.push(it);
 }
-closeSkinMenu();
 rendMain();
 window.scrollTo({top:0,behavior:'smooth'});
 toast('⬆️ Добавлен в апгрейд','win');
-sound('win');
+sound('click');
 document.getElementById('targetTab').classList.remove('gray');
+}
+function cancelUpgrade(){
+if(selectedItems.length===0 && !targetSkin){toast('❌ Нечего отменять','lose');return}
+selectedItems=[];
+targetSkin=null;
+selPct=null;
+multi=1;
+document.querySelectorAll('.mb').forEach(b=>b.classList.remove('sel'));
+document.getElementById('targetTab').classList.add('gray');
+rendMain();rendInv();
+toast('❌ Апгрейд отменён','win');
+sound('cancel');
 }
 function buySkin(n,ic,p){
 if(gold<p){toast('❌ Мало G','lose');return}
@@ -551,7 +563,7 @@ const skinData = allSkins.find(s=>s.name===n);
 inv.push({name:n, icon:ic, price:p, img: skinData ? skinData.img : null});
 updateBal();rendInv();
 toast('✅ Куплено: '+n+'\n- '+p+' G','win');
-sound('win');confetti();
+sound('buy');confetti();
 }
 function rendMain(){
 if(selectedItems.length===0){
@@ -571,6 +583,7 @@ document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div cl
 document.getElementById('counter').innerText = 'Выбрано: ' + (selectedItems.length || 1) + ' из 5';
 
 const hasSkin = selectedItems.length > 0;
+const hasTarget = targetSkin !== null;
 document.getElementById('pcntList').innerHTML=pcts.map(p=>{
 if(!hasSkin) return `<button class="pb gray">${p}%</button>`;
 return `<button class="pb ${selPct===p?'sel':''}" onclick="selP(${p})">${p}%</button>`;
@@ -580,13 +593,21 @@ document.querySelectorAll('.mb').forEach(b=>{
 b.classList.toggle('gray',!hasSkin);
 });
 
+// Кнопка Прокачать активна если есть скин И цель
 const btn=document.getElementById('upgradeBtn');
-if(hasSkin && targetSkin!==null){
+const cancelBtn=document.getElementById('cancelBtn');
+if(hasSkin && hasTarget){
 btn.disabled=false;
 btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)';
 }else{
 btn.disabled=true;
 btn.style.background='#2a2a4e';
+}
+// Кнопка отмена показывается если есть выбранные скины ИЛИ цель
+if(hasSkin || hasTarget){
+cancelBtn.style.display='block';
+}else{
+cancelBtn.style.display='none';
 }
 document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%';
 }
@@ -602,12 +623,6 @@ const diff = Math.abs(s.price - targetPrice);
 if(diff < minDiff){minDiff = diff; closest = s;}
 });
 targetSkin = {name: closest.name, icon: closest.icon, price: closest.price, color: closest.color};
-document.getElementById('rightSlot').innerHTML = `
-<div class="si">${targetSkin.icon}</div>
-<div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div>
-<div class="sl">Цель: ${targetSkin.price} G</div>
-<div class="spr">Шанс: ${selPct}%</div>
-`;
 }
 document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
 document.getElementById('pt').innerText=p.toFixed(1)+'%';
@@ -621,7 +636,7 @@ if(selectedItems.length===0){toast('❌ Сначала выбери скин','l
 multi=v;
 document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')});
 toast('✅ Множитель: x'+v,'win');
-sound('win');
+sound('click');
 }
 function spinUpgrade(){
 if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}
@@ -650,21 +665,18 @@ clearInterval(tickInterval);
 const winAngle = (selPct/100)*360;
 const pointerAngle = (360 - randomAngle) % 360;
 
-// Логика выигрыша с админ-флагами
 let win;
 if(adminAlwaysWin){win=true;}
 else if(adminAlwaysLose){win=false;}
 else if(adminChance!==null){win=Math.random()*100<adminChance;}
 else {win = pointerAngle <= winAngle;}
 
-// ВИЗУАЛЬНЫЙ ФИКС: если админ сказал "всегда выигрыш" — доводим стрелку в оранжевую зону
 if(adminAlwaysWin){
 const safeAngle = Math.max(5,Math.floor(winAngle*0.4));
 const fixTotal = 1440 + (360 - safeAngle);
 a.style.transition='transform 0.3s ease';
 a.style.transform=`translateX(-50%) rotate(${fixTotal}deg)`;
 }
-// ВИЗУАЛЬНЫЙ ФИКС: если админ сказал "всегда проигрыш" — доводим стрелку в чёрную зону
 if(adminAlwaysLose){
 const loseAngle = Math.floor((winAngle + 360) / 2);
 const safeAngle = loseAngle > 350 ? 350 : loseAngle;
@@ -716,6 +728,7 @@ document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div cla
 
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
 wheel.style.setProperty('--wa','90deg');
+document.getElementById('cancelBtn').style.display='none';
 
 setTimeout(()=>{
 targetSkin=null;selPct=null;
