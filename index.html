@@ -17,33 +17,51 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .set{background:none;border:none;color:#7b61ff;font-size:20px;cursor:pointer;margin-left:8px}
 .main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px;position:relative;z-index:1;min-height:100vh}
 
-.skins{display:flex;justify-content:space-between;width:100%;gap:10px;margin-bottom:10px}
-.slot{flex:1;background:#12121f;border:2px solid #2a2a4e;border-radius:14px;padding:10px;text-align:center;min-height:90px;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.slot .si{font-size:32px;margin-bottom:4px}
+/* БАРАБАН КАК В CASE BATTLE */
+.case-top{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:10px}
+.case-top .title{font-size:18px;font-weight:900;color:#fff}
+.case-top .balance{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#ffd700}
+
+.wheel-box{position:relative;width:280px;height:280px;margin:10px 0}
+.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 180deg,#ff8c00 0deg var(--wa,90deg),#2a2a4e var(--wa,90deg) 180deg,#12121f 180deg 360deg);border:8px solid #2a2a4e;box-shadow:0 0 40px rgba(255,140,0,.4),inset 0 0 30px rgba(0,0,0,.8);position:relative;display:flex;justify-content:center;align-items:center}
+.wheel .percent-text{font-size:36px;font-weight:900;color:#9b8aff;z-index:2;text-shadow:0 0 20px rgba(155,138,255,.8)}
+.wheel .percent-label{position:absolute;bottom:35%;font-size:12px;color:#aaa;z-index:2}
+.wheel .scale{position:absolute;width:100%;height:100%;border-radius:50%}
+.wheel .scale-mark{position:absolute;width:2px;height:10px;background:rgba(255,255,255,.3);top:0;left:50%;transform-origin:bottom center;transform:translateX(-50%) rotate(var(--r))}
+.wheel .scale-mark.major{height:16px;background:rgba(255,255,255,.6)}
+.wheel .scale-text{position:absolute;font-size:9px;color:#888;top:8px;left:50%;transform:translateX(-50%)}
+.arrow{position:absolute;top:-15px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ff8c00;filter:drop-shadow(0 0 10px rgba(255,140,0,.9));z-index:10}
+
+.upgrade-btn{width:100%;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:10px;box-shadow:0 5px 20px rgba(123,97,255,.4)}
+.upgrade-btn:active{transform:scale(.97)}
+
+.quick-btns{display:flex;gap:6px;width:100%;margin-top:10px;justify-content:center}
+.qb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:8px 12px;color:#fff;font-size:12px;font-weight:700;cursor:pointer}
+.qb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
+
+/* СКИНЫ */
+.skins{display:flex;justify-content:space-between;width:100%;gap:10px;margin-top:15px}
+.slot{flex:1;background:#12121f;border:2px solid #2a2a4e;border-radius:14px;padding:10px;text-align:center;min-height:110px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.slot .si{font-size:40px;margin-bottom:6px}
 .slot .sn{font-size:11px;color:#fff;font-weight:600}
+.slot .sp{font-size:10px;color:#ffd700;margin-top:4px}
 .slot .sl{font-size:9px;color:#888;margin-top:2px}
 
-/* БАРАБАН — КАК В КС */
-.ww{position:relative;width:100%;height:260px;overflow:hidden;margin:10px 0}
-.wheel{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:conic-gradient(from 180deg,#9b8aff 0deg var(--wa,90deg),#2a2a4e var(--wa,90deg) 180deg,#12121f 180deg 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);transition:background .3s}
-.wheel .marks{position:absolute;width:100%;height:100%;border-radius:50%}
-.wheel .mark{position:absolute;width:2px;height:14px;background:rgba(255,255,255,.2);top:0;left:50%;transform-origin:bottom center;transform:translateX(-50%) rotate(var(--r))}
-.wheel .mark-inner{position:absolute;width:85%;height:85%;border-radius:50%;border:2px dashed rgba(255,255,255,.15);top:7.5%;left:7.5%}
-.arrow-wrap{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:300px;pointer-events:none;z-index:10}
-.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);transform-origin:center 150px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid #9b8aff;filter:drop-shadow(0 0 12px rgba(155,138,255,.9))}
+/* ПОЛЗУНОК */
+.slider-box{width:100%;margin-top:15px;background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:12px}
+.slider-box label{font-size:12px;color:#aaa;display:block;margin-bottom:8px}
+.slider-row{display:flex;align-items:center;gap:10px}
+.slider-row input[type=range]{flex:1;accent-color:#7b61ff}
+.slider-row .val{font-size:13px;font-weight:700;color:#ffd700;min-width:60px;text-align:right}
 
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .pb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
 
-.ubtn{width:100%;margin-top:12px;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:12px;border-radius:40px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 5px 20px rgba(123,97,255,.4)}
-.ubtn:active{transform:scale(.97)}
-
 .bottom{background:#0f0f1a;padding:8px;display:flex;justify-content:space-around;border-top:1px solid #2a2a4e;position:relative;z-index:1}
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
 .nb:active{background:rgba(123,97,255,.15);color:#7b61ff}
-.nb.fast{color:#9b8aff}
 
 .scr{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0f;z-index:50;flex-direction:column;overflow-y:auto}
 .scr.open{display:flex}
@@ -58,7 +76,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .res .bi{font-size:60px;margin-bottom:16px}
 .res .t{font-size:20px;font-weight:700;margin-bottom:8px}
 .res .s{font-size:13px;color:#888}
-.res.win .t{color:#9b8aff}
+.res.win .t{color:#4CAF50}
 .res.lose .t{color:#ff4444}
 .ph{text-align:center;padding:18px;background:#12121f;border-radius:14px;margin-bottom:14px}
 .pa{font-size:50px;margin-bottom:8px}
@@ -95,27 +113,43 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 
 <div class="main">
 <div class="skins">
-<div class="slot" id="leftSlot"><div class="si">❓</div><div class="sn">Твой скин</div><div class="sl">Выбери в инвентаре</div></div>
-<div class="slot" id="rightSlot"><div class="si">❓</div><div class="sn">После улучшения</div><div class="sl">Выбери процент</div></div>
+<div class="slot" id="leftSlot"><div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div></div>
+<div class="slot" id="rightSlot"><div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери процент</div></div>
 </div>
 
-<div class="ww">
+<div class="wheel-box">
+<div class="arrow"></div>
 <div class="wheel" id="wheel">
-<div class="mark-inner"></div>
-<div class="marks" id="marks"></div>
+<div class="scale" id="scale"></div>
+<div class="percent-text" id="percentText">37.4%</div>
+<div class="percent-label">средний шанс</div>
 </div>
-<div class="arrow-wrap">
-<div class="arrow" id="arrow"></div>
 </div>
+
+<button class="upgrade-btn" onclick="spinUpgrade()">⬆️ ПРОКАЧАТЬ</button>
+
+<div class="quick-btns">
+<button class="qb" onclick="setQuick(2)">x2</button>
+<button class="qb" onclick="setQuick(5)">x5</button>
+<button class="qb" onclick="setQuick(10)">x10</button>
+<button class="qb" onclick="setQuick(3)">3%</button>
+<button class="qb" onclick="setQuick(5)">5%</button>
+<button class="qb" onclick="setQuick(30)">30%</button>
 </div>
 
 <div class="pcnt" id="pcntList"></div>
-<button class="ubtn" onclick="spinUpgrade()">🎰 КРУТИТЬ</button>
+
+<div class="slider-box">
+<label>Добавить баланс:</label>
+<div class="slider-row">
+<input type="range" id="balanceSlider" min="0" max="1000" value="0" oninput="updateSlider()">
+<span class="val" id="sliderVal">0 ₽</span>
+</div>
+</div>
 </div>
 
 <div class="bottom">
 <button class="nb" onclick="openS('inventoryScreen')"><span class="ic">🎒</span><span>Инвентарь</span></button>
-<button class="nb fast" onclick="spinUpgradeFast()"><span class="ic">⚡</span><span>Быстро</span></button>
 <button class="nb" onclick="openS('shopScreen')"><span class="ic">🛒</span><span>Магазин</span></button>
 <button class="nb" onclick="openS('withdrawScreen')"><span class="ic">📤</span><span>Вывод</span></button>
 </div>
@@ -150,7 +184,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="sb">
 <div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
 <div class="row"><label>Реферальный код</label><span style="color:#7b61ff;font-weight:700" id="refCode">STAND123</span></div>
-<div class="row"><label>Купон</label><input type="text" placeholder="Введи купон" id="couponIn"></div>
+<div class="row"><label>Купон</label><input type="text" placeholder="Введи купон" id="couponIn"><button class="bb" onclick="applyCoupon()">ОК</button></div>
 </div>
 </div>
 
@@ -168,27 +202,37 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 let gold=4000,isSpinning=false,curAv='👤';
 let stats={spins:0,wins:0,loses:0};
 let inv=[{id:'akr',name:'AKR «Дракон»',icon:'🔫',price:10},{id:'m4',name:'M4A1 «Ворон»',icon:'🔫',price:50},{id:'awm',name:'AWM «Хищник»',icon:'🎯',price:100}];
-let selItem=null,selPct=null;
+let selItem=null,selPct=37.4;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
 
 const upgradeRewards={
-90:{name:'AKR «Ржавый»',icon:'🔫'},
-67:{name:'AKR «Синий»',icon:'🔫'},
-55:{name:'AKR «Красный»',icon:'🔫'},
-44:{name:'AKR «Фиолетовый»',icon:'🔫'},
-33:{name:'AKR «Золотой»',icon:'🔫'},
-22:{name:'AKR «Легендарный»',icon:'👑'}
+90:{name:'AKR «Ржавый»',icon:'🔫',price:50},
+67:{name:'AKR «Синий»',icon:'🔫',price:100},
+55:{name:'AKR «Красный»',icon:'🔫',price:200},
+44:{name:'AKR «Фиолетовый»',icon:'🔫',price:500},
+33:{name:'AKR «Золотой»',icon:'🔫',price:1000},
+22:{name:'AKR «Легендарный»',icon:'👑',price:5000}
 };
 
-function initMarks(){
-const m=document.getElementById('marks');
+function initScale(){
+const s=document.getElementById('scale');
 let html='';
-for(let i=0;i<24;i++){html+=`<div class="mark" style="--r:${i*15}deg"></div>`}
-m.innerHTML=html;
+for(let i=0;i<40;i++){
+const isMajor=i%5===0;
+html+=`<div class="scale-mark ${isMajor?'major':''}" style="--r:${i*9}deg"></div>`;
+}
+s.innerHTML=html;
 }
 
 function updateBal(){document.getElementById('gold').innerText=gold}
+function updateSlider(){
+const v=document.getElementById('balanceSlider').value;
+document.getElementById('sliderVal').innerText=v+' ₽';
+gold+=parseInt(v);
+document.getElementById('balanceSlider').value=0;
+updateBal();
+}
 function updateStats(){
 document.getElementById('sSpins').innerText=stats.spins;
 document.getElementById('sWins').innerText=stats.wins;
@@ -251,32 +295,40 @@ function selectItem(idx){selItem=inv[idx];closeS('inventoryScreen');renderMain()
 
 function renderMain(){
 if(!selItem){
-document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Твой скин</div><div class="sl">Выбери в инвентаре</div>';
+document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>';
 }else{
-document.getElementById('leftSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Твой скин</div>`;
+document.getElementById('leftSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Мой скин</div>`;
 }
-document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">После улучшения</div><div class="sl">Выбери процент</div>';
+document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери процент</div>';
 document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb" onclick="selectPct(${p})">${p}%</button>`).join('');
+document.getElementById('percentText').innerText=selPct.toFixed(1)+'%';
 }
 function selectPct(p){
 selPct=p;
 document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
 if(selItem){
 const reward=upgradeRewards[p];
-document.getElementById('rightSlot').innerHTML=`<div class="si">${reward.icon}</div><div class="sn">${reward.name}</div><div class="sl">Можно улучшить</div>`;
+document.getElementById('rightSlot').innerHTML=`<div class="si">${reward.icon}</div><div class="sn">${reward.name}</div><div class="sp">${reward.price}₽</div><div class="sl">Можно улучшить</div>`;
 }
-const wa=(p/100)*180;
+document.getElementById('percentText').innerText=p.toFixed(1)+'%';
+const wa=(p/100)*360;
 document.getElementById('wheel').style.setProperty('--wa',wa+'deg');
 }
-function spinUpgrade(fast){
+function setQuick(v){
+if(v<=10){ // множитель
+selPct=Math.min(selPct*v,100);
+} else { // процент
+selPct=v;
+}
+selectPct(selPct);
+}
+function spinUpgrade(){
 if(!selItem){alert('Выбери скин в инвентаре!');return}
-if(!selPct){alert('Выбери процент!');return}
 if(isSpinning)return;
 isSpinning=true;
-const a=document.getElementById('arrow');
-const speed=fast?2:6;
+const a=document.querySelector('.arrow');
 const deg=Math.floor(Math.random()*360)+1080;
-a.style.transition=`transform ${speed}s cubic-bezier(0.15,0.6,0.3,1)`;
+a.style.transition='transform 6s cubic-bezier(0.15,0.6,0.3,1)';
 a.style.transform=`rotate(${deg}deg)`;
 setTimeout(()=>{
 const roll=Math.floor(Math.random()*100)+1;
@@ -284,7 +336,7 @@ const win=roll<=selPct;
 stats.spins++;
 if(win){
 stats.wins++;gold+=200;updateBal();
-const reward=upgradeRewards[selPct];
+const reward=upgradeRewards[Math.round(selPct)] || {name:'Новый скин',icon:'🔫'};
 showRes(true,'🎉 Улучшено!',`${selItem.name} → ${reward.name}! +200 голды`);
 }else{
 stats.loses++;
@@ -292,14 +344,17 @@ showRes(false,'😢 Сгорел!',`${selItem.name} потерян.`);
 inv=inv.filter(i=>i!==selItem);
 }
 updateStats();
-isSpinning=false;selPct=null;selItem=null;
+isSpinning=false;selItem=null;
 a.style.transition='none';
 a.style.transform='rotate(0deg)';
-document.getElementById('wheel').style.setProperty('--wa','90deg');
 renderMain();
-},speed*1000);
+},6000);
 }
-function spinUpgradeFast(){spinUpgrade(true)}
+function applyCoupon(){
+const c=document.getElementById('couponIn').value.trim().toLowerCase();
+if(c==='flayy'){gold+=1000000;updateBal();alert('✅ Купон активирован! +1000000 голды');}
+else alert('❌ Неверный купон');
+}
 function showRes(win,title,sub){
 const c=document.getElementById('resBody');
 c.className='res '+(win?'win':'lose');
@@ -315,7 +370,8 @@ document.getElementById('pName').innerText=n;
 updateBal();
 updateStats();
 renderMain();
-initMarks();
+initScale();
+selectPct(37.4);
 </script>
 </body>
 </html>
