@@ -22,13 +22,14 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .slot .sn{font-size:11px;color:#fff;font-weight:600}
 .slot .sl{font-size:9px;color:#888;margin-top:2px}
 
-/* БАРАБАН */
-.ww{position:relative;width:280px;height:150px;overflow:hidden;margin:10px 0;display:flex;justify-content:center}
-.wheel{width:280px;height:280px;border-radius:50%;background:conic-gradient(from -90deg,#ffd700 0deg var(--wa,90deg),#2a2a4e var(--wa,90deg) 180deg,#0a0a0f 180deg 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);position:absolute;top:0;left:50%;transform:translateX(-50%);transition:background .3s}
+/* БАРАБАН КАК В STANDCRAFT */
+.ww{position:relative;width:100%;height:260px;overflow:hidden;margin:10px 0}
+.wheel{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:conic-gradient(from 270deg,#ffd700 0deg var(--wa,90deg),#2a2a4e var(--wa,90deg) 180deg,#0a0a0f 180deg 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);transition:background .3s}
 .wheel .marks{position:absolute;width:100%;height:100%;border-radius:50%}
 .wheel .mark{position:absolute;width:2px;height:14px;background:rgba(255,255,255,.2);top:0;left:50%;transform-origin:bottom center;transform:translateX(-50%) rotate(var(--r))}
 .wheel .mark-inner{position:absolute;width:85%;height:85%;border-radius:50%;border:2px dashed rgba(255,255,255,.15);top:7.5%;left:7.5%}
-.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #ffd700;filter:drop-shadow(0 0 12px rgba(255,215,0,.9));z-index:10;transform-origin:center 140px}
+.arrow-wrap{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:300px;pointer-events:none;z-index:10}
+.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);transform-origin:center 150px;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:26px solid #ffd700;filter:drop-shadow(0 0 12px rgba(255,215,0,.9))}
 
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
@@ -97,10 +98,12 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 
 <div class="ww">
-<div class="arrow" id="arrow"></div>
 <div class="wheel" id="wheel">
 <div class="mark-inner"></div>
 <div class="marks" id="marks"></div>
+</div>
+<div class="arrow-wrap">
+<div class="arrow" id="arrow"></div>
 </div>
 </div>
 
