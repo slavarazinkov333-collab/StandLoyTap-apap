@@ -26,7 +26,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 180deg,#ffd700 0deg, #ff8c00 var(--wa,90deg), #0a0a0f var(--wa,90deg) 360deg);border:8px solid #2a2a4e;position:relative;display:flex;justify-content:center;align-items:center;transition:background 0.8s ease}
 .pt{font-size:36px;font-weight:900;color:#ffd700;z-index:2}
 .pl{position:absolute;bottom:35%;font-size:12px;color:#aaa;z-index:2}
-.arrow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 10px rgba(255,215,0,.9));z-index:10}
+.arrow{position:absolute;top:0;left:50%;transform-origin:center 140px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 10px rgba(255,215,0,.9));z-index:10}
 .ubtn{width:100%;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:10px}
 .ubtn:disabled{background:#2a2a4e;color:#666;cursor:not-allowed}
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
@@ -315,7 +315,7 @@ function setMulti(v){
 if(!selItem || selPct===null){toast('❌ Сначала выбери скин и процент','lose');return}
 multi=v;
 document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')});
-toast('✅ Множитель: x'+v,'win');
+toast('✅ Множитель: x'+v+' (шанс '+(100/v)+'%)','win');
 sound('win');
 }
 function spinUpgrade(){
@@ -327,8 +327,8 @@ const a=document.getElementById('arrow');
 a.style.transition='transform 6s cubic-bezier(0.15,0.6,0.3,1)';
 a.style.transform=`translateX(-50%) rotate(1440deg)`;
 setTimeout(()=>{
-let ec=selPct;
-if(gold<1000)ec=60;else ec=30;
+let ec=selPct / multi;
+if(gold<1000)ec=60/multi;else ec=30/multi;
 if(adminChance!==null)ec=adminChance;
 if(adminAlwaysWin)ec=100;
 const roll=Math.floor(Math.random()*100)+1;
@@ -338,7 +338,7 @@ if(win){
 stats.wins++;
 const bonus = Math.round((selItem.price||0) * (selPct/100)) * multi;
 gold += bonus;updateBal();
-toast('🎉 Улучшено! +'+bonus+' голды (x'+multi+')','win');
+toast('🎉 Улучшено! +'+bonus+' голды','win');
 sound('win');confetti();
 }else{
 stats.loses++;
