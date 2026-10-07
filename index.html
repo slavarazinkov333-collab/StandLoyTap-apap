@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Игра</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+        .logo {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #f0c419;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #aaa;
+        }
+        .btn {
+            background: linear-gradient(135deg, #f0c419, #e6a800);
+            color: #1a1a2e;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 18px 60px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(240, 196, 25, 0.4);
+            transition: all 0.3s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">🎮</div>
+    <h1>STANDCRAFT BOT</h1>
+    <p>Экономическая игра с крафтом и апгрейдом</p>
+    <button class="btn" onclick="alert('Игра запускается!')">🚀 ЗАПУСТИТЬ</button>
+</body>
+</html>
