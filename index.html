@@ -67,7 +67,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .case .cp{font-size:12px;color:#ffd700;margin-top:4px}
 .case .cr{font-size:11px;color:#888;margin-top:4px}
 .inv-tabs{display:flex;gap:8px;width:100%;padding:10px 0;position:sticky;top:0;background:#0a0a0f;z-index:20}
-.inv-tab{flex:1;padding:14px;background:#12121f;border:2px solid #2a2a4e;border-radius:12px;color:#888;font-weight:700;font-size:14px;cursor:pointer;text-align:center}
+.inv-tab{flex:1;padding:12px;background:#12121f;border:2px solid #2a2a4e;border-radius:12px;color:#888;font-weight:700;font-size:12px;cursor:pointer;text-align:center}
 .inv-tab.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700}
 .inv-search{display:flex;align-items:center;gap:8px;background:#12121f;border:1px solid #2a2a4e;border-radius:10px;padding:10px;margin-bottom:10px;width:100%}
 .inv-search input{flex:1;background:none;border:none;color:#fff;font-size:13px;outline:none}
@@ -94,8 +94,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .toast.lose{border-color:#ff4444;box-shadow:0 0 40px rgba(255,68,68,.5)}
 .confetti{position:fixed;width:10px;height:10px;background:#ffd700;z-index:998;pointer-events:none;animation:fall 3s linear forwards}
 @keyframes fall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-
-/* МЕНЮ СКИНА */
 .skin-menu{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:200;display:none;justify-content:center;align-items:center;padding:20px}
 .skin-menu.open{display:flex}
 .skin-menu-content{background:#0f0f1a;border:2px solid #7b61ff;border-radius:20px;padding:24px;width:100%;max-width:340px;text-align:center}
@@ -123,8 +121,9 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="main">
 <div class="skins">
 <div class="slot" id="leftSlot"><div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div></div>
-<div class="slot" id="rightSlot"><div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери процент</div></div>
+<div class="slot" id="rightSlot"><div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери в Прокачать до</div></div>
 </div>
+<div id="counter" style="color:#7b61ff;font-size:12px;font-weight:700;margin-bottom:8px;">Выбрано: 1 из 5</div>
 <div class="wheel-box">
 <div class="arrow" id="arrow"></div>
 <div class="wheel" id="wheel"><div class="pt" id="pt">?%</div><div class="pl">средний шанс</div></div>
@@ -140,6 +139,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="inv-tabs">
 <div class="inv-tab active" onclick="switchInv('inv')">🎒 Инвентарь</div>
 <div class="inv-tab" onclick="switchInv('shop')">🛒 Магазин</div>
+<div class="inv-tab" onclick="switchInv('target')">🎯 Прокачать до</div>
 </div>
 <div class="inv-search"><span>🔍</span><input type="text" placeholder="Поиск..." id="invSearch" oninput="rendInv()"></div>
 <div id="invList"></div>
@@ -154,8 +154,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="nb" onclick="openS('casesScreen')"><span class="ic">📦</span><span>Кейсы</span></button>
 <button class="nb" onclick="openS('tasksScreen')"><span class="ic">📋</span><span>Задания</span></button>
 </div>
-
-<!-- МЕНЮ СКИНА -->
 <div class="skin-menu" id="skinMenu">
 <div class="skin-menu-content">
 <div class="icon" id="menuIcon">🔫</div>
@@ -166,7 +164,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="btn-close" onclick="closeSkinMenu()">Закрыть</button>
 </div>
 </div>
-
 <div class="scr" id="profileScreen">
 <div class="sh"><h2>👤 Профиль</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div>
 <div class="sb">
@@ -204,6 +201,7 @@ let stats={spins:0,wins:0,loses:0};
 let inv=[];
 let invMode='inv';
 let selectedItems=[];
+let targetSkin=null;
 const MAX_SELECT=5;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
@@ -219,14 +217,24 @@ const allSkins=[
 {name:'M4A1 «Огонь»',icon:'🔫',price:200,color:'#ff4444'},
 {name:'M4A1 «Фиолет»',icon:'🔫',price:500,color:'#9b8aff'},
 {name:'M4A1 «Золото»',icon:'🔫',price:1000,color:'#ffd700'},
+{name:'M4A1 «Легенда»',icon:'🔫',price:5000,color:'#ff00ff'},
 {name:'AWM «Хищник»',icon:'🎯',price:50,color:'#888'},
 {name:'AWM «Пустыня»',icon:'🎯',price:100,color:'#c2a878'},
 {name:'AWM «Лёд»',icon:'🎯',price:200,color:'#4a9eff'},
 {name:'AWM «Фиолет»',icon:'🎯',price:500,color:'#9b8aff'},
+{name:'AWM «Золото»',icon:'🎯',price:1000,color:'#ffd700'},
+{name:'AWM «Легенда»',icon:'🎯',price:5000,color:'#ff00ff'},
 {name:'Нож «Тень»',icon:'🔪',price:50,color:'#888'},
+{name:'Нож «Синий»',icon:'🔪',price:100,color:'#4a9eff'},
+{name:'Нож «Красный»',icon:'🔪',price:200,color:'#ff4444'},
 {name:'Нож «Золото»',icon:'🔪',price:1000,color:'#ffd700'},
 {name:'Перчатки «Боец»',icon:'🧤',price:200,color:'#888'},
-{name:'Перчатки «Золото»',icon:'🧤',price:1000,color:'#ffd700'}
+{name:'Перчатки «Фиолет»',icon:'🧤',price:500,color:'#9b8aff'},
+{name:'Перчатки «Золото»',icon:'🧤',price:1000,color:'#ffd700'},
+{name:'Пистолет «Гром»',icon:'🔫',price:150,color:'#4a9eff'},
+{name:'Пистолет «Огонь»',icon:'🔫',price:300,color:'#ff4444'},
+{name:'Щит «Сталь»',icon:'🛡️',price:400,color:'#888'},
+{name:'Щит «Золото»',icon:'🛡️',price:1500,color:'#ffd700'}
 ];
 const cases=[
 {name:'Обычный кейс',icon:'📦',price:100,chances:{legendary:5,red:10,epic:20,blue:20,uncommon:45}},
@@ -286,7 +294,11 @@ document.getElementById('profileBal').innerText=gold;
 function setAv(a){curAv=a;document.getElementById('topAv').innerText=a;document.getElementById('pAv').innerText=a}
 function switchInv(mode){
 invMode=mode;
-document.querySelectorAll('.inv-tab').forEach((t,i)=>{t.classList.toggle('active',i===(mode==='inv'?0:1))});
+document.querySelectorAll('.inv-tab').forEach((t,i)=>{
+t.classList.toggle('active',
+(mode==='inv'&&i===0)||(mode==='shop'&&i===1)||(mode==='target'&&i===2)
+);
+});
 rendInv();
 }
 function rendInv(){
@@ -299,16 +311,31 @@ b.innerHTML='<div class="grid">'+filtered.map((it,i)=>{
 const sel=selectedItems.includes(it);
 return `<div class="card ${sel?'selected':''}" onclick="openSkinMenu(${i})"><div class="icon">${it.icon}</div><div class="name">${it.name}</div><div class="price">${it.price||0} голды</div></div>`;
 }).join('')+'</div>';
-}else{
+}else if(invMode==='shop'){
 const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
 b.innerHTML='<div class="grid">'+filtered.map(s=>{
 const can=gold>=s.price;
 return `<div class="card"><div class="icon">${s.icon}</div><div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div><button class="buy" ${can?'':'disabled'} onclick="buySkin('${s.name}','${s.icon}',${s.price})">${can?'Купить':'Мало'}</button></div>`;
 }).join('')+'</div>';
+}else if(invMode==='target'){
+const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
+b.innerHTML='<div class="grid">'+filtered.map(s=>{
+return `<div class="card" onclick="setTarget('${s.name}','${s.icon}',${s.price},'${s.color}')"><div class="icon">${s.icon}</div><div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div></div>`;
+}).join('')+'</div>';
 }
 }
-
-// ====== МЕНЮ СКИНА ======
+function setTarget(name, icon, price, color){
+targetSkin = {name, icon, price, color};
+closeS('inventoryScreen');
+if(selectedItems.length>0){
+const myPrice = selectedItems[0].price || 50;
+const ratio = myPrice / price;
+selPct = Math.max(1, Math.min(99, Math.round(ratio * 100)));
+}
+rendMain();
+toast('🎯 Цель: '+name,'win');
+sound('win');
+}
 let menuItemIndex=-1;
 function openSkinMenu(i){
 menuItemIndex=i;
@@ -329,19 +356,18 @@ closeSkinMenu();rendInv();rendMain();
 toast('💸 ПРОДАНО!\n+'+sellPrice+' голды','win');
 sound('win');confetti();
 }
-function withdrawSkin(){
-toast('📤 Вывод скоро появится!','lose');
-closeSkinMenu();
-}
+function withdrawSkin(){toast('📤 Вывод скоро появится!','lose');closeSkinMenu();}
 function upgradeSkin(){
 if(menuItemIndex<0)return;
-selItem=inv[menuItemIndex];
-selectedItems=[selItem];
+const it=inv[menuItemIndex];
+if(!selectedItems.includes(it)){
+if(selectedItems.length>=MAX_SELECT){toast('❌ Максимум '+MAX_SELECT+' скинов','lose');return}
+selectedItems.push(it);
+}
 closeSkinMenu();
 rendMain();
-// Скролл наверх
 window.scrollTo({top:0,behavior:'smooth'});
-toast('⬆️ Выбран скин для апгрейда','win');
+toast('⬆️ Добавлен в апгрейд','win');
 sound('win');
 }
 function buySkin(n,ic,p){
@@ -350,26 +376,19 @@ gold-=p;inv.push({name:n,icon:ic,price:p});updateBal();rendInv();
 toast('✅ Куплено: '+n+'\n- '+p+' голды','win');
 sound('win');confetti();
 }
-function selI(i){
-const it=inv[i];
-if(selectedItems.includes(it)){
-selectedItems=selectedItems.filter(x=>x!==it);
-}else{
-if(selectedItems.length>=MAX_SELECT){toast('❌ Максимум '+MAX_SELECT+' скинов','lose');return}
-selectedItems.push(it);
-}
-selItem=selectedItems[0]||null;
-rendMain();rendInv();
-}
 function rendMain(){
 if(selectedItems.length===0){
 document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>';
-document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери процент</div>';
 }else{
 const icons = selectedItems.map(s=>`<span class="icon">${s.icon}</span>`).join('');
-document.getElementById('leftSlot').innerHTML=`<div class="multi-items">${icons}</div><div class="sn">Выбрано: ${selectedItems.length}/${MAX_SELECT}</div><div class="sl">Нажми на скин, чтобы убрать</div>`;
-document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери процент</div>';
+document.getElementById('leftSlot').innerHTML=`<div class="multi-items">${icons}</div><div class="sn">Выбрано скинов</div>`;
 }
+if(targetSkin){
+document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div>`;
+}else{
+document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери в Прокачать до</div>';
+}
+document.getElementById('counter').innerText = 'Выбрано: ' + (selectedItems.length || 1) + ' из 5';
 document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb ${selectedItems.length>0?'':'gray'}" onclick="${selectedItems.length>0?`selP(${p})`:''}">${p}%</button>`).join('');
 const mbBtns=document.querySelectorAll('.mb');
 const canMulti = selectedItems.length>0 && selPct!==null;
@@ -382,13 +401,8 @@ document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%'
 function selP(p){
 selPct=p;
 document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
-if(selectedItems.length>0){
-const it=selectedItems[0];
-const bonus = Math.round((it.price||0) * (p/100));
-const total = Math.round((it.price||0) + bonus);
-const available = allSkins.filter(s => s.price <= total);
-const rewardSkin = available[available.length-1] || it;
-document.getElementById('rightSlot').innerHTML=`<div class="si">${rewardSkin.icon}</div><div class="sn" style="color:${rewardSkin.color}">${rewardSkin.name}</div><div class="spr">+${bonus} голды</div><div class="sl">Итог: ${total} голды</div>`;
+if(targetSkin){
+document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div>`;
 }
 document.getElementById('pt').innerText=p.toFixed(1)+'%';
 const wheel = document.getElementById('wheel');
@@ -423,9 +437,7 @@ stats.spins++;
 if(win){
 stats.wins++;
 let totalBonus=0;
-selectedItems.forEach(it=>{
-totalBonus += Math.round((it.price||0) * (selPct/100)) * multi;
-});
+selectedItems.forEach(it=>{totalBonus += Math.round((it.price||0) * (selPct/100)) * multi});
 gold += totalBonus;updateBal();
 toast('🎉 Улучшено! +'+totalBonus+' голды','win');
 sound('win');confetti();
