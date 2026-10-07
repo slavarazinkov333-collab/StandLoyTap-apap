@@ -37,49 +37,48 @@
             display: flex; align-items: center; gap: 5px;
             font-size: 13px; font-weight: 700; color: #ffd700;
         }
+        .settings-btn {
+            background: none; border: none; color: #7b61ff;
+            font-size: 22px; cursor: pointer; margin-left: 10px;
+        }
 
         .center {
             flex: 1; display: flex; justify-content: center;
             align-items: center; flex-direction: column; padding: 20px;
         }
+
+        /* КОЛЕСО */
         .wheel-wrapper {
             position: relative; width: 300px; height: 300px;
             display: flex; justify-content: center; align-items: center;
         }
         .wheel {
             width: 100%; height: 100%; border-radius: 50%;
-            background: conic-gradient(
-                #1a1a2e 0deg 45deg, #16162a 45deg 90deg,
-                #1a1a2e 90deg 135deg, #16162a 135deg 180deg,
-                #1a1a2e 180deg 225deg, #16162a 225deg 270deg,
-                #1a1a2e 270deg 315deg, #16162a 315deg 360deg
-            );
-            border: 3px solid #7b61ff;
-            box-shadow: 0 0 40px rgba(123, 97, 255, 0.4), inset 0 0 30px rgba(0,0,0,0.8);
+            background: radial-gradient(circle at 50% 50%, #1a1a2e, #0a0a0f);
+            border: 4px solid #7b61ff;
+            box-shadow: 0 0 50px rgba(123, 97, 255, 0.5), inset 0 0 40px rgba(0,0,0,0.8);
             transition: transform 20s cubic-bezier(0.1, 0.7, 0.1, 1);
             display: flex; justify-content: center; align-items: center;
             position: relative;
+            overflow: hidden;
         }
-        .wheel::before {
-            content: ''; position: absolute; width: 90%; height: 90%;
-            border-radius: 50%; border: 2px dashed rgba(123, 97, 255, 0.4);
-        }
-        .wheel::after {
-            content: ''; position: absolute; width: 70%; height: 70%;
-            border-radius: 50%; border: 2px solid rgba(123, 97, 255, 0.3);
+        .wheel .spoke {
+            position: absolute; width: 2px; height: 50%;
+            background: linear-gradient(to top, transparent, #7b61ff);
+            top: 0; left: 50%; transform-origin: bottom center;
         }
         .wheel-center {
-            width: 60px; height: 60px; border-radius: 50%;
+            width: 70px; height: 70px; border-radius: 50%;
             background: linear-gradient(135deg, #7b61ff, #4a3aff);
             display: flex; justify-content: center; align-items: center;
-            font-size: 24px; z-index: 2;
-            box-shadow: 0 0 20px rgba(123, 97, 255, 0.8);
+            font-size: 28px; z-index: 2;
+            box-shadow: 0 0 25px rgba(123, 97, 255, 0.9);
         }
         .arrow {
             position: absolute; top: -15px; left: 50%;
             transform: translateX(-50%);
-            font-size: 45px; color: #ffd700;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+            font-size: 50px; color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
             z-index: 10;
         }
 
@@ -125,71 +124,28 @@
         .close-btn { background: none; border: none; color: #7b61ff; font-size: 22px; cursor: pointer; }
         .screen-body { flex: 1; overflow-y: auto; padding: 16px; }
 
-        .item {
+        /* НАСТРОЙКИ */
+        .setting-row {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 14px;
             background: #12121f; border: 1px solid #2a2a4e;
-            border-radius: 12px; padding: 14px; margin-bottom: 10px;
-            display: flex; justify-content: space-between; align-items: center;
-            cursor: pointer; transition: all 0.2s;
+            border-radius: 12px; margin-bottom: 10px;
         }
-        .item:active { border-color: #7b61ff; transform: scale(0.98); }
-        .item-info { display: flex; align-items: center; gap: 12px; }
-        .item-icon { font-size: 26px; }
-        .item-name { font-size: 14px; font-weight: 600; }
-        .item-price { font-size: 12px; color: #ffd700; }
-        .buy-btn {
-            background: linear-gradient(135deg, #7b61ff, #4a3aff);
-            color: white; border: none; padding: 8px 16px;
-            border-radius: 20px; font-weight: 600; font-size: 12px; cursor: pointer;
+        .setting-row label { font-size: 14px; color: #fff; }
+        .setting-row input[type="text"] {
+            background: #0a0a0f; border: 1px solid #2a2a4e;
+            color: #fff; padding: 8px 12px; border-radius: 8px;
+            font-size: 14px; width: 150px;
         }
-        .buy-btn:disabled { background: #2a2a4e; color: #666; cursor: not-allowed; }
-
-        /* ЭКРАН УЛУЧШЕНИЯ */
-        .upgrade-layout {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+        .setting-row input[type="range"] {
+            width: 150px; accent-color: #7b61ff;
         }
-        .upgrade-skin {
-            flex: 1;
-            background: #12121f;
-            border: 2px solid #2a2a4e;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-        }
-        .upgrade-skin .icon { font-size: 60px; margin-bottom: 10px; }
-        .upgrade-skin .name { font-size: 14px; font-weight: 600; color: #fff; }
-        .upgrade-skin .label { font-size: 11px; color: #888; margin-top: 5px; }
-
-        .upgrade-wheel {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .mini-wheel {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: conic-gradient(
-                #4CAF50 0deg 180deg, #ff4444 180deg 360deg
-            );
-            border: 3px solid #7b61ff;
-            box-shadow: 0 0 30px rgba(123, 97, 255, 0.4);
-            transition: transform 8s cubic-bezier(0.1, 0.7, 0.1, 1);
-            position: relative;
-        }
-        .mini-wheel .arrow-small {
-            position: absolute;
-            top: -12px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px; color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
-            z-index: 5;
+        .setting-row .value {
+            color: #7b61ff; font-weight: 700; font-size: 14px;
+            min-width: 40px; text-align: right;
         }
 
+        /* ПРОЦЕНТЫ */
         .percent-list {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 10px; margin-top: 20px;
@@ -209,6 +165,13 @@
         .result .subtitle { font-size: 14px; color: #888; }
         .result.win .title { color: #4CAF50; }
         .result.lose .title { color: #ff4444; }
+
+        /* СКИН В ЦЕНТРЕ */
+        .skin-in-wheel {
+            position: absolute;
+            font-size: 30px;
+            z-index: 3;
+        }
     </style>
 </head>
 <body>
@@ -216,10 +179,11 @@
     <div class="top-bar">
         <div class="account">
             <div class="avatar">👤</div>
-            <div class="nickname">Игрок</div>
+            <div class="nickname" id="nickname">Игрок</div>
         </div>
-        <div class="balance-item">
-            <span>⭐</span><span id="gold">4000</span>
+        <div style="display:flex; align-items:center;">
+            <div class="balance-item"><span>⭐</span><span id="gold">4000</span></div>
+            <button class="settings-btn" onclick="openScreen('settingsScreen')">⚙️</button>
         </div>
     </div>
 
@@ -227,7 +191,7 @@
         <div class="wheel-wrapper">
             <div class="arrow">▼</div>
             <div class="wheel" id="wheel">
-                <div class="wheel-center">🎰</div>
+                <div class="wheel-center" id="wheelCenter">🎰</div>
             </div>
         </div>
         <button class="upgrade-btn" onclick="openScreen('upgradeScreen')">⬆️ УЛУЧШИТЬ</button>
@@ -267,24 +231,35 @@
             <button class="close-btn" onclick="closeScreen('upgradeScreen')">✕</button>
         </div>
         <div class="screen-body">
-            <div class="upgrade-layout">
-                <div class="upgrade-skin" id="skinPreview">
-                    <div class="icon">🔫</div>
-                    <div class="name">AKR «Дракон»</div>
-                    <div class="label">Твой скин</div>
-                </div>
-                <div class="upgrade-wheel">
-                    <div class="mini-wheel" id="miniWheel">
-                        <div class="arrow-small">▼</div>
-                    </div>
-                </div>
+            <div id="skinPreview" style="text-align:center; margin-bottom:15px;">
+                <div style="font-size:50px;">🔫</div>
+                <div style="font-size:14px; color:#fff;">AKR «Дракон»</div>
             </div>
-
-            <div style="text-align:center; color:#7b61ff; font-size:14px; margin-top:10px;">
-                Выбери шанс улучшения:
-            </div>
+            <div style="text-align:center; color:#7b61ff; font-size:14px;">Выбери шанс:</div>
             <div class="percent-list" id="percentList"></div>
             <button class="upgrade-btn" style="width:100%; margin-top:20px;" onclick="confirmUpgrade()">🎰 КРУТИТЬ</button>
+        </div>
+    </div>
+
+    <div class="screen" id="settingsScreen">
+        <div class="screen-header">
+            <h2>⚙️ Настройки</h2>
+            <button class="close-btn" onclick="closeScreen('settingsScreen')">✕</button>
+        </div>
+        <div class="screen-body">
+            <div class="setting-row">
+                <label>Имя</label>
+                <input type="text" id="nameInput" value="Игрок" onchange="changeName()">
+            </div>
+            <div class="setting-row">
+                <label>Скорость прокрутки</label>
+                <input type="range" id="speedRange" min="1" max="30" value="20" onchange="changeSpeed()">
+                <span class="value" id="speedValue">20с</span>
+            </div>
+            <div class="setting-row">
+                <label>Показывать проценты</label>
+                <input type="checkbox" id="showPercents" checked onchange="togglePercents()">
+            </div>
         </div>
     </div>
 
@@ -301,6 +276,7 @@
     <script>
         let gold = 4000;
         let isSpinning = false;
+        let spinSpeed = 20;
         let inventory = [
             { id: 'akr', name: 'AKR «Дракон»', icon: '🔫' },
             { id: 'm4', name: 'M4A1 «Ворон»', icon: '🔫' },
@@ -390,16 +366,15 @@
         function renderUpgradeScreen() {
             if (!selectedItem) {
                 document.getElementById('skinPreview').innerHTML = `
-                    <div class="icon">❓</div>
-                    <div class="name">Скин не выбран</div>
-                    <div class="label">Выбери скин в инвентаре</div>
+                    <div style="font-size:50px;">❓</div>
+                    <div style="font-size:14px; color:#fff;">Скин не выбран</div>
                 `;
             } else {
                 document.getElementById('skinPreview').innerHTML = `
-                    <div class="icon">${selectedItem.icon}</div>
-                    <div class="name">${selectedItem.name}</div>
-                    <div class="label">Твой скин</div>
+                    <div style="font-size:50px;">${selectedItem.icon}</div>
+                    <div style="font-size:14px; color:#fff;">${selectedItem.name}</div>
                 `;
+                document.getElementById('wheelCenter').innerText = selectedItem.icon;
             }
             const list = document.getElementById('percentList');
             list.innerHTML = '';
@@ -432,10 +407,10 @@
             if (isSpinning) return;
             isSpinning = true;
 
-            const miniWheel = document.getElementById('miniWheel');
-            const randomDegree = Math.floor(Math.random() * 360) + 1440;
-            miniWheel.style.transition = 'transform 8s cubic-bezier(0.1, 0.7, 0.1, 1)';
-            miniWheel.style.transform = `rotate(${randomDegree}deg)`;
+            const wheel = document.getElementById('wheel');
+            const randomDegree = Math.floor(Math.random() * 360) + 3600;
+            wheel.style.transition = `transform ${spinSpeed}s cubic-bezier(0.1, 0.7, 0.1, 1)`;
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
 
             setTimeout(() => {
                 const chance = selectedPercent;
@@ -455,7 +430,8 @@
                 selectedPercent = null;
                 selectedItem = null;
                 closeScreen('upgradeScreen');
-            }, 8000);
+                document.getElementById('wheelCenter').innerText = '🎰';
+            }, spinSpeed * 1000);
         }
 
         function showResult(win, title, subtitle) {
@@ -467,6 +443,23 @@
                 <div class="subtitle">${subtitle}</div>
             `;
             openScreen('resultScreen');
+        }
+
+        function changeName() {
+            const name = document.getElementById('nameInput').value;
+            document.getElementById('nickname').innerText = name;
+        }
+
+        function changeSpeed() {
+            const val = document.getElementById('speedRange').value;
+            spinSpeed = parseInt(val);
+            document.getElementById('speedValue').innerText = val + 'с';
+        }
+
+        function togglePercents() {
+            const show = document.getElementById('showPercents').checked;
+            const list = document.getElementById('percentList');
+            if (list) list.style.display = show ? 'grid' : 'none';
         }
 
         updateBalance();
