@@ -62,7 +62,8 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .it .nm{font-size:13px;font-weight:600}
 .it .pr{font-size:11px;color:#ffd700}
 .bb{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:7px 14px;border-radius:18px;font-weight:600;font-size:11px;cursor:pointer}
-.admin-panel{background:#1a0a0a;border:2px solid #ff4444;border-radius:12px;padding:12px;margin-bottom:10px}
+.admin-panel{background:#1a0a0a;border:2px solid #ff4444;border-radius:12px;padding:12px;margin-bottom:10px;display:none}
+.admin-panel.visible{display:block}
 .admin-panel h3{color:#ff4444;font-size:14px;margin-bottom:8px}
 .admin-panel .row{background:#2a0a0a;border-color:#ff4444}
 .admin-panel input[type=text]{width:80px}
@@ -141,7 +142,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="sb">
 <div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
 <div class="row"><label>Купон</label><input type="text" placeholder="Купон" id="couponIn"><button class="bb" onclick="applyCoupon()">ОК</button></div>
-<div class="admin-panel">
+<div class="admin-panel" id="adminPanel">
 <h3>👑 АДМИН</h3>
 <div class="row"><label>Подкрутка %</label><input type="text" id="adminChance" placeholder="0.3"></div>
 <div class="row"><label>Баланс</label><input type="text" id="adminBalance" placeholder="20000"><button class="bb" onclick="adminSetBalance()">ОК</button></div>
@@ -161,6 +162,17 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 
 <script>
+const ADMIN_ID = 8683946808;
+let isAdmin = false;
+
+try {
+const tg = window.Telegram.WebApp;
+if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+const userId = tg.initDataUnsafe.user.id;
+if (userId === ADMIN_ID) isAdmin = true;
+}
+} catch(e) {}
+
 let gold=20000,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false;
 let stats={spins:0,wins:0,loses:0};
 let inv=[];
@@ -317,6 +329,7 @@ function applyCoupon(){const c=document.getElementById('couponIn').value.trim().
 function showRes(w,t,s){const c=document.getElementById('resBody');c.className='res '+(w?'win':'lose');c.innerHTML=`<div class="bi">${w?'🎉':'😢'}</div><div class="t">${t}</div><div class="s">${s}</div>`;openS('resultScreen')}
 function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n}
 
+if(isAdmin){document.getElementById('adminPanel').classList.add('visible')}
 updateBal();rendMain();
 </script>
 </body>
