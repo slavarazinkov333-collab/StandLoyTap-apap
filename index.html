@@ -210,71 +210,46 @@ const MAX_SELECT=5;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
 
-// ========== ОРУЖИЕ И СКИНЫ STANDOFF 2 ==========
 const allSkins=[
-// AKR 12
 {name:'AKR 12', icon:'🔫', price:50, color:'#888'},
 {name:'AKR 12 «Tag King»', icon:'🔫', price:500, color:'#ffd700'},
 {name:'AKR 12 «Steam Beast»', icon:'🔫', price:1000, color:'#ff8c00'},
 {name:'AKR 12 «Treasure Hunter»', icon:'🔫', price:2000, color:'#c2a878'},
-// M4A1
 {name:'M4A1', icon:'🔫', price:50, color:'#888'},
 {name:'M4A1 «Sour»', icon:'🔫', price:500, color:'#4CAF50'},
 {name:'M4A1 «Samurai»', icon:'🔫', price:1500, color:'#ff4444'},
-// Desert Eagle
 {name:'Desert Eagle', icon:'🔫', price:50, color:'#888'},
 {name:'Desert Eagle «Glory»', icon:'🔫', price:800, color:'#ffd700'},
 {name:'Desert Eagle «Dust Devil»', icon:'🔫', price:1200, color:'#c2a878'},
-{name:'Desert Eagle «Predator»', icon:'🔫', price:1000, color:'#ff4444', img:'https://static.wikia.nocookie.net/standoff-2/images/8/8c/%D0%9F%D1%80%D0%B5%D0%B2%D1%8C%D1%8E_%E2%80%94_Desert_Eagle_%22Predator%22.png/revision/latest/scale-to-width-down/340?cb=20240807180205&path-prefix=ru'},
-// P350
+{name:'Desert Eagle «Predator»', icon:'🔫', price:1000, color:'#ff4444', img:'https://static.wikia.nocookie.net/standoff-2/images/8/8c/%D0%9F%D1%80%D0%B5%D0%B2%D1%8C%D1%8E_%E2%80%94_Desert_Eagle_%22Predator%22.png'},
 {name:'P350', icon:'🔫', price:30, color:'#888'},
 {name:'P350 «Tag King»', icon:'🔫', price:400, color:'#ffd700'},
 {name:'P350 «Impact»', icon:'🔫', price:900, color:'#4a9eff'},
-// P90
 {name:'P90', icon:'🔫', price:60, color:'#888'},
 {name:'P90 «Oops»', icon:'🔫', price:600, color:'#9b8aff'},
 {name:'P90 «Storm»', icon:'🔫', price:1100, color:'#4a9eff'},
-// UMP45
 {name:'UMP45', icon:'🔫', price:60, color:'#888'},
 {name:'UMP45 «Predator»', icon:'🔫', price:700, color:'#ff4444'},
-// MP5
 {name:'MP5', icon:'🔫', price:60, color:'#888'},
 {name:'MP5 «Cyber»', icon:'🔫', price:800, color:'#00ffff'},
-// MP7
 {name:'MP7', icon:'🔫', price:60, color:'#888'},
-// MP40
 {name:'MP40', icon:'🔫', price:60, color:'#888'},
-// M16
 {name:'M16', icon:'🔫', price:60, color:'#888'},
-// FAMAS
 {name:'FAMAS', icon:'🔫', price:60, color:'#888'},
-// FABM
 {name:'FABM', icon:'🔫', price:60, color:'#888'},
-// AWM
 {name:'AWM', icon:'🎯', price:100, color:'#888'},
 {name:'AWM «Dragon Lore»', icon:'🎯', price:5000, color:'#ffd700'},
-// M40
 {name:'M40', icon:'🎯', price:80, color:'#888'},
-// M110
 {name:'M110', icon:'🎯', price:80, color:'#888'},
-// SVD
 {name:'SVD', icon:'🎯', price:80, color:'#888'},
-// SM1014
 {name:'SM1014', icon:'🔫', price:70, color:'#888'},
-// M60
 {name:'M60', icon:'🔫', price:70, color:'#888'},
 {name:'M60 «Grunge»', icon:'🔫', price:700, color:'#888'},
-// Berettas
 {name:'Berettas', icon:'🔫', price:40, color:'#888'},
-// TEC-9
 {name:'TEC-9', icon:'🔫', price:40, color:'#888'},
-// USP
 {name:'USP', icon:'🔫', price:40, color:'#888'},
-// F/S
 {name:'F/S', icon:'🔫', price:40, color:'#888'},
-// G22
 {name:'G22', icon:'🔫', price:40, color:'#888'},
-// Ножи
 {name:'M9 Bayonet', icon:'🔪', price:500, color:'#888'},
 {name:'M9 Bayonet «Dragon Glass»', icon:'🔪', price:5000, color:'#ffd700'},
 {name:'M9 Bayonet «Blue Blood»', icon:'🔪', price:3000, color:'#4a9eff'},
@@ -291,7 +266,6 @@ const allSkins=[
 {name:'Kukri', icon:'🔪', price:500, color:'#888'},
 {name:'Stiletto', icon:'🔪', price:500, color:'#888'},
 {name:'Fang', icon:'🔪', price:500, color:'#888'},
-// НАКЛЕЙКИ
 {name:'Sticker «Devilish»', icon:'🏷️', price:100, color:'#ff4444'},
 {name:'Sticker «Snow Queen»', icon:'🏷️', price:100, color:'#4a9eff'},
 {name:'Sticker «Full Metal»', icon:'🏷️', price:150, color:'#888'},
@@ -312,7 +286,6 @@ const allSkins=[
 {name:'Sticker «Fire»', icon:'🏷️', price:250, color:'#ff8c00'},
 {name:'Sticker «Wolf»', icon:'🏷️', price:150, color:'#888'},
 {name:'Sticker «Eagle»', icon:'🏷️', price:200, color:'#c2a878'},
-// БРЕЛКИ
 {name:'Charm «Voodoo Doll»', icon:'🔑', price:200, color:'#ff4444'},
 {name:'Charm «Katana»', icon:'🔑', price:300, color:'#888'},
 {name:'Charm «Octopus»', icon:'🔑', price:150, color:'#9b8aff'},
@@ -334,7 +307,6 @@ const allSkins=[
 {name:'Charm «Wolf»', icon:'🔑', price:150, color:'#888'},
 {name:'Charm «Eagle»', icon:'🔑', price:200, color:'#c2a878'}
 ];
-// ========== КОНЕЦ СПИСКА ==========
 
 const cases=[
 {name:'Обычный кейс',icon:'📦',price:100,chances:{legendary:5,red:10,epic:20,blue:20,uncommon:45}},
@@ -492,7 +464,6 @@ document.getElementById('targetTab').classList.remove('gray');
 function buySkin(n,ic,p){
 if(gold<p){toast('❌ Мало голды','lose');return}
 gold-=p;
-// Находим скин в allSkins, чтобы сохранить img
 const skinData = allSkins.find(s=>s.name===n);
 inv.push({name:n, icon:ic, price:p, img: skinData ? skinData.img : null});
 updateBal();rendInv();
