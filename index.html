@@ -131,7 +131,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="arrow" id="arrow"></div>
 <div class="wheel" id="wheel"><div class="pt" id="pt">?%</div><div class="pl">средний шанс</div></div>
 </div>
-<button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()">⬆️ ПРОКАЧАТЬ</button>
+<button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆️ ПРОКАЧАТЬ</button>
 <div class="pcnt" id="pcntList"></div>
 <div class="mult">
 <button class="mb gray" onclick="setMulti(2)">x2</button>
@@ -409,23 +409,22 @@ document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div cl
 }
 document.getElementById('counter').innerText = 'Выбрано: ' + (selectedItems.length || 1) + ' из 5';
 
-const hasTarget = targetSkin !== null;
+const hasSkin = selectedItems.length > 0;
 
-// Цифры процентов — серые если нет цели, активные если цель есть
+// Цифры процентов — серые если нет скина
 document.getElementById('pcntList').innerHTML=pcts.map(p=>{
-if(!hasTarget) return `<button class="pb gray">${p}%</button>`;
+if(!hasSkin) return `<button class="pb gray">${p}%</button>`;
 return `<button class="pb ${selPct===p?'sel':''}" onclick="selP(${p})">${p}%</button>`;
 }).join('');
 
-// Множители — серые если нет цели, активные если цель есть
+// Множители — серые если нет скина
 document.querySelectorAll('.mb').forEach(b=>{
-b.classList.toggle('gray',!hasTarget);
-b.classList.remove('sel');
+b.classList.toggle('gray',!hasSkin);
 });
 
-// Кнопка Прокачать — активна если есть цель
+// Кнопка Прокачать
 const btn=document.getElementById('upgradeBtn');
-if(hasTarget){
+if(hasSkin && targetSkin!==null){
 btn.disabled=false;
 btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)';
 }else{
@@ -436,10 +435,26 @@ document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%'
 }
 function selP(p){
 selPct=p;
-document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
-if(targetSkin){
-document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div><div class="spr">Шанс: ${selPct}%</div>`;
+// Автоматически подбираем скин под этот процент
+if(selectedItems.length>0){
+const myPrice = selectedItems[0].price || 50;
+const targetPrice = Math.round(myPrice / (p/100));
+// Ищем ближайший скин по цене
+let closest = allSkins[0];
+let minDiff = Infinity;
+allSkins.forEach(s=>{
+const diff = Math.abs(s.price - targetPrice);
+if(diff < minDiff){minDiff = diff; closest = s;}
+});
+targetSkin = {name: closest.name, icon: closest.icon, price: closest.price, color: closest.color};
+document.getElementById('rightSlot').innerHTML = `
+<div class="si">${targetSkin.icon}</div>
+<div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div>
+<div class="sl">Цель: ${targetSkin.price} голды</div>
+<div class="spr">Шанс: ${selPct}%</div>
+`;
 }
+document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
 document.getElementById('pt').innerText=p.toFixed(1)+'%';
 const wheel = document.getElementById('wheel');
 const wa = (p/100)*360;
@@ -448,7 +463,7 @@ wheel.style.setProperty('--wa', wa+'deg');
 rendMain();
 }
 function setMulti(v){
-if(targetSkin===null){toast('❌ Сначала выбери цель','lose');return}
+if(selectedItems.length===0){toast('❌ Сначала выбери скин','lose');return}
 multi=v;
 document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')});
 toast('✅ Множитель: x'+v,'win');
@@ -533,4 +548,4 @@ function changeName(){const n=document.getElementById('nameIn').value;document.g
 updateBal();rendMain();rendInv();
 </script>
 </body>
-  </html>
+</html>
