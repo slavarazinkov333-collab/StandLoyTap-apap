@@ -66,6 +66,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .case .cn{font-size:14px;font-weight:600;margin-top:6px}
 .case .cp{font-size:12px;color:#ffd700;margin-top:4px}
 .case .cr{font-size:11px;color:#888;margin-top:4px}
+.case .bb{margin-top:8px;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer}
 .inv-tabs{display:flex;gap:8px;width:100%;padding:10px 0;position:sticky;top:0;background:#0a0a0f;z-index:20}
 .inv-tab{flex:1;padding:12px;background:#12121f;border:2px solid #2a2a4e;border-radius:12px;color:#888;font-weight:700;font-size:12px;cursor:pointer;text-align:center}
 .inv-tab.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700}
@@ -211,7 +212,6 @@ const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
 
 const allSkins=[
-// ===== AKR 12 =====
 {name:'AKR 12', icon:'🔫', price:50, color:'#888'},
 {name:'AKR 12 «Tag King»', icon:'🔫', price:500, color:'#ffd700', img:'https://avatars.mds.yandex.net/i?id=be33280c2d6526334720813d7a4baa1799d79e48-10131513-images-thumbs&n=13'},
 {name:'AKR 12 «Steam Beast»', icon:'🔫', price:1000, color:'#ff8c00', img:'https://avatars.mds.yandex.net/i?id=662ebe7b0a2ff3b6dc07980a04a0377119142802-4575726-images-thumbs&n=13'},
@@ -223,7 +223,6 @@ const allSkins=[
 {name:'AKR 12 «Hanami»', icon:'🔫', price:3000, color:'#ff8c00', img:'https://avatars.mds.yandex.net/i?id=3715dfbcc17c86af3f5d320e5dfa9215ca3808d1-9215233-images-thumbs&n=13'},
 {name:'AKR 12 «Ice Storm»', icon:'🔫', price:900, color:'#4a9eff', img:'https://avatars.mds.yandex.net/i?id=5e85ae38ce7b2dbe3126ee5e9bde4b3335ec6518-5340529-images-thumbs&n=13'},
 {name:'AKR 12 «Emberbird»', icon:'🔫', price:1500, color:'#ff4444', img:'https://avatars.mds.yandex.net/i?id=ee8ef80e8d3cdad16721abf36642277f29f7f7fd-12524936-images-thumbs&n=13'},
-// ===== M4A1 =====
 {name:'M4A1', icon:'🔫', price:50, color:'#888'},
 {name:'M4A1 «Sour»', icon:'🔫', price:500, color:'#4CAF50', img:'https://avatars.mds.yandex.net/i?id=f0f4e2e50e84a1a291e81cbd15992df77012605f-5481636-images-thumbs&n=13'},
 {name:'M4A1 «Samurai»', icon:'🔫', price:1500, color:'#ff4444', img:'https://avatars.mds.yandex.net/i?id=112a327e1c7f609a5285a8454f65dc3a41541e85-10613167-images-thumbs&n=13'},
@@ -231,32 +230,25 @@ const allSkins=[
 {name:'M4A1 «Bubblegum»', icon:'🔫', price:3500, color:'#ff69b4', img:'https://avatars.mds.yandex.net/i?id=a1fa2569e4fd744413ca3b860dec15251d1c37b9-9069510-images-thumbs&n=13'},
 {name:'M4A1 «Tempest»', icon:'🔫', price:1800, color:'#9b8aff', img:'https://i.playerok.com/cTrqQgZwr5oFL7aU43zwmvTj3mTlOKVP-WaEqgwaofU/wm:0.8:soea:5:2:0.2/rs:fill:0:1000:0/g:no/quality:99/czM6Ly9wbGF5ZXJvay8vaW1hZ2VzLzFmMWE0ODJmLWE2NDUtNjg2MC1mMGNlLWRkMDZjZGNmNmZhZC5qcGc.jpg'},
 {name:'M4A1 «Sparkling Gaze»', icon:'🔫', price:2500, color:'#00ffff', img:'https://avatars.mds.yandex.net/i?id=ea07ba0b76092893ad2b93dded4ceb0fa60a1121-16346665-images-thumbs&n=13'},
-// ===== Desert Eagle =====
 {name:'Desert Eagle', icon:'🔫', price:50, color:'#888'},
 {name:'Desert Eagle «Glory»', icon:'🔫', price:800, color:'#ffd700', img:'https://avatars.mds.yandex.net/i?id=d16373a9c30a02555fb6b60845ca9ca1c0d43ae2-10870276-images-thumbs&n=13'},
 {name:'Desert Eagle «Dust Devil»', icon:'🔫', price:1200, color:'#c2a878'},
 {name:'Desert Eagle «Predator»', icon:'🔫', price:1000, color:'#ff4444'},
 {name:'Desert Eagle «Piranha»', icon:'🔫', price:1500, color:'#ff4444', img:'https://avatars.mds.yandex.net/i?id=94c14899883ff470c7438f8ae9338154dde870c3-5313814-images-thumbs&n=13'},
 {name:'Desert Eagle «Wildflower»', icon:'🔫', price:1800, color:'#ff69b4', img:'https://avatars.mds.yandex.net/i?id=84d54732ffab704aba7bc55c972599f28ed2345c-5213474-images-thumbs&n=13'},
-// ===== P350 =====
 {name:'P350', icon:'🔫', price:30, color:'#888', img:'https://avatars.mds.yandex.net/i?id=1706c8772b2fe9859d327829bc1507da3d6b388e-12365999-images-thumbs&n=13'},
 {name:'P350 «Tag King»', icon:'🔫', price:400, color:'#ffd700'},
 {name:'P350 «Impact»', icon:'🔫', price:900, color:'#4a9eff'},
-// ===== USP =====
 {name:'USP «Genesis»', icon:'🔫', price:700, color:'#4a9eff', img:'https://avatars.mds.yandex.net/i?id=354c5b525682f2a5490441774f31c4a9f526bd21-5715888-images-thumbs&n=13'},
 {name:'USP «Раритет»', icon:'🔫', price:1200, color:'#c2a878', img:'https://avatars.mds.yandex.net/i?id=badeb2f99a966c84158b7987368e5a33c1933323-4598847-images-thumbs&n=13'},
 {name:'USP', icon:'🔫', price:40, color:'#888'},
-// ===== P90 =====
 {name:'P90', icon:'🔫', price:60, color:'#888'},
 {name:'P90 «Oops»', icon:'🔫', price:600, color:'#9b8aff'},
 {name:'P90 «Storm»', icon:'🔫', price:1100, color:'#4a9eff'},
-// ===== UMP45 =====
 {name:'UMP45', icon:'🔫', price:60, color:'#888'},
 {name:'UMP45 «Predator»', icon:'🔫', price:700, color:'#ff4444'},
-// ===== MP5 =====
 {name:'MP5', icon:'🔫', price:60, color:'#888'},
 {name:'MP5 «Cyber»', icon:'🔫', price:800, color:'#00ffff'},
-// ===== Прочее оружие =====
 {name:'MP7', icon:'🔫', price:60, color:'#888'},
 {name:'MP40', icon:'🔫', price:60, color:'#888'},
 {name:'M16', icon:'🔫', price:60, color:'#888'},
@@ -269,13 +261,11 @@ const allSkins=[
 {name:'TEC-9', icon:'🔫', price:40, color:'#888'},
 {name:'F/S', icon:'🔫', price:40, color:'#888'},
 {name:'G22', icon:'🔫', price:40, color:'#888'},
-// ===== Винтовки =====
 {name:'AWM', icon:'🎯', price:100, color:'#888'},
 {name:'AWM «Dragon Lore»', icon:'🎯', price:5000, color:'#ffd700'},
 {name:'M40', icon:'🎯', price:80, color:'#888'},
 {name:'M110', icon:'🎯', price:80, color:'#888'},
 {name:'SVD', icon:'🎯', price:80, color:'#888'},
-// ===== Ножи =====
 {name:'M9 Bayonet', icon:'🔪', price:500, color:'#888'},
 {name:'M9 Bayonet «Dragon Glass»', icon:'🔪', price:5000, color:'#ffd700'},
 {name:'M9 Bayonet «Blue Blood»', icon:'🔪', price:3000, color:'#4a9eff'},
@@ -292,7 +282,6 @@ const allSkins=[
 {name:'Kukri', icon:'🔪', price:500, color:'#888'},
 {name:'Stiletto', icon:'🔪', price:500, color:'#888'},
 {name:'Fang', icon:'🔪', price:500, color:'#888'},
-// ===== Наклейки =====
 {name:'Sticker «Devilish»', icon:'🏷️', price:100, color:'#ff4444'},
 {name:'Sticker «Snow Queen»', icon:'🏷️', price:100, color:'#4a9eff'},
 {name:'Sticker «Full Metal»', icon:'🏷️', price:150, color:'#888'},
@@ -313,7 +302,6 @@ const allSkins=[
 {name:'Sticker «Fire»', icon:'🏷️', price:250, color:'#ff8c00'},
 {name:'Sticker «Wolf»', icon:'🏷️', price:150, color:'#888'},
 {name:'Sticker «Eagle»', icon:'🏷️', price:200, color:'#c2a878'},
-// ===== Брелки =====
 {name:'Charm «Voodoo Doll»', icon:'🔑', price:200, color:'#ff4444'},
 {name:'Charm «Katana»', icon:'🔑', price:300, color:'#888'},
 {name:'Charm «Octopus»', icon:'🔑', price:150, color:'#9b8aff'},
@@ -337,9 +325,9 @@ const allSkins=[
 ];
 
 const cases=[
-{name:'Обычный кейс',icon:'📦',price:100,chances:{legendary:5,red:10,epic:20,blue:20,uncommon:45}},
-{name:'Редкий кейс',icon:'🎁',price:500,chances:{legendary:10,red:20,epic:30,blue:20,uncommon:20}},
-{name:'Легендарный кейс',icon:'💎',price:2000,chances:{legendary:30,red:30,epic:20,blue:10,uncommon:10}}
+{name:'Обычный кейс',icon:'📦',price:100,chances:{legendary:1,red:3,epic:10,blue:26,uncommon:60}},
+{name:'Редкий кейс',icon:'🎁',price:500,chances:{legendary:2,red:5,epic:15,blue:28,uncommon:50}},
+{name:'Легендарный кейс',icon:'💎',price:2000,chances:{legendary:5,red:10,epic:20,blue:30,uncommon:35}}
 ];
 const tasks=[
 {name:'Первый спин',done:false,reward:10},
@@ -601,10 +589,28 @@ const win = inOrange;
 stats.spins++;
 if(win){
 stats.wins++;
-let totalBonus=0;
-selectedItems.forEach(it=>{totalBonus += Math.round((it.price||0) * (selPct/100)) * multi});
-gold += totalBonus;updateBal();
-toast('🎉 Улучшено! +'+totalBonus+' голды','win');
+
+// Добавляем выигранный скин в инвентарь
+const skinData = allSkins.find(s=>s.name===targetSkin.name);
+const wonSkin = {
+name: targetSkin.name,
+icon: targetSkin.icon,
+price: targetSkin.price,
+img: skinData ? skinData.img : null
+};
+inv.push(wonSkin);
+
+// Обновляем правый слот — показываем выигранный скин
+const wonImg = wonSkin.img ? `<img src="${wonSkin.img}" style="width:50px;height:50px;object-fit:contain" onerror="this.style.display='none'">` : '';
+document.getElementById('rightSlot').innerHTML = `
+${wonImg}
+${wonSkin.img?'':`<div class="si">${wonSkin.icon}</div>`}
+<div class="sn" style="color:${targetSkin.color}">${wonSkin.name}</div>
+<div class="sl">🎉 ВЫБИЛ!</div>
+<div class="spr">+1 скин</div>
+`;
+
+toast('🎉 Выбил: '+wonSkin.name,'win');
 sound('win');confetti();
 }else{
 stats.loses++;
@@ -612,34 +618,133 @@ toast('😢 Сгорело '+selectedItems.length+' скинов!','lose');
 sound('lose');
 selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
 }
-isSpinning=false;selItem=null;selPct=null;multi=1;selectedItems=[];targetSkin=null;
+
+isSpinning=false;
+
+// Сбрасываем ЛЕВЫЙ слот (только выбранные скины), но НЕ правый
+selectedItems=[];
+document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>';
+
+// Сбрасываем стрелку и колесо
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
 wheel.style.setProperty('--wa','90deg');
+
+// Сбрасываем targetSkin и selPct только после показа выигрыша
+setTimeout(()=>{
+targetSkin=null;selPct=null;
 document.getElementById('targetTab').classList.add('gray');
-rendMain();rendInv();
+rendMain();
+},3000);
+
+rendInv();
 },6000);
 }
 function spinUpgradeFast(){if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}if(targetSkin===null){toast('❌ Выбери цель','lose');return}spinUpgrade()}
+
 function rendCases(){
 const b=document.getElementById('casesBody');
-b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><div class="cn">${c.name}</div><div class="cp">${c.price} голды</div><div class="cr">🎰 ${c.chances.legendary}% / 🔴 ${c.chances.red}% / 🟣 ${c.chances.epic}% / 🔵 ${c.chances.blue}% / ⚪ ${c.chances.uncommon}%</div><button class="bb" style="margin-top:8px" onclick="openCase(${i})">Открыть</button></div>`).join('');
+b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><div class="cn">${c.name}</div><div class="cp">${c.price} голды</div><div class="cr">🎰 ${c.chances.legendary}% / 🔴 ${c.chances.red}% / 🟣 ${c.chances.epic}% / 🔵 ${c.chances.blue}% / ⚪ ${c.chances.uncommon}%</div><button class="bb" onclick="openCase(${i})">Открыть</button></div>`).join('');
 }
+
+function getSkinByRarity(rarity){
+const map={
+legendary:['#ff00ff','#ff69b4'],
+red:['#ff4444','#ff8c00'],
+epic:['#9b8aff','#7b61ff'],
+blue:['#4a9eff','#00ffff'],
+uncommon:['#888','#c2a878','#4CAF50','#fff','#ffd700']
+};
+const colors=map[rarity]||map.uncommon;
+const pool=allSkins.filter(s=>colors.includes(s.color));
+if(pool.length===0)return allSkins[Math.floor(Math.random()*allSkins.length)];
+return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function rollRarity(chances){
+const roll=Math.floor(Math.random()*100)+1;
+let acc=0;
+acc+=chances.legendary; if(roll<=acc)return 'legendary';
+acc+=chances.red; if(roll<=acc)return 'red';
+acc+=chances.epic; if(roll<=acc)return 'epic';
+acc+=chances.blue; if(roll<=acc)return 'blue';
+return 'uncommon';
+}
+
 function openCase(i){
 const c=cases[i];
 if(gold<c.price){toast('❌ Мало голды','lose');return}
 gold-=c.price;updateBal();
-const roll=Math.floor(Math.random()*100)+1;
-let skin;
-if(roll<=c.chances.legendary)skin=allSkins.find(s=>s.color==='#ff00ff')||allSkins[0];
-else if(roll<=c.chances.legendary+c.chances.red)skin=allSkins.find(s=>s.color==='#ff4444')||allSkins[0];
-else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic)skin=allSkins.find(s=>s.color==='#9b8aff')||allSkins[0];
-else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic+c.chances.blue)skin=allSkins.find(s=>s.color==='#4a9eff')||allSkins[0];
-else skin=allSkins.find(s=>s.color==='#888')||allSkins[0];
-inv.push({name:skin.name,icon:skin.icon,price:skin.price,img:skin.img||null});
-toast('📦 Выпало: '+skin.name,'win');
-sound('win');confetti();
-rendCases();
+
+const rarity=rollRarity(c.chances);
+const winSkin=getSkinByRarity(rarity);
+
+const strip=[];
+for(let k=0;k<45;k++){
+strip.push(allSkins[Math.floor(Math.random()*allSkins.length)]);
 }
+const winIndex=42;
+strip.splice(winIndex,0,winSkin);
+
+const modal=document.createElement('div');
+modal.id='caseModal';
+modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:300;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px';
+
+const title=document.createElement('div');
+title.style.cssText='color:#ffd700;font-size:18px;font-weight:700;margin-bottom:16px;text-align:center';
+title.innerText=c.name;
+modal.appendChild(title);
+
+const stripBox=document.createElement('div');
+stripBox.style.cssText='width:100%;max-width:600px;height:150px;background:#0f0f1a;border:2px solid #7b61ff;border-radius:12px;overflow:hidden;position:relative';
+const pointer=document.createElement('div');
+pointer.style.cssText='position:absolute;top:0;bottom:0;left:50%;width:3px;background:#ffd700;transform:translateX(-50%);z-index:10;box-shadow:0 0 12px #ffd700';
+stripBox.appendChild(pointer);
+
+const stripEl=document.createElement('div');
+stripEl.style.cssText='display:flex;gap:8px;padding:14px;position:absolute;left:0;top:0;transition:transform 5s cubic-bezier(0.15,0.6,0.3,1)';
+stripEl.innerHTML=strip.map(s=>{
+const iconHtml=s.img?`<img src="${s.img}" style="width:60px;height:60px;object-fit:contain" onerror="this.style.display='none'">`:`<div style="font-size:40px">${s.icon}</div>`;
+return `<div style="flex:0 0 90px;height:120px;background:#12121f;border:2px solid #2a2a4e;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px">${iconHtml}<div style="font-size:9px;color:#aaa;margin-top:4px;text-align:center;line-height:1.1;overflow:hidden">${s.name}</div></div>`;
+}).join('');
+stripBox.appendChild(stripEl);
+modal.appendChild(stripBox);
+
+const resultBox=document.createElement('div');
+resultBox.style.cssText='margin-top:20px;min-height:140px;display:flex;flex-direction:column;justify-content:center;align-items:center';
+resultBox.innerHTML='<div style="color:#888;font-size:14px">Крутим...</div>';
+modal.appendChild(resultBox);
+
+document.body.appendChild(modal);
+
+setTimeout(()=>{
+const slotWidth=98;
+const offset=winIndex*slotWidth;
+const boxWidth=stripBox.clientWidth;
+const finalX=-(offset+slotWidth/2-boxWidth/2);
+stripEl.style.transform=`translateX(${finalX}px)`;
+},50);
+
+let ticks=0;
+const tickInt=setInterval(()=>{sound('tick');ticks++;if(ticks>30)clearInterval(tickInt);},150);
+
+setTimeout(()=>{
+clearInterval(tickInt);
+resultBox.innerHTML='';
+
+inv.push({name:winSkin.name,icon:winSkin.icon,price:winSkin.price,img:winSkin.img||null});
+
+const iconHtml=winSkin.img?`<img src="${winSkin.img}" style="width:100px;height:100px;object-fit:contain" onerror="this.style.display='none'">`:`<div style="font-size:60px">${winSkin.icon}</div>`;
+resultBox.innerHTML=`<div style="color:#4CAF50;font-size:16px;font-weight:700;margin-bottom:8px">🎉 ВЫПАЛО!</div>${iconHtml}<div style="color:${winSkin.color};font-size:14px;font-weight:700;margin-top:8px">${winSkin.name}</div>`;
+sound('win');confetti();
+
+const btn=document.createElement('button');
+btn.innerText='ЗАБРАТЬ';
+btn.style.cssText='margin-top:16px;padding:12px 40px;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer';
+btn.onclick=()=>{modal.remove();rendCases();};
+resultBox.appendChild(btn);
+},5500);
+}
+
 function rendTasks(){
 const b=document.getElementById('tasksBody');
 b.innerHTML=tasks.map((t,i)=>`<div class="it"><div class="ii"><span class="ic">📋</span><div><div class="nm">${t.name}</div><div class="pr">${t.done?'✅ Выполнено':'⏳ Не выполнено'}</div></div></div>${t.done?'':'<button class="bb" onclick="doneTask('+i+')">+'+t.reward+'</button>'}</div>`).join('');
