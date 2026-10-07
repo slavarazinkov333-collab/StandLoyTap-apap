@@ -21,6 +21,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .slot .si{font-size:40px;margin-bottom:6px}
 .slot .sn{font-size:11px;font-weight:600}
 .slot .sl{font-size:9px;color:#888;margin-top:2px}
+.slot .spr{font-size:10px;color:#ffd700;margin-top:4px;font-weight:700}
 .wheel-box{position:relative;width:280px;height:280px;margin:10px 0}
 .wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 180deg,#ffd700 0deg var(--wa,90deg),#0a0a0f var(--wa,90deg) 360deg);border:8px solid #2a2a4e;position:relative;display:flex;justify-content:center;align-items:center}
 .pt{font-size:36px;font-weight:900;color:#ffd700;z-index:2}
@@ -32,6 +33,9 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .pb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
 .pb.gray{color:#666;border-color:#1a1a2e}
+.mult{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin-top:6px}
+.mb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.mb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
 .bottom{background:#0f0f1a;padding:8px;display:flex;justify-content:space-around;border-top:1px solid #2a2a4e;position:relative;z-index:1}
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
@@ -56,8 +60,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .it .nm{font-size:13px;font-weight:600}
 .it .pr{font-size:11px;color:#ffd700}
 .bb{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:7px 14px;border-radius:18px;font-weight:600;font-size:11px;cursor:pointer}
-.admin-panel{background:#1a0a0a;border:2px solid #ff4444;border-radius:12px;padding:12px;margin-bottom:10px;display:none}
-.admin-panel.visible{display:block}
+.admin-panel{background:#1a0a0a;border:2px solid #ff4444;border-radius:12px;padding:12px;margin-bottom:10px}
 .admin-panel h3{color:#ff4444;font-size:14px;margin-bottom:8px}
 .admin-panel .row{background:#2a0a0a;border-color:#ff4444}
 .admin-panel input[type=text]{width:80px}
@@ -66,10 +69,12 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .case .cn{font-size:14px;font-weight:600;margin-top:6px}
 .case .cp{font-size:12px;color:#ffd700;margin-top:4px}
 .case .cr{font-size:11px;color:#888;margin-top:4px}
-.inv-tabs{display:flex;gap:8px;margin-bottom:10px}
-.inv-tab{flex:1;padding:12px;background:#12121f;border:2px solid #2a2a4e;border-radius:12px;color:#888;font-weight:700;font-size:13px;cursor:pointer;text-align:center}
+
+/* ШИРОКИЕ ВКЛАДКИ — STICKY */
+.inv-tabs{display:flex;gap:8px;width:100%;padding:10px 0;position:sticky;top:0;background:#0a0a0f;z-index:20}
+.inv-tab{flex:1;padding:14px;background:#12121f;border:2px solid #2a2a4e;border-radius:12px;color:#888;font-weight:700;font-size:14px;cursor:pointer;text-align:center}
 .inv-tab.active{background:#ffd700;color:#1a1a2e;border-color:#ffd700}
-.inv-search{display:flex;align-items:center;gap:8px;background:#12121f;border:1px solid #2a2a4e;border-radius:10px;padding:10px;margin-bottom:10px}
+.inv-search{display:flex;align-items:center;gap:8px;background:#12121f;border:1px solid #2a2a4e;border-radius:10px;padding:10px;margin-bottom:10px;width:100%}
 .inv-search input{flex:1;background:none;border:none;color:#fff;font-size:13px;outline:none}
 .inv-empty{text-align:center;padding:60px 20px;color:#666}
 .inv-empty .icon{font-size:60px;margin-bottom:10px}
@@ -80,7 +85,6 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
 .footer-block .ft-btn{display:inline-block;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none;margin:4px}
 
-/* СВОЯ ТАБЛИЧКА */
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.9);background:#0f0f1a;border:2px solid #7b61ff;border-radius:16px;padding:20px 30px;color:#fff;font-size:15px;font-weight:700;z-index:999;opacity:0;pointer-events:none;transition:all .3s;box-shadow:0 0 40px rgba(123,97,255,.5)}
 .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .toast.win{border-color:#4CAF50;box-shadow:0 0 40px rgba(76,175,80,.5)}
@@ -111,8 +115,14 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 <button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆️ ПРОКАЧАТЬ</button>
 <div class="pcnt" id="pcntList"></div>
+<div class="mult">
+<button class="mb" onclick="setMulti(2)">x2</button>
+<button class="mb" onclick="setMulti(4)">x4</button>
+<button class="mb" onclick="setMulti(5)">x5</button>
+<button class="mb" onclick="setMulti(10)">x10</button>
+</div>
 
-<div class="inv-tabs" style="margin-top:20px;">
+<div class="inv-tabs">
 <div class="inv-tab active" onclick="switchInv('inv')">🎒 Инвентарь</div>
 <div class="inv-tab" onclick="switchInv('shop')">🛒 Магазин</div>
 </div>
@@ -157,10 +167,10 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="sb">
 <div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
 <div class="row"><label>Купон</label><input type="text" placeholder="Купон" id="couponIn"><button class="bb" onclick="applyCoupon()">ОК</button></div>
-<div class="admin-panel" id="adminPanel">
+<div class="admin-panel">
 <h3>👑 АДМИН</h3>
 <div class="row"><label>Подкрутка %</label><input type="text" id="adminChance" placeholder="0.3"></div>
-<div class="row"><label>Баланс</label><input type="text" id="adminBalance" placeholder="20000"><button class="bb" onclick="adminSetBalance()">ОК</button></div>
+<div class="row"><label>Выдать голду</label><input type="text" id="adminGold" placeholder="1000"><button class="bb" onclick="adminGiveGold()">ОК</button></div>
 <div class="row"><label>Всегда выигрыш</label><input type="checkbox" id="adminAlwaysWin" onchange="adminToggleWin()"></div>
 </div>
 </div>
@@ -169,16 +179,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="toast" id="toast"></div>
 
 <script>
-const ADMIN_ID = 8683946808;
-let isAdmin = false;
-try {
-const tg = window.Telegram.WebApp;
-if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-if (tg.initDataUnsafe.user.id === ADMIN_ID) isAdmin = true;
-}
-} catch(e) {}
-
-let gold=20000,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false;
+let gold=20000,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false,multi=1;
 let stats={spins:0,wins:0,loses:0};
 let inv=[];
 let invMode='inv';
@@ -269,7 +270,7 @@ return `<div class="it" onclick="buySkin('${s.name}','${s.icon}',${s.price})">
 }
 function buySkin(n,ic,p){
 if(gold<p){toast('❌ Мало голды','lose');return}
-gold-=p;inv.push({name:n,icon:ic});updateBal();rendInv();toast('✅ Куплено: '+n,'win');
+gold-=p;inv.push({name:n,icon:ic,price:p});updateBal();rendInv();toast('✅ Куплено: '+n,'win');
 }
 function selI(i){selItem=inv[i];rendMain();toast('✅ Выбран: '+selItem.name,'win')}
 
@@ -286,11 +287,16 @@ document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%'
 function selP(p){
 selPct=p;
 document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
-if(selItem){document.getElementById('rightSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Можно улучшить</div>`}
+if(selItem){
+const bonus = Math.round((selItem.price||0) * (p/100));
+const total = Math.round((selItem.price||0) + bonus);
+document.getElementById('rightSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="spr">+${bonus} голды</div><div class="sl">При выигрыше: ${total} голды</div>`;
+}
 document.getElementById('pt').innerText=p.toFixed(1)+'%';
 document.getElementById('wheel').style.setProperty('--wa',(p/100*360)+'deg');
 rendMain();
 }
+function setMulti(v){multi=v;document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')})}
 function spinUpgrade(){
 if(!selItem){toast('❌ Выбери скин','lose');return}
 if(selPct===null){toast('❌ Выбери процент','lose');return}
@@ -309,12 +315,20 @@ if(adminAlwaysWin)ec=100;
 const roll=Math.floor(Math.random()*100)+1;
 const win=roll<=ec;
 stats.spins++;
-if(win){stats.wins++;gold+=5;updateBal();toast('🎉 Улучшено! +5 голды','win')}
-else{stats.loses++;toast('😢 Сгорел!','lose');inv=inv.filter(i=>i!==selItem)}
+if(win){
+stats.wins++;
+const bonus = Math.round((selItem.price||0) * (selPct/100));
+gold += bonus;updateBal();
+toast('🎉 Улучшено! +'+bonus+' голды','win');
+}else{
+stats.loses++;
+toast('😢 Сгорел! '+selItem.name,'lose');
+inv=inv.filter(i=>i!==selItem);
+}
 isSpinning=false;selItem=null;selPct=null;
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
 document.getElementById('wheel').style.setProperty('--wa','90deg');
-rendMain();
+rendMain();rendInv();
 },6000);
 }
 function spinUpgradeFast(){if(!selItem){toast('❌ Выбери скин','lose');return}if(selPct===null){toast('❌ Выбери процент','lose');return}spinUpgrade()}
@@ -334,7 +348,7 @@ else if(roll<=c.chances.legendary+c.chances.red)skin=allSkins.find(s=>s.color===
 else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic)skin=allSkins.find(s=>s.color==='#9b8aff')||allSkins[0];
 else if(roll<=c.chances.legendary+c.chances.red+c.chances.epic+c.chances.blue)skin=allSkins.find(s=>s.color==='#4a9eff')||allSkins[0];
 else skin=allSkins.find(s=>s.color==='#888')||allSkins[0];
-inv.push({name:skin.name,icon:skin.icon});
+inv.push({name:skin.name,icon:skin.icon,price:skin.price});
 toast('📦 Выпало: '+skin.name,'win');
 rendCases();
 }
@@ -343,12 +357,11 @@ const b=document.getElementById('tasksBody');
 b.innerHTML=tasks.map((t,i)=>`<div class="it"><div class="ii"><span class="ic">📋</span><div><div class="nm">${t.name}</div><div class="pr">${t.done?'✅ Выполнено':'⏳ Не выполнено'}</div></div></div>${t.done?'':'<button class="bb" onclick="doneTask('+i+')">+'+t.reward+'</button>'}</div>`).join('');
 }
 function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();toast('✅ +'+tasks[i].reward+' голды','win')}
-function adminSetBalance(){const v=parseInt(document.getElementById('adminBalance').value);if(!isNaN(v)){gold=v;updateBal();toast('✅ Баланс: '+v,'win')}}
+function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').value);if(!isNaN(v)){gold+=v;updateBal();toast('✅ +'+v+' голды','win')}}
 function adminToggleWin(){adminAlwaysWin=document.getElementById('adminAlwaysWin').checked}
 function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();toast('✅ Купон активирован!','win')}else toast('❌ Неверный купон','lose')}
 function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n}
 
-if(isAdmin){document.getElementById('adminPanel').classList.add('visible')}
 updateBal();rendMain();rendInv();
 </script>
 </body>
