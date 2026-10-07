@@ -411,18 +411,15 @@ document.getElementById('counter').innerText = 'Выбрано: ' + (selectedIte
 
 const hasSkin = selectedItems.length > 0;
 
-// Цифры процентов — серые если нет скина
 document.getElementById('pcntList').innerHTML=pcts.map(p=>{
 if(!hasSkin) return `<button class="pb gray">${p}%</button>`;
 return `<button class="pb ${selPct===p?'sel':''}" onclick="selP(${p})">${p}%</button>`;
 }).join('');
 
-// Множители — серые если нет скина
 document.querySelectorAll('.mb').forEach(b=>{
 b.classList.toggle('gray',!hasSkin);
 });
 
-// Кнопка Прокачать
 const btn=document.getElementById('upgradeBtn');
 if(hasSkin && targetSkin!==null){
 btn.disabled=false;
@@ -435,11 +432,9 @@ document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%'
 }
 function selP(p){
 selPct=p;
-// Автоматически подбираем скин под этот процент
 if(selectedItems.length>0){
 const myPrice = selectedItems[0].price || 50;
 const targetPrice = Math.round(myPrice / (p/100));
-// Ищем ближайший скин по цене
 let closest = allSkins[0];
 let minDiff = Infinity;
 allSkins.forEach(s=>{
@@ -477,8 +472,12 @@ isSpinning=true;
 const a=document.getElementById('arrow');
 const wheel = document.getElementById('wheel');
 
+// Крутим стрелку на случайный угол
+const randomAngle = Math.floor(Math.random()*360);
+const totalDeg = 1440 + randomAngle;
+
 a.style.transition='transform 6s cubic-bezier(0.15,0.6,0.3,1)';
-a.style.transform=`translateX(-50%) rotate(1440deg)`;
+a.style.transform=`translateX(-50%) rotate(${totalDeg}deg)`;
 
 let tickCount=0;
 const tickInterval=setInterval(()=>{
@@ -489,9 +488,12 @@ if(tickCount>20)clearInterval(tickInterval);
 
 setTimeout(()=>{
 clearInterval(tickInterval);
+
+// Проверяем: попал ли угол в жёлтую зону
 const winAngle = (selPct/100)*360;
-const finalAngle = 0;
-const inOrange = adminAlwaysWin || (finalAngle < winAngle);
+// Стрелка указывает на угол: 360 - randomAngle (т.к. conic-gradient отсчёт от верха по часовой)
+const pointerAngle = (360 - randomAngle) % 360;
+const inOrange = adminAlwaysWin || (pointerAngle <= winAngle);
 const win = inOrange;
 
 stats.spins++;
