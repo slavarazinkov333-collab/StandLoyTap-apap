@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>StandFliutApap</title>
 <style>
+@property --wa {
+syntax: '<angle>';
+initial-value: 90deg;
+inherits: false;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0a0a0f;color:#fff;font-family:Arial,sans-serif;display:flex;flex-direction:column;min-height:100vh;overflow-y:auto;overflow-x:hidden;user-select:none;position:relative;padding-bottom:70px}
 body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:60px;font-weight:900;color:rgba(255,255,255,0.04);white-space:nowrap;z-index:0;pointer-events:none}
@@ -13,6 +18,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7b61ff,#4a3aff);display:flex;justify-content:center;align-items:center;font-size:15px;border:2px solid #9b8aff}
 .nick{font-size:12px;font-weight:600}
 .bal{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#ffd700}
+.bal .g-icon{color:#ff8c00;font-weight:900;font-size:15px}
 .plus{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;width:24px;height:24px;border-radius:50%;font-size:16px;font-weight:700;cursor:pointer;margin-left:6px}
 .set{background:none;border:none;color:#7b61ff;font-size:20px;cursor:pointer;margin-left:8px}
 .main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px;position:relative;z-index:1;min-height:100vh}
@@ -25,7 +31,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .slot .multi-items{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:4px}
 .slot .multi-items .icon{font-size:20px}
 .wheel-box{position:relative;width:280px;height:280px;margin:10px 0}
-.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 180deg,#ffd700 0deg, #ff8c00 var(--wa,90deg), #0a0a0f var(--wa,90deg) 360deg);border:8px solid #2a2a4e;position:relative;display:flex;justify-content:center;align-items:center;transition:background 0.8s ease}
+.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(from 180deg,#ffd700 0deg, #ff8c00 var(--wa,90deg), #0a0a0f var(--wa,90deg) 360deg);border:8px solid #2a2a4e;position:relative;display:flex;justify-content:center;align-items:center;transition:--wa 1s ease}
 .pt{font-size:36px;font-weight:900;color:#ffd700;z-index:2}
 .pl{position:absolute;bottom:35%;font-size:12px;color:#aaa;z-index:2}
 .arrow{position:absolute;top:0;left:50%;transform-origin:center 140px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #ffd700;filter:drop-shadow(0 0 10px rgba(255,215,0,.9));z-index:10}
@@ -42,6 +48,8 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0f0f1a;padding:8px;display:flex;justify-content:space-around;border-top:1px solid #2a2a4e;z-index:100}
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
+.nb-topup{color:#ff8c00}
+.nb-topup .ic{background:linear-gradient(135deg,#ff8c00,#cc6600);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-weight:900;font-size:18px;margin-bottom:2px}
 .scr{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0f;z-index:50;flex-direction:column;overflow-y:auto;padding-bottom:70px}
 .scr.open{display:flex}
 .sh{padding:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a2a4e;background:#0f0f1a;position:sticky;top:0;z-index:1}
@@ -109,6 +117,10 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .btn-withdraw{background:linear-gradient(135deg,#ff8c00,#cc6600);color:#fff}
 .btn-upgrade{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff}
 .btn-close{background:#2a2a4e;color:#fff}
+.pay-card{background:#12121f;border:2px solid #2a2a4e;border-radius:12px;padding:16px;margin-bottom:10px;text-align:center}
+.pay-card .pck-title{font-size:16px;font-weight:700;color:#ff8c00;margin-bottom:6px}
+.pay-card .pck-price{font-size:14px;color:#fff;font-weight:700;margin-bottom:10px}
+.pay-card button{background:linear-gradient(135deg,#ff8c00,#cc6600);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px}
 </style>
 </head>
 <body>
@@ -118,8 +130,8 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="nick" id="nick">Игрок</div>
 </div>
 <div style="display:flex;align-items:center">
-<div class="bal"><span>⭐</span><span id="gold">20000</span></div>
-<button class="plus" onclick="openS('shopScreen')">+</button>
+<div class="bal"><span class="g-icon">G</span><span id="gold">0</span></div>
+<button class="plus" onclick="openS('topupScreen')">+</button>
 <button class="set" onclick="openS('settingsScreen')">☰</button>
 </div>
 </div>
@@ -156,6 +168,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 <div class="bottom">
 <button class="nb" onclick="spinUpgradeFast()"><span class="ic">⚡</span><span>Быстро</span></button>
+<button class="nb nb-topup" onclick="openS('topupScreen')"><span class="ic">+</span><span>Баланс</span></button>
 <button class="nb" onclick="openS('casesScreen')"><span class="ic">📦</span><span>Кейсы</span></button>
 <button class="nb" onclick="openS('tasksScreen')"><span class="ic">📋</span><span>Задания</span></button>
 </div>
@@ -175,7 +188,17 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="ph"><div class="pa" id="pAv">👤</div><div class="pn" id="pName">Игрок</div><div class="pr" id="pRank">Новичок</div></div>
 <div style="color:#7b61ff;font-size:13px;margin-bottom:8px">Аватарка:</div>
 <div class="al" id="avList"></div>
-<div style="margin-top:16px;color:#888;font-size:12px;">Баланс: <span id="profileBal" style="color:#ffd700;font-weight:700;">0</span></div>
+<div style="margin-top:16px;color:#888;font-size:12px;">Баланс: <span class="g-icon" style="color:#ff8c00;font-weight:900">G</span> <span id="profileBal" style="color:#ffd700;font-weight:700;">0</span></div>
+</div>
+</div>
+<div class="scr" id="topupScreen">
+<div class="sh"><h2>💰 Пополнение баланса</h2><button class="cb" onclick="closeS('topupScreen')">✕</button></div>
+<div class="sb">
+<div style="text-align:center;color:#ff8c00;font-size:14px;font-weight:700;margin-bottom:16px">💳 Оплата скоро появится!</div>
+<div class="pay-card"><div class="pck-title">💎 100 G</div><div class="pck-price">99 ₽</div><button onclick="toast('💳 Оплата скоро появится!','lose')">Купить</button></div>
+<div class="pay-card"><div class="pck-title">💎 500 G</div><div class="pck-price">449 ₽</div><button onclick="toast('💳 Оплата скоро появится!','lose')">Купить</button></div>
+<div class="pay-card"><div class="pck-title">💎 1000 G</div><div class="pck-price">799 ₽</div><button onclick="toast('💳 Оплата скоро появится!','lose')">Купить</button></div>
+<div class="pay-card"><div class="pck-title">💎 5000 G</div><div class="pck-price">3499 ₽</div><button onclick="toast('💳 Оплата скоро появится!','lose')">Купить</button></div>
 </div>
 </div>
 <div class="scr" id="casesScreen">
@@ -201,7 +224,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 </div>
 <div class="toast" id="toast"></div>
 <script>
-let gold=20000,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false,multi=1;
+let gold=0,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false,multi=1;
 let stats={spins:0,wins:0,loses:0};
 let inv=[];
 let invMode='inv';
@@ -398,14 +421,14 @@ if(filtered.length===0){b.innerHTML='<div class="inv-empty"><div class="icon">�
 b.innerHTML='<div class="grid">'+filtered.map((it,i)=>{
 const sel=selectedItems.includes(it);
 const iconHtml = it.img ? `<img src="${it.img}" onerror="this.style.display='none'">` : `<div class="icon">${it.icon}</div>`;
-return `<div class="card ${sel?'selected':''}" onclick="openSkinMenu(${i})">${iconHtml}<div class="name">${it.name}</div><div class="price">${it.price||0} голды</div></div>`;
+return `<div class="card ${sel?'selected':''}" onclick="openSkinMenu(${i})">${iconHtml}<div class="name">${it.name}</div><div class="price">${it.price||0} G</div></div>`;
 }).join('')+'</div>';
 }else if(invMode==='shop'){
 const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
 b.innerHTML='<div class="grid">'+filtered.map(s=>{
 const can=gold>=s.price;
 const iconHtml = s.img ? `<img src="${s.img}" onerror="this.style.display='none'">` : `<div class="icon">${s.icon}</div>`;
-return `<div class="card">${iconHtml}<div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div><button class="buy" ${can?'':'disabled'} onclick="buySkin('${s.name}','${s.icon}',${s.price})">${can?'Купить':'Мало'}</button></div>`;
+return `<div class="card">${iconHtml}<div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} G</div><button class="buy" ${can?'':'disabled'} onclick="buySkin('${s.name}','${s.icon}',${s.price})">${can?'Купить':'Мало'}</button></div>`;
 }).join('')+'</div>';
 }else if(invMode==='target'){
 const myPrice = selectedItems.length>0 ? (selectedItems[0].price||50) : 0;
@@ -413,7 +436,7 @@ const filtered=allSkins.filter(s=>s.name.toLowerCase().includes(q));
 b.innerHTML='<div class="grid">'+filtered.map(s=>{
 const isLocked = s.price <= myPrice;
 const iconHtml = s.img ? `<img src="${s.img}" onerror="this.style.display='none'">` : `<div class="icon">${s.icon}</div>`;
-return `<div class="card ${isLocked?'locked':''}" onclick="${isLocked?`toast('🔒 Цена должна быть выше ${myPrice} голды','lose')`:`setTarget('${s.name}','${s.icon}',${s.price},'${s.color}')`}">${iconHtml}<div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} голды</div></div>`;
+return `<div class="card ${isLocked?'locked':''}" onclick="${isLocked?`toast('🔒 Цена должна быть выше ${myPrice} G','lose')`:`setTarget('${s.name}','${s.icon}',${s.price},'${s.color}')`}">${iconHtml}<div class="name" style="color:${s.color}">${s.name}</div><div class="price">${s.price} G</div></div>`;
 }).join('')+'</div>';
 }
 }
@@ -428,12 +451,11 @@ selPct = 1;
 }
 const wheel = document.getElementById('wheel');
 const wa = (selPct/100)*360;
-wheel.style.transition = 'background 0.8s ease';
 wheel.style.setProperty('--wa', wa+'deg');
 document.getElementById('rightSlot').innerHTML = `
 <div class="si">${targetSkin.icon}</div>
 <div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div>
-<div class="sl">Цель: ${targetSkin.price} голды</div>
+<div class="sl">Цель: ${targetSkin.price} G</div>
 <div class="spr">Шанс: ${selPct}%</div>
 `;
 document.getElementById('pt').innerText = selPct + '%';
@@ -459,7 +481,7 @@ gold += sellPrice;updateBal();
 inv.splice(menuItemIndex,1);
 selectedItems = selectedItems.filter(x=>x!==it);
 closeSkinMenu();rendInv();rendMain();
-toast('💸 ПРОДАНО!\n+'+sellPrice+' голды','win');
+toast('💸 ПРОДАНО!\n+'+sellPrice+' G','win');
 sound('win');confetti();
 }
 function withdrawSkin(){toast('📤 Вывод скоро появится!','lose');closeSkinMenu();}
@@ -478,12 +500,12 @@ sound('win');
 document.getElementById('targetTab').classList.remove('gray');
 }
 function buySkin(n,ic,p){
-if(gold<p){toast('❌ Мало голды','lose');return}
+if(gold<p){toast('❌ Мало G','lose');return}
 gold-=p;
 const skinData = allSkins.find(s=>s.name===n);
 inv.push({name:n, icon:ic, price:p, img: skinData ? skinData.img : null});
 updateBal();rendInv();
-toast('✅ Куплено: '+n+'\n- '+p+' голды','win');
+toast('✅ Куплено: '+n+'\n- '+p+' G','win');
 sound('win');confetti();
 }
 function rendMain(){
@@ -497,7 +519,7 @@ return `<span class="icon">${s.icon}</span>`;
 document.getElementById('leftSlot').innerHTML=`<div class="multi-items">${icons}</div><div class="sn">Выбрано скинов</div>`;
 }
 if(targetSkin){
-document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div><div class="spr">Шанс: ${selPct}%</div>`;
+document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} G</div><div class="spr">Шанс: ${selPct}%</div>`;
 }else{
 document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери в Прокачать до</div>';
 }
@@ -538,7 +560,7 @@ targetSkin = {name: closest.name, icon: closest.icon, price: closest.price, colo
 document.getElementById('rightSlot').innerHTML = `
 <div class="si">${targetSkin.icon}</div>
 <div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div>
-<div class="sl">Цель: ${targetSkin.price} голды</div>
+<div class="sl">Цель: ${targetSkin.price} G</div>
 <div class="spr">Шанс: ${selPct}%</div>
 `;
 }
@@ -546,7 +568,6 @@ document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.inne
 document.getElementById('pt').innerText=p.toFixed(1)+'%';
 const wheel = document.getElementById('wheel');
 const wa = (p/100)*360;
-wheel.style.transition = 'background 0.8s ease';
 wheel.style.setProperty('--wa', wa+'deg');
 rendMain();
 }
@@ -590,7 +611,10 @@ stats.spins++;
 if(win){
 stats.wins++;
 
-// Добавляем выигранный скин в инвентарь
+// Сначала УДАЛЯЕМ поставленные скины (сгорают)
+selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
+
+// Потом добавляем выигранный скин
 const skinData = allSkins.find(s=>s.name===targetSkin.name);
 const wonSkin = {
 name: targetSkin.name,
@@ -600,7 +624,7 @@ img: skinData ? skinData.img : null
 };
 inv.push(wonSkin);
 
-// Обновляем правый слот — показываем выигранный скин
+// Показываем выигранный скин в правом слоте
 const wonImg = wonSkin.img ? `<img src="${wonSkin.img}" style="width:50px;height:50px;object-fit:contain" onerror="this.style.display='none'">` : '';
 document.getElementById('rightSlot').innerHTML = `
 ${wonImg}
@@ -620,16 +644,12 @@ selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
 }
 
 isSpinning=false;
-
-// Сбрасываем ЛЕВЫЙ слот (только выбранные скины), но НЕ правый
 selectedItems=[];
 document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Мой скин</div><div class="sl">Выбери в инвентаре</div>';
 
-// Сбрасываем стрелку и колесо
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
 wheel.style.setProperty('--wa','90deg');
 
-// Сбрасываем targetSkin и selPct только после показа выигрыша
 setTimeout(()=>{
 targetSkin=null;selPct=null;
 document.getElementById('targetTab').classList.add('gray');
@@ -643,7 +663,7 @@ function spinUpgradeFast(){if(selectedItems.length===0){toast('❌ Выбери 
 
 function rendCases(){
 const b=document.getElementById('casesBody');
-b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><div class="cn">${c.name}</div><div class="cp">${c.price} голды</div><div class="cr">🎰 ${c.chances.legendary}% / 🔴 ${c.chances.red}% / 🟣 ${c.chances.epic}% / 🔵 ${c.chances.blue}% / ⚪ ${c.chances.uncommon}%</div><button class="bb" onclick="openCase(${i})">Открыть</button></div>`).join('');
+b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><div class="cn">${c.name}</div><div class="cp">${c.price} G</div><div class="cr">🎰 ${c.chances.legendary}% / 🔴 ${c.chances.red}% / 🟣 ${c.chances.epic}% / 🔵 ${c.chances.blue}% / ⚪ ${c.chances.uncommon}%</div><button class="bb" onclick="openCase(${i})">Открыть</button></div>`).join('');
 }
 
 function getSkinByRarity(rarity){
@@ -672,7 +692,7 @@ return 'uncommon';
 
 function openCase(i){
 const c=cases[i];
-if(gold<c.price){toast('❌ Мало голды','lose');return}
+if(gold<c.price){toast('❌ Мало G','lose');return}
 gold-=c.price;updateBal();
 
 const rarity=rollRarity(c.chances);
@@ -749,12 +769,12 @@ function rendTasks(){
 const b=document.getElementById('tasksBody');
 b.innerHTML=tasks.map((t,i)=>`<div class="it"><div class="ii"><span class="ic">📋</span><div><div class="nm">${t.name}</div><div class="pr">${t.done?'✅ Выполнено':'⏳ Не выполнено'}</div></div></div>${t.done?'':'<button class="bb" onclick="doneTask('+i+')">+'+t.reward+'</button>'}</div>`).join('');
 }
-function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();toast('✅ +'+tasks[i].reward+' голды','win');sound('win');confetti()}
-function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').value);if(!isNaN(v)){gold+=v;updateBal();toast('✅ +'+v+' голды','win')}}
+function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();toast('✅ +'+tasks[i].reward+' G','win');sound('win');confetti()}
+function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').value);if(!isNaN(v)){gold+=v;updateBal();toast('✅ +'+v+' G','win')}}
 function adminToggleFunc(){adminAlwaysWin=document.getElementById('adminToggle').checked}
 function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();toast('✅ Купон активирован!','win');sound('win');confetti()}else toast('❌ Неверный купон','lose')}
 function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n}
 updateBal();rendMain();rendInv();
 </script>
 </body>
-</html>
+  </html>
