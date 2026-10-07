@@ -205,6 +205,7 @@ let inv=[];
 let invMode='inv';
 let selectedItems=[];
 let targetSkin=null;
+let manualPct=false;
 const MAX_SELECT=5;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
@@ -274,10 +275,12 @@ const ctx=new (window.AudioContext||window.webkitAudioContext)();
 const o=ctx.createOscillator();
 const g=ctx.createGain();
 o.connect(g);g.connect(ctx.destination);
-if(type==='win'){o.frequency.value=800;o.type='sine'}else{o.frequency.value=200;o.type='sawtooth'}
-g.gain.setValueAtTime(0.1,ctx.currentTime);
-g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);
-o.start();o.stop(ctx.currentTime+0.3);
+if(type==='win'){o.frequency.value=800;o.type='sine'}
+else if(type==='tick'){o.frequency.value=1200;o.type='square'}
+else{o.frequency.value=200;o.type='sawtooth'}
+g.gain.setValueAtTime(type==='tick'?0.05:0.1,ctx.currentTime);
+g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+(type==='tick'?0.05:0.3));
+o.start();o.stop(ctx.currentTime+(type==='tick'?0.05:0.3));
 }catch(e){}
 }
 function updateBal(){document.getElementById('gold').innerText=gold;document.getElementById('profileBal').innerText=gold}
@@ -339,6 +342,7 @@ selPct = Math.max(1, Math.min(99, Math.round(ratio * 100)));
 }else{
 selPct = 1;
 }
+manualPct = false;
 const wheel = document.getElementById('wheel');
 const wa = (selPct/100)*360;
 wheel.style.transition = 'background 0.8s ease';
@@ -414,12 +418,18 @@ const mbBtns=document.querySelectorAll('.mb');
 const canMulti = selectedItems.length>0 && selPct!==null;
 mbBtns.forEach(b=>{b.classList.toggle('gray',!canMulti)});
 const btn=document.getElementById('upgradeBtn');
-if(selectedItems.length>0&&selPct!==null){btn.disabled=false;btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)'}
-else{btn.disabled=true;btn.style.background='#2a2a4e'}
+if(selectedItems.length>0 && selPct!==null && manualPct){
+btn.disabled=false;
+btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)';
+}else{
+btn.disabled=true;
+btn.style.background='#2a2a4e';
+}
 document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%';
 }
 function selP(p){
 selPct=p;
+manualPct = true;
 document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
 if(targetSkin){
 document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div><div class="spr">Шанс: ${selPct}%</div>`;
@@ -441,18 +451,30 @@ sound('win');
 function spinUpgrade(){
 if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}
 if(selPct===null){toast('❌ Выбери процент','lose');return}
+if(!manualPct){toast('❌ Выбери процент вручную','lose');return}
 if(isSpinning)return;
 isSpinning=true;
+
 const a=document.getElementById('arrow');
+const wheel = document.getElementById('wheel');
+
 a.style.transition='transform 6s cubic-bezier(0.15,0.6,0.3,1)';
 a.style.transform=`translateX(-50%) rotate(1440deg)`;
+
+let tickCount = 0;
+const tickInterval = setInterval(()=>{
+sound('tick');
+tickCount++;
+if(tickCount > 18) clearInterval(tickInterval);
+}, 300);
+
 setTimeout(()=>{
-let ec=selPct / multi;
-if(gold<1000)ec=60/multi;else ec=30/multi;
-if(adminChance!==null)ec=adminChance;
-if(adminAlwaysWin)ec=100;
-const roll=Math.floor(Math.random()*100)+1;
-const win=roll<=ec;
+clearInterval(tickInterval);
+const finalAngle = 1440 % 360;
+const winAngle = (selPct/100)*360;
+const inOrange = finalAngle < winAngle || adminAlwaysWin;
+const win = inOrange;
+
 stats.spins++;
 if(win){
 stats.wins++;
@@ -467,9 +489,9 @@ toast('😢 Сгорело '+selectedItems.length+' скинов!','lose');
 sound('lose');
 selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
 }
-isSpinning=false;selItem=null;selPct=null;multi=1;selectedItems=[];
+isSpinning=false;selItem=null;selPct=null;multi=1;selectedItems=[];manualPct=false;
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
-document.getElementById('wheel').style.setProperty('--wa','90deg');
+wheel.style.setProperty('--wa','90deg');
 document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');b.classList.add('gray')});
 document.getElementById('targetTab').classList.add('gray');
 rendMain();rendInv();
@@ -508,4 +530,4 @@ function changeName(){const n=document.getElementById('nameIn').value;document.g
 updateBal();rendMain();rendInv();
 </script>
 </body>
-</html>
+  </html>
