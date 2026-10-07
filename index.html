@@ -25,7 +25,7 @@
             align-items: center;
             border-bottom: 1px solid #2a2a4e;
         }
-        .account { display: flex; align-items: center; gap: 10px; }
+        .account { display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .avatar {
             width: 34px; height: 34px; border-radius: 50%;
             background: linear-gradient(135deg, #7b61ff, #4a3aff);
@@ -163,20 +163,79 @@
         .result.win .title { color: #4CAF50; }
         .result.lose .title { color: #ff4444; }
 
-        .withdraw-btn {
-            background: linear-gradient(135deg, #ffd700, #e6a800);
-            color: #1a1a2e; border: none;
-            padding: 10px 20px; border-radius: 20px;
-            font-weight: 700; font-size: 12px; cursor: pointer;
-            margin-top: 15px;
+        /* ПРОФИЛЬ */
+        .profile-header {
+            text-align: center;
+            padding: 20px;
+            background: #12121f;
+            border-radius: 16px;
+            margin-bottom: 16px;
         }
+        .profile-avatar {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        .profile-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .profile-rank {
+            font-size: 14px;
+            color: #ffd700;
+            font-weight: 600;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .stat-card {
+            background: #12121f;
+            border: 1px solid #2a2a4e;
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+        .stat-card .value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #7b61ff;
+        }
+        .stat-card .label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* АВАТАРКИ */
+        .avatar-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .avatar-option {
+            font-size: 28px;
+            text-align: center;
+            padding: 10px;
+            background: #12121f;
+            border: 2px solid #2a2a4e;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .avatar-option:active { border-color: #7b61ff; }
+        .avatar-option.selected { border-color: #7b61ff; background: rgba(123, 97, 255, 0.15); }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div class="account">
-            <div class="avatar">👤</div>
+        <div class="account" onclick="openScreen('profileScreen')">
+            <div class="avatar" id="topAvatar">👤</div>
             <div class="nickname" id="nickname">Игрок</div>
         </div>
         <div style="display:flex; align-items:center;">
@@ -208,6 +267,54 @@
         <button class="nav-btn" onclick="openScreen('withdrawScreen')">
             <span class="icon">📤</span><span>Вывод</span>
         </button>
+    </div>
+
+    <!-- ЭКРАН: ПРОФИЛЬ -->
+    <div class="screen" id="profileScreen">
+        <div class="screen-header">
+            <h2>👤 Профиль</h2>
+            <button class="close-btn" onclick="closeScreen('profileScreen')">✕</button>
+        </div>
+        <div class="screen-body">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar">👤</div>
+                <div class="profile-name" id="profileName">Игрок</div>
+                <div class="profile-rank" id="profileRank">Новичок</div>
+            </div>
+
+            <div style="color:#7b61ff; font-size:14px; margin-bottom:10px;">Выбери аватарку:</div>
+            <div class="avatar-list" id="avatarList">
+                <div class="avatar-option" onclick="setAvatar('👤')">👤</div>
+                <div class="avatar-option" onclick="setAvatar('🐺')">🐺</div>
+                <div class="avatar-option" onclick="setAvatar('🦁')">🦁</div>
+                <div class="avatar-option" onclick="setAvatar('🐉')">🐉</div>
+                <div class="avatar-option" onclick="setAvatar('👑')">👑</div>
+                <div class="avatar-option" onclick="setAvatar('💀')">💀</div>
+                <div class="avatar-option" onclick="setAvatar('🔥')">🔥</div>
+                <div class="avatar-option" onclick="setAvatar('⚡')">⚡</div>
+                <div class="avatar-option" onclick="setAvatar('🎯')">🎯</div>
+                <div class="avatar-option" onclick="setAvatar('💎')">💎</div>
+            </div>
+
+            <div class="stats-grid" style="margin-top:20px;">
+                <div class="stat-card">
+                    <div class="value" id="statSpins">0</div>
+                    <div class="label">Спинов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="statWins">0</div>
+                    <div class="label">Побед</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="statLoses">0</div>
+                    <div class="label">Проигрышей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="statWinrate">0%</div>
+                    <div class="label">Винрейт</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="screen" id="shopScreen">
@@ -284,6 +391,8 @@
         let gold = 4000;
         let isSpinning = false;
         let spinSpeed = 20;
+        let currentAvatar = '👤';
+        let stats = { spins: 0, wins: 0, loses: 0 };
         let inventory = [
             { id: 'akr', name: 'AKR «Дракон»', icon: '🔫' },
             { id: 'm4', name: 'M4A1 «Ворон»', icon: '🔫' },
@@ -299,15 +408,50 @@
             document.getElementById('gold').innerText = gold;
         }
 
+        function updateStats() {
+            document.getElementById('statSpins').innerText = stats.spins;
+            document.getElementById('statWins').innerText = stats.wins;
+            document.getElementById('statLoses').innerText = stats.loses;
+            const total = stats.wins + stats.loses;
+            const winrate = total > 0 ? Math.round((stats.wins / total) * 100) : 0;
+            document.getElementById('statWinrate').innerText = winrate + '%';
+            updateRank();
+        }
+
+        function updateRank() {
+            const rankEl = document.getElementById('profileRank');
+            if (stats.spins < 5) rankEl.innerText = 'Новичок';
+            else if (stats.spins < 20) rankEl.innerText = 'Опытный';
+            else if (stats.spins < 50) rankEl.innerText = 'Ветеран';
+            else rankEl.innerText = 'Легенда';
+        }
+
         function openScreen(id) {
             if (id === 'shopScreen') renderShop();
             if (id === 'inventoryScreen') renderInventory();
             if (id === 'upgradeScreen') renderUpgradeScreen();
+            if (id === 'profileScreen') renderProfile();
             document.getElementById(id).classList.add('open');
         }
 
         function closeScreen(id) {
             document.getElementById(id).classList.remove('open');
+        }
+
+        function renderProfile() {
+            document.getElementById('profileAvatar').innerText = currentAvatar;
+            document.getElementById('profileName').innerText = document.getElementById('nickname').innerText;
+            updateStats();
+        }
+
+        function setAvatar(emoji) {
+            currentAvatar = emoji;
+            document.getElementById('topAvatar').innerText = emoji;
+            document.getElementById('profileAvatar').innerText = emoji;
+            document.querySelectorAll('.avatar-option').forEach(el => {
+                el.classList.remove('selected');
+                if (el.innerText === emoji) el.classList.add('selected');
+            });
         }
 
         function renderShop() {
@@ -426,14 +570,18 @@
                 const roll = Math.floor(Math.random() * 100) + 1;
                 const win = roll <= chance;
 
+                stats.spins++;
                 if (win) {
+                    stats.wins++;
                     gold += 200;
                     updateBalance();
                     showResult(true, `🎉 Улучшено!`, `${selectedItem.name} стал новым! +200 голды`);
                 } else {
+                    stats.loses++;
                     showResult(false, `😢 Сгорел!`, `${selectedItem.name} потерян.`);
                     inventory = inventory.filter(i => i !== selectedItem);
                 }
+                updateStats();
 
                 isSpinning = false;
                 selectedPercent = null;
@@ -458,6 +606,7 @@
         function changeName() {
             const name = document.getElementById('nameInput').value;
             document.getElementById('nickname').innerText = name;
+            document.getElementById('profileName').innerText = name;
         }
 
         function changeSpeed() {
@@ -467,7 +616,8 @@
         }
 
         updateBalance();
+        updateStats();
     </script>
 
 </body>
-</html>
+                </html>
