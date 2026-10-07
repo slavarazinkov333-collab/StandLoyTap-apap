@@ -205,7 +205,6 @@ let inv=[];
 let invMode='inv';
 let selectedItems=[];
 let targetSkin=null;
-let manualPct=false;
 const MAX_SELECT=5;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
@@ -275,12 +274,9 @@ const ctx=new (window.AudioContext||window.webkitAudioContext)();
 const o=ctx.createOscillator();
 const g=ctx.createGain();
 o.connect(g);g.connect(ctx.destination);
-if(type==='win'){o.frequency.value=800;o.type='sine'}
-else if(type==='tick'){o.frequency.value=1200;o.type='square'}
-else{o.frequency.value=200;o.type='sawtooth'}
-g.gain.setValueAtTime(type==='tick'?0.05:0.1,ctx.currentTime);
-g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+(type==='tick'?0.05:0.3));
-o.start();o.stop(ctx.currentTime+(type==='tick'?0.05:0.3));
+if(type==='win'){o.frequency.value=800;o.type='sine';g.gain.setValueAtTime(0.15,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);o.start();o.stop(ctx.currentTime+0.4);}
+else if(type==='tick'){o.frequency.value=1500;o.type='sine';g.gain.setValueAtTime(0.08,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.06);o.start();o.stop(ctx.currentTime+0.06);}
+else{o.frequency.value=200;o.type='sawtooth';g.gain.setValueAtTime(0.1,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);o.start();o.stop(ctx.currentTime+0.3);}
 }catch(e){}
 }
 function updateBal(){document.getElementById('gold').innerText=gold;document.getElementById('profileBal').innerText=gold}
@@ -342,7 +338,6 @@ selPct = Math.max(1, Math.min(99, Math.round(ratio * 100)));
 }else{
 selPct = 1;
 }
-manualPct = false;
 const wheel = document.getElementById('wheel');
 const wa = (selPct/100)*360;
 wheel.style.transition = 'background 0.8s ease';
@@ -413,12 +408,16 @@ document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.ico
 document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">Хочу получить</div><div class="sl">Выбери в Прокачать до</div>';
 }
 document.getElementById('counter').innerText = 'Выбрано: ' + (selectedItems.length || 1) + ' из 5';
-document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb ${selectedItems.length>0?'':'gray'}" onclick="${selectedItems.length>0?`selP(${p})`:''}">${p}%</button>`).join('');
-const mbBtns=document.querySelectorAll('.mb');
-const canMulti = selectedItems.length>0 && selPct!==null;
-mbBtns.forEach(b=>{b.classList.toggle('gray',!canMulti)});
+
+// Цифры процентов — ВСЕГДА серые
+document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb gray">${p}%</button>`).join('');
+
+// Множители — ВСЕГДА серые
+document.querySelectorAll('.mb').forEach(b=>{b.classList.add('gray');b.classList.remove('sel')});
+
+// Кнопка Прокачать — активна если есть скин и цель
 const btn=document.getElementById('upgradeBtn');
-if(selectedItems.length>0 && selPct!==null && manualPct){
+if(selectedItems.length>0 && targetSkin!==null && selPct!==null){
 btn.disabled=false;
 btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)';
 }else{
@@ -427,52 +426,29 @@ btn.style.background='#2a2a4e';
 }
 document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%';
 }
-function selP(p){
-selPct=p;
-manualPct = true;
-document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
-if(targetSkin){
-document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div><div class="spr">Шанс: ${selPct}%</div>`;
-}
-document.getElementById('pt').innerText=p.toFixed(1)+'%';
-const wheel = document.getElementById('wheel');
-const wa = (p/100)*360;
-wheel.style.transition = 'background 0.8s ease';
-wheel.style.setProperty('--wa', wa+'deg');
-rendMain();
-}
-function setMulti(v){
-if(selectedItems.length===0 || selPct===null){toast('❌ Сначала выбери скин и процент','lose');return}
-multi=v;
-document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')});
-toast('✅ Множитель: x'+v+' (шанс '+(selPct/v).toFixed(1)+'%)','win');
-sound('win');
-}
 function spinUpgrade(){
 if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}
-if(selPct===null){toast('❌ Выбери процент','lose');return}
-if(!manualPct){toast('❌ Выбери процент вручную','lose');return}
+if(targetSkin===null){toast('❌ Выбери цель','lose');return}
 if(isSpinning)return;
 isSpinning=true;
-
 const a=document.getElementById('arrow');
 const wheel = document.getElementById('wheel');
 
 a.style.transition='transform 6s cubic-bezier(0.15,0.6,0.3,1)';
 a.style.transform=`translateX(-50%) rotate(1440deg)`;
 
-let tickCount = 0;
-const tickInterval = setInterval(()=>{
+let tickCount=0;
+const tickInterval=setInterval(()=>{
 sound('tick');
 tickCount++;
-if(tickCount > 18) clearInterval(tickInterval);
-}, 300);
+if(tickCount>20)clearInterval(tickInterval);
+},280);
 
 setTimeout(()=>{
 clearInterval(tickInterval);
-const finalAngle = 1440 % 360;
 const winAngle = (selPct/100)*360;
-const inOrange = finalAngle < winAngle || adminAlwaysWin;
+const finalAngle = 0;
+const inOrange = adminAlwaysWin || (finalAngle < winAngle);
 const win = inOrange;
 
 stats.spins++;
@@ -489,15 +465,14 @@ toast('😢 Сгорело '+selectedItems.length+' скинов!','lose');
 sound('lose');
 selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
 }
-isSpinning=false;selItem=null;selPct=null;multi=1;selectedItems=[];manualPct=false;
+isSpinning=false;selItem=null;selPct=null;multi=1;selectedItems=[];targetSkin=null;
 a.style.transition='none';a.style.transform='translateX(-50%) rotate(0deg)';
 wheel.style.setProperty('--wa','90deg');
-document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');b.classList.add('gray')});
 document.getElementById('targetTab').classList.add('gray');
 rendMain();rendInv();
 },6000);
 }
-function spinUpgradeFast(){if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}if(selPct===null){toast('❌ Выбери процент','lose');return}spinUpgrade()}
+function spinUpgradeFast(){if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}if(targetSkin===null){toast('❌ Выбери цель','lose');return}spinUpgrade()}
 function rendCases(){
 const b=document.getElementById('casesBody');
 b.innerHTML=cases.map((c,i)=>`<div class="case"><div class="ci">${c.icon}</div><div class="cn">${c.name}</div><div class="cp">${c.price} голды</div><div class="cr">🎰 ${c.chances.legendary}% / 🔴 ${c.chances.red}% / 🟣 ${c.chances.epic}% / 🔵 ${c.chances.blue}% / ⚪ ${c.chances.uncommon}%</div><button class="bb" style="margin-top:8px" onclick="openCase(${i})">Открыть</button></div>`).join('');
@@ -530,4 +505,4 @@ function changeName(){const n=document.getElementById('nameIn').value;document.g
 updateBal();rendMain();rendInv();
 </script>
 </body>
-  </html>
+</html>
