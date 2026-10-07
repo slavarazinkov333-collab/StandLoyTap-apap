@@ -17,7 +17,6 @@
             user-select: none;
         }
 
-        /* ВЕРХНЯЯ ПАНЕЛЬ */
         .top-bar {
             background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
             padding: 12px 16px;
@@ -46,7 +45,6 @@
         .nickname {
             font-size: 13px;
             font-weight: bold;
-            color: #fff;
         }
         .balance-item {
             display: flex;
@@ -55,11 +53,9 @@
             font-size: 13px;
             font-weight: bold;
         }
-        .balance-item .icon { font-size: 16px; }
         .coins { color: #f0c419; }
         .gold { color: #ffd700; }
 
-        /* ЦЕНТР — РУЛЕТКА */
         .center {
             flex: 1;
             display: flex;
@@ -82,18 +78,12 @@
             height: 100%;
             border-radius: 50%;
             background: conic-gradient(
-                #f0c419 0deg 30deg,
-                #1a1a2e 30deg 60deg,
-                #f0c419 60deg 90deg,
-                #1a1a2e 90deg 120deg,
-                #f0c419 120deg 150deg,
-                #1a1a2e 150deg 180deg,
-                #f0c419 180deg 210deg,
-                #1a1a2e 210deg 240deg,
-                #f0c419 240deg 270deg,
-                #1a1a2e 270deg 300deg,
-                #f0c419 300deg 330deg,
-                #1a1a2e 330deg 360deg
+                #f0c419 0deg 30deg, #1a1a2e 30deg 60deg,
+                #f0c419 60deg 90deg, #1a1a2e 90deg 120deg,
+                #f0c419 120deg 150deg, #1a1a2e 150deg 180deg,
+                #f0c419 180deg 210deg, #1a1a2e 210deg 240deg,
+                #f0c419 240deg 270deg, #1a1a2e 270deg 300deg,
+                #f0c419 300deg 330deg, #1a1a2e 330deg 360deg
             );
             border: 5px solid #f0c419;
             box-shadow: 0 0 60px rgba(240, 196, 25, 0.5), inset 0 0 40px rgba(0,0,0,0.6);
@@ -115,12 +105,10 @@
             transform: translateX(-50%);
             font-size: 50px;
             color: #ffcc00;
-            text-shadow: 0 0 20px rgba(255, 204, 0, 0.9), 0 0 40px rgba(255, 204, 0, 0.5);
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.9);
             z-index: 10;
-            filter: drop-shadow(0 0 10px #ffcc00);
         }
 
-        /* НИЖНЯЯ ПАНЕЛЬ */
         .bottom-bar {
             background: linear-gradient(0deg, #1a1a2e, #0f0f1a);
             padding: 12px 8px;
@@ -150,48 +138,66 @@
             transform: scale(0.95);
         }
 
-        /* МОДАЛЬНОЕ ОКНО */
-        .modal {
+        /* ЭКРАН МАГАЗИНА / ИНВЕНТАРЯ / ПРОКАЧКИ */
+        .screen {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.9);
-            justify-content: center;
+            background: #0a0a0f;
+            z-index: 50;
+            flex-direction: column;
+        }
+        .screen.open { display: flex; }
+        .screen-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            z-index: 100;
-        }
-        .modal.open { display: flex; }
-        .modal-content {
+            border-bottom: 2px solid #f0c419;
             background: #1a1a2e;
-            border: 2px solid #f0c419;
-            border-radius: 20px;
-            padding: 24px;
-            width: 85%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(240, 196, 25, 0.4);
         }
-        .modal-content h2 {
+        .screen-header h2 { color: #f0c419; font-size: 18px; }
+        .close-btn {
+            background: none;
+            border: none;
             color: #f0c419;
-            margin-bottom: 16px;
-            font-size: 20px;
+            font-size: 24px;
+            cursor: pointer;
         }
-        .modal-content p {
-            color: #aaa;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.5;
+        .screen-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
         }
-        .modal-content button {
+        .item {
+            background: #1a1a2e;
+            border: 1px solid #2a2a4e;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-info { display: flex; align-items: center; gap: 12px; }
+        .item-icon { font-size: 28px; }
+        .item-name { font-size: 14px; font-weight: bold; }
+        .item-price { font-size: 12px; color: #f0c419; }
+        .buy-btn {
             background: linear-gradient(135deg, #f0c419, #e6a800);
             color: #1a1a2e;
             border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
+            padding: 8px 16px;
+            border-radius: 20px;
             font-weight: bold;
+            font-size: 12px;
             cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
+        }
+        .buy-btn:active { transform: scale(0.95); }
+        .buy-btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -201,16 +207,14 @@
     <div class="top-bar">
         <div class="account">
             <div class="avatar">👤</div>
-            <div class="nickname">Игрок</div>
+            <div class="nickname" id="nickname">Игрок</div>
         </div>
         <div style="display:flex; gap:12px;">
             <div class="balance-item coins">
-                <span class="icon">💰</span>
-                <span id="coins">100</span>
+                <span>💰</span><span id="coins">100</span>
             </div>
             <div class="balance-item gold">
-                <span class="icon">⭐</span>
-                <span id="gold">0</span>
+                <span>⭐</span><span id="gold">0</span>
             </div>
         </div>
     </div>
@@ -227,26 +231,52 @@
 
     <!-- НИЖНЯЯ ПАНЕЛЬ -->
     <div class="bottom-bar">
-        <button class="nav-btn" onclick="openModal('Инвентарь', 'Здесь твои предметы и ресурсы.')">
-            <span class="icon">🎒</span>
-            <span>Инвентарь</span>
+        <button class="nav-btn" onclick="openScreen('inventoryScreen')">
+            <span class="icon">🎒</span><span>Инвентарь</span>
         </button>
-        <button class="nav-btn" onclick="openModal('Магазин', 'Здесь можно купить оружие и ресурсы.')">
-            <span class="icon">🛒</span>
-            <span>Магазин</span>
+        <button class="nav-btn" onclick="openScreen('shopScreen')">
+            <span class="icon">🛒</span><span>Магазин</span>
         </button>
-        <button class="nav-btn" onclick="openModal('Прокачать', 'Здесь можно прокачать рулетку.')">
-            <span class="icon">⬆️</span>
-            <span>Прокачать</span>
+        <button class="nav-btn" onclick="openScreen('upgradeScreen')">
+            <span class="icon">⬆️</span><span>Прокачать</span>
         </button>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <h2 id="modalTitle">Заголовок</h2>
-            <p id="modalText">Текст</p>
-            <button onclick="closeModal()">Закрыть</button>
+    <!-- ЭКРАН: МАГАЗИН -->
+    <div class="screen" id="shopScreen">
+        <div class="screen-header">
+            <h2>🛒 Магазин</h2>
+            <button class="close-btn" onclick="closeScreen('shopScreen')">✕</button>
+        </div>
+        <div class="screen-body" id="shopBody"></div>
+    </div>
+
+    <!-- ЭКРАН: ИНВЕНТАРЬ -->
+    <div class="screen" id="inventoryScreen">
+        <div class="screen-header">
+            <h2>🎒 Инвентарь</h2>
+            <button class="close-btn" onclick="closeScreen('inventoryScreen')">✕</button>
+        </div>
+        <div class="screen-body" id="inventoryBody"></div>
+    </div>
+
+    <!-- ЭКРАН: ПРОКАЧКА -->
+    <div class="screen" id="upgradeScreen">
+        <div class="screen-header">
+            <h2>⬆️ Прокачка</h2>
+            <button class="close-btn" onclick="closeScreen('upgradeScreen')">✕</button>
+        </div>
+        <div class="screen-body">
+            <div class="item">
+                <div class="item-info">
+                    <span class="item-icon">🎰</span>
+                    <div>
+                        <div class="item-name">Улучшить рулетку</div>
+                        <div class="item-price">Стоимость: 500 монет</div>
+                    </div>
+                </div>
+                <button class="buy-btn" onclick="upgradeWheel()">Купить</button>
+            </div>
         </div>
     </div>
 
@@ -255,19 +285,88 @@
         let gold = 0;
         let isSpinning = false;
 
+        // Предметы в магазине
+        const shopItems = [
+            { id: 'akr', name: 'AKR «Дракон»', icon: '🔫', price: 500 },
+            { id: 'm4', name: 'M4A1 «Ворон»', icon: '🔫', price: 400 },
+            { id: 'awm', name: 'AWM «Хищник»', icon: '🎯', price: 800 },
+            { id: 'knife', name: 'Нож «Тень»', icon: '🔪', price: 1000 },
+            { id: 'gloves', name: 'Перчатки «Боец»', icon: '🧤', price: 300 },
+        ];
+
+        let inventory = [];
+
         function updateBalance() {
             document.getElementById('coins').innerText = coins;
             document.getElementById('gold').innerText = gold;
         }
 
-        function openModal(title, text) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalText').innerText = text;
-            document.getElementById('modal').classList.add('open');
+        function openScreen(id) {
+            if (id === 'shopScreen') renderShop();
+            if (id === 'inventoryScreen') renderInventory();
+            document.getElementById(id).classList.add('open');
         }
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('open');
+        function closeScreen(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+
+        function renderShop() {
+            const body = document.getElementById('shopBody');
+            body.innerHTML = '';
+            shopItems.forEach(item => {
+                const canBuy = coins >= item.price;
+                body.innerHTML += `
+                    <div class="item">
+                        <div class="item-info">
+                            <span class="item-icon">${item.icon}</span>
+                            <div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">${item.price} монет</div>
+                            </div>
+                        </div>
+                        <button class="buy-btn" ${canBuy ? '' : 'disabled'} onclick="buyItem('${item.id}')">
+                            ${canBuy ? 'Купить' : 'Мало'}
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function buyItem(id) {
+            const item = shopItems.find(i => i.id === id);
+            if (!item || coins < item.price) return;
+            coins -= item.price;
+            inventory.push(item.name);
+            updateBalance();
+            renderShop();
+            alert(`✅ Куплено: ${item.name}`);
+        }
+
+        function renderInventory() {
+            const body = document.getElementById('inventoryBody');
+            if (inventory.length === 0) {
+                body.innerHTML = '<p style="color:#888;text-align:center;">Инвентарь пуст.</p>';
+            } else {
+                body.innerHTML = inventory.map(name => `
+                    <div class="item">
+                        <div class="item-info">
+                            <span class="item-icon">📦</span>
+                            <div class="item-name">${name}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function upgradeWheel() {
+            if (coins < 500) {
+                alert('❌ Недостаточно монет!');
+                return;
+            }
+            coins -= 500;
+            updateBalance();
+            alert('✅ Рулетка улучшена!');
         }
 
         function spinWheel() {
@@ -275,8 +374,7 @@
             isSpinning = true;
 
             const wheel = document.getElementById('wheel');
-            const randomDegree = Math.floor(Math.random() * 360) + 3600; // минимум 10 оборотов
-
+            const randomDegree = Math.floor(Math.random() * 360) + 3600;
             wheel.style.transform = `rotate(${randomDegree}deg)`;
 
             setTimeout(() => {
@@ -288,21 +386,14 @@
                     { name: '25 голды', coins: 0, gold: 25, icon: '⭐' },
                     { name: '200 монет', coins: 200, gold: 0, icon: '💰' }
                 ];
-
-                const randomIndex = Math.floor(Math.random() * prizes.length);
-                const prize = prizes[randomIndex];
-
+                const prize = prizes[Math.floor(Math.random() * prizes.length)];
                 coins += prize.coins;
                 gold += prize.gold;
                 updateBalance();
 
-                openModal('🎰 Результат спина', 
-                    `${prize.icon} Ты выиграл: ${prize.name}!\n\n` +
-                    `💰 Монеты: ${coins}\n⭐ Голда: ${gold}`
-                );
-
+                alert(`${prize.icon} Ты выиграл: ${prize.name}!\n💰 Монеты: ${coins}\n⭐ Голда: ${gold}`);
                 isSpinning = false;
-            }, 20000); // 20 секунд
+            }, 20000);
         }
 
         updateBalance();
