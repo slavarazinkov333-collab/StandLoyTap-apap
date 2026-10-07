@@ -23,11 +23,11 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .slot .sl{font-size:9px;color:#888;margin-top:2px}
 
 .ww{position:relative;width:240px;height:240px;display:flex;justify-content:center;align-items:center;margin:10px 0}
-.wheel{width:100%;height:100%;border-radius:50%;background:#12121f;border:6px solid #2a2a4e;box-shadow:0 0 40px rgba(123,97,255,.3),inset 0 0 30px rgba(0,0,0,.8);display:flex;justify-content:center;align-items:center;position:relative}
+.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(#ffd700 0deg var(--wa,180deg),#2a2a4e var(--wa,180deg) 360deg);border:6px solid #7b61ff;box-shadow:0 0 40px rgba(123,97,255,.5),inset 0 0 30px rgba(0,0,0,.8);display:flex;justify-content:center;align-items:center;position:relative;transition:background .3s}
 .wheel .marks{position:absolute;width:100%;height:100%;border-radius:50%}
-.wheel .mark{position:absolute;width:2px;height:12px;background:#3a3a5e;top:0;left:50%;transform-origin:bottom center;transform:translateX(-50%) rotate(var(--r))}
-.wheel .mark-inner{position:absolute;width:100%;height:100%;border-radius:50%;border:2px dashed #2a2a4e;transform:scale(.85)}
-.wc{font-size:50px;color:#3a3a5e;font-weight:900;z-index:2}
+.wheel .mark{position:absolute;width:2px;height:12px;background:rgba(255,255,255,.2);top:0;left:50%;transform-origin:bottom center;transform:translateX(-50%) rotate(var(--r))}
+.wheel .mark-inner{position:absolute;width:100%;height:100%;border-radius:50%;border:2px dashed rgba(255,255,255,.15);transform:scale(.85)}
+.wc{font-size:50px;color:#fff;font-weight:900;z-index:2;text-shadow:0 0 20px rgba(0,0,0,.8)}
 .arrow{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #ffd700;filter:drop-shadow(0 0 12px rgba(255,215,0,.9));z-index:10;transform-origin:center 130px}
 
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
@@ -166,6 +166,16 @@ let selItem=null,selPct=null;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
 
+// Скины для улучшения в зависимости от процента
+const upgradeRewards={
+90:{name:'AKR «Ржавый»',icon:'🔫'},
+67:{name:'AKR «Синий»',icon:'🔫'},
+55:{name:'AKR «Красный»',icon:'🔫'},
+44:{name:'AKR «Фиолетовый»',icon:'🔫'},
+33:{name:'AKR «Золотой»',icon:'🔫'},
+22:{name:'AKR «Легендарный»',icon:'👑'}
+};
+
 function initMarks(){
 const m=document.getElementById('marks');
 let html='';
@@ -247,8 +257,10 @@ function selectPct(p){
 selPct=p;
 document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
 if(selItem){
-document.getElementById('rightSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Можно улучшить</div>`;
+const reward=upgradeRewards[p];
+document.getElementById('rightSlot').innerHTML=`<div class="si">${reward.icon}</div><div class="sn">${reward.name}</div><div class="sl">Можно улучшить</div>`;
 }
+document.getElementById('wheel').style.setProperty('--wa',(p/100*360)+'deg');
 }
 function spinUpgrade(){
 if(!selItem){alert('Выбери скин в инвентаре!');return}
@@ -265,7 +277,8 @@ const win=roll<=selPct;
 stats.spins++;
 if(win){
 stats.wins++;gold+=200;updateBal();
-showRes(true,'🎉 Улучшено!',`${selItem.name} стал новым! +200 голды`);
+const reward=upgradeRewards[selPct];
+showRes(true,'🎉 Улучшено!',`${selItem.name} → ${reward.name}! +200 голды`);
 }else{
 stats.loses++;
 showRes(false,'😢 Сгорел!',`${selItem.name} потерян.`);
@@ -275,6 +288,7 @@ updateStats();
 isSpinning=false;selPct=null;selItem=null;
 a.style.transition='none';
 a.style.transform='rotate(0deg)';
+document.getElementById('wheel').style.setProperty('--wa','180deg');
 renderMain();
 },spinSpeed*1000);
 }
