@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>StandCraft Bot</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#fff;font-family:Arial,sans-serif;display:flex;flex-direction:column;min-height:100vh;overflow:hidden;user-select:none}
+.top{background:#0f0f1a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a2a4e}
+.acc{display:flex;align-items:center;gap:10px;cursor:pointer}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#7b61ff,#4a3aff);display:flex;justify-content:center;align-items:center;font-size:16px;border:2px solid #9b8aff}
+.nick{font-size:13px;font-weight:600}
+.bal{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#ffd700}
+.set{background:none;border:none;color:#7b61ff;font-size:22px;cursor:pointer;margin-left:10px}
+.center{flex:1;display:flex;justify-content:center;align-items:center;flex-direction:column;padding:20px}
+.ww{position:relative;width:300px;height:300px;display:flex;justify-content:center;align-items:center}
+.wheel{width:100%;height:100%;border-radius:50%;background:conic-gradient(#ffd700 0deg var(--wa,180deg),#2a2a4e var(--wa,180deg) 360deg);border:4px solid #7b61ff;box-shadow:0 0 50px rgba(123,97,255,.5),inset 0 0 40px rgba(0,0,0,.8);transition:transform 20s cubic-bezier(.1,.7,.1,1);display:flex;justify-content:center;align-items:center;position:relative}
+.wc{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#7b61ff,#4a3aff);display:flex;justify-content:center;align-items:center;font-size:28px;z-index:2;box-shadow:0 0 25px rgba(123,97,255,.9)}
+.arrow{position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:25px solid #ffd700;filter:drop-shadow(0 0 15px rgba(255,215,0,.9));z-index:10}
+.ubtn{margin-top:25px;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:14px 50px;border-radius:50px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 5px 20px rgba(123,97,255,.4)}
+.ubtn:active{transform:scale(.95)}
+.bottom{background:#0f0f1a;padding:10px 8px;display:flex;justify-content:space-around;border-top:1px solid #2a2a4e}
+.nb{background:none;border:none;color:#666;font-size:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 14px;border-radius:10px}
+.nb .ic{font-size:22px}
+.nb:active{background:rgba(123,97,255,.15);color:#7b61ff}
+.scr{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0f;z-index:50;flex-direction:column}
+.scr.open{display:flex}
+.sh{padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a2a4e;background:#0f0f1a}
+.sh h2{color:#7b61ff;font-size:17px}
+.cb{background:none;border:none;color:#7b61ff;font-size:22px;cursor:pointer}
+.sb{flex:1;overflow-y:auto;padding:16px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#12121f;border:1px solid #2a2a4e;border-radius:12px;margin-bottom:10px}
+.row label{font-size:14px}
+.row input[type=text]{background:#0a0a0f;border:1px solid #2a2a4e;color:#fff;padding:8px 12px;border-radius:8px;font-size:14px;width:150px}
+.row input[type=range]{width:150px;accent-color:#7b61ff}
+.pcnt{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.pb{background:#12121f;border:2px solid #2a2a4e;border-radius:12px;padding:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.pb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
+.res{text-align:center;padding:30px}
+.res .bi{font-size:70px;margin-bottom:20px}
+.res .t{font-size:22px;font-weight:700;margin-bottom:10px}
+.res .s{font-size:14px;color:#888}
+.res.win .t{color:#4CAF50}
+.res.lose .t{color:#ff4444}
+.ul{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}
+.us{flex:1;background:#12121f;border:2px solid #2a2a4e;border-radius:16px;padding:20px;text-align:center;min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.us .si{font-size:50px;margin-bottom:8px}
+.us .sn{font-size:13px;color:#fff;font-weight:600}
+.us .sl{font-size:11px;color:#888;margin-top:4px}
+.ph{text-align:center;padding:20px;background:#12121f;border-radius:16px;margin-bottom:16px}
+.pa{font-size:60px;margin-bottom:10px}
+.pn{font-size:20px;font-weight:700;color:#fff;margin-bottom:5px}
+.pr{font-size:14px;color:#ffd700;font-weight:600}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.sk{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:14px;text-align:center}
+.sk .v{font-size:22px;font-weight:700;color:#7b61ff}
+.sk .l{font-size:11px;color:#888;margin-top:4px}
+.al{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:10px}
+.ao{font-size:28px;text-align:center;padding:10px;background:#12121f;border:2px solid #2a2a4e;border-radius:12px;cursor:pointer}
+.ao.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
+.it{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.it .ii{display:flex;align-items:center;gap:12px}
+.it .ic{font-size:26px}
+.it .nm{font-size:14px;font-weight:600}
+.it .pr{font-size:12px;color:#ffd700}
+.bb{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-weight:600;font-size:12px;cursor:pointer}
+.bb:disabled{background:#2a2a4e;color:#666}
+</style>
+</head>
+<body>
+<div class="top">
+<div class="acc" onclick="openS('profileScreen')">
+<div class="av" id="topAv">👤</div>
+<div class="nick" id="nick">Игрок</div>
+</div>
+<div style="display:flex;align-items:center">
+<div class="bal"><span>⭐</span><span id="gold">4000</span></div>
+<button class="set" onclick="openS('settingsScreen')">⚙️</button>
+</div>
+</div>
+
+<div class="center">
+<div class="ww">
+<div class="arrow"></div>
+<div class="wheel" id="wheel"><div class="wc" id="wc">🎰</div></div>
+</div>
+<button class="ubtn" onclick="openS('upgradeScreen')">⬆️ УЛУЧШИТЬ</button>
+</div>
+
+<div class="bottom">
+<button class="nb" onclick="openS('inventoryScreen')"><span class="ic">🎒</span><span>Инвентарь</span></button>
+<button class="nb" onclick="openS('shopScreen')"><span class="ic">🛒</span><span>Магазин</span></button>
+<button class="nb" onclick="openS('upgradeScreen')"><span class="ic">⬆️</span><span>Прокачать</span></button>
+<button class="nb" onclick="openS('withdrawScreen')"><span class="ic">📤</span><span>Вывод</span></button>
+</div>
+
+<div class="scr" id="upgradeScreen">
+<div class="sh"><h2>⬆️ Улучшение</h2><button class="cb" onclick="closeS('upgradeScreen')">✕</button></div>
+<div class="sb">
+<div class="ul">
+<div class="us" id="leftSlot"><div class="si">❓</div><div class="sn">Твой скин</div><div class="sl">Выбери в инвентаре</div></div>
+<div class="us" id="rightSlot"><div class="si">❓</div><div class="sn">После улучшения</div><div class="sl">Выбери процент</div></div>
+</div>
+<div style="text-align:center;color:#7b61ff;font-size:14px">Выбери шанс:</div>
+<div class="pcnt" id="pcntList"></div>
+<button class="ubtn" style="width:100%;margin-top:20px" onclick="spinUpgrade()">🎰 КРУТИТЬ</button>
+</div>
+</div>
+
+<div class="scr" id="profileScreen">
+<div class="sh"><h2>👤 Профиль</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div>
+<div class="sb">
+<div class="ph"><div class="pa" id="pAv">👤</div><div class="pn" id="pName">Игрок</div><div class="pr" id="pRank">Новичок</div></div>
+<div style="color:#7b61ff;font-size:14px;margin-bottom:10px">Аватарка:</div>
+<div class="al" id="avList"></div>
+<div class="sg" style="margin-top:20px">
+<div class="sk"><div class="v" id="sSpins">0</div><div class="l">Спинов</div></div>
+<div class="sk"><div class="v" id="sWins">0</div><div class="l">Побед</div></div>
+<div class="sk"><div class="v" id="sLoses">0</div><div class="l">Проигрышей</div></div>
+<div class="sk"><div class="v" id="sWr">0%</div><div class="l">Винрейт</div></div>
+</div>
+</div>
+</div>
+
+<div class="scr" id="shopScreen">
+<div class="sh"><h2>🛒 Магазин</h2><button class="cb" onclick="closeS('shopScreen')">✕</button></div>
+<div class="sb" id="shopBody"></div>
+</div>
+
+<div class="scr" id="inventoryScreen">
+<div class="sh"><h2>🎒 Инвентарь</h2><button class="cb" onclick="closeS('inventoryScreen')">✕</button></div>
+<div class="sb" id="invBody"></div>
+</div>
+
+<div class="scr" id="settingsScreen">
+<div class="sh"><h2>⚙️ Настройки</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div>
+<div class="sb">
+<div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
+<div class="row"><label>Скорость</label><input type="range" id="speedIn" min="1" max="30" value="20" onchange="changeSpeed()"><span style="color:#7b61ff;font-weight:700" id="speedVal">20с</span></div>
+</div>
+</div>
+
+<div class="scr" id="withdrawScreen">
+<div class="sh"><h2>📤 Вывод</h2><button class="cb" onclick="closeS('withdrawScreen')">✕</button></div>
+<div class="sb"><p style="text-align:center;color:#888">Вывод скоро появится!</p></div>
+</div>
+
+<div class="scr" id="resultScreen">
+<div class="sh"><h2>Результат</h2><button class="cb" onclick="closeS('resultScreen')">✕</button></div>
+<div class="sb"><div class="res" id="resBody"></div></div>
+</div>
+
+<script>
+let gold=4000,isSpinning=false,spinSpeed=20,curAv='👤';
+let stats={spins:0,wins:0,loses:0};
+let inv=[{id:'akr',name:'AKR «Дракон»',icon:'🔫'},{id:'m4',name:'M4A1 «Ворон»',icon:'🔫'},{id:'awm',name:'AWM «Хищник»',icon:'🎯'},{id:'knife',name:'Нож «Тень»',icon:'🔪'}];
+let selItem=null,selPct=null;
+const pcts=[90,67,55,44,33,22];
+const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
+
+function updateBal(){document.getElementById('gold').innerText=gold}
+function updateStats(){
+document.getElementById('sSpins').innerText=stats.spins;
+document.getElementById('sWins').innerText=stats.wins;
+document.getElementById('sLoses').innerText=stats.loses;
+const t=stats.wins+stats.loses;
+document.getElementById('sWr').innerText=(t>0?Math.round(stats.wins/t*100):0)+'%';
+const r=document.getElementById('pRank');
+if(stats.spins<5)r.innerText='Новичок';
+else if(stats.spins<20)r.innerText='Опытный';
+else if(stats.spins<50)r.innerText='Ветеран';
+else r.innerText='Легенда';
+}
+function openS(id){
+if(id==='shopScreen')renderShop();
+if(id==='inventoryScreen')renderInv();
+if(id==='upgradeScreen')renderUp();
+if(id==='profileScreen')renderProfile();
+document.getElementById(id).classList.add('open');
+}
+function closeS(id){document.getElementById(id).classList.remove('open')}
+
+function renderProfile(){
+document.getElementById('pAv').innerText=curAv;
+document.getElementById('pName').innerText=document.getElementById('nick').innerText;
+document.getElementById('avList').innerHTML=avatars.map(a=>`<div class="ao ${a===curAv?'sel':''}" onclick="setAv('${a}')">${a}</div>`).join('');
+updateStats();
+}
+function setAv(a){
+curAv=a;
+document.getElementById('topAv').innerText=a;
+document.getElementById('pAv').innerText=a;
+document.querySelectorAll('.ao').forEach(el=>{el.classList.remove('sel');if(el.innerText===a)el.classList.add('sel')});
+}
+
+function renderShop(){
+const b=document.getElementById('shopBody');
+const items=[
+{id:'akr2',name:'AKR «Огонь»',icon:'🔫',price:500},
+{id:'m42',name:'M4A1 «Лёд»',icon:'🔫',price:400},
+{id:'awm2',name:'AWM «Пустыня»',icon:'🎯',price:800},
+{id:'knife2',name:'Нож «Золото»',icon:'🔪',price:1000}
+];
+b.innerHTML=items.map(i=>{
+const can=gold>=i.price;
+return `<div class="it" onclick="buyItem('${i.id}','${i.name}','${i.icon}',${i.price})">
+<div class="ii"><span class="ic">${i.icon}</span><div><div class="nm">${i.name}</div><div class="pr">${i.price} голды</div></div></div>
+<button class="bb" ${can?'':'disabled'}>${can?'Купить':'Мало'}</button></div>`;
+}).join('');
+}
+function buyItem(id,name,icon,price){
+if(gold<price)return;
+gold-=price;inv.push({id,name,icon});updateBal();renderShop();alert('✅ Куплено: '+name);
+}
+function renderInv(){
+const b=document.getElementById('invBody');
+if(inv.length===0){b.innerHTML='<p style="color:#888;text-align:center">Инвентарь пуст.</p>';return}
+b.innerHTML=inv.map((it,idx)=>`<div class="it" onclick="selectItem(${idx})">
+<div class="ii"><span class="ic">${it.icon}</span><div><div class="nm">${it.name}</div><div class="pr">Нажми, чтобы улучшить</div></div></div></div>`).join('');
+}
+function selectItem(idx){selItem=inv[idx];closeS('inventoryScreen');openS('upgradeScreen')}
+
+function renderUp(){
+if(!selItem){
+document.getElementById('leftSlot').innerHTML='<div class="si">❓</div><div class="sn">Твой скин</div><div class="sl">Выбери в инвентаре</div>';
+}else{
+document.getElementById('leftSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Твой скин</div>`;
+}
+document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div class="sn">После улучшения</div><div class="sl">Выбери процент</div>';
+document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb" onclick="selectPct(${p})">${p}%</button>`).join('');
+}
+function selectPct(p){
+selPct=p;
+document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
+if(selItem){
+document.getElementById('rightSlot').innerHTML=`<div class="si">${selItem.icon}</div><div class="sn">${selItem.name}</div><div class="sl">Можно улучшить</div>`;
+}
+document.getElementById('wheel').style.setProperty('--wa',(p/100*360)+'deg');
+}
+function spinUpgrade(){
+if(!selItem){alert('Выбери скин в инвентаре!');return}
+if(!selPct){alert('Выбери процент!');return}
+if(isSpinning)return;
+isSpinning=true;
+const w=document.getElementById('wheel');
+const deg=Math.floor(Math.random()*360)+3600;
+w.style.transition=`transform ${spinSpeed}s cubic-bezier(.1,.7,.1,1)`;
+w.style.transform=`rotate(${deg}deg)`;
+setTimeout(()=>{
+const roll=Math.floor(Math.random()*100)+1;
+const win=roll<=selPct;
+stats.spins++;
+if(win){
+stats.wins++;gold+=200;updateBal();
+showRes(true,'🎉 Улучшено!',`${selItem.name} стал новым! +200 голды`);
+}else{
+stats.loses++;
+showRes(false,'😢 Сгорел!',`${selItem.name} потерян.`);
+inv=inv.filter(i=>i!==selItem);
+}
+updateStats();
+isSpinning=false;selPct=null;selItem=null;
+closeS('upgradeScreen');
+document.getElementById('wc').innerText='🎰';
+document.getElementById('wheel').style.setProperty('--wa','180deg');
+},spinSpeed*1000);
+}
+function showRes(win,title,sub){
+const c=document.getElementById('resBody');
+c.className='res '+(win?'win':'lose');
+c.innerHTML=`<div class="bi">${win?'🎉':'😢'}</div><div class="t">${title}</div><div class="s">${sub}</div>`;
+openS('resultScreen');
+}
+function changeName(){
+const n=document.getElementById('nameIn').value;
+document.getElementById('nick').innerText=n;
+document.getElementById('pName').innerText=n;
+}
+function changeSpeed(){
+const v=document.getElementById('speedIn').value;
+spinSpeed=parseInt(v);
+document.getElementById('speedVal').innerText=v+'с';
+}
+updateBal();
+updateStats();
+</script>
+</body>
+</html>
