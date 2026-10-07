@@ -17,6 +17,7 @@
             user-select: none;
         }
 
+        /* ВЕРХНЯЯ ПАНЕЛЬ */
         .top-bar {
             background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
             padding: 12px 16px;
@@ -26,36 +27,19 @@
             border-bottom: 2px solid #f0c419;
             box-shadow: 0 4px 20px rgba(240, 196, 25, 0.15);
         }
-        .account {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .account { display: flex; align-items: center; gap: 10px; }
         .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            width: 36px; height: 36px; border-radius: 50%;
             background: linear-gradient(135deg, #f0c419, #e6a800);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            border: 2px solid #fff3b0;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 18px; border: 2px solid #fff3b0;
         }
-        .nickname {
-            font-size: 13px;
-            font-weight: bold;
-        }
-        .balance-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 13px;
-            font-weight: bold;
-        }
+        .nickname { font-size: 13px; font-weight: bold; }
+        .balance-item { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: bold; }
         .coins { color: #f0c419; }
         .gold { color: #ffd700; }
 
+        /* ЦЕНТР — СПИН */
         .center {
             flex: 1;
             display: flex;
@@ -65,7 +49,7 @@
             position: relative;
             padding: 20px;
         }
-        .wheel-wrapper {
+        .spin-wrapper {
             position: relative;
             width: 280px;
             height: 280px;
@@ -73,31 +57,24 @@
             justify-content: center;
             align-items: center;
         }
-        .wheel {
+        .spin-circle {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: conic-gradient(
-                #f0c419 0deg 30deg, #1a1a2e 30deg 60deg,
-                #f0c419 60deg 90deg, #1a1a2e 90deg 120deg,
-                #f0c419 120deg 150deg, #1a1a2e 150deg 180deg,
-                #f0c419 180deg 210deg, #1a1a2e 210deg 240deg,
-                #f0c419 240deg 270deg, #1a1a2e 270deg 300deg,
-                #f0c419 300deg 330deg, #1a1a2e 330deg 360deg
-            );
+            background: radial-gradient(circle at 30% 30%, #2a2a4e, #0f0f1a);
             border: 5px solid #f0c419;
             box-shadow: 0 0 60px rgba(240, 196, 25, 0.5), inset 0 0 40px rgba(0,0,0,0.6);
-            transition: transform 20s cubic-bezier(0.1, 0.7, 0.1, 1);
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        .wheel .center-text {
-            font-size: 40px;
-            color: #f0c419;
-            text-shadow: 0 0 20px rgba(240, 196, 25, 0.8);
-            font-weight: bold;
-        }
+        .spin-circle:active { transform: scale(0.95); }
+        .spin-circle .icon { font-size: 60px; margin-bottom: 5px; }
+        .spin-circle .text { font-size: 16px; font-weight: bold; color: #f0c419; letter-spacing: 1px; }
+
         .arrow {
             position: absolute;
             top: -10px;
@@ -109,6 +86,23 @@
             z-index: 10;
         }
 
+        /* КНОПКА УЛУЧШИТЬ */
+        .upgrade-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #f0c419, #e6a800);
+            color: #1a1a2e;
+            border: none;
+            padding: 14px 50px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(240, 196, 25, 0.4);
+            transition: all 0.2s;
+        }
+        .upgrade-btn:active { transform: scale(0.95); }
+
+        /* НИЖНЯЯ ПАНЕЛЬ */
         .bottom-bar {
             background: linear-gradient(0deg, #1a1a2e, #0f0f1a);
             padding: 12px 8px;
@@ -132,13 +126,9 @@
             border-radius: 12px;
         }
         .nav-btn .icon { font-size: 24px; }
-        .nav-btn:active {
-            background: rgba(240, 196, 25, 0.15);
-            color: #f0c419;
-            transform: scale(0.95);
-        }
+        .nav-btn:active { background: rgba(240, 196, 25, 0.15); color: #f0c419; transform: scale(0.95); }
 
-        /* ЭКРАН МАГАЗИНА / ИНВЕНТАРЯ / ПРОКАЧКИ */
+        /* ЭКРАНЫ */
         .screen {
             display: none;
             position: fixed;
@@ -157,18 +147,10 @@
             background: #1a1a2e;
         }
         .screen-header h2 { color: #f0c419; font-size: 18px; }
-        .close-btn {
-            background: none;
-            border: none;
-            color: #f0c419;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .screen-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-        }
+        .close-btn { background: none; border: none; color: #f0c419; font-size: 24px; cursor: pointer; }
+        .screen-body { flex: 1; overflow-y: auto; padding: 16px; }
+
+        /* ПРЕДМЕТЫ */
         .item {
             background: #1a1a2e;
             border: 1px solid #2a2a4e;
@@ -178,7 +160,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
         }
+        .item:active { border-color: #f0c419; transform: scale(0.98); }
         .item-info { display: flex; align-items: center; gap: 12px; }
         .item-icon { font-size: 28px; }
         .item-name { font-size: 14px; font-weight: bold; }
@@ -193,12 +178,39 @@
             font-size: 12px;
             cursor: pointer;
         }
-        .buy-btn:active { transform: scale(0.95); }
-        .buy-btn:disabled {
-            background: #333;
-            color: #666;
-            cursor: not-allowed;
+        .buy-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+
+        /* ПРОЦЕНТЫ */
+        .percent-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
         }
+        .percent-btn {
+            background: #1a1a2e;
+            border: 2px solid #2a2a4e;
+            border-radius: 12px;
+            padding: 16px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .percent-btn:active { border-color: #f0c419; background: rgba(240, 196, 25, 0.1); }
+        .percent-btn.selected { border-color: #f0c419; background: rgba(240, 196, 25, 0.2); }
+
+        /* РЕЗУЛЬТАТ */
+        .result {
+            text-align: center;
+            padding: 30px;
+        }
+        .result .big-icon { font-size: 80px; margin-bottom: 20px; }
+        .result .title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .result .subtitle { font-size: 14px; color: #aaa; }
+        .result.win .title { color: #4CAF50; }
+        .result.lose .title { color: #ff4444; }
     </style>
 </head>
 <body>
@@ -207,26 +219,24 @@
     <div class="top-bar">
         <div class="account">
             <div class="avatar">👤</div>
-            <div class="nickname" id="nickname">Игрок</div>
+            <div class="nickname">Игрок</div>
         </div>
         <div style="display:flex; gap:12px;">
-            <div class="balance-item coins">
-                <span>💰</span><span id="coins">100</span>
-            </div>
-            <div class="balance-item gold">
-                <span>⭐</span><span id="gold">0</span>
-            </div>
+            <div class="balance-item coins"><span>💰</span><span id="coins">100</span></div>
+            <div class="balance-item gold"><span>⭐</span><span id="gold">0</span></div>
         </div>
     </div>
 
-    <!-- ЦЕНТР — РУЛЕТКА -->
+    <!-- ЦЕНТР — СПИН -->
     <div class="center">
-        <div class="wheel-wrapper">
+        <div class="spin-wrapper">
             <div class="arrow">▼</div>
-            <div class="wheel" id="wheel" onclick="spinWheel()">
-                <span class="center-text">?</span>
+            <div class="spin-circle" id="spinCircle" onclick="spinWheel()">
+                <span class="icon">🎰</span>
+                <span class="text">КРУТИТЬ</span>
             </div>
         </div>
+        <button class="upgrade-btn" onclick="openScreen('upgradeScreen')">⬆️ УЛУЧШИТЬ</button>
     </div>
 
     <!-- НИЖНЯЯ ПАНЕЛЬ -->
@@ -260,23 +270,27 @@
         <div class="screen-body" id="inventoryBody"></div>
     </div>
 
-    <!-- ЭКРАН: ПРОКАЧКА -->
-    <div class="screen" id="upgradeScreen">
+    <!-- ЭКРАН: ВЫБОР ПРОЦЕНТА -->
+    <div class="screen" id="percentScreen">
         <div class="screen-header">
-            <h2>⬆️ Прокачка</h2>
-            <button class="close-btn" onclick="closeScreen('upgradeScreen')">✕</button>
+            <h2>🎯 Выбери процент</h2>
+            <button class="close-btn" onclick="closeScreen('percentScreen')">✕</button>
         </div>
         <div class="screen-body">
-            <div class="item">
-                <div class="item-info">
-                    <span class="item-icon">🎰</span>
-                    <div>
-                        <div class="item-name">Улучшить рулетку</div>
-                        <div class="item-price">Стоимость: 500 монет</div>
-                    </div>
-                </div>
-                <button class="buy-btn" onclick="upgradeWheel()">Купить</button>
-            </div>
+            <div id="percentTitle" style="text-align:center; margin-bottom:15px; color:#f0c419; font-size:16px;"></div>
+            <div class="percent-list" id="percentList"></div>
+            <button class="upgrade-btn" style="width:100%; margin-top:20px;" onclick="confirmPercent()">✅ ПОДТВЕРДИТЬ</button>
+        </div>
+    </div>
+
+    <!-- ЭКРАН: РЕЗУЛЬТАТ -->
+    <div class="screen" id="resultScreen">
+        <div class="screen-header">
+            <h2>Результат</h2>
+            <button class="close-btn" onclick="closeScreen('resultScreen')">✕</button>
+        </div>
+        <div class="screen-body">
+            <div class="result" id="resultContent"></div>
         </div>
     </div>
 
@@ -284,17 +298,18 @@
         let coins = 100;
         let gold = 0;
         let isSpinning = false;
+        let inventory = [];
+        let selectedItem = null;
+        let selectedPercent = null;
 
-        // Предметы в магазине
         const shopItems = [
             { id: 'akr', name: 'AKR «Дракон»', icon: '🔫', price: 500 },
             { id: 'm4', name: 'M4A1 «Ворон»', icon: '🔫', price: 400 },
             { id: 'awm', name: 'AWM «Хищник»', icon: '🎯', price: 800 },
             { id: 'knife', name: 'Нож «Тень»', icon: '🔪', price: 1000 },
-            { id: 'gloves', name: 'Перчатки «Боец»', icon: '🧤', price: 300 },
         ];
 
-        let inventory = [];
+        const percents = [90, 67, 55, 44, 33, 22];
 
         function updateBalance() {
             document.getElementById('coins').innerText = coins;
@@ -317,7 +332,7 @@
             shopItems.forEach(item => {
                 const canBuy = coins >= item.price;
                 body.innerHTML += `
-                    <div class="item">
+                    <div class="item" onclick="buyItem('${item.id}')">
                         <div class="item-info">
                             <span class="item-icon">${item.icon}</span>
                             <div>
@@ -325,9 +340,7 @@
                                 <div class="item-price">${item.price} монет</div>
                             </div>
                         </div>
-                        <button class="buy-btn" ${canBuy ? '' : 'disabled'} onclick="buyItem('${item.id}')">
-                            ${canBuy ? 'Купить' : 'Мало'}
-                        </button>
+                        <button class="buy-btn" ${canBuy ? '' : 'disabled'}>${canBuy ? 'Купить' : 'Мало'}</button>
                     </div>
                 `;
             });
@@ -337,7 +350,7 @@
             const item = shopItems.find(i => i.id === id);
             if (!item || coins < item.price) return;
             coins -= item.price;
-            inventory.push(item.name);
+            inventory.push(item);
             updateBalance();
             renderShop();
             alert(`✅ Куплено: ${item.name}`);
@@ -348,56 +361,96 @@
             if (inventory.length === 0) {
                 body.innerHTML = '<p style="color:#888;text-align:center;">Инвентарь пуст.</p>';
             } else {
-                body.innerHTML = inventory.map(name => `
-                    <div class="item">
+                body.innerHTML = inventory.map((item, index) => `
+                    <div class="item" onclick="selectItem(${index})">
                         <div class="item-info">
-                            <span class="item-icon">📦</span>
-                            <div class="item-name">${name}</div>
+                            <span class="item-icon">${item.icon}</span>
+                            <div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">Нажми, чтобы улучшить</div>
+                            </div>
                         </div>
                     </div>
                 `).join('');
             }
         }
 
-        function upgradeWheel() {
-            if (coins < 500) {
-                alert('❌ Недостаточно монет!');
+        function selectItem(index) {
+            selectedItem = inventory[index];
+            closeScreen('inventoryScreen');
+            openPercentScreen();
+        }
+
+        function openPercentScreen() {
+            document.getElementById('percentTitle').innerText = `Улучшаем: ${selectedItem.name}`;
+            const list = document.getElementById('percentList');
+            list.innerHTML = '';
+            percents.forEach(p => {
+                list.innerHTML += `<button class="percent-btn" onclick="selectPercent(${p})">${p}%</button>`;
+            });
+            openScreen('percentScreen');
+        }
+
+        function selectPercent(p) {
+            selectedPercent = p;
+            document.querySelectorAll('.percent-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.innerText === p + '%') btn.classList.add('selected');
+            });
+        }
+
+        function confirmPercent() {
+            if (!selectedPercent) {
+                alert('Выбери процент!');
                 return;
             }
-            coins -= 500;
-            updateBalance();
-            alert('✅ Рулетка улучшена!');
+            closeScreen('percentScreen');
+            spinWheel();
         }
 
         function spinWheel() {
             if (isSpinning) return;
             isSpinning = true;
 
-            const wheel = document.getElementById('wheel');
+            const circle = document.getElementById('spinCircle');
             const randomDegree = Math.floor(Math.random() * 360) + 3600;
-            wheel.style.transform = `rotate(${randomDegree}deg)`;
+            circle.style.transition = 'transform 20s cubic-bezier(0.1, 0.7, 0.1, 1)';
+            circle.style.transform = `rotate(${randomDegree}deg)`;
 
             setTimeout(() => {
-                const prizes = [
-                    { name: '50 монет', coins: 50, gold: 0, icon: '💰' },
-                    { name: '10 голды', coins: 0, gold: 10, icon: '⭐' },
-                    { name: '100 монет', coins: 100, gold: 0, icon: '💰' },
-                    { name: 'Пусто', coins: 0, gold: 0, icon: '❌' },
-                    { name: '25 голды', coins: 0, gold: 25, icon: '⭐' },
-                    { name: '200 монет', coins: 200, gold: 0, icon: '💰' }
-                ];
-                const prize = prizes[Math.floor(Math.random() * prizes.length)];
-                coins += prize.coins;
-                gold += prize.gold;
-                updateBalance();
+                const chance = selectedPercent;
+                const roll = Math.floor(Math.random() * 100) + 1;
+                const win = roll <= chance;
 
-                alert(`${prize.icon} Ты выиграл: ${prize.name}!\n💰 Монеты: ${coins}\n⭐ Голда: ${gold}`);
+                if (win) {
+                    coins += 200;
+                    gold += 10;
+                    updateBalance();
+                    showResult(true, `Ты улучшил ${selectedItem.name}!`, `+200 монет, +10 голды`);
+                } else {
+                    showResult(false, `Неудача!`, `Ты потерял ${selectedItem.name}`);
+                    inventory = inventory.filter(i => i !== selectedItem);
+                }
+
                 isSpinning = false;
+                selectedPercent = null;
+                selectedItem = null;
             }, 20000);
+        }
+
+        function showResult(win, title, subtitle) {
+            const content = document.getElementById('resultContent');
+            content.className = 'result ' + (win ? 'win' : 'lose');
+            content.innerHTML = `
+                <div class="big-icon">${win ? '🎉' : '😢'}</div>
+                <div class="title">${title}</div>
+                <div class="subtitle">${subtitle}</div>
+            `;
+            openScreen('resultScreen');
         }
 
         updateBalance();
     </script>
 
 </body>
-</html>
+    </html>
