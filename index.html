@@ -69,6 +69,9 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .admin-panel h3{color:#ff4444;font-size:14px;margin-bottom:8px}
 .admin-panel .row{background:#2a0a0a;border-color:#ff4444}
 .admin-panel input[type=text]{width:80px}
+.admin-btn{background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;margin:3px}
+.admin-btn.green{background:linear-gradient(135deg,#4CAF50,#2E7D32)}
+.admin-btn.blue{background:linear-gradient(135deg,#4a9eff,#0066cc)}
 .case{background:#12121f;border:2px solid #2a2a4e;border-radius:12px;padding:12px;text-align:center;margin-bottom:10px}
 .case .ci{font-size:50px}
 .case .cn{font-size:14px;font-weight:600;margin-top:6px}
@@ -121,6 +124,8 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .pay-card .pck-title{font-size:16px;font-weight:700;color:#ff8c00;margin-bottom:6px}
 .pay-card .pck-price{font-size:14px;color:#fff;font-weight:700;margin-bottom:10px}
 .pay-card button{background:linear-gradient(135deg,#ff8c00,#cc6600);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px}
+.admin-sep{height:1px;background:#ff4444;margin:10px 0;opacity:0.4}
+.admin-group-title{color:#ff8c00;font-size:12px;font-weight:700;margin:8px 0 4px 0;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -214,17 +219,57 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="sb">
 <div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
 <div class="row"><label>Купон</label><input type="text" placeholder="Купон" id="couponIn"><button class="bb" onclick="applyCoupon()">ОК</button></div>
+
 <div class="admin-panel">
-<h3>👑 АДМИН</h3>
-<div class="row"><label>Вкл. подкрутку</label><input type="checkbox" id="adminToggle" onchange="adminToggleFunc()"></div>
-<div class="row"><label>Процент выигрыша</label><input type="text" id="adminChance" placeholder="90"></div>
-<div class="row"><label>Выдать голду</label><input type="text" id="adminGold" placeholder="1000"><button class="bb" onclick="adminGiveGold()">ОК</button></div>
+<h3>👑 АДМИН-ПАНЕЛЬ</h3>
+
+<div class="admin-group-title">🎰 Апгрейд</div>
+<div class="row"><label>Всегда выигрыш</label><input type="checkbox" id="adminAlwaysWin" onchange="adminAlwaysWin=this.checked"></div>
+<div class="row"><label>Всегда проигрыш</label><input type="checkbox" id="adminAlwaysLose" onchange="adminAlwaysLose=this.checked"></div>
+<div class="row"><label>Точный % выигрыша</label><input type="text" id="adminChance" placeholder="1-99"><button class="admin-btn" onclick="setAdminChance()">ОК</button></div>
+<div class="row"><label>Множитель выигрыша</label>
+<div>
+<button class="admin-btn" onclick="setAdminMulti(1)">x1</button>
+<button class="admin-btn" onclick="setAdminMulti(2)">x2</button>
+<button class="admin-btn" onclick="setAdminMulti(5)">x5</button>
+<button class="admin-btn" onclick="setAdminMulti(10)">x10</button>
 </div>
+</div>
+<div class="row"><label>Не тратить скины при проигрыше</label><input type="checkbox" id="adminKeepSkins" onchange="adminKeepSkins=this.checked"></div>
+
+<div class="admin-sep"></div>
+<div class="admin-group-title">📦 Кейсы</div>
+<div class="row"><label>Всегда легендарка</label><input type="checkbox" id="adminCaseLegend" onchange="adminCaseLegend=this.checked"></div>
+<div class="row"><label>Быстрая анимация (1 сек)</label><input type="checkbox" id="adminFastCase" onchange="adminFastCase=this.checked"></div>
+
+<div class="admin-sep"></div>
+<div class="admin-group-title">💰 Баланс</div>
+<div class="row"><label>Выдать G</label><input type="text" id="adminGold" placeholder="1000"><button class="admin-btn green" onclick="adminGiveGold()">+</button></div>
+<div class="row"><label>Установить баланс</label><input type="text" id="adminSetGold" placeholder="999999"><button class="admin-btn" onclick="adminSetGoldFunc()">=</button></div>
+<div class="row"><label>Обнулить баланс</label><button class="admin-btn" onclick="if(confirm('Обнулить баланс?')){gold=0;updateBal();toast('Баланс обнулён','win')}">0</button></div>
+
+<div class="admin-sep"></div>
+<div class="admin-group-title">🎒 Инвентарь</div>
+<div class="row"><label>Выдать скин (название)</label><input type="text" id="adminGiveSkin" placeholder="AKR 12"><button class="admin-btn green" onclick="adminGiveSkinFunc()">+</button></div>
+<div class="row"><label>Очистить инвентарь</label><button class="admin-btn" onclick="if(confirm('Очистить инвентарь?')){inv=[];selectedItems=[];rendInv();rendMain();toast('Инвентарь очищен','win')}">🗑</button></div>
+
+<div class="admin-sep"></div>
+<div class="admin-group-title">👤 Профиль</div>
+<div class="row"><label>Ранг</label><input type="text" id="adminRank" placeholder="Легенда"><button class="admin-btn blue" onclick="document.getElementById('pRank').innerText=document.getElementById('adminRank').value;toast('Ранг обновлён','win')">ОК</button></div>
+<div class="row"><label>Показать статистику</label><button class="admin-btn blue" onclick="showStats()">📊</button></div>
+
+<div class="admin-sep"></div>
+<div class="admin-group-title">🎁 Разное</div>
+<div class="row"><label>Скрыть админ-кнопку</label><input type="checkbox" id="adminHide" onchange="toggleHideAdmin(this.checked)"></div>
+<div class="row"><label>Сбросить ВСЁ</label><button class="admin-btn" onclick="if(confirm('Точно сбросить всё?')){gold=0;inv=[];selectedItems=[];stats={spins:0,wins:0,loses:0};updateBal();rendInv();rendMain();toast('Всё сброшено','win')}">⚠️</button></div>
+</div>
+
 </div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
 let gold=0,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false,multi=1;
+let adminAlwaysLose=false,adminKeepSkins=false,adminCaseLegend=false,adminFastCase=false,adminMulti=1;
 let stats={spins:0,wins:0,loses:0};
 let inv=[];
 let invMode='inv';
@@ -604,17 +649,36 @@ clearInterval(tickInterval);
 
 const winAngle = (selPct/100)*360;
 const pointerAngle = (360 - randomAngle) % 360;
-const inOrange = adminAlwaysWin || (pointerAngle <= winAngle);
-const win = inOrange;
+
+// Логика выигрыша с админ-флагами
+let win;
+if(adminAlwaysWin){win=true;}
+else if(adminAlwaysLose){win=false;}
+else if(adminChance!==null){win=Math.random()*100<adminChance;}
+else {win = pointerAngle <= winAngle;}
+
+// ВИЗУАЛЬНЫЙ ФИКС: если админ сказал "всегда выигрыш" — доводим стрелку в оранжевую зону
+if(adminAlwaysWin){
+const safeAngle = Math.max(5,Math.floor(winAngle*0.4));
+const fixTotal = 1440 + (360 - safeAngle);
+a.style.transition='transform 0.3s ease';
+a.style.transform=`translateX(-50%) rotate(${fixTotal}deg)`;
+}
+// ВИЗУАЛЬНЫЙ ФИКС: если админ сказал "всегда проигрыш" — доводим стрелку в чёрную зону
+if(adminAlwaysLose){
+const loseAngle = Math.floor((winAngle + 360) / 2);
+const safeAngle = loseAngle > 350 ? 350 : loseAngle;
+const fixTotal = 1440 + (360 - safeAngle);
+a.style.transition='transform 0.3s ease';
+a.style.transform=`translateX(-50%) rotate(${fixTotal}deg)`;
+}
 
 stats.spins++;
 if(win){
 stats.wins++;
 
-// Сначала УДАЛЯЕМ поставленные скины (сгорают)
 selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
 
-// Потом добавляем выигранный скин
 const skinData = allSkins.find(s=>s.name===targetSkin.name);
 const wonSkin = {
 name: targetSkin.name,
@@ -624,23 +688,26 @@ img: skinData ? skinData.img : null
 };
 inv.push(wonSkin);
 
-// Показываем выигранный скин в правом слоте
+if(adminMulti>1){
+for(let m=1;m<adminMulti;m++){inv.push({...wonSkin});}
+}
+
 const wonImg = wonSkin.img ? `<img src="${wonSkin.img}" style="width:50px;height:50px;object-fit:contain" onerror="this.style.display='none'">` : '';
 document.getElementById('rightSlot').innerHTML = `
 ${wonImg}
 ${wonSkin.img?'':`<div class="si">${wonSkin.icon}</div>`}
 <div class="sn" style="color:${targetSkin.color}">${wonSkin.name}</div>
 <div class="sl">🎉 ВЫБИЛ!</div>
-<div class="spr">+1 скин</div>
+<div class="spr">${adminMulti>1?'x'+adminMulti+' скинов':'+1 скин'}</div>
 `;
 
-toast('🎉 Выбил: '+wonSkin.name,'win');
+toast('🎉 Выбил: '+wonSkin.name+(adminMulti>1?' x'+adminMulti:''),'win');
 sound('win');confetti();
 }else{
 stats.loses++;
 toast('😢 Сгорело '+selectedItems.length+' скинов!','lose');
 sound('lose');
-selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
+if(!adminKeepSkins){selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});}
 }
 
 isSpinning=false;
@@ -695,7 +762,7 @@ const c=cases[i];
 if(gold<c.price){toast('❌ Мало G','lose');return}
 gold-=c.price;updateBal();
 
-const rarity=rollRarity(c.chances);
+const rarity = adminCaseLegend ? 'legendary' : rollRarity(c.chances);
 const winSkin=getSkinByRarity(rarity);
 
 const strip=[];
@@ -721,7 +788,7 @@ pointer.style.cssText='position:absolute;top:0;bottom:0;left:50%;width:3px;backg
 stripBox.appendChild(pointer);
 
 const stripEl=document.createElement('div');
-stripEl.style.cssText='display:flex;gap:8px;padding:14px;position:absolute;left:0;top:0;transition:transform 5s cubic-bezier(0.15,0.6,0.3,1)';
+stripEl.style.cssText='display:flex;gap:8px;padding:14px;position:absolute;left:0;top:0;transition:transform '+(adminFastCase?'1s':'5s')+' cubic-bezier(0.15,0.6,0.3,1)';
 stripEl.innerHTML=strip.map(s=>{
 const iconHtml=s.img?`<img src="${s.img}" style="width:60px;height:60px;object-fit:contain" onerror="this.style.display='none'">`:`<div style="font-size:40px">${s.icon}</div>`;
 return `<div style="flex:0 0 90px;height:120px;background:#12121f;border:2px solid #2a2a4e;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px">${iconHtml}<div style="font-size:9px;color:#aaa;margin-top:4px;text-align:center;line-height:1.1;overflow:hidden">${s.name}</div></div>`;
@@ -762,7 +829,7 @@ btn.innerText='ЗАБРАТЬ';
 btn.style.cssText='margin-top:16px;padding:12px 40px;background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer';
 btn.onclick=()=>{modal.remove();rendCases();};
 resultBox.appendChild(btn);
-},5500);
+},adminFastCase?1200:5500);
 }
 
 function rendTasks(){
@@ -770,11 +837,30 @@ const b=document.getElementById('tasksBody');
 b.innerHTML=tasks.map((t,i)=>`<div class="it"><div class="ii"><span class="ic">📋</span><div><div class="nm">${t.name}</div><div class="pr">${t.done?'✅ Выполнено':'⏳ Не выполнено'}</div></div></div>${t.done?'':'<button class="bb" onclick="doneTask('+i+')">+'+t.reward+'</button>'}</div>`).join('');
 }
 function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();toast('✅ +'+tasks[i].reward+' G','win');sound('win');confetti()}
+
+// ==== АДМИН-ФУНКЦИИ ====
 function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').value);if(!isNaN(v)){gold+=v;updateBal();toast('✅ +'+v+' G','win')}}
-function adminToggleFunc(){adminAlwaysWin=document.getElementById('adminToggle').checked}
+function adminSetGoldFunc(){const v=parseInt(document.getElementById('adminSetGold').value);if(!isNaN(v)){gold=v;updateBal();toast('✅ Баланс = '+v+' G','win')}}
+function setAdminChance(){const v=parseInt(document.getElementById('adminChance').value);if(!isNaN(v)&&v>=1&&v<=99){adminChance=v;toast('🎯 % выигрыша: '+v+'%','win')}else{adminChance=null;toast('❌ Введи 1-99','lose')}}
+function setAdminMulti(v){adminMulti=v;toast('✅ Множитель: x'+v,'win')}
+function adminGiveSkinFunc(){
+const q=document.getElementById('adminGiveSkin').value.trim().toLowerCase();
+if(!q){toast('❌ Введи название','lose');return}
+const found=allSkins.find(s=>s.name.toLowerCase().includes(q));
+if(!found){toast('❌ Скин не найден','lose');return}
+inv.push({name:found.name,icon:found.icon,price:found.price,img:found.img||null});
+rendInv();
+toast('✅ Выдан: '+found.name,'win');
+}
+function showStats(){
+alert('📊 Статистика:\n\n🎰 Спинов: '+stats.spins+'\n🎉 Побед: '+stats.wins+'\n😢 Проигрышей: '+stats.loses+'\n📈 Winrate: '+(stats.spins?Math.round(stats.wins/stats.spins*100):0)+'%\n\n💰 Баланс: '+gold+' G\n🎒 Скинов в инвентаре: '+inv.length);
+}
+function toggleHideAdmin(hide){
+document.querySelector('.admin-panel').style.display = hide?'none':'block';
+}
 function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();toast('✅ Купон активирован!','win');sound('win');confetti()}else toast('❌ Неверный купон','lose')}
 function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n}
 updateBal();rendMain();rendInv();
 </script>
 </body>
-  </html>
+</html>
