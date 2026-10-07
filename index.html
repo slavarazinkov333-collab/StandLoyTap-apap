@@ -34,7 +34,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .pcnt{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;margin-top:10px}
 .pb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:10px 4px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .pb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
-.pb.gray{color:#666;border-color:#1a1a2e}
+.pb.gray{color:#666;border-color:#1a1a2e;cursor:not-allowed}
 .mult{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;margin-top:6px}
 .mb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .mb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
@@ -131,7 +131,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="arrow" id="arrow"></div>
 <div class="wheel" id="wheel"><div class="pt" id="pt">?%</div><div class="pl">средний шанс</div></div>
 </div>
-<button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆️ ПРОКАЧАТЬ</button>
+<button class="ubtn" id="upgradeBtn" onclick="spinUpgrade()">⬆️ ПРОКАЧАТЬ</button>
 <div class="pcnt" id="pcntList"></div>
 <div class="mult">
 <button class="mb gray" onclick="setMulti(2)">x2</button>
@@ -409,15 +409,23 @@ document.getElementById('rightSlot').innerHTML='<div class="si">❓</div><div cl
 }
 document.getElementById('counter').innerText = 'Выбрано: ' + (selectedItems.length || 1) + ' из 5';
 
-// Цифры процентов — серые всегда
-document.getElementById('pcntList').innerHTML=pcts.map(p=>`<button class="pb gray">${p}%</button>`).join('');
+const hasTarget = targetSkin !== null;
 
-// Множители — серые всегда
-document.querySelectorAll('.mb').forEach(b=>{b.classList.add('gray');b.classList.remove('sel')});
+// Цифры процентов — серые если нет цели, активные если цель есть
+document.getElementById('pcntList').innerHTML=pcts.map(p=>{
+if(!hasTarget) return `<button class="pb gray">${p}%</button>`;
+return `<button class="pb ${selPct===p?'sel':''}" onclick="selP(${p})">${p}%</button>`;
+}).join('');
 
-// Кнопка Прокачать — активна если есть скин и цель
+// Множители — серые если нет цели, активные если цель есть
+document.querySelectorAll('.mb').forEach(b=>{
+b.classList.toggle('gray',!hasTarget);
+b.classList.remove('sel');
+});
+
+// Кнопка Прокачать — активна если есть цель
 const btn=document.getElementById('upgradeBtn');
-if(selectedItems.length>0 && targetSkin!==null && selPct!==null){
+if(hasTarget){
 btn.disabled=false;
 btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)';
 }else{
@@ -425,6 +433,26 @@ btn.disabled=true;
 btn.style.background='#2a2a4e';
 }
 document.getElementById('pt').innerText=selPct===null?'?%':selPct.toFixed(1)+'%';
+}
+function selP(p){
+selPct=p;
+document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});
+if(targetSkin){
+document.getElementById('rightSlot').innerHTML=`<div class="si">${targetSkin.icon}</div><div class="sn" style="color:${targetSkin.color}">${targetSkin.name}</div><div class="sl">Цель: ${targetSkin.price} голды</div><div class="spr">Шанс: ${selPct}%</div>`;
+}
+document.getElementById('pt').innerText=p.toFixed(1)+'%';
+const wheel = document.getElementById('wheel');
+const wa = (p/100)*360;
+wheel.style.transition = 'background 0.8s ease';
+wheel.style.setProperty('--wa', wa+'deg');
+rendMain();
+}
+function setMulti(v){
+if(targetSkin===null){toast('❌ Сначала выбери цель','lose');return}
+multi=v;
+document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')});
+toast('✅ Множитель: x'+v,'win');
+sound('win');
 }
 function spinUpgrade(){
 if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}
@@ -505,4 +533,4 @@ function changeName(){const n=document.getElementById('nameIn').value;document.g
 updateBal();rendMain();rendInv();
 </script>
 </body>
-</html>
+  </html>
