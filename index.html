@@ -46,6 +46,9 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .mb{background:#12121f;border:2px solid #2a2a4e;border-radius:10px;padding:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .mb.sel{border-color:#7b61ff;background:rgba(123,97,255,.15)}
 .mb.gray{color:#666;border-color:#1a1a2e;cursor:not-allowed}
+.jackpot-banner{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#0a0a0f;padding:10px 16px;border-radius:12px;text-align:center;width:100%;margin-top:10px;font-weight:900;font-size:14px;box-shadow:0 0 20px rgba(255,215,0,.4);animation:jackpotPulse 2s infinite}
+@keyframes jackpotPulse{0%,100%{box-shadow:0 0 20px rgba(255,215,0,.4)}50%{box-shadow:0 0 30px rgba(255,215,0,.8)}}
+.jackpot-banner .jp-val{font-size:18px;font-weight:900;color:#0a0a0f}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0f0f1a;padding:8px;display:flex;justify-content:space-around;border-top:1px solid #2a2a4e;z-index:100}
 .nb{background:none;border:none;color:#666;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 10px;border-radius:10px}
 .nb .ic{font-size:20px}
@@ -104,6 +107,14 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 .card-actions button{flex:1;padding:6px 4px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;border:none;color:#fff}
 .btn-sell-card{background:linear-gradient(135deg,#ff4444,#cc0000)}
 .btn-upg-card{background:linear-gradient(135deg,#4a9eff,#0066cc)}
+.task-item{background:#12121f;border:2px solid #2a2a4e;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.task-item.done{border-color:#4CAF50;background:rgba(76,175,80,.1)}
+.task-item .t-name{font-size:13px;font-weight:600}
+.task-item .t-progress{font-size:11px;color:#888;margin-top:4px}
+.task-item .t-reward{font-size:12px;color:#ffd700;font-weight:700;margin-top:4px}
+.task-item .t-btn{background:linear-gradient(135deg,#7b61ff,#4a3aff);color:#fff;border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;font-size:12px}
+.task-item .t-btn:disabled{background:#2a2a4e;color:#666;cursor:not-allowed}
+.task-item .t-done{color:#4CAF50;font-weight:700;font-size:14px}
 .footer-block{background:#12121f;border:1px solid #2a2a4e;border-radius:12px;padding:16px;margin-top:20px;text-align:center;width:100%}
 .footer-block .ft-title{font-size:14px;font-weight:700;color:#7b61ff;margin-bottom:8px}
 .footer-block .ft-sub{font-size:12px;color:#888;margin-bottom:12px}
@@ -153,6 +164,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <button class="mb gray" onclick="setMulti(5)">x5</button>
 <button class="mb gray" onclick="setMulti(10)">x10</button>
 </div>
+<div class="jackpot-banner" id="jackpotBanner">💰 ДЖЕКПОТ: <span class="jp-val" id="jackpotVal">1000</span> G</div>
 <div class="inv-tabs">
 <div class="inv-tab active" onclick="switchInv('inv')">🎒 Инвентарь</div>
 <div class="inv-tab" onclick="switchInv('shop')">🛒 Магазин</div>
@@ -235,6 +247,11 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="row"><label>Обнулить баланс</label><button class="admin-btn" onclick="if(confirm('Обнулить баланс?')){gold=0;updateBal();saveGame();toast('Баланс обнулён','win')}">0</button></div>
 
 <div class="admin-sep"></div>
+<div class="admin-group-title">💰 Джекпот</div>
+<div class="row"><label>Установить банк</label><input type="text" id="adminJackpot" placeholder="10000"><button class="admin-btn" onclick="setJackpot()">=</button></div>
+<div class="row"><label>Сорвать джекпот</label><button class="admin-btn green" onclick="forceJackpot()">💥</button></div>
+
+<div class="admin-sep"></div>
 <div class="admin-group-title">🎒 Инвентарь</div>
 <div class="row"><label>Выдать скин (название)</label><input type="text" id="adminGiveSkin" placeholder="AKR 12"><button class="admin-btn green" onclick="adminGiveSkinFunc()">+</button></div>
 <div class="row"><label>Очистить инвентарь</label><button class="admin-btn" onclick="if(confirm('Очистить инвентарь?')){inv=[];selectedItems=[];rendInv();rendMain();saveGame();toast('Инвентарь очищен','win')}">🗑</button></div>
@@ -247,7 +264,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="admin-sep"></div>
 <div class="admin-group-title">🎁 Разное</div>
 <div class="row"><label>Скрыть админ-кнопку</label><input type="checkbox" id="adminHide" onchange="toggleHideAdmin(this.checked)"></div>
-<div class="row"><label>Сбросить ВСЁ</label><button class="admin-btn" onclick="if(confirm('Точно сбросить всё?')){gold=0;inv=[];selectedItems=[];stats={spins:0,wins:0,loses:0};updateBal();rendInv();rendMain();saveGame();toast('Всё сброшено','win')}">⚠️</button></div>
+<div class="row"><label>Сбросить ВСЁ</label><button class="admin-btn" onclick="if(confirm('Точно сбросить всё?')){gold=0;inv=[];selectedItems=[];stats={spins:0,wins:0,loses:0};jackpot=1000;taskProgress={spin:0,win:0,case:0,sell:0};updateBal();rendInv();rendMain();saveGame();toast('Всё сброшено','win')}">⚠️</button></div>
 </div>
 
 </div>
@@ -261,6 +278,9 @@ localStorage.setItem('sfap_save',JSON.stringify({
 gold: gold,
 inv: inv,
 stats: stats,
+jackpot: jackpot,
+taskProgress: taskProgress,
+tasks: tasks,
 nick: document.getElementById('nick').innerText,
 curAv: curAv,
 pRank: document.getElementById('pRank').innerText,
@@ -277,6 +297,9 @@ if(!data)return false;
 if(typeof data.gold==='number') gold=data.gold;
 if(Array.isArray(data.inv)) inv=data.inv;
 if(data.stats) stats=data.stats;
+if(typeof data.jackpot==='number') jackpot=data.jackpot;
+if(data.taskProgress) taskProgress=data.taskProgress;
+if(data.tasks) tasks=data.tasks;
 if(data.nick){document.getElementById('nick').innerText=data.nick;document.getElementById('nameIn').value=data.nick;}
 if(data.curAv){curAv=data.curAv;document.getElementById('topAv').innerText=data.curAv;}
 if(data.pRank){document.getElementById('pRank').innerText=data.pRank;}
@@ -290,11 +313,12 @@ location.reload();
 }
 setInterval(saveGame,3000);
 window.addEventListener('beforeunload',saveGame);
-// ==== КОНЕЦ БЛОКА ====
 
 let gold=0,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false,multi=1;
 let adminAlwaysLose=false,adminKeepSkins=false,adminCaseLegend=false,adminFastCase=false,adminMulti=1;
 let stats={spins:0,wins:0,loses:0};
+let jackpot=1000;
+const JACKPOT_MAX=10000;
 let inv=[];
 let invMode='inv';
 let selectedItems=[];
@@ -303,6 +327,54 @@ let soundEnabled=true;
 const MAX_SELECT=5;
 const pcts=[90,67,55,44,33,22];
 const avatars=['👤','🐺','🦁','🐉','👑','💀','🔥','⚡','🎯','💎'];
+
+// ==== ЗАДАНИЯ С ПРОГРЕССОМ ====
+let taskProgress={spin:0,win:0,case:0,sell:0};
+const tasks=[
+{id:'spin1',name:'Первый спин',type:'spin',need:1,reward:10,done:false},
+{id:'spin10',name:'10 спинов',type:'spin',need:10,reward:50,done:false},
+{id:'spin50',name:'50 спинов',type:'spin',need:50,reward:300,done:false},
+{id:'win1',name:'Первый выигрыш',type:'win',need:1,reward:20,done:false},
+{id:'win5',name:'5 побед',type:'win',need:5,reward:100,done:false},
+{id:'win25',name:'25 побед',type:'win',need:25,reward:500,done:false},
+{id:'case1',name:'Открыть кейс',type:'case',need:1,reward:30,done:false},
+{id:'case10',name:'10 кейсов',type:'case',need:10,reward:200,done:false},
+{id:'sell1',name:'Продать скин',type:'sell',need:1,reward:20,done:false},
+{id:'sell10',name:'Продать 10 скинов',type:'sell',need:10,reward:150,done:false}
+];
+
+function checkTasks(type,amount){
+amount=amount||1;
+taskProgress[type]=(taskProgress[type]||0)+amount;
+tasks.forEach(t=>{
+if(t.type===type && !t.done && taskProgress[type]>=t.need){
+t.done=true;
+gold+=t.reward;
+toast('🏆 Задание: '+t.name+'\n+'+t.reward+' G','win');
+sound('win');confetti();
+}
+});
+updateBal();
+saveGame();
+}
+
+// ==== ДЖЕКПОТ ====
+function addToJackpot(amount){
+jackpot+=amount;
+if(jackpot>=JACKPOT_MAX){
+// Срыв джекпота
+const winAmount=jackpot;
+gold+=winAmount;
+jackpot=1000;
+toast('💥 ДЖЕКПОТ СОРВАН!\n+'+winAmount+' G','win');
+sound('win');
+for(let i=0;i<3;i++)setTimeout(confetti,i*300);
+}
+document.getElementById('jackpotVal').innerText=Math.floor(jackpot);
+saveGame();
+}
+
+// ==== КОНЕЦ БЛОКА ====
 
 const allSkins=[
 {name:'AKR 12', icon:'🔫', price:50, color:'#888'},
@@ -422,13 +494,6 @@ const cases=[
 {name:'Редкий кейс',icon:'🎁',price:500,chances:{legendary:2,red:5,epic:15,blue:28,uncommon:50}},
 {name:'Легендарный кейс',icon:'💎',price:2000,chances:{legendary:5,red:10,epic:20,blue:30,uncommon:35}}
 ];
-const tasks=[
-{name:'Первый спин',done:false,reward:10},
-{name:'10 спинов',done:false,reward:50},
-{name:'Первый выигрыш',done:false,reward:20},
-{name:'5 побед',done:false,reward:100},
-{name:'Открыть кейс',done:false,reward:30}
-];
 
 let audioCtx=null;
 function initAudio(){
@@ -480,7 +545,7 @@ document.body.appendChild(c);
 setTimeout(()=>c.remove(),3500);
 }
 }
-function updateBal(){document.getElementById('gold').innerText=gold;document.getElementById('profileBal').innerText=gold}
+function updateBal(){document.getElementById('gold').innerText=Math.floor(gold);document.getElementById('profileBal').innerText=Math.floor(gold);document.getElementById('jackpotVal').innerText=Math.floor(jackpot);}
 function openS(id){
 if(id==='profileScreen')rendProf();
 if(id==='casesScreen')rendCases();
@@ -492,7 +557,7 @@ function rendProf(){
 document.getElementById('pAv').innerText=curAv;
 document.getElementById('pName').innerText=document.getElementById('nick').innerText;
 document.getElementById('avList').innerHTML=avatars.map(a=>`<div class="ao ${a===curAv?'sel':''}" onclick="setAv('${a}')">${a}</div>`).join('');
-document.getElementById('profileBal').innerText=gold;
+document.getElementById('profileBal').innerText=Math.floor(gold);
 }
 function setAv(a){curAv=a;document.getElementById('topAv').innerText=a;document.getElementById('pAv').innerText=a;saveGame();}
 function switchInv(mode){
@@ -565,6 +630,7 @@ gold += sellPrice;updateBal();
 inv.splice(idx,1);
 selectedItems = selectedItems.filter(x=>x!==it);
 rendInv();rendMain();
+checkTasks('sell',1);
 saveGame();
 toast('💸 ПРОДАНО!\n+'+sellPrice+' G','win');
 sound('sell');confetti();
@@ -723,8 +789,11 @@ a.style.transform=`translateX(-50%) rotate(${fixTotal}deg)`;
 }
 
 stats.spins++;
+checkTasks('spin',1);
+
 if(win){
 stats.wins++;
+checkTasks('win',1);
 
 selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
 
@@ -758,6 +827,12 @@ toast('😢 Сгорело '+selectedItems.length+' скинов!','lose');
 sound('lose');
 if(!adminKeepSkins){selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});}
 }
+
+// Добавляем в джекпот 1% от цены скинов
+let jackpotAdd=0;
+selectedItems.forEach(it=>{jackpotAdd+=Math.round((it.price||50)*0.01);});
+if(jackpotAdd<1)jackpotAdd=1;
+addToJackpot(jackpotAdd);
 
 isSpinning=false;
 selectedItems=[];
@@ -874,6 +949,12 @@ inv.push({name:winSkin.name,icon:winSkin.icon,price:winSkin.price,img:winSkin.im
 const iconHtml=winSkin.img?`<img src="${winSkin.img}" style="width:100px;height:100px;object-fit:contain" onerror="this.style.display='none'">`:`<div style="font-size:60px">${winSkin.icon}</div>`;
 resultBox.innerHTML=`<div style="color:#4CAF50;font-size:16px;font-weight:700;margin-bottom:8px">🎉 ВЫПАЛО!</div>${iconHtml}<div style="color:${winSkin.color};font-size:14px;font-weight:700;margin-top:8px">${winSkin.name}</div>`;
 sound('win');confetti();
+
+// Задание: открыть кейс
+checkTasks('case',1);
+// Джекпот: 5% от цены кейса
+addToJackpot(Math.max(1,Math.round(c.price*0.05)));
+
 saveGame();
 
 const btn=document.createElement('button');
@@ -886,9 +967,31 @@ resultBox.appendChild(btn);
 
 function rendTasks(){
 const b=document.getElementById('tasksBody');
-b.innerHTML=tasks.map((t,i)=>`<div class="it"><div class="ii"><span class="ic">📋</span><div><div class="nm">${t.name}</div><div class="pr">${t.done?'✅ Выполнено':'⏳ Не выполнено'}</div></div></div>${t.done?'':'<button class="bb" onclick="doneTask('+i+')">+'+t.reward+'</button>'}</div>`).join('');
+b.innerHTML=tasks.map((t)=>{
+const prog=taskProgress[t.type]||0;
+const cur=Math.min(prog,t.need);
+return `<div class="task-item ${t.done?'done':''}">
+<div>
+<div class="t-name">${t.done?'✅ ':''}${t.name}</div>
+<div class="t-progress">${cur} / ${t.need}</div>
+<div class="t-reward">💰 +${t.reward} G</div>
+</div>
+${t.done?'<div class="t-done">ВЫПОЛНЕНО</div>':'<button class="t-btn" disabled>В ПРОЦЕССЕ</button>'}
+</div>`;
+}).join('');
 }
-function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();saveGame();toast('✅ +'+tasks[i].reward+' G','win');sound('win');confetti()}
+function doneTask(i){/* авто */}
+
+function setJackpot(){const v=parseInt(document.getElementById('adminJackpot').value);if(!isNaN(v)){jackpot=v;updateBal();saveGame();toast('💰 Банк = '+v+' G','win')}}
+function forceJackpot(){
+const winAmount=jackpot;
+gold+=winAmount;
+jackpot=1000;
+toast('💥 ДЖЕКПОТ СОРВАН!\n+'+winAmount+' G','win');
+sound('win');
+for(let i=0;i<3;i++)setTimeout(confetti,i*300);
+updateBal();saveGame();
+}
 
 function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').value);if(!isNaN(v)){gold+=v;updateBal();saveGame();toast('✅ +'+v+' G','win')}}
 function adminSetGoldFunc(){const v=parseInt(document.getElementById('adminSetGold').value);if(!isNaN(v)){gold=v;updateBal();saveGame();toast('✅ Баланс = '+v+' G','win')}}
@@ -904,7 +1007,7 @@ rendInv();saveGame();
 toast('✅ Выдан: '+found.name,'win');
 }
 function showStats(){
-alert('📊 Статистика:\n\n🎰 Спинов: '+stats.spins+'\n🎉 Побед: '+stats.wins+'\n😢 Проигрышей: '+stats.loses+'\n📈 Winrate: '+(stats.spins?Math.round(stats.wins/stats.spins*100):0)+'%\n\n💰 Баланс: '+gold+' G\n🎒 Скинов в инвентаре: '+inv.length);
+alert('📊 Статистика:\n\n🎰 Спинов: '+stats.spins+'\n🎉 Побед: '+stats.wins+'\n😢 Проигрышей: '+stats.loses+'\n📈 Winrate: '+(stats.spins?Math.round(stats.wins/stats.spins*100):0)+'%\n\n💰 Баланс: '+Math.floor(gold)+' G\n💥 Джекпот: '+Math.floor(jackpot)+' G\n🎒 Скинов: '+inv.length);
 }
 function toggleHideAdmin(hide){
 document.querySelector('.admin-panel').style.display = hide?'none':'block';
@@ -914,5 +1017,5 @@ function changeName(){const n=document.getElementById('nameIn').value;document.g
 loadGame();
 updateBal();rendMain();rendInv();
 </script>
-</body> 
+</body>
 </html>
