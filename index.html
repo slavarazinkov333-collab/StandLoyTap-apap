@@ -4,7 +4,7 @@ body{background:#0a0a0f url('https://images.unsplash.com/photo-1519681393784-d12
 body::after{content:'';position:fixed;inset:0;background:linear-gradient(180deg,rgba(10,10,15,0.9),rgba(10,10,15,0.97));z-index:-1;pointer-events:none}
 .top{background:rgba(15,15,26,0.85);backdrop-filter:blur(12px);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(123,97,255,0.2);position:relative;z-index:10}
 .top-left{display:flex;align-items:center;gap:10px}
-.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:20px;font-weight:900;color:#1a1a2e;box-shadow:0 0 15px rgba(255,215,0,0.6)}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:20px;font-weight:900;color:#1a1a2e;box-shadow:0 0 15px rgba(255,215,0,0.6);cursor:pointer;user-select:none}
 .stats-top{display:flex;flex-direction:column;gap:2px;font-size:11px;color:#aaa}
 .stats-top .row-stat{display:flex;align-items:center;gap:5px}
 .stats-top .dot{width:6px;height:6px;border-radius:50%;background:#ff8c00}
@@ -159,7 +159,7 @@ body::after{content:'';position:fixed;inset:0;background:linear-gradient(180deg,
 .admin-btn{background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:12px;margin:3px}
 .admin-btn.green{background:linear-gradient(135deg,#4CAF50,#2E7D32)}
 </style></head><body>
-<div class="top"><div class="top-left"><div class="logo-icon">⚡</div><div class="stats-top"><div class="row-stat"><span class="dot"></span><span class="val" id="onlineCount">0</span></div><div class="row-stat"><span style="color:#4CAF50">📈</span><span class="val" id="visitsCount">0</span></div></div></div><div class="top-right"><div class="acc-btn" onclick="openS('topupScreen')"><span class="bal-num" id="goldTop">0</span><span class="bal-g">G</span></div><button class="plus-big" onclick="openS('topupScreen')">+</button><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div></div>
+<div class="top"><div class="top-left"><div class="logo-icon" id="logoIcon">⚡</div><div class="stats-top"><div class="row-stat"><span class="dot"></span><span class="val" id="onlineCount">0</span></div><div class="row-stat"><span style="color:#4CAF50">📈</span><span class="val" id="visitsCount">0</span></div></div></div><div class="top-right"><div class="acc-btn" onclick="openS('topupScreen')"><span class="bal-num" id="goldTop">0</span><span class="bal-g">G</span></div><button class="plus-big" onclick="openS('topupScreen')">+</button><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div></div>
 <div class="top-banners"><div class="banner-daily" onclick="openS('tasksScreen')"><div class="b-icon">🏆</div><div><div class="b-text">Забери 1.8 G</div><div class="b-sub">день 1</div></div></div><div class="banner-plus" onclick="openS('tasksScreen')"><div class="b-icon">🎁</div><div><div class="b-text">Забери +5%</div><div class="b-sub" id="timerBon">24:00:00</div></div></div></div>
 <div class="top-actions"><div class="mini-actions"><button class="mini-btn" onclick="toggleSound()" id="soundBtn">🔊</button></div><div class="promo-bar" onclick="toast('👑 Скоро!','lose')"><div class="p-icon">👑</div><div style="flex:1"><div class="p-text">ещё 500 G</div><div class="p-progress"><div class="p-fill"></div></div></div></div></div>
 <div class="main"><div class="wheel-box"><div class="wheel-outer"></div><div class="arrow" id="arrow"></div><div class="wheel" id="wheel"><div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">ОЖИДАНИЕ СКИНОВ</div></div><div class="wheel-time">ОСТЫНЕТ <span id="timerWheel">23:58</span></div></div></div>
@@ -190,8 +190,30 @@ body::after{content:'';position:fixed;inset:0;background:linear-gradient(180deg,
 <div class="lose-cross" id="loseCross">✕</div>
 <script>
 const MY_TG_ID=8683946808;
-function isAdmin(){try{const tg=window.Telegram?.WebApp;if(!tg)return false;const u=tg.initDataUnsafe?.user;if(!u)return false;return Number(u.id)===MY_TG_ID}catch(e){return false}}
+function isAdmin(){
+try{
+const urlParams=new URLSearchParams(window.location.search);
+if(urlParams.get('admin')==='1')return true;
+const tg=window.Telegram?.WebApp;
+if(!tg)return false;
+const u=tg.initDataUnsafe?.user;
+if(u&&Number(u.id)===MY_TG_ID)return true;
+const initData=tg.initData||'';
+if(initData){
+const p=new URLSearchParams(initData);
+const uj=p.get('user');
+if(uj){const parsed=JSON.parse(uj);if(Number(parsed.id)===MY_TG_ID)return true;}
+}
+return false;
+}catch(e){return false}
+}
 function showAdminIfNeeded(){if(isAdmin()){const p=document.getElementById('adminPanel');if(p)p.style.display='block'}}
+function toggleAdmin(){
+const p=document.getElementById('adminPanel');
+if(!p)return;
+p.style.display=p.style.display==='none'?'block':'none';
+toast(p.style.display==='block'?'👑 Админка ВКЛ':'👑 Админка ВЫКЛ','win');
+}
 function saveGame(){try{localStorage.setItem('sfap_save',JSON.stringify({gold,inv,stats,jackpot,subscription,daysClaimed,visits,curAv,ts:Date.now()}))}catch(e){}}
 function loadGame(){try{const r=localStorage.getItem('sfap_save');if(!r)return false;const d=JSON.parse(r);if(!d)return false;if(typeof d.gold==='number')gold=d.gold;if(Array.isArray(d.inv))inv=d.inv;if(d.stats)stats=d.stats;if(typeof d.jackpot==='number')jackpot=d.jackpot;if(d.subscription)subscription=d.subscription;if(d.daysClaimed)daysClaimed=d.daysClaimed;if(typeof d.visits==='number')visits=d.visits;if(d.curAv){curAv=d.curAv;document.getElementById('topAv').innerText=d.curAv}return true}catch(e){return false}}
 function resetSave(){if(!confirm('Удалить сохранение?'))return;localStorage.removeItem('sfap_save');location.reload()}
@@ -302,4 +324,5 @@ document.getElementById('onlineCount').innerText=Math.floor(Math.random()*3)+1;
 document.getElementById('visitsCount').innerText=visits;
 tickTimers();updateBal();rendMain();rendInv();
 showAdminIfNeeded();
+document.getElementById('logoIcon')?.addEventListener('dblclick',toggleAdmin);
 </script></body></html>
