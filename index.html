@@ -204,6 +204,7 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="sb">
 <div class="row"><label>Имя</label><input type="text" id="nameIn" value="Игрок" onchange="changeName()"></div>
 <div class="row"><label>Купон</label><input type="text" placeholder="Купон" id="couponIn"><button class="bb" onclick="applyCoupon()">ОК</button></div>
+<div class="row"><label>🗑 Сбросить сохранение</label><button class="admin-btn" onclick="resetSave()">СБРОС</button></div>
 
 <div class="admin-panel">
 <h3>👑 АДМИН-ПАНЕЛЬ</h3>
@@ -231,28 +232,66 @@ body::before{content:'StandFliutApap';position:fixed;top:50%;left:50%;transform:
 <div class="admin-group-title">💰 Баланс</div>
 <div class="row"><label>Выдать G</label><input type="text" id="adminGold" placeholder="1000"><button class="admin-btn green" onclick="adminGiveGold()">+</button></div>
 <div class="row"><label>Установить баланс</label><input type="text" id="adminSetGold" placeholder="999999"><button class="admin-btn" onclick="adminSetGoldFunc()">=</button></div>
-<div class="row"><label>Обнулить баланс</label><button class="admin-btn" onclick="if(confirm('Обнулить баланс?')){gold=0;updateBal();toast('Баланс обнулён','win')}">0</button></div>
+<div class="row"><label>Обнулить баланс</label><button class="admin-btn" onclick="if(confirm('Обнулить баланс?')){gold=0;updateBal();saveGame();toast('Баланс обнулён','win')}">0</button></div>
 
 <div class="admin-sep"></div>
 <div class="admin-group-title">🎒 Инвентарь</div>
 <div class="row"><label>Выдать скин (название)</label><input type="text" id="adminGiveSkin" placeholder="AKR 12"><button class="admin-btn green" onclick="adminGiveSkinFunc()">+</button></div>
-<div class="row"><label>Очистить инвентарь</label><button class="admin-btn" onclick="if(confirm('Очистить инвентарь?')){inv=[];selectedItems=[];rendInv();rendMain();toast('Инвентарь очищен','win')}">🗑</button></div>
+<div class="row"><label>Очистить инвентарь</label><button class="admin-btn" onclick="if(confirm('Очистить инвентарь?')){inv=[];selectedItems=[];rendInv();rendMain();saveGame();toast('Инвентарь очищен','win')}">🗑</button></div>
 
 <div class="admin-sep"></div>
 <div class="admin-group-title">👤 Профиль</div>
-<div class="row"><label>Ранг</label><input type="text" id="adminRank" placeholder="Легенда"><button class="admin-btn blue" onclick="document.getElementById('pRank').innerText=document.getElementById('adminRank').value;toast('Ранг обновлён','win')">ОК</button></div>
+<div class="row"><label>Ранг</label><input type="text" id="adminRank" placeholder="Легенда"><button class="admin-btn blue" onclick="document.getElementById('pRank').innerText=document.getElementById('adminRank').value;saveGame();toast('Ранг обновлён','win')">ОК</button></div>
 <div class="row"><label>Показать статистику</label><button class="admin-btn blue" onclick="showStats()">📊</button></div>
 
 <div class="admin-sep"></div>
 <div class="admin-group-title">🎁 Разное</div>
 <div class="row"><label>Скрыть админ-кнопку</label><input type="checkbox" id="adminHide" onchange="toggleHideAdmin(this.checked)"></div>
-<div class="row"><label>Сбросить ВСЁ</label><button class="admin-btn" onclick="if(confirm('Точно сбросить всё?')){gold=0;inv=[];selectedItems=[];stats={spins:0,wins:0,loses:0};updateBal();rendInv();rendMain();toast('Всё сброшено','win')}">⚠️</button></div>
+<div class="row"><label>Сбросить ВСЁ</label><button class="admin-btn" onclick="if(confirm('Точно сбросить всё?')){gold=0;inv=[];selectedItems=[];stats={spins:0,wins:0,loses:0};updateBal();rendInv();rendMain();saveGame();toast('Всё сброшено','win')}">⚠️</button></div>
 </div>
 
 </div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
+// ==== СОХРАНЕНИЕ ====
+function saveGame(){
+try{
+localStorage.setItem('sfap_save',JSON.stringify({
+gold: gold,
+inv: inv,
+stats: stats,
+nick: document.getElementById('nick').innerText,
+curAv: curAv,
+pRank: document.getElementById('pRank').innerText,
+ts: Date.now()
+}));
+}catch(e){}
+}
+function loadGame(){
+try{
+const raw=localStorage.getItem('sfap_save');
+if(!raw)return false;
+const data=JSON.parse(raw);
+if(!data)return false;
+if(typeof data.gold==='number') gold=data.gold;
+if(Array.isArray(data.inv)) inv=data.inv;
+if(data.stats) stats=data.stats;
+if(data.nick){document.getElementById('nick').innerText=data.nick;document.getElementById('nameIn').value=data.nick;}
+if(data.curAv){curAv=data.curAv;document.getElementById('topAv').innerText=data.curAv;}
+if(data.pRank){document.getElementById('pRank').innerText=data.pRank;}
+return true;
+}catch(e){return false;}
+}
+function resetSave(){
+if(!confirm('Точно удалить сохранение? Всё сбросится.'))return;
+localStorage.removeItem('sfap_save');
+location.reload();
+}
+setInterval(saveGame,3000);
+window.addEventListener('beforeunload',saveGame);
+// ==== КОНЕЦ БЛОКА ====
+
 let gold=0,isSpinning=false,curAv='👤',selItem=null,selPct=null,adminChance=null,adminAlwaysWin=false,multi=1;
 let adminAlwaysLose=false,adminKeepSkins=false,adminCaseLegend=false,adminFastCase=false,adminMulti=1;
 let stats={spins:0,wins:0,loses:0};
@@ -391,7 +430,6 @@ const tasks=[
 {name:'Открыть кейс',done:false,reward:30}
 ];
 
-// ==== ЗВУКИ ====
 let audioCtx=null;
 function initAudio(){
 if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}
@@ -424,7 +462,6 @@ else{beep(400,'sine',0.1,0.08);}
 document.addEventListener('click',e=>{
 if(e.target.tagName==='BUTTON'||e.target.closest('button')){sound('click');}
 },true);
-// ==== КОНЕЦ ЗВУКОВ ====
 
 function toast(msg,type){
 const t=document.getElementById('toast');
@@ -457,7 +494,7 @@ document.getElementById('pName').innerText=document.getElementById('nick').inner
 document.getElementById('avList').innerHTML=avatars.map(a=>`<div class="ao ${a===curAv?'sel':''}" onclick="setAv('${a}')">${a}</div>`).join('');
 document.getElementById('profileBal').innerText=gold;
 }
-function setAv(a){curAv=a;document.getElementById('topAv').innerText=a;document.getElementById('pAv').innerText=a}
+function setAv(a){curAv=a;document.getElementById('topAv').innerText=a;document.getElementById('pAv').innerText=a;saveGame();}
 function switchInv(mode){
 if(mode==='target' && selectedItems.length===0){toast('❌ Сначала выбери скин в инвентаре','lose');return}
 invMode=mode;
@@ -528,6 +565,7 @@ gold += sellPrice;updateBal();
 inv.splice(idx,1);
 selectedItems = selectedItems.filter(x=>x!==it);
 rendInv();rendMain();
+saveGame();
 toast('💸 ПРОДАНО!\n+'+sellPrice+' G','win');
 sound('sell');confetti();
 }
@@ -562,6 +600,7 @@ gold-=p;
 const skinData = allSkins.find(s=>s.name===n);
 inv.push({name:n, icon:ic, price:p, img: skinData ? skinData.img : null});
 updateBal();rendInv();
+saveGame();
 toast('✅ Куплено: '+n+'\n- '+p+' G','win');
 sound('buy');confetti();
 }
@@ -593,7 +632,6 @@ document.querySelectorAll('.mb').forEach(b=>{
 b.classList.toggle('gray',!hasSkin);
 });
 
-// Кнопка Прокачать активна если есть скин И цель
 const btn=document.getElementById('upgradeBtn');
 const cancelBtn=document.getElementById('cancelBtn');
 if(hasSkin && hasTarget){
@@ -603,7 +641,6 @@ btn.style.background='linear-gradient(135deg,#7b61ff,#4a3aff)';
 btn.disabled=true;
 btn.style.background='#2a2a4e';
 }
-// Кнопка отмена показывается если есть выбранные скины ИЛИ цель
 if(hasSkin || hasTarget){
 cancelBtn.style.display='block';
 }else{
@@ -737,6 +774,7 @@ rendMain();
 },3000);
 
 rendInv();
+saveGame();
 },6000);
 }
 function spinUpgradeFast(){if(selectedItems.length===0){toast('❌ Выбери скин','lose');return}if(targetSkin===null){toast('❌ Выбери цель','lose');return}spinUpgrade()}
@@ -836,6 +874,7 @@ inv.push({name:winSkin.name,icon:winSkin.icon,price:winSkin.price,img:winSkin.im
 const iconHtml=winSkin.img?`<img src="${winSkin.img}" style="width:100px;height:100px;object-fit:contain" onerror="this.style.display='none'">`:`<div style="font-size:60px">${winSkin.icon}</div>`;
 resultBox.innerHTML=`<div style="color:#4CAF50;font-size:16px;font-weight:700;margin-bottom:8px">🎉 ВЫПАЛО!</div>${iconHtml}<div style="color:${winSkin.color};font-size:14px;font-weight:700;margin-top:8px">${winSkin.name}</div>`;
 sound('win');confetti();
+saveGame();
 
 const btn=document.createElement('button');
 btn.innerText='ЗАБРАТЬ';
@@ -849,11 +888,10 @@ function rendTasks(){
 const b=document.getElementById('tasksBody');
 b.innerHTML=tasks.map((t,i)=>`<div class="it"><div class="ii"><span class="ic">📋</span><div><div class="nm">${t.name}</div><div class="pr">${t.done?'✅ Выполнено':'⏳ Не выполнено'}</div></div></div>${t.done?'':'<button class="bb" onclick="doneTask('+i+')">+'+t.reward+'</button>'}</div>`).join('');
 }
-function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();toast('✅ +'+tasks[i].reward+' G','win');sound('win');confetti()}
+function doneTask(i){if(tasks[i].done)return;tasks[i].done=true;gold+=tasks[i].reward;updateBal();rendTasks();saveGame();toast('✅ +'+tasks[i].reward+' G','win');sound('win');confetti()}
 
-// ==== АДМИН-ФУНКЦИИ ====
-function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').value);if(!isNaN(v)){gold+=v;updateBal();toast('✅ +'+v+' G','win')}}
-function adminSetGoldFunc(){const v=parseInt(document.getElementById('adminSetGold').value);if(!isNaN(v)){gold=v;updateBal();toast('✅ Баланс = '+v+' G','win')}}
+function adminGiveGold(){const v=parseInt(document.getElementById('adminGold').value);if(!isNaN(v)){gold+=v;updateBal();saveGame();toast('✅ +'+v+' G','win')}}
+function adminSetGoldFunc(){const v=parseInt(document.getElementById('adminSetGold').value);if(!isNaN(v)){gold=v;updateBal();saveGame();toast('✅ Баланс = '+v+' G','win')}}
 function setAdminChance(){const v=parseInt(document.getElementById('adminChance').value);if(!isNaN(v)&&v>=1&&v<=99){adminChance=v;toast('🎯 % выигрыша: '+v+'%','win')}else{adminChance=null;toast('❌ Введи 1-99','lose')}}
 function setAdminMulti(v){adminMulti=v;toast('✅ Множитель: x'+v,'win')}
 function adminGiveSkinFunc(){
@@ -862,7 +900,7 @@ if(!q){toast('❌ Введи название','lose');return}
 const found=allSkins.find(s=>s.name.toLowerCase().includes(q));
 if(!found){toast('❌ Скин не найден','lose');return}
 inv.push({name:found.name,icon:found.icon,price:found.price,img:found.img||null});
-rendInv();
+rendInv();saveGame();
 toast('✅ Выдан: '+found.name,'win');
 }
 function showStats(){
@@ -871,9 +909,10 @@ alert('📊 Статистика:\n\n🎰 Спинов: '+stats.spins+'\n🎉 П
 function toggleHideAdmin(hide){
 document.querySelector('.admin-panel').style.display = hide?'none':'block';
 }
-function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();toast('✅ Купон активирован!','win');sound('win');confetti()}else toast('❌ Неверный купон','lose')}
-function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n}
+function applyCoupon(){const c=document.getElementById('couponIn').value.trim().toLowerCase();if(c==='flayy'){gold+=100;updateBal();saveGame();toast('✅ Купон активирован!','win');sound('win');confetti()}else toast('❌ Неверный купон','lose')}
+function changeName(){const n=document.getElementById('nameIn').value;document.getElementById('nick').innerText=n;document.getElementById('pName').innerText=n;saveGame();}
+loadGame();
 updateBal();rendMain();rendInv();
 </script>
-</body>
+</body> 
 </html>
