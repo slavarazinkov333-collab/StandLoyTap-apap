@@ -185,10 +185,13 @@ body::after{content:'';position:fixed;inset:0;background:linear-gradient(180deg,
 <div class="scr" id="casesScreen"><div class="sh"><h2>📦 Кейсы</h2><button class="cb" onclick="closeS('casesScreen')">✕</button></div><div class="sb" id="casesBody"></div></div>
 <div class="scr" id="profileScreen"><div class="sh"><h2>👤 Профиль</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div><div class="sb"><div class="ph"><div class="pa" id="pAv">👤</div><div class="pn" id="pName">Игрок</div><div class="pr" id="pRank">Новичок</div></div><div class="row"><label>👥 Онлайн</label><span id="pOnline">0</span></div><div class="row"><label>📈 Заходов</label><span id="pVisits">0</span></div><div class="row"><label>🎰 Спинов</label><span id="pSpins">0</span></div><div class="row"><label>🎉 Побед</label><span id="pWins">0</span></div><div class="row"><label>😢 Проигрышей</label><span id="pLoses">0</span></div><div class="al" id="avList"></div><div style="margin-top:16px;color:#888;font-size:12px;">Баланс: <span id="profileBal" style="color:#ffd700">0</span> G</div></div></div>
 <div class="scr" id="topupScreen"><div class="sh"><h2>💰 Пополнение</h2><button class="cb" onclick="closeS('topupScreen')">✕</button></div><div class="sb"><div style="text-align:center;color:#ff8c00;font-size:14px;font-weight:700;margin-bottom:16px">💳 Оплата скоро!</div><div class="row" style="flex-direction:column"><div style="color:#ff8c00;font-weight:700">💎 100 G</div><div>99 ₽</div><button class="admin-btn green" onclick="toast('💳 Скоро!','lose')">Купить</button></div><div class="row" style="flex-direction:column"><div style="color:#ff8c00;font-weight:700">💎 500 G</div><div>449 ₽</div><button class="admin-btn green" onclick="toast('💳 Скоро!','lose')">Купить</button></div><div class="row" style="flex-direction:column"><div style="color:#ff8c00;font-weight:700">💎 1000 G</div><div>799 ₽</div><button class="admin-btn green" onclick="toast('💳 Скоро!','lose')">Купить</button></div></div></div>
-<div class="scr" id="settingsScreen"><div class="sh"><h2>⚙️ Меню</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div><div class="sb"><div class="row"><label>Купон</label><input type="text" id="couponIn"><button class="admin-btn green" onclick="applyCoupon()">ОК</button></div><div class="row"><label>🗑 Сброс</label><button class="admin-btn" onclick="resetSave()">СБРОС</button></div><div class="admin-panel"><h3>👑 АДМИН</h3><div class="row"><label>Всегда выигрыш</label><input type="checkbox" id="adminAlwaysWin" onchange="adminAlwaysWin=this.checked"></div><div class="row"><label>Всегда проигрыш</label><input type="checkbox" id="adminAlwaysLose" onchange="adminAlwaysLose=this.checked"></div><div class="row"><label>% выигрыша</label><input type="text" id="adminChance" placeholder="1-99"><button class="admin-btn" onclick="setAdminChance()">ОК</button></div><div class="row"><label>Выдать G</label><input type="text" id="adminGold" placeholder="1000"><button class="admin-btn green" onclick="adminGiveGold()">+</button></div><div class="row"><label>Установить</label><input type="text" id="adminSetGold" placeholder="999999"><button class="admin-btn" onclick="adminSetGoldFunc()">=</button></div><div class="row"><label>Выдать скин</label><input type="text" id="adminGiveSkin" placeholder="AKR 12"><button class="admin-btn green" onclick="adminGiveSkinFunc()">+</button></div></div></div></div>
+<div class="scr" id="settingsScreen"><div class="sh"><h2>⚙️ Меню</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div><div class="sb"><div class="row"><label>Купон</label><input type="text" id="couponIn"><button class="admin-btn green" onclick="applyCoupon()">ОК</button></div><div class="row"><label>🗑 Сброс</label><button class="admin-btn" onclick="resetSave()">СБРОС</button></div><div class="admin-panel" id="adminPanel" style="display:none"><h3>👑 АДМИН</h3><div class="row"><label>Всегда выигрыш</label><input type="checkbox" id="adminAlwaysWin" onchange="adminAlwaysWin=this.checked"></div><div class="row"><label>Всегда проигрыш</label><input type="checkbox" id="adminAlwaysLose" onchange="adminAlwaysLose=this.checked"></div><div class="row"><label>% выигрыша</label><input type="text" id="adminChance" placeholder="1-99"><button class="admin-btn" onclick="setAdminChance()">ОК</button></div><div class="row"><label>Выдать G</label><input type="text" id="adminGold" placeholder="1000"><button class="admin-btn green" onclick="adminGiveGold()">+</button></div><div class="row"><label>Установить</label><input type="text" id="adminSetGold" placeholder="999999"><button class="admin-btn" onclick="adminSetGoldFunc()">=</button></div><div class="row"><label>Выдать скин</label><input type="text" id="adminGiveSkin" placeholder="AKR 12"><button class="admin-btn green" onclick="adminGiveSkinFunc()">+</button></div></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="lose-cross" id="loseCross">✕</div>
 <script>
+const MY_TG_ID=8683946808;
+function isAdmin(){try{const tg=window.Telegram?.WebApp;if(!tg)return false;const u=tg.initDataUnsafe?.user;if(!u)return false;return Number(u.id)===MY_TG_ID}catch(e){return false}}
+function showAdminIfNeeded(){if(isAdmin()){const p=document.getElementById('adminPanel');if(p)p.style.display='block'}}
 function saveGame(){try{localStorage.setItem('sfap_save',JSON.stringify({gold,inv,stats,jackpot,subscription,daysClaimed,visits,curAv,ts:Date.now()}))}catch(e){}}
 function loadGame(){try{const r=localStorage.getItem('sfap_save');if(!r)return false;const d=JSON.parse(r);if(!d)return false;if(typeof d.gold==='number')gold=d.gold;if(Array.isArray(d.inv))inv=d.inv;if(d.stats)stats=d.stats;if(typeof d.jackpot==='number')jackpot=d.jackpot;if(d.subscription)subscription=d.subscription;if(d.daysClaimed)daysClaimed=d.daysClaimed;if(typeof d.visits==='number')visits=d.visits;if(d.curAv){curAv=d.curAv;document.getElementById('topAv').innerText=d.curAv}return true}catch(e){return false}}
 function resetSave(){if(!confirm('Удалить сохранение?'))return;localStorage.removeItem('sfap_save');location.reload()}
@@ -227,8 +230,6 @@ const allSkins=[
 {name:'AKR 12',icon:'🔫',price:50,color:'#888'},
 {name:'AKR 12 «Tag King»',icon:'🔫',price:500,color:'#ffd700',img:'https://avatars.mds.yandex.net/i?id=be33280c2d6526334720813d7a4baa1799d79e48-10131513-images-thumbs&n=13'},
 {name:'AKR 12 «Steam Beast»',icon:'🔫',price:1000,color:'#ff8c00',img:'https://avatars.mds.yandex.net/i?id=662ebe7b0a2ff3b6dc07980a04a0377119142802-4575726-images-thumbs&n=13'},
-{name:'AKR 12 «Treasure Hunter»',icon:'🔫',price:2000,color:'#c2a878'},
-{name:'AKR 12 «Микромансер»',icon:'🔫',price:1500,color:'#ff4444'},
 {name:'AKR 12 «Revolution»',icon:'🔫',price:800,color:'#4CAF50',img:'https://avatars.mds.yandex.net/i?id=7747336d6da10df9ca23a3595489813764768538-5888889-images-thumbs&n=13'},
 {name:'AKR 12 «Carbon»',icon:'🔫',price:600,color:'#888',img:'https://avatars.mds.yandex.net/i?id=d88cb29bb6c30a5accf94348cdfd5ad7d5252208-5575009-images-thumbs&n=13'},
 {name:'AKR 12 «Nuclear»',icon:'🔫',price:1200,color:'#4CAF50',img:'https://avatars.mds.yandex.net/i?id=d763df85b2662cb81914dd58191320e57ce55524-4239917-images-thumbs&n=13'},
@@ -241,19 +242,15 @@ const allSkins=[
 {name:'M4A1 «Samurai»',icon:'🔫',price:1500,color:'#ff4444',img:'https://avatars.mds.yandex.net/i?id=112a327e1c7f609a5285a8454f65dc3a41541e85-10613167-images-thumbs&n=13'},
 {name:'M4A1 «Kitsune»',icon:'🔫',price:2200,color:'#ff8c00',img:'https://avatars.mds.yandex.net/i?id=df9d8b65ecf2c437783b82b1a2b04463ac2ed27d-12635770-images-thumbs&n=13'},
 {name:'M4A1 «Bubblegum»',icon:'🔫',price:3500,color:'#ff69b4',img:'https://avatars.mds.yandex.net/i?id=a1fa2569e4fd744413ca3b860dec15251d1c37b9-9069510-images-thumbs&n=13'},
-{name:'M4A1 «Tempest»',icon:'🔫',price:1800,color:'#9b8aff'},
 {name:'M4A1 «Sparkling Gaze»',icon:'🔫',price:2500,color:'#00ffff',img:'https://avatars.mds.yandex.net/i?id=ea07ba0b76092893ad2b93dded4ceb0fa60a1121-16346665-images-thumbs&n=13'},
 {name:'Desert Eagle',icon:'🔫',price:50,color:'#888'},
 {name:'Desert Eagle «Glory»',icon:'🔫',price:800,color:'#ffd700',img:'https://avatars.mds.yandex.net/i?id=d16373a9c30a02555fb6b60845ca9ca1c0d43ae2-10870276-images-thumbs&n=13'},
-{name:'Desert Eagle «Dust Devil»',icon:'🔫',price:1200,color:'#c2a878'},
-{name:'Desert Eagle «Predator»',icon:'🔫',price:1000,color:'#ff4444'},
 {name:'Desert Eagle «Piranha»',icon:'🔫',price:1500,color:'#ff4444',img:'https://avatars.mds.yandex.net/i?id=94c14899883ff470c7438f8ae9338154dde870c3-5313814-images-thumbs&n=13'},
 {name:'Desert Eagle «Wildflower»',icon:'🔫',price:1800,color:'#ff69b4',img:'https://avatars.mds.yandex.net/i?id=84d54732ffab704aba7bc55c972599f28ed2345c-5213474-images-thumbs&n=13'},
 {name:'P350',icon:'🔫',price:30,color:'#888',img:'https://avatars.mds.yandex.net/i?id=1706c8772b2fe9859d327829bc1507da3d6b388e-12365999-images-thumbs&n=13'},
 {name:'USP «Genesis»',icon:'🔫',price:700,color:'#4a9eff',img:'https://avatars.mds.yandex.net/i?id=354c5b525682f2a5490441774f31c4a9f526bd21-5715888-images-thumbs&n=13'},
 {name:'USP «Раритет»',icon:'🔫',price:1200,color:'#c2a878',img:'https://avatars.mds.yandex.net/i?id=badeb2f99a966c84158b7987368e5a33c1933323-4598847-images-thumbs&n=13'},
 {name:'P90',icon:'🔫',price:60,color:'#888'},
-{name:'P90 «Oops»',icon:'🔫',price:600,color:'#9b8aff'},
 {name:'UMP45 «Predator»',icon:'🔫',price:700,color:'#ff4444'},
 {name:'MP5 «Cyber»',icon:'🔫',price:800,color:'#00ffff'},
 {name:'AWM «Dragon Lore»',icon:'🎯',price:5000,color:'#ffd700'},
@@ -262,7 +259,7 @@ const allSkins=[
 {name:'Karambit «Claw»',icon:'🔪',price:4000,color:'#ff4444'},
 {name:'Karambit «Gold»',icon:'🔪',price:120000,color:'#ffd700'},
 {name:'Butterfly «Black Widow»',icon:'🔪',price:6000,color:'#ff4444'},
-{name:'Butterfly «Nightmare» (Немезида)',icon:'🔪',price:150000,color:'#ff00ff'},
+{name:'Butterfly «Nightmare»',icon:'🔪',price:150000,color:'#ff00ff'},
 {name:'Sting «Mimicry»',icon:'🔪',price:110000,color:'#ff00ff'},
 {name:'Sticker «Devilish»',icon:'🏷️',price:100,color:'#ff4444'},
 {name:'Sticker «Dragon»',icon:'🏷️',price:400,color:'#ff4444'},
@@ -304,4 +301,5 @@ setInterval(()=>{const e=document.getElementById('onlineCount');if(e)e.innerText
 document.getElementById('onlineCount').innerText=Math.floor(Math.random()*3)+1;
 document.getElementById('visitsCount').innerText=visits;
 tickTimers();updateBal();rendMain();rendInv();
+showAdminIfNeeded();
 </script></body></html>
