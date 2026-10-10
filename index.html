@@ -304,22 +304,24 @@ function withdrawSkinDirect(idx){
 }
 
 function openWithdrawStep1(it, userId){
+function openWithdrawStep1(it, userId){
   const modal=document.createElement('div');
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';
   modal.id='withdrawModal';
   modal.innerHTML=`
     <div style="background:#12121a;border:2px solid #d4a017;border-radius:18px;padding:24px;max-width:380px;width:100%;text-align:center">
-      <div style="font-size:14px;color:#d4a017;font-weight:900;margin-bottom:16px">📤 ВЫВОД СКИНА</div>
+      <div style="font-size:14px;color:#d4a017;font-weight:900;margin-bottom:14px">📤 ВЫВОД СКИНА</div>
+      <div style="font-size:13px;color:#d8d8dc;font-weight:700;margin-bottom:10px">📌 Поставьте данную аву</div>
       <div style="background:#0a0a0f;border:2px solid #2a2a3e;border-radius:14px;padding:16px;margin-bottom:16px">
         <img src="https://avatars.mds.yandex.net/i?id=e2dbf0eea03d887a95a6b2a5b1cfe7a35112f997-5243585-images-thumbs&n=13" style="width:100%;max-width:260px;border-radius:12px" onerror="this.style.display='none'">
       </div>
-      <div style="font-size:12px;color:#d8d8dc;margin-bottom:16px;line-height:1.5">Прочитай внимательно инструкцию по выводу</div>
+      <div style="font-size:12px;color:#888;margin-bottom:16px;line-height:1.5">Прочитай внимательно инструкцию по выводу</div>
       <button id="wdNext1" style="width:100%;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:900;font-size:14px;cursor:pointer">➡️ ДАЛЕЕ</button>
       <button onclick="document.getElementById('withdrawModal').remove()" style="width:100%;background:#2a2a3e;color:#d8d8dc;border:none;padding:10px;border-radius:12px;font-weight:700;font-size:13px;cursor:pointer;margin-top:8px">❌ ОТМЕНА</button>
     </div>`;
   document.body.appendChild(modal);
   document.getElementById('wdNext1').onclick=()=>{modal.remove();openWithdrawStep2(it, userId)};
-}
+    }
 
 function openWithdrawStep2(it, userId){
   const modal=document.createElement('div');
@@ -331,7 +333,7 @@ function openWithdrawStep2(it, userId){
       <div style="background:#0a0a0f;border:2px solid #2a2a3e;border-radius:14px;padding:20px;margin-bottom:16px">
         <div style="font-size:44px;margin-bottom:10px">🛒</div>
         <div style="font-size:15px;font-weight:900;color:#d8d8dc;margin-bottom:10px">КУПИТЕ СКИН</div>
-        <div style="font-size:15px;font-weight:900;color:#d4a017">«${it.name}»</div>
+        <div style="font-size:15px;font-weight:900;color:#d4a017">«GG22 Flock»</div>
         <div style="font-size:11px;color:#888;margin-top:8px">в магазине Standoff</div>
       </div>
       <button id="wdNext2" style="width:100%;background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:900;font-size:14px;cursor:pointer">➡️ ДАЛЕЕ</button>
@@ -340,10 +342,11 @@ function openWithdrawStep2(it, userId){
   document.body.appendChild(modal);
   document.getElementById('wdNext2').onclick=()=>{modal.remove();openWithdrawStep3(it, userId)};
 }
-
 function openWithdrawStep3(it, userId){
   const standCommission = 0.2;
   const listPrice = Math.ceil((it.price||22) / (1 - standCommission));
+  const gg22Img='https://avatars.mds.yandex.net/i?id=a68b9e3c9fbc560be399bbd6ec601f6abbb6195e-4581102-images-thumbs&n=13';
+  
   const modal=document.createElement('div');
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';
   modal.id='withdrawModal';
@@ -351,8 +354,9 @@ function openWithdrawStep3(it, userId){
     <div style="background:#12121a;border:2px solid #d4a017;border-radius:18px;padding:20px;max-width:400px;width:100%;text-align:center">
       <div style="font-size:14px;color:#d4a017;font-weight:900;margin-bottom:14px">📌 ШАГ 2</div>
       <div style="background:#0a0a0f;border:2px solid #2a2a3e;border-radius:14px;padding:14px;margin-bottom:12px">
-        ${it.img?`<img src="${it.img}" style="width:100%;max-height:130px;object-fit:contain;border-radius:8px;margin-bottom:8px" onerror="this.style.display='none'">`:`<div style="font-size:60px;margin-bottom:8px">${it.icon}</div>`}
-        <div style="font-size:14px;font-weight:700;color:#d8d8dc">${it.name}</div>
+        <img src="${gg22Img}" style="width:100%;max-height:130px;object-fit:contain;border-radius:8px;margin-bottom:8px" onerror="this.style.display='none'">
+        <div style="font-size:14px;font-weight:700;color:#d8d8dc">GG22 «Flock»</div>
+        <div style="font-size:11px;color:#888;margin-top:4px">Этот скин нужно купить и выставить</div>
       </div>
       <div style="background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.4);border-radius:10px;padding:12px;margin-bottom:12px;text-align:left;font-size:11px;line-height:1.5">
         <div style="color:#d4a017;font-weight:900;margin-bottom:6px">📌 ВЫСТАВЬТЕ НА ПРОДАЖУ:</div>
@@ -391,11 +395,21 @@ function openWithdrawStep3(it, userId){
     const btn=document.getElementById('wdConfirm');
     btn.disabled=true;btn.innerText='⏳ Отправка...';err.style.display='none';
     try{
-      const r=await fetch(BOT_URL+'/api/withdraw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({skin:it.name,icon:it.icon,img:it.img,price:it.price,listPrice,skinName:it.name,pattern,account,userId})});
+      const r=await fetch(BOT_URL+'/api/withdraw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        skin:it.name,
+        icon:it.icon,
+        img:gg22Img,
+        price:it.price,
+        listPrice,
+        skinName:'GG22 Flock',
+        pattern,
+        account,
+        userId
+      })});
       const d=await r.json();
       if(d.ok){
         let myW=JSON.parse(localStorage.getItem('sfap_my_withdraws')||'[]');
-        myW.push({id:d.id,skin:it.name,icon:it.icon,img:it.img,price:it.price,listPrice,time:new Date().toLocaleString(),status:'pending',reason:''});
+        myW.push({id:d.id,skin:it.name,icon:it.icon,img:gg22Img,price:it.price,listPrice,time:new Date().toLocaleString(),status:'pending',reason:''});
         localStorage.setItem('sfap_my_withdraws',JSON.stringify(myW));
         rendInv();saveGame();
         addHistory('withdraw','📤 Заявка #'+d.id+': '+it.name);
@@ -404,8 +418,7 @@ function openWithdrawStep3(it, userId){
       }else{err.style.display='block';err.innerText='❌ Ошибка сервера';btn.disabled=false;btn.innerText='✅ ПОДТВЕРДИТЬ'}
     }catch(e){err.style.display='block';err.innerText='❌ Нет связи с сервером';btn.disabled=false;btn.innerText='✅ ПОДТВЕРДИТЬ'}
   };
-}
-
+    }
 function openWithdrawStep4(reqId, it, listPrice){
   const modal=document.createElement('div');
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';
