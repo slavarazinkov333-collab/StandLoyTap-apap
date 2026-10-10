@@ -292,7 +292,7 @@ function setTarget(n,i,p,c){targetSkin={name:n,icon:i,price:p,color:c};if(select
 function selP(p){selPct=p;if(selectedItems.length>0){const tp=selectedItems.reduce((s,it)=>s+(it.price||50),0),tpr=Math.round(tp/(p/100));let cl=allSkins[0],md=Infinity;allSkins.forEach(s=>{const d=Math.abs(s.price-tpr);if(d<md){md=d;cl=s}});targetSkin={name:cl.name,icon:cl.icon,price:cl.price,color:cl.color}}document.querySelectorAll('.pb').forEach(b=>{b.classList.remove('sel');if(b.innerText===p+'%')b.classList.add('sel')});document.getElementById('pt').innerText=formatPct(p);const w=document.getElementById('wheel');w.style.setProperty('--wa',(p/100)*360+'deg');rendMain()}
 function setMulti(v){if(selectedItems.length===0){toast('❌ Скин','lose');return}const mp={2:50,4:40,5:35,10:20},newPct=mp[v]||50;multi=v;selPct=newPct;document.getElementById('pcntList').innerHTML=`<button class="pb sel">${newPct}%</button>`;document.getElementById('pt').innerText=formatPct(newPct);const w=document.getElementById('wheel');w.style.setProperty('--wa',(newPct/100)*360+'deg');if(selectedItems.length>0){const tp=selectedItems.reduce((s,it)=>s+(it.price||50),0),targetPrice=Math.round(tp/(newPct/100));let cl=allSkins[0],md=Infinity;allSkins.forEach(s=>{const d=Math.abs(s.price-targetPrice);if(d<md){md=d;cl=s}});targetSkin={name:cl.name,icon:cl.icon,price:cl.price,color:cl.color}}document.querySelectorAll('.mb').forEach(b=>{b.classList.remove('sel');if(b.innerText==='x'+v)b.classList.add('sel')});rendMain();toast('✅ x'+v+' → '+newPct+'%','win')}
 function sellSkinDirect(idx){if(idx<0||idx>=inv.length)return;const it=inv[idx],sp=Math.round((it.price||50)*.7);gold+=sp;updateBal();inv.splice(idx,1);selectedItems=selectedItems.filter(x=>x!==it);rendInv();rendMain();saveGame();addHistory('sell','💸 Продано: '+it.name+' +'+sp+' G');toast('💸 +'+sp+' G','win');sound('sell');confetti()}
-function withdrawSkinDirect(idx){
+ function withdrawSkinDirect(idx){
   if(idx<0||idx>=inv.length)return;
   const it=inv[idx];
   let myW=JSON.parse(localStorage.getItem('sfap_my_withdraws')||'[]');
@@ -303,7 +303,6 @@ function withdrawSkinDirect(idx){
   openWithdrawStep1(it, userId);
 }
 
-function openWithdrawStep1(it, userId){
 function openWithdrawStep1(it, userId){
   const modal=document.createElement('div');
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';
@@ -321,7 +320,7 @@ function openWithdrawStep1(it, userId){
     </div>`;
   document.body.appendChild(modal);
   document.getElementById('wdNext1').onclick=()=>{modal.remove();openWithdrawStep2(it, userId)};
-    }
+}
 
 function openWithdrawStep2(it, userId){
   const modal=document.createElement('div');
@@ -342,6 +341,7 @@ function openWithdrawStep2(it, userId){
   document.body.appendChild(modal);
   document.getElementById('wdNext2').onclick=()=>{modal.remove();openWithdrawStep3(it, userId)};
 }
+
 function openWithdrawStep3(it, userId){
   const standCommission = 0.2;
   const listPrice = Math.ceil((it.price||22) / (1 - standCommission));
@@ -418,7 +418,8 @@ function openWithdrawStep3(it, userId){
       }else{err.style.display='block';err.innerText='❌ Ошибка сервера';btn.disabled=false;btn.innerText='✅ ПОДТВЕРДИТЬ'}
     }catch(e){err.style.display='block';err.innerText='❌ Нет связи с сервером';btn.disabled=false;btn.innerText='✅ ПОДТВЕРДИТЬ'}
   };
-    }
+}
+
 function openWithdrawStep4(reqId, it, listPrice){
   const modal=document.createElement('div');
   modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';
@@ -462,4 +463,4 @@ updateBal();rendMain();rendInv();drawTicks();
 showAdminIfNeeded();
 loadRefState();
 document.getElementById('logoIcon')?.addEventListener('dblclick',toggleAdmin);
-</script></body></html>
+</script></body></html> 
