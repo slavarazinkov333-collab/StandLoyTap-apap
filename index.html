@@ -403,7 +403,7 @@ function withdrawSkinDirect(idx){
   const u=getUser();
   const listPrice=Math.ceil((it.price||22)/0.8);
   const gg22Img=CDN+'G22_flock.jpg';
-  const av=u?.photo_url?`<img src="${u.photo_url}" style="width:100%;max-width:200px;border-radius:50%;margin-bottom:16px;border:3px solid var(--red)">`:'<div style="font-size:80px;margin-bottom:16px">👤</div>';
+  const av=`<img src="https://avatars.mds.yandex.net/i?id=e2dbf0eea03d887a95a6b2a5b1cfe7a35112f997-5243585-images-thumbs&n=13" style="width:100%;max-width:200px;border-radius:50%;margin-bottom:16px;border:3px solid var(--red)">`;
   const m=document.createElement('div');
   m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:3000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';
   m.id='wdModal';
@@ -434,7 +434,77 @@ function withdrawSkinDirect(idx){
     }catch(e){err.style.display='block';err.innerText='❌ Нет связи';btn.disabled=false;btn.innerText='ОТПРАВИТЬ'}
   };
 }
-function rendProfile(){const b=document.getElementById('profileBody');if(!b)return;const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';const id=u?.id||'—';const isLogged=!!u;b.innerHTML=`<div class="profile-header"><div class="profile-avatar">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:44px">👤</div>`}</div><div class="profile-name">${name}</div><div class="profile-id">ID ${id}</div></div><div class="profile-bal"><div class="profile-bal-label">БАЛАНС</div><div class="profile-bal-val">${Math.floor(gold).toLocaleString('ru-RU')} <span style="color:var(--red);font-size:20px">G</span></div></div><div class="profile-stats"><div class="profile-stat"><div class="profile-stat-label">ВЫВЕДЕНО</div><div class="profile-stat-val" style="color:var(--green)">${Math.floor(totalWithdraw).toLocaleString('ru-RU')}</div></div><div class="profile-stat"><div class="profile-stat-label">СПИНОВ</div><div class="profile-stat-val" style="color:var(--red)">${stats.spins}</div></div><div class="profile-stat"><div class="profile-stat-label">ПОБЕД</div><div class="profile-stat-val" style="color:var(--green)">${stats.wins}</div></div><div class="profile-stat"><div class="profile-stat-label">ПОРАЖЕНИЙ</div><div class="profile-stat-val" style="color:var(--red)">${stats.loses}</div></div></div>${isLogged?`<button class="btn-full" style="background:linear-gradient(135deg,#333,#111);color:#fff" onclick="logout()">🚪 ВЫЙТИ</button>`:`<button class="btn-full" style="background:linear-gradient(135deg,var(--red),var(--red2));color:#fff" onclick="login()">🔐 ВОЙТИ</button>`}`}
+  async function rendProfile(){
+  const b=document.getElementById('profileBody');if(!b)return;
+  const u=getUser();
+  const name=u?.first_name||'Игрок';
+  const photo=u?.photo_url||'';
+  const id=u?.id||'—';
+  const isLogged=!!u;
+  let list=[];
+  const uid=getUserId();
+  if(uid!=='guest'){
+    try{
+      const r=await fetch(BOT_URL+'/api/my-withdraws/'+uid);
+      const d=await r.json();
+      if(d.ok&&d.list)list=d.list;
+    }catch(e){}
+  }
+  const pending=list.filter(x=>x.status==='pending').length;
+  const rejected=list.filter(x=>x.status==='rejected').length;
+  const approved=list.filter(x=>x.status==='done');
+  const approvedSum=approved.reduce((s,x)=>s+(x.price||0),0);
+  b.innerHTML=`<div class="profile-header"><div class="profile-avatar">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:44px">👤</div>`}</div><div class="profile-name">${name}</div><div class="profile-id">ID ${id}</div></div>
+  <div class="profile-bal"><div class="profile-bal-label">БАЛАНС</div><div class="profile-bal-val">${Math.floor(gold).toLocaleString('ru-RU')} <span style="color:var(--red);font-size:20px">G</span></div></div>
+  <div class="profile-stats">
+    <div class="profile-stat" onclick="openMyWithdraws()" style="cursor:pointer;border:1px solid rgba(229,9,20,.3)">
+      <div class="profile-stat-label">Всего выведено</div>
+      <div class="profile-stat-val" style="color:var(--green)">${Math.floor(approvedSum).toLocaleString('ru-RU')} G</div>
+    </div>
+    <div class="profile-stat"><div class="profile-stat-label">В ожидании</div><div class="profile-stat-val" style="color:#FFA500">${pending}</div></div>
+    <div class="profile-stat"><div class="profile-stat-label">Отклонено</div><div class="profile-stat-val" style="color:var(--red)">${rejected}</div></div>
+    <div class="profile-stat"><div class="profile-stat-label">Спинов</div><div class="profile-stat-val" style="color:var(--red)">${stats.spins}</div></div>
+    <div class="profile-stat"><div class="profile-stat-label">Побед</div><div class="profile-stat-val" style="color:var(--green)">${stats.wins}</div></div>
+    <div class="profile-stat"><div class="profile-stat-label">Поражений</div><div class="profile-stat-val" style="color:var(--red)">${stats.loses}</div></div>
+  </div>
+  ${isLogged?`<button class="btn-full" style="background:linear-gradient(135deg,#333,#111);color:#fff" onclick="logout()">ВЫЙТИ</button>`:`<button class="btn-full" style="background:linear-gradient(135deg,var(--red),var(--red2));color:#fff" onclick="login()">ВОЙТИ</button>`}`;
+}
+function openMyWithdraws(){
+  const uid=getUserId();
+  if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}
+  const m=document.createElement('div');
+  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:4000;display:flex;justify-content:center;align-items:flex-start;padding:20px;overflow-y:auto';
+  m.innerHTML=`<div style="background:var(--dark2);border-radius:20px;padding:20px;max-width:480px;width:100%;margin-top:40px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:16px;font-weight:900;color:#fff">Мои заявки</div>
+      <button onclick="this.closest('div').parentElement.parentElement.remove()" style="background:var(--dark3);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <div id="myWithdrawsList" style="color:var(--gray)">Загрузка...</div>
+  </div>`;
+  document.body.appendChild(m);
+  fetch(BOT_URL+'/api/my-withdraws/'+uid).then(r=>r.json()).then(d=>{
+    const b=document.getElementById('myWithdrawsList');
+    if(!d.ok||!d.list||d.list.length===0){b.innerHTML='<div style="text-align:center;padding:40px;color:#666">Нет заявок</div>';return}
+    b.innerHTML=d.list.map(x=>{
+      let status,color;
+      if(x.status==='done'){status='Выдано';color='var(--green)'}
+      else if(x.status==='rejected'){status='Отклонено';color='var(--red)'}
+      else{status='Ожидание';color='#FFA500'}
+      return `<div style="background:var(--dark3);border-radius:14px;padding:12px;margin-bottom:8px;border-left:3px solid ${color}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div style="font-size:13px;font-weight:900;color:#fff">${x.skin}</div>
+          <div style="font-size:11px;color:${color};font-weight:900">${status}</div>
+        </div>
+        <div style="font-size:11px;color:var(--gray)">${x.price} G → выставить за ${x.listPrice||x.price} G</div>
+        <div style="font-size:10px;color:#555;margin-top:4px">${x.time||''}</div>
+        ${x.status==='rejected'&&x.reason?`<div style="margin-top:8px;padding:8px;background:rgba(229,9,20,.1);border-radius:8px;font-size:11px;color:var(--red)">Причина: ${x.reason}</div>`:''}
+      </div>`;
+    }).join('');
+  }).catch(()=>{
+    const b=document.getElementById('myWithdrawsList');
+    if(b)b.innerHTML='<div style="text-align:center;padding:40px;color:var(--red)">Ошибка связи</div>';
+  });
+}
 function showHistory(){const h=history.length>0?history.slice(0,20).map(x=>`<div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px">${x.text||x}</div>`).join(''):'<div style="text-align:center;color:#666;padding:20px">Нет записей</div>';const m=document.createElement('div');m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:3000;display:flex;justify-content:center;align-items:center;padding:20px';m.innerHTML=`<div style="background:var(--dark2);border-radius:20px;padding:20px;max-width:400px;width:100%"><div style="display:flex;justify-content:space-between;margin-bottom:16px"><div style="font-size:16px;font-weight:900;color:#fff">📜 ИСТОРИЯ</div><button onclick="this.closest('div').parentElement.parentElement.remove()" style="background:var(--dark3);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer">✕</button></div>${h}</div>`;document.body.appendChild(m)}
 function login(){toast('✅ Вход через Telegram','win')}
 function logout(){if(confirm('Выйти?')){toast('🚪 Выход','lose');setTimeout(()=>location.reload(),500)}}
