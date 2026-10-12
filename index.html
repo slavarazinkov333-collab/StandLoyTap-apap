@@ -41,11 +41,25 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .arrow-wrap{position:absolute;inset:0;border-radius:50%;pointer-events:none;z-index:25;transform-origin:center center;will-change:transform}
 .arrow{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%) rotate(180deg);}
 .arrow-svg{width:38px;height:50px;filter:drop-shadow(0 0 14px rgba(229,9,20,1))}
+.chance-section{background:var(--dark2);border-radius:14px;padding:14px;margin-top:12px;border:1px solid rgba(229,9,20,.15)}
+.chance-title{font-size:12px;color:var(--gray2);font-weight:800;margin-bottom:6px;display:flex;justify-content:space-between}
+.chance-title span{color:var(--red);font-size:14px}
+.chance-hint{font-size:10px;color:var(--gray);margin-bottom:10px}
+.slider{position:relative;height:8px;background:var(--dark3);border-radius:4px;margin:10px 0;touch-action:none;cursor:pointer}
+.slider-fill{position:absolute;height:100%;background:linear-gradient(90deg,var(--red),var(--red2));border-radius:4px;width:0}
+.slider-thumb{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:24px;height:24px;background:linear-gradient(135deg,var(--red),var(--red2));border-radius:50%;box-shadow:0 0 12px rgba(229,9,20,.5);cursor:pointer}
+.quick-nums{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}
+.quick-nums button{flex:1;min-width:50px;background:var(--dark3);border:1px solid var(--dark4);border-radius:8px;padding:8px;color:#fff;font-size:11px;font-weight:800;cursor:pointer}
+.quick-nums button:active{background:var(--red);color:#fff}
+.pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:10px}
+.pb{background:var(--dark3);border:1.5px solid var(--dark4);border-radius:8px;padding:10px 4px;color:var(--gray);font-size:11px;font-weight:900;cursor:pointer}
+.pb.sel{border-color:var(--red);background:rgba(229,9,20,.15);color:var(--red);box-shadow:0 0 12px rgba(229,9,20,.3)}
+.pb.gray{opacity:.4;cursor:not-allowed}
 .upgrade-btn{width:100%;background:var(--dark4);color:var(--gray);border:none;padding:16px;border-radius:14px;font-weight:900;font-size:15px;letter-spacing:2px;cursor:pointer;margin-top:12px;transition:all .2s}
 .upgrade-btn.active{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 30px rgba(229,9,20,.5)}
 .upgrade-btn:disabled{opacity:.5;cursor:not-allowed}
 .big-tabs{display:flex;gap:6px;margin-top:16px;background:var(--dark2);padding:6px;border-radius:16px;border:1px solid rgba(229,9,20,.12)}
-.big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:12px;font-weight:900;padding:14px 6px;border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:6px;letter-spacing:.3px}
+.big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:12px;font-weight:900;padding:14px 6px;border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:6px}
 .big-tab.active{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 20px rgba(229,9,20,.4)}
 .big-tab svg{width:18px;height:18px;fill:currentColor}
 .panel{display:none;margin-top:12px}
@@ -54,12 +68,15 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .panel-title{font-size:18px;font-weight:900;color:#fff}
 .history-btn{background:var(--dark3);border:1px solid rgba(229,9,20,.2);border-radius:10px;padding:8px 14px;color:var(--red);font-size:11px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px}
 .history-btn svg{width:14px;height:14px;fill:currentColor}
-.sub-tabs{display:flex;gap:6px;background:var(--dark2);padding:6px;border-radius:12px;margin-bottom:12px;border:1px solid rgba(229,9,20,.1)}
+.sub-tabs{display:flex;gap:6px;background:var(--dark2);padding:6px;border-radius:12px;margin-bottom:12px}
 .sub-tab{flex:1;background:none;border:none;color:var(--gray);font-size:12px;font-weight:800;padding:12px;border-radius:10px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:6px}
 .sub-tab.active{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff}
 .sub-tab svg{width:16px;height:16px;fill:currentColor}
+.shop-tabs{display:flex;gap:6px;margin-bottom:12px}
+.shop-tab{flex:1;background:var(--dark3);border:1.5px solid var(--dark4);border-radius:12px;padding:12px 6px;color:var(--gray);font-size:11px;font-weight:800;cursor:pointer}
+.shop-tab.active{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-color:var(--red)}
 .search-row{display:flex;gap:8px;margin-bottom:12px}
-.search-inp{flex:1;background:var(--dark3);border:1px solid rgba(229,9,20,.12);border-radius:12px;padding:12px 16px;color:#fff;font-size:13px;font-weight:600;outline:none;display:flex;align-items:center;gap:8px}
+.search-inp{flex:1;background:var(--dark3);border:1px solid rgba(229,9,20,.12);border-radius:12px;padding:12px 16px;color:#fff;font-size:13px;outline:none;display:flex;align-items:center;gap:8px}
 .search-inp input{background:none;border:none;color:#fff;outline:none;flex:1;font-size:13px;font-weight:600}
 .search-inp input::placeholder{color:var(--gray)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -82,17 +99,13 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .empty-block{text-align:center;padding:80px 20px;color:var(--gray)}
 .empty-icon{width:80px;height:80px;background:var(--dark2);border-radius:20px;margin:0 auto 16px;display:flex;justify-content:center;align-items:center;border:1px solid rgba(229,9,20,.12);font-size:40px}
 .empty-title{font-size:18px;font-weight:900;color:#fff;margin-bottom:6px}
-.empty-sub{font-size:13px;color:var(--gray);line-height:1.4}
+.empty-sub{font-size:13px;color:var(--gray)}
 .slots-preview{display:flex;gap:8px;margin-top:14px}
 .slot-prev{flex:1;background:var(--dark2);border:1.5px solid rgba(229,9,20,.18);border-radius:14px;padding:14px;text-align:center;min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center}
 .slot-prev-lbl{font-size:10px;font-weight:800;color:var(--gray2);margin-bottom:6px}
 .slot-prev-cnt{font-size:9px;color:var(--gray);font-weight:700;margin-top:6px}
 .slot-prev-icons{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
 .slot-prev-icons img{width:80px;height:80px;object-fit:contain}
-.pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:10px}
-.pb{background:var(--dark3);border:1.5px solid var(--dark4);border-radius:8px;padding:10px 4px;color:var(--gray);font-size:11px;font-weight:900;cursor:pointer}
-.pb.sel{border-color:var(--red);background:rgba(229,9,20,.15);color:var(--red);box-shadow:0 0 12px rgba(229,9,20,.3)}
-.pb.gray{opacity:.4;cursor:not-allowed}
 .bottom{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);border-top:1px solid rgba(229,9,20,.15);padding:8px 4px;display:flex;justify-content:space-around;align-items:center}
 .nb{background:none;border:none;color:var(--gray);font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px;font-weight:800;letter-spacing:.5px;border-radius:10px}
 .nb svg{width:22px;height:22px;fill:currentColor}
@@ -104,31 +117,28 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .scr{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--dark);z-index:600;flex-direction:column;overflow-y:auto;padding-bottom:90px}
 .scr.open{display:flex}
 .sh{padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(229,9,20,.15);background:rgba(10,10,10,.98);position:sticky;top:0;z-index:10}
-.sh h2{color:#fff;font-size:16px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.sh h2{color:#fff;font-size:16px;font-weight:900;text-transform:uppercase}
 .sh h2 span{color:var(--red)}
 .cb{background:var(--dark3);border:none;color:var(--red);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:10px;display:flex;justify-content:center;align-items:center;font-weight:900}
 .sb{flex:1;padding:16px;overflow-y:auto}
-.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);background:rgba(10,10,10,.98);border:2px solid var(--red);border-radius:16px;padding:20px 30px;color:#fff;font-size:14px;font-weight:800;z-index:9999;opacity:0;pointer-events:none;transition:all .3s;text-align:center;backdrop-filter:blur(20px)}
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.9);background:rgba(10,10,10,.98);border:2px solid var(--red);border-radius:16px;padding:20px 30px;color:#fff;font-size:14px;font-weight:800;z-index:9999;opacity:0;pointer-events:none;transition:all .3s;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .toast.win{border-color:var(--green)}
 .toast.lose{border-color:var(--red)}
 .confetti{position:fixed;width:8px;height:8px;background:var(--red);z-index:9998;pointer-events:none;animation:fall 3s linear forwards}
 @keyframes fall{0%{transform:translateY(-100vh) rotate(0)}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-.hidden{display:none!important}
-.result-screen{position:fixed;inset:0;z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;animation:fadeIn .3s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.result-screen{position:fixed;inset:0;z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px}
 .result-win{background:radial-gradient(circle at center,rgba(76,175,80,.25),rgba(0,0,0,.95) 70%)}
 .result-lose{background:radial-gradient(circle at center,rgba(229,9,20,.25),rgba(0,0,0,.95) 70%)}
-.result-inner{max-width:380px;width:100%;text-align:center;animation:popIn .5s cubic-bezier(.17,.89,.32,1.49)}
-@keyframes popIn{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
-.result-icon{font-size:100px;margin-bottom:20px;animation:bounce .6s}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.result-title{font-size:24px;font-weight:900;letter-spacing:2px;margin-bottom:10px}
-.result-sub{font-size:13px;color:var(--gray2);letter-spacing:1px;margin-bottom:24px}
+.result-inner{max-width:380px;width:100%;text-align:center}
+.result-icon{font-size:100px;margin-bottom:20px}
+.result-title{font-size:24px;font-weight:900;margin-bottom:10px}
+.result-sub{font-size:13px;color:var(--gray2);margin-bottom:24px}
 .result-skin{background:rgba(0,0,0,.6);border-radius:16px;padding:16px;margin-bottom:16px;border:2px solid rgba(255,255,255,.1)}
 .result-skin img{width:100%;max-height:140px;object-fit:contain;margin-bottom:10px}
 .result-skin-name{font-size:16px;font-weight:900;color:#fff}
-.result-btn{width:100%;padding:16px;border-radius:14px;font-weight:900;font-size:15px;letter-spacing:1px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 30px rgba(229,9,20,.4)}
+.result-btn{width:100%;padding:16px;border-radius:14px;font-weight:900;font-size:15px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff}
+.hidden{display:none!important}
 .settings-item{background:var(--dark2);border-radius:14px;padding:14px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(229,9,20,.1)}
 .settings-item label{font-size:13px;font-weight:700;color:#fff}
 .settings-item input{background:var(--dark);border:1px solid rgba(229,9,20,.2);color:#fff;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:700;outline:none;width:120px}
@@ -138,21 +148,21 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .toggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:all .3s}
 .toggle.on::after{left:25px}
 .profile-header{text-align:center;padding:20px 0}
-.profile-avatar{width:110px;height:110px;border-radius:50%;background:var(--dark3);margin:0 auto 14px;overflow:hidden;border:3px solid var(--red);position:relative;box-shadow:0 0 30px rgba(229,9,20,.5)}
+.profile-avatar{width:110px;height:110px;border-radius:50%;background:var(--dark3);margin:0 auto 14px;overflow:hidden;border:3px solid var(--red);position:relative}
 .profile-avatar img{width:100%;height:100%;object-fit:cover}
 .profile-name{font-size:22px;font-weight:900;color:#fff}
 .profile-id{font-size:11px;color:var(--gray);margin-top:4px;font-weight:700}
-.profile-bal{background:linear-gradient(135deg,var(--dark2),var(--dark3));border-radius:16px;padding:18px;margin-bottom:12px;border:1px solid rgba(229,9,20,.2)}
-.profile-bal-label{font-size:10px;color:var(--gray);letter-spacing:1px;font-weight:800;margin-bottom:8px}
+.profile-bal{background:var(--dark2);border-radius:16px;padding:18px;margin-bottom:12px;border:1px solid rgba(229,9,20,.2)}
+.profile-bal-label{font-size:10px;color:var(--gray);font-weight:800;margin-bottom:8px}
 .profile-bal-val{font-size:36px;font-weight:900;color:#fff}
 .profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .profile-stat{background:var(--dark2);border-radius:16px;padding:16px}
-.profile-stat-label{font-size:10px;color:var(--gray);letter-spacing:1px;font-weight:800}
+.profile-stat-label{font-size:10px;color:var(--gray);font-weight:800}
 .profile-stat-val{font-size:20px;font-weight:900;margin-top:6px}
 .btn-full{width:100%;padding:14px;border-radius:12px;font-weight:900;font-size:14px;cursor:pointer;border:none;margin-top:8px}
 .wd-step{background:var(--dark2);border:2px solid var(--red);border-radius:20px;padding:20px;max-width:380px;width:100%;text-align:center}
 .wd-step img{width:100%;max-width:240px;border-radius:16px;margin-bottom:16px;border:2px solid rgba(229,9,20,.3)}
-.wd-step-title{font-size:14px;color:var(--red);font-weight:900;letter-spacing:2px;margin-bottom:12px}
+.wd-step-title{font-size:14px;color:var(--red);font-weight:900;margin-bottom:12px}
 .wd-step-text{font-size:13px;color:#fff;line-height:1.6;margin-bottom:16px}
 .wd-step-btn{width:100%;padding:14px;border-radius:12px;font-weight:900;font-size:14px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;margin-top:8px}
 .wd-step-btn.secondary{background:var(--dark3);color:var(--gray2)}
@@ -177,13 +187,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 
 <div class="main">
 <div class="wheel-wrap">
-<div class="wheel" id="wheel">
-<div class="wheel-ticks" id="wheelTicks"></div>
-<div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">В ОЖИДАНИИ</div></div>
-</div>
-<div class="arrow-wrap" id="arrowWrap">
-<div class="arrow"><svg class="arrow-svg" viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/><circle cx="20" cy="4" r="3" fill="#e50914"/></svg></div>
-</div>
+<div class="wheel" id="wheel"><div class="wheel-ticks" id="wheelTicks"></div><div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">В ОЖИДАНИИ</div></div></div>
+<div class="arrow-wrap" id="arrowWrap"><div class="arrow"><svg class="arrow-svg" viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/><circle cx="20" cy="4" r="3" fill="#e50914"/></svg></div></div>
 </div>
 
 <div class="pcnt-row" id="pcntRow">
@@ -195,25 +200,44 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 <button class="pb" onclick="setPct(22,this)">22%</button>
 </div>
 
+<div class="chance-section">
+<div class="chance-title">Добавить к шансу: <span id="chanceVal">0 G</span></div>
+<div class="chance-hint">Свайп вправо — прибавка. Влево — убрать.</div>
+<div class="slider" id="slider"><div class="slider-fill" id="sliderFill"></div><div class="slider-thumb" id="sliderThumb"></div></div>
+<div class="quick-nums">
+<button onclick="addChance(1)">+1</button>
+<button onclick="addChance(10)">+10</button>
+<button onclick="addChance(100)">+100</button>
+<button onclick="addChance(-1)">-1</button>
+<button onclick="addChance(-10)">-10</button>
+<button onclick="setMaxChance()">МАКС</button>
+</div>
+</div>
+
 <button class="upgrade-btn" id="upgradeBtn" onclick="spinUpgrade()" disabled>⬆ UPGRADE</button>
 
 <div class="slots-preview">
 <div class="slot-prev" onclick="switchBigTab('inv')"><div class="slot-prev-lbl">ВАШ ИНВЕНТАРЬ</div><div class="slot-prev-icons" id="leftIcons"></div><div class="slot-prev-cnt" id="selCount">0 ИЗ 6</div></div>
-<div class="slot-prev" onclick="switchBigTab('target')"><div class="slot-prev-lbl">ПРОКАЧАТЬ ДО</div><div class="slot-prev-icons" id="rightIcons"></div><div class="slot-prev-cnt" id="targetCount">АВТО</div></div>
+<div class="slot-prev" onclick="switchBigTab('target')"><div class="slot-prev-lbl">ПРОКАЧАТЬ ДО</div><div class="slot-prev-icons" id="rightIcons"></div><div class="slot-prev-cnt" id="targetCount">НЕ ВЫБРАНА</div></div>
 </div>
 
 <div class="big-tabs">
 <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg>Ваш инвентарь</button>
-<button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Прокачать до</button>
+<button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>Прокачать до</button>
 </div>
 
 <div class="panel active" id="panelInv">
-<div class="panel-header"><div class="panel-title">Ваш инвентарь</div><button class="history-btn" onclick="showHistory()"><svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>История игры</button></div>
+<div class="panel-header"><div class="panel-title">Ваш инвентарь</div><button class="history-btn" onclick="showHistory()"><svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>История игры</button></div>
 <div class="sub-tabs">
-<button class="sub-tab active" id="subInv" onclick="switchSub('inv')"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg>Инвентарь</button>
-<button class="sub-tab" id="subShop" onclick="switchSub('shop')"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Магазин</button>
+<button class="sub-tab active" id="subInv" onclick="switchSub('inv')">Инвентарь</button>
+<button class="sub-tab" id="subShop" onclick="switchSub('shop')">Магазин</button>
 </div>
-<div class="search-row"><div class="search-inp"><input type="text" id="searchInp" placeholder="Поиск в инвентаре" oninput="rendInv()"></div></div>
+<div class="shop-tabs" id="shopTabs" style="display:none">
+<button class="shop-tab active" id="tabSkins" onclick="switchShopTab('skins')">🔫 Скины</button>
+<button class="shop-tab" id="tabCases" onclick="switchShopTab('cases')">📦 Кейсы</button>
+<button class="shop-tab" id="tabAgents" onclick="switchShopTab('agents')">👤 Агенты</button>
+</div>
+<div class="search-row"><div class="search-inp"><input type="text" id="searchInp" placeholder="Поиск" oninput="rendInv()"></div></div>
 <div class="grid" id="invList"></div>
 </div>
 
@@ -227,7 +251,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 <div class="bottom">
 <button class="nb" onclick="scrollToShop()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span>SHOP</span></button>
 <button class="nb" onclick="openS('prizeScreen')"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/></svg><span>PRIZE</span></button>
-<button class="nb nb-center active" onclick="openS('topupScreen')"><div class="circle"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div></button>
+<button class="nb nb-center active" onclick="openS('topupScreen')"><div class="circle"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9z"/></svg></div></button>
 <button class="nb" onclick="openS('tasksScreen')"><svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg><span>WK TOP</span></button>
 <button class="nb" onclick="openS('settingsScreen')"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg><span>MENU</span></button>
 </div>
@@ -240,16 +264,64 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 <div class="scr" id="settingsScreen"><div class="sh"><h2><span>МЕНЮ</span></h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div><div class="sb" id="settingsBody"></div></div>
 <script>
 const BOT_URL='https://admin-bot-03ly.onrender.com';
-const CDN='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/skins/';
-const allSkins=[{name:'G22 «Flock»',icon:'🔫',price:22,color:'#4a9eff',img:CDN+'G22_flock.jpg'},{name:'Berettas «Cascade»',icon:'🔫',price:100,color:'#4a9eff',img:CDN+'Berettas_Cascade.jpg'},{name:'Berettas «Royal Rose»',icon:'🔫',price:200,color:'#ff4444',img:CDN+'Berettas_RoyalRose.jpg'},{name:'Desert Eagle «Ace»',icon:'🔫',price:9,color:'#4a9eff',img:CDN+'DesertEagle_Ace.jpg'},{name:'Desert Eagle «Aureate»',icon:'🔫',price:133400,color:'#ffd700',img:CDN+'DesertEagle_Aureate.jpg'},{name:'Desert Eagle «Jads Stone»',icon:'🔫',price:5789,color:'#ff4444',img:CDN+'DesertEagle_JadsStone.jpg'},{name:'Desert Eagle «Predator»',icon:'🔫',price:33,color:'#4a9eff',img:CDN+'DesertEagle_Predator.jpg'},{name:'G22 «Briar»',icon:'🔫',price:23,color:'#9b8aff',img:CDN+'G22_Briar.jpg'},{name:'Desert Eagle «Yakuza»',icon:'🔫',price:2909,color:'#ff4444',img:CDN+'DesertEagle_Yakuza.jpg'},{name:'G22 «Frozen» (ST)',icon:'🔫',price:206700,color:'#ff4444',img:CDN+'G22_Frozen.jpg'},{name:'G22 «Frost Wyrm»',icon:'🔫',price:43,color:'#ff69b4',img:CDN+'G22_FrostWyrm.jpg'}];
+const CDN_BASE='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
+const allSkins=[
+{name:'AKR Carbon',price:56,color:'#4a9eff',img:CDN_BASE+'skins/AKR_CARBON.jpg'},
+{name:'AKR Evolution',price:3,color:'#4a9eff',img:CDN_BASE+'skins/AKR_EVOLUTION.jpg'},
+{name:'AKR Nano',price:23,color:'#4a9eff',img:CDN_BASE+'skins/AKR_NANO.jpg'},
+{name:'AKR 12 Carbon',price:10,color:'#4a9eff',img:CDN_BASE+'skins/AKR12_CARBON.jpg'},
+{name:'AKR 12 Hanami',price:220,color:'#ff4444',img:CDN_BASE+'skins/AKR12_HANAMI.jpg'},
+{name:'AKR 12 Railgun',price:1100,color:'#ff69b4',img:CDN_BASE+'skins/AKR12_RAILGUN.jpg'},
+{name:'AWM Sport V2',price:74250,color:'#ffd700',img:CDN_BASE+'skins/AWM_SPORTV2.jpg'},
+{name:'AWM Treasure Hunter',price:104200,color:'#ffd700',img:CDN_BASE+'skins/AWM_TREASUREHUNTER.jpg'},
+{name:'Butterfly Dragon Glass',price:2250,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_DragonGlass.jpg'},
+{name:'Butterfly Starfall',price:1407,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_Starfall.jpg'},
+{name:'Butterfly Twilight',price:1000000,color:'#ffd700',img:CDN_BASE+'skins/Butterfly_Twilight.jpg'},
+{name:'M4 Ironclad',price:34,color:'#9b8aff',img:CDN_BASE+'skins/M4_IRONCLAD.jpg'},
+{name:'M4 Necromancer',price:880,color:'#ff69b4',img:CDN_BASE+'skins/M4_NECROMANCER.jpg'},
+{name:'M4 Pixel Storm',price:766,color:'#ff4444',img:CDN_BASE+'skins/M4_PiXELSTORM.jpg'},
+{name:'M4 Samurai',price:500,color:'#ff4444',img:CDN_BASE+'skins/M4_SAMURAI.jpg'},
+{name:'M4A1 Bubblegum',price:225,color:'#ff4444',img:CDN_BASE+'skins/M4A1_Bublgam.jpg'},
+{name:'M4A1 Kitsune',price:2,color:'#4a9eff',img:CDN_BASE+'skins/M4A1_KITSUNE.jpg'},
+{name:'M4A1 Sour',price:24,color:'#9b8aff',img:CDN_BASE+'skins/M4A1_SOUR.jpg'},
+{name:'M4A1 Sparkling Gaze',price:95,color:'#ff4444',img:CDN_BASE+'skins/M4a1_SparkingGaze.jpg'},
+{name:'M9 Bayonet Amber Koi',price:3700,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_AmberKOI.jpg'},
+{name:'M9 Bayonet Dragon Glass',price:34000,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_DragonGlass.jpg'},
+{name:'Tanto Dojo',price:990,color:'#ff4444',img:CDN_BASE+'skins/Tanto_Dojo.jpg'},
+{name:'G22 Monster',price:670,color:'#9b8aff',img:CDN_BASE+'skins/G22_Monster.jpg'},
+{name:'G22 Nest',price:540,color:'#ff4444',img:CDN_BASE+'skins/G22_Nest.jpg'},
+{name:'G22 Relic',price:11780,color:'#ffd700',img:CDN_BASE+'skins/G22_Relic.jpg'},
+{name:'G22 Twilight (ST)',price:1951,color:'#ff4444',img:CDN_BASE+'skins/G22_Twilight.jpg'},
+{name:'M4A1 Demon',price:5,color:'#4a9eff',img:CDN_BASE+'skins/M4a1_Demon.jpg'},
+{name:'P90 Burning King',price:710,color:'#ff4444',img:CDN_BASE+'skins/P90_BurnngKing.jpg'},
+{name:'P90 Iron Will',price:45,color:'#9b8aff',img:CDN_BASE+'skins/P90_IronWill.jpg'},
+{name:'P90 Opps',price:50,color:'#ff69b4',img:CDN_BASE+'skins/P90_Opps.jpg'},
+{name:'P350 Forest Spirit',price:890,color:'#ff4444',img:CDN_BASE+'skins/P350_ForestSpirit.jpg'},
+{name:'P350 Oni',price:1,color:'#4a9eff',img:CDN_BASE+'skins/P350_Oni.jpg'},
+{name:'P350 Raider',price:31,color:'#9b8aff',img:CDN_BASE+'skins/P350_Raider.jpg'},
+{name:'P350 Tag King',price:20,color:'#ff69b4',img:CDN_BASE+'skins/P350_TagKing.jpg'},
+{name:'USP 2 Years',price:400,color:'#4a9eff',img:CDN_BASE+'skins/Usp_2Yers.jpg'},
+{name:'USP 2 Years Red',price:1020,color:'#9b8aff',img:CDN_BASE+'skins/Usp_2YersRed.jpg'},
+{name:'USP Genesis',price:23000,color:'#ffd700',img:CDN_BASE+'skins/Usp_Genesis.jpg'},
+{name:'USP Ignite',price:7,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Lgnite.jpg'},
+{name:'USP Mirage Menace',price:2940,color:'#ff4444',img:CDN_BASE+'skins/Usp_MirageMenace.jpg'},
+{name:'USP Pisces',price:20,color:'#9b8aff',img:CDN_BASE+'skins/Usp_Pisces.jpg'},
+{name:'USP Suture',price:14,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Suture.jpg'}
+];
+const allCases=[{name:'Champions Gloves Case',price:100,color:'#ff4444',img:CDN_BASE+'cases/Champions_GlovesCase.jpg'}];
+const allAgents=[
+{name:'Agent CT Lincoln',price:1678,color:'#ff4444',img:CDN_BASE+'agents/AgentCt_Lincoln.jpg'},
+{name:'Agent CT Warden',price:5108,color:'#ff4444',img:CDN_BASE+'agents/AgentCt_Warden.jpg'},
+{name:'Agent T Adam',price:2680,color:'#ff4444',img:CDN_BASE+'agents/AgentT_Adam.jpg'}
+];
 function getRarity(c){c=String(c).toLowerCase();if(c==='#ffd700')return'#ffd700';if(c==='#ff4444'||c==='#ff8c00')return'#ff4444';if(c==='#ff69b4'||c==='#ff00ff')return'#ff69b4';if(c==='#9b8aff'||c==='#7b61ff')return'#9b8aff';if(c==='#4a9eff'||c==='#00ffff')return'#4a9eff';return'transparent'}
 function getUserId(){const t=window.Telegram?.WebApp?.initDataUnsafe?.user;return t?.id?String(t.id):'guest'}
 function getUser(){return window.Telegram?.WebApp?.initDataUnsafe?.user||null}
 let gold=0,inv=[],stats={spins:0,wins:0,loses:0},jackpot=1000,totalWithdraw=0,history=[];
 let selectedItems=[],targetSkin=null,selPct=null,isSpinning=false;
-let cart=[];let invMode='inv',bigTab='inv';
+let cart=[],invMode='inv',bigTab='inv',shopTab='skins';
+let chanceGold=0,sliderDrag=false,sliderStartX=0;
 let soundEnabled=localStorage.getItem('sfap_sound')!=='0';
-// ==== ЗВУКИ ====
 let audioCtx=null;
 function initAudio(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}}
 function beep(f,t,d,v){if(!soundEnabled)return;try{initAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=f;o.type=t||'sine';g.gain.setValueAtTime(v||.1,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);o.start();o.stop(audioCtx.currentTime+d)}catch(e){}}
@@ -257,16 +329,13 @@ function sClick(){beep(600,'square',.05,.05)}
 function sTick(){beep(1500,'sine',.04,.05)}
 function sWin(){beep(800,'sine',.3,.15);setTimeout(()=>beep(1000,'sine',.3,.15),100);setTimeout(()=>beep(1300,'sine',.5,.15),200)}
 function sLose(){beep(200,'sawtooth',.5,.15)}
-function sBuy(){beep(1000,'sine',.15,.1)}
-function sPromo(){beep(1200,'sine',.15,.15);setTimeout(()=>beep(1500,'sine',.2,.15),100)}
 document.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'||e.target.closest('button'))sClick()},true);
-// ==== ИГРА ====
 function saveGame(){try{const uid=getUserId();if(uid==='guest')return;const data={gold,inv,stats,jackpot,totalWithdraw,history,ts:Date.now()};localStorage.setItem('sfap_save_'+uid,JSON.stringify(data));fetch(BOT_URL+'/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,data})})}catch(e){}}
 async function loadGame(){try{const uid=getUserId();if(uid==='guest')return;try{const r=await fetch(BOT_URL+'/api/load/'+uid);const d=await r.json();if(d.ok&&d.data){applySaveData(d.data);return}}catch(e){}const l=localStorage.getItem('sfap_save_'+uid);if(l)applySaveData(JSON.parse(l))}catch(e){}}
 function applySaveData(d){if(!d)return;if(typeof d.gold==='number')gold=d.gold;if(Array.isArray(d.inv))inv=d.inv;if(d.stats)stats=d.stats;if(typeof d.jackpot==='number')jackpot=d.jackpot;if(typeof d.totalWithdraw==='number')totalWithdraw=d.totalWithdraw;if(Array.isArray(d.history))history=d.history}
 setInterval(saveGame,5000);
 function toast(m,t){const e=document.getElementById('toast');e.className='toast '+(t||'')+' show';e.innerText=m;setTimeout(()=>e.classList.remove('show'),2500)}
-function confetti(){for(let i=0;i<80;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'%';c.style.background=['#e50914','#8b0000','#4CAF50','#fff','#ff2d2d','#ffd700'][Math.floor(Math.random()*6)];c.style.animationDelay=Math.random()*.5+'s';c.style.width=(6+Math.random()*8)+'px';c.style.height=c.style.width;document.body.appendChild(c);setTimeout(()=>c.remove(),3500)}}
+function confetti(){for(let i=0;i<80;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'%';c.style.background=['#e50914','#8b0000','#4CAF50','#fff','#ffd700'][Math.floor(Math.random()*5)];c.style.animationDelay=Math.random()*.5+'s';c.style.width=(6+Math.random()*8)+'px';c.style.height=c.style.width;document.body.appendChild(c);setTimeout(()=>c.remove(),3500)}}
 function updateBal(){document.getElementById('goldTop').innerText=Math.floor(gold).toLocaleString('ru-RU');document.getElementById('incomeVal').innerText=Math.floor(totalWithdraw).toLocaleString('ru-RU')}
 function formatPct(p){if(p>=0.1)return p.toFixed(1)+'%';if(p>=0.01)return p.toFixed(2)+'%';if(p>=0.001)return p.toFixed(3)+'%';return '0.01%'}
 function openS(id){document.getElementById(id).classList.add('open');if(id==='profileScreen')rendProfile();if(id==='settingsScreen')rendSettings()}
@@ -274,243 +343,111 @@ function closeS(id){document.getElementById(id).classList.remove('open')}
 function scrollToShop(){switchBigTab('inv');switchSub('shop');document.getElementById('invList').scrollIntoView({behavior:'smooth'})}
 function drawTicks(){const t=document.getElementById('wheelTicks');if(!t)return;let h='';for(let i=0;i<36;i++){const a=i*(360/36);const maj=i%3===0;h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg"></div>`}t.innerHTML=h}
 function switchBigTab(m){bigTab=m;document.getElementById('bigTabInv').classList.toggle('active',m==='inv');document.getElementById('bigTabTarget').classList.toggle('active',m==='target');document.getElementById('panelInv').classList.toggle('active',m==='inv');document.getElementById('panelTarget').classList.toggle('active',m==='target');if(m==='target')rendTargetList()}
-function switchSub(m){invMode=m;document.getElementById('subInv').classList.toggle('active',m==='inv');document.getElementById('subShop').classList.toggle('active',m==='shop');rendInv()}
+function switchSub(m){invMode=m;document.getElementById('subInv').classList.toggle('active',m==='inv');document.getElementById('subShop').classList.toggle('active',m==='shop');const st=document.getElementById('shopTabs');if(st)st.style.display=m==='shop'?'flex':'none';rendInv()}
+function switchShopTab(t){shopTab=t;document.getElementById('tabSkins').classList.toggle('active',t==='skins');document.getElementById('tabCases').classList.toggle('active',t==='cases');document.getElementById('tabAgents').classList.toggle('active',t==='agents');rendInv()}
 function rendInv(){const b=document.getElementById('invList');if(!b)return;const q=(document.getElementById('searchInp')?.value||'').toLowerCase();
-if(invMode==='shop'){let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));f.sort((a,b)=>a.price-b.price);if(f.length===0){b.innerHTML='<div class="empty-block" style="grid-column:span 2"><div class="empty-icon">🔍</div><div class="empty-title">Ничего не найдено</div></div>';return}b.innerHTML=f.map(s=>{const r=getRarity(s.color);const inCart=cart.find(c=>c.name===s.name);return `<div class="card" style="--rarity:${r}" onclick="toggleCart('${s.name}','${s.icon}',${s.price})">${inCart?'<div class="check">✓</div>':''}${s.img?`<img src="${s.img}" onerror="this.style.display='none'">`:''}<div class="cn">${s.name.split(' ')[0]}</div><div class="nn">${s.name}</div><div class="pn"><span class="s1">S1</span><span class="pr">${s.price.toLocaleString('ru-RU')} G</span></div></div>`}).join('')}
-else{const f=inv.filter(it=>it.name.toLowerCase().includes(q));if(f.length===0){b.innerHTML='<div class="empty-block" style="grid-column:span 2"><div class="empty-icon">📦</div><div class="empty-title">Инвентарь пуст</div><div class="empty-sub">У вас пока нет подходящих предметов для улучшения</div></div>';return}b.innerHTML=f.map(it=>{const r=getRarity(it.color||'#888');const realIdx=inv.indexOf(it);return `<div class="card" style="--rarity:${r}" id="card-${realIdx}" onclick="toggleCard(${realIdx})">${it.img?`<img src="${it.img}" onerror="this.style.display='none'">`:''}<div class="cn">${it.name.split(' ')[0]}</div><div class="nn">${it.name}</div><div class="pn"><span class="s1">S1</span><span class="pr">${(it.price||0).toLocaleString('ru-RU')} G</span></div><div class="card-actions"><button class="btn-upg" onclick="event.stopPropagation();addToUpgrade(${realIdx})">⬆ В АПГРЕЙД</button><button class="btn-wd" onclick="event.stopPropagation();withdrawSkinDirect(${realIdx})">📤 ВЫВЕСТИ</button><button class="btn-sell" onclick="event.stopPropagation();sellSkin(${realIdx})">💸 ПРОДАТЬ</button></div></div>`}).join('')}}
-function rendTargetList(){const b=document.getElementById('targetList');if(!b)return;const q=(document.getElementById('targetSearchInp')?.value||'').toLowerCase();let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));f.sort((a,b)=>a.price-b.price);b.innerHTML=f.map(s=>{const r=getRarity(s.color);const isSel=targetSkin&&targetSkin.name===s.name;return `<div class="card" style="--rarity:${r};${isSel?'border-color:var(--red)':''}" onclick="pickTargetCard('${s.name}','${s.icon}',${s.price},'${s.color}')">${isSel?'<div class="check">✓</div>':''}${s.img?`<img src="${s.img}" onerror="this.style.display='none'">`:''}<div class="cn">${s.name.split(' ')[0]}</div><div class="nn">${s.name}</div><div class="pn"><span class="s1">S1</span><span class="pr">${s.price.toLocaleString('ru-RU')} G</span></div></div>`}).join('')}
+if(invMode==='shop'){let list=shopTab==='skins'?allSkins:(shopTab==='cases'?allCases:allAgents);let f=list.filter(s=>s.name.toLowerCase().includes(q));f.sort((a,b)=>a.price-b.price);b.innerHTML=f.map(s=>{const r=getRarity(s.color);const inCart=cart.find(c=>c.name===s.name);return `<div class="card" style="--rarity:${r}" onclick="toggleCart('${s.name}',${s.price})">${inCart?'<div class="check">✓</div>':''}${s.img?`<img src="${s.img}" onerror="this.style.display='none'">`:''}<div class="cn">${s.name.split(' ')[0]}</div><div class="nn">${s.name}</div><div class="pn"><span class="s1">S1</span><span class="pr">${s.price.toLocaleString('ru-RU')} G</span></div></div>`}).join('')}
+else{const f=inv.filter(it=>it.name.toLowerCase().includes(q));if(f.length===0){b.innerHTML='<div class="empty-block" style="grid-column:span 2"><div class="empty-icon">📦</div><div class="empty-title">Инвентарь пуст</div></div>';return}b.innerHTML=f.map(it=>{const r=getRarity(it.color||'#888');const realIdx=inv.indexOf(it);return `<div class="card" style="--rarity:${r}" id="card-${realIdx}" onclick="toggleCard(${realIdx})">${it.img?`<img src="${it.img}" onerror="this.style.display='none'">`:''}<div class="cn">${it.name.split(' ')[0]}</div><div class="nn">${it.name}</div><div class="pn"><span class="s1">S1</span><span class="pr">${(it.price||0).toLocaleString('ru-RU')} G</span></div><div class="card-actions"><button class="btn-upg" onclick="event.stopPropagation();addToUpgrade(${realIdx})">⬆ АПГРЕЙД</button><button class="btn-wd" onclick="event.stopPropagation();withdrawSkinDirect(${realIdx})">📤 ВЫВЕСТИ</button><button class="btn-sell" onclick="event.stopPropagation();sellSkin(${realIdx})">💸 ПРОДАТЬ</button></div></div>`}).join('')}}
+function rendTargetList(){const b=document.getElementById('targetList');if(!b)return;const q=(document.getElementById('targetSearchInp')?.value||'').toLowerCase();let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));f.sort((a,b)=>a.price-b.price);b.innerHTML=f.map(s=>{const r=getRarity(s.color);const isSel=targetSkin&&targetSkin.name===s.name;return `<div class="card" style="--rarity:${r};${isSel?'border-color:var(--red)':''}" onclick="pickTargetCard('${s.name}',${s.price},'${s.color}')">${isSel?'<div class="check">✓</div>':''}${s.img?`<img src="${s.img}" onerror="this.style.display='none'">`:''}<div class="cn">${s.name.split(' ')[0]}</div><div class="nn">${s.name}</div><div class="pn"><span class="s1">S1</span><span class="pr">${s.price.toLocaleString('ru-RU')} G</span></div></div>`}).join('')}
 function toggleCard(idx){const c=document.getElementById('card-'+idx);if(!c)return;const isOpen=c.classList.contains('open');document.querySelectorAll('.card.open').forEach(x=>x.classList.remove('open'));if(!isOpen)c.classList.add('open')}
-function toggleCart(name,icon,price){const i=cart.findIndex(c=>c.name===name);if(i>=0)cart.splice(i,1);else cart.push({name,icon,price,qty:1});updateCartBadge();rendInv()}
-function updateCartBadge(){const b=document.getElementById('cartBadge');if(!b)return;const t=cart.reduce((s,c)=>s+c.qty,0);if(t>0){b.style.display='block';b.innerText=t}else b.style.display='none'}
-function pickTargetCard(name,icon,price,color){const skin=allSkins.find(s=>s.name===name);targetSkin={name,icon,price,color,img:skin?skin.img:null};rendMain();rendTargetList();toast('🎯 Цель: '+name,'win')}
-function addToUpgrade(idx){const it=inv[idx];if(!it)return;if(!selectedItems.includes(it)){if(selectedItems.length>=6){toast('❌ Макс 6','lose');return}selectedItems.push(it)}rendMain();document.querySelectorAll('.card.open').forEach(c=>c.classList.remove('open'));toast('⬆️ Добавлен','win')}
-function sellSkin(idx){if(idx<0||idx>=inv.length)return;const it=inv[idx],sp=Math.round((it.price||50)*0.7);gold+=sp;inv.splice(idx,1);selectedItems=selectedItems.filter(i=>i!==it);updateBal();saveGame();rendInv();rendMain();toast('💸 +'+sp+' G','win');sBuy()}
+function toggleCart(name,price){const i=cart.findIndex(c=>c.name===name);if(i>=0)cart.splice(i,1);else{if(gold<price){toast('❌ Мало G','lose');return}cart.push({name,price})}updateCartBadge();rendInv()}
+function updateCartBadge(){const b=document.getElementById('cartBadge');if(!b)return;if(cart.length>0){b.style.display='block';b.innerText=cart.length}else b.style.display='none'}
+function pickTargetCard(name,price,color){const skin=allSkins.find(s=>s.name===name);targetSkin={name,price,color,img:skin?skin.img:null};rendMain();rendTargetList();recomputePct();toast('🎯 '+name,'win')}
+function addToUpgrade(idx){const it=inv[idx];if(!it)return;if(!selectedItems.includes(it)){if(selectedItems.length>=6){toast('❌ Макс 6','lose');return}selectedItems.push(it)}rendMain();recomputePct();document.querySelectorAll('.card.open').forEach(c=>c.classList.remove('open'));toast('⬆️ Добавлен','win')}
+function sellSkin(idx){if(idx<0||idx>=inv.length)return;const it=inv[idx],sp=Math.round((it.price||50)*0.7);gold+=sp;inv.splice(idx,1);selectedItems=selectedItems.filter(i=>i!==it);updateBal();saveGame();rendInv();rendMain();toast('💸 +'+sp+' G','win')}
+function recomputePct(){
+if(selectedItems.length===0||!targetSkin){selPct=null;return}
+const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
+const total=invSum+chanceGold;
+let pct=(total/targetSkin.price)*100;
+if(pct>99)pct=99;
+if(pct<0.01)pct=0.01;
+selPct=pct;
+const maxPct=(invSum/targetSkin.price)*100;
+const maxAdd=Math.max(0,targetSkin.price-invSum-20);
+if(chanceGold>maxAdd)chanceGold=maxAdd;
+updateChanceUI();
+}
+function updateChanceUI(){
+document.getElementById('chanceVal').innerText=chanceGold.toLocaleString('ru-RU')+' G';
+const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
+const maxAdd=targetSkin?Math.max(0,targetSkin.price-invSum-20):380;
+const pct=maxAdd>0?Math.min(100,(chanceGold/maxAdd)*100):0;
+document.getElementById('sliderFill').style.width=pct+'%';
+document.getElementById('sliderThumb').style.left=pct+'%';
+recomputePct();
+if(selPct!==null){document.getElementById('pt').innerText=formatPct(selPct);const w=document.getElementById('wheel');w.style.setProperty('--wa',(selPct/100)*360+'deg')}
+else{document.getElementById('pt').innerText='?%';const w=document.getElementById('wheel');w.style.setProperty('--wa','0deg')}
+checkUpgradeBtn();
+}
+function addChance(v){
+if(!targetSkin||selectedItems.length===0){toast('❌ Выбери скины и цель','lose');return}
+const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
+const maxAdd=Math.max(0,targetSkin.price-invSum-20);
+if(v>0){const canAdd=Math.min(v,maxAdd-chanceGold);if(canAdd<=0){toast('❌ Макс','lose');return}if(gold<canAdd){toast('❌ Мало G','lose');return}gold-=canAdd;chanceGold+=canAdd}
+else{const rem=Math.min(Math.abs(v),chanceGold);gold+=rem;chanceGold-=rem}
+if(chanceGold<0)chanceGold=0;
+updateBal();updateChanceUI();saveGame();
+}
+function setMaxChance(){if(!targetSkin||selectedItems.length===0){toast('❌ Выбери скины и цель','lose');return}const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);const maxAdd=Math.max(0,targetSkin.price-invSum-20);const need=maxAdd-chanceGold;if(need<=0){toast('❌ Макс','lose');return}addChance(need)}
 function setPct(p,el){
-  if(inv.length===0){toast('❌ Инвентарь пуст','lose');return}
-  // Авто-подбор скина из инвентаря под процент (цель = скин × 100 / процент)
-  let baseSkin=selectedItems[0]||inv[0];
-  if(selectedItems.length>0)baseSkin=selectedItems[0];
-  const needTargetPrice=Math.round(baseSkin.price*100/p);
-  // Ищем ближайшую цель из магазина
-  let closest=allSkins[0],md=Infinity;
-  allSkins.forEach(s=>{if(s.price<baseSkin.price)return;const d=Math.abs(s.price-needTargetPrice);if(d<md){md=d;closest=s}});
-  if(!closest||closest.price<baseSkin.price){toast('❌ Нет подходящей цели','lose');return}
-  targetSkin={...closest};
-  selectedItems=[baseSkin];
-  selPct=p;
-  document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
-  if(el)el.classList.add('sel');
-  document.getElementById('pt').innerText=formatPct(p);
-  const w=document.getElementById('wheel');
-  w.style.setProperty('--wa',(p/100)*360+'deg');
-  rendMain();
-  toast('🎯 '+baseSkin.name+' → '+closest.name,'win');
+if(inv.length===0){toast('❌ Инвентарь пуст','lose');return}
+if(!targetSkin){toast('❌ Сначала выбери цель','lose');return}
+if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}
+const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
+const maxPct=(invSum/targetSkin.price)*100;
+if(p>maxPct&&p>0.01){toast('❌ Макс '+formatPct(maxPct),'lose');return}
+selPct=p;
+document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
+if(el)el.classList.add('sel');
+document.getElementById('pt').innerText=formatPct(p);
+const w=document.getElementById('wheel');
+w.style.setProperty('--wa',(p/100)*360+'deg');
+checkUpgradeBtn();
 }
-function rendMain(){if(selectedItems.length===0){document.getElementById('leftIcons').innerHTML='';document.getElementById('selCount').innerText='0 ИЗ 6'}else{const ic=selectedItems.map(s=>s.img?`<img src="${s.img}">`:`<span style="font-size:50px">${s.icon}</span>`).join('');document.getElementById('leftIcons').innerHTML=ic;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ 6'}if(targetSkin){const ih=targetSkin.img?`<img src="${targetSkin.img}">`:`<span style="font-size:50px">${targetSkin.icon}</span>`;document.getElementById('rightIcons').innerHTML=ih;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{document.getElementById('rightIcons').innerHTML='';document.getElementById('targetCount').innerText='АВТО'}checkUpgradeBtn()}
 function checkUpgradeBtn(){const hs=selectedItems.length>0,ht=targetSkin!==null,hp=selPct!==null;const btn=document.getElementById('upgradeBtn');if(hs&&ht&&hp&&!isSpinning){btn.disabled=false;btn.classList.add('active')}else{btn.disabled=true;btn.classList.remove('active')}}
+function rendMain(){if(selectedItems.length===0){document.getElementById('leftIcons').innerHTML='';document.getElementById('selCount').innerText='0 ИЗ 6'}else{const ic=selectedItems.map(s=>s.img?`<img src="${s.img}">`:`<span style="font-size:50px">${s.icon||'📦'}</span>`).join('');document.getElementById('leftIcons').innerHTML=ic;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ 6'}if(targetSkin){const ih=targetSkin.img?`<img src="${targetSkin.img}">`:`<span style="font-size:50px">📦</span>`;document.getElementById('rightIcons').innerHTML=ih;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{document.getElementById('rightIcons').innerHTML='';document.getElementById('targetCount').innerText='НЕ ВЫБРАНА'}checkUpgradeBtn()}
 function spinUpgrade(){
-  if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}
-  if(!targetSkin){toast('❌ Выбери процент','lose');return}
-  if(!selPct){toast('❌ Выбери процент','lose');return}
-  if(isSpinning)return;
-  isSpinning=true;
-  const wrap=document.getElementById('arrowWrap');
-  const w=document.getElementById('wheel');
-  // Против часовой: отрицательный угол
-  const ra=Math.floor(Math.random()*360);
-  const td=-1440-ra;
-  const sd=5;
-  wrap.style.transition='none';
-  wrap.style.transform='rotate(0deg)';
-  wrap.offsetHeight;
-  wrap.style.transition='transform '+sd+'s cubic-bezier(.17,.67,.25,1)';
-  wrap.style.transform=`rotate(${td}deg)`;
-  document.getElementById('upgradeBtn').disabled=true;
-  // Звук тика
-  let tickCount=0;
-  const tickInt=setInterval(()=>{sTick();tickCount++;if(tickCount>30)clearInterval(tickInt)},150);
-  setTimeout(()=>{
-    clearInterval(tickInt);
-    // Угол стрелки от 6 часов, против часовой
-    const arrowFromBottom=(Math.abs(td)%360);
-    const winZone=(selPct/100)*360;
-    const win=arrowFromBottom<=winZone;
-    if(win){
-      selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
-      const ws={...targetSkin};
-      inv.push(ws);
-      stats.wins++;
-      showWinModal(ws);
-      sWin();
-      confetti();
-    } else {
-      stats.loses++;
-      selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});
-      showLoseModal();
-      sLose();
-    }
-    stats.spins++;
-    isSpinning=false;
-    selectedItems=[];
-    targetSkin=null;
-    selPct=null;
-    wrap.style.transition='none';
-    wrap.style.transform='rotate(0deg)';
-    w.style.setProperty('--wa','0deg');
-    document.getElementById('pt').innerText='?%';
-    document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
-    rendMain();
-    rendInv();
-    saveGame();
-  },sd*1000);
+if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}
+if(!targetSkin){toast('❌ Выбери цель','lose');return}
+if(!selPct){toast('❌ Выбери процент','lose');return}
+if(isSpinning)return;
+isSpinning=true;
+const wrap=document.getElementById('arrowWrap'),w=document.getElementById('wheel');
+const ra=Math.floor(Math.random()*360),td=-1440-ra,sd=5;
+wrap.style.transition='none';wrap.style.transform='rotate(0deg)';wrap.offsetHeight;
+wrap.style.transition='transform '+sd+'s cubic-bezier(.17,.67,.25,1)';
+wrap.style.transform=`rotate(${td}deg)`;
+document.getElementById('upgradeBtn').disabled=true;
+let tc=0;const ti=setInterval(()=>{sTick();tc++;if(tc>30)clearInterval(ti)},150);
+setTimeout(()=>{
+clearInterval(ti);
+const arrowFromBottom=Math.abs(td)%360;
+const winZone=(selPct/100)*360;
+const win=arrowFromBottom<=winZone;
+if(win){selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});const ws={...targetSkin};inv.push(ws);stats.wins++;showWinModal(ws);sWin();confetti()}
+else{stats.loses++;selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});showLoseModal();sLose()}
+stats.spins++;isSpinning=false;selectedItems=[];targetSkin=null;selPct=null;chanceGold=0;
+wrap.style.transition='none';wrap.style.transform='rotate(0deg)';
+w.style.setProperty('--wa','0deg');document.getElementById('pt').innerText='?%';
+document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
+rendMain();rendInv();updateChanceUI();saveGame();
+},sd*1000);
 }
-function showWinModal(skin){
-  const u=getUser();
-  const av=u?.photo_url?`<img src="${u.photo_url}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--green);margin-bottom:10px">`:'';
-  const m=document.createElement('div');
-  m.className='result-screen result-win';
-  m.innerHTML=`<div class="result-inner">
-    ${av}
-    <div class="result-icon">🏆</div>
-    <div class="result-title" style="color:var(--green)">УСПЕХ!</div>
-    <div class="result-sub">НОВЫЙ СКИН В ИНВЕНТАРЕ</div>
-    <div class="result-skin">${skin.img?`<img src="${skin.img}">`:''}<div class="result-skin-name">${skin.name}</div></div>
-    <button class="result-btn" onclick="this.closest('.result-screen').remove()">ПРОДОЛЖИТЬ</button>
-  </div>`;
-  document.body.appendChild(m);
-}
-function showLoseModal(){
-  const u=getUser();
-  const av=u?.photo_url?`<img src="${u.photo_url}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--red);margin-bottom:10px">`:'';
-  const m=document.createElement('div');
-  m.className='result-screen result-lose';
-  m.innerHTML=`<div class="result-inner">
-    ${av}
-    <div class="result-icon">💀</div>
-    <div class="result-title" style="color:var(--red)">НЕ УДАЛОСЬ</div>
-    <div class="result-sub">ПОПРОБУЙ ЕЩЁ РАЗ</div>
-    <button class="result-btn" onclick="this.closest('.result-screen').remove()">ПРОДОЛЖИТЬ</button>
-  </div>`;
-  document.body.appendChild(m);
-}
-function openCart(){if(cart.length===0){toast('🛒 Корзина пуста','lose');return}const m=document.createElement('div');m.id='cartModal';m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:3000;display:flex;justify-content:center;align-items:flex-end';const total=cart.reduce((s,c)=>s+c.price*c.qty,0);m.innerHTML=`<div style="background:var(--dark2);border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:480px;max-height:80vh;overflow-y:auto"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font-size:18px;font-weight:900;color:#fff">КОРЗИНА</div><button onclick="document.getElementById('cartModal').remove()" style="background:var(--dark3);border:none;color:#fff;width:36px;height:36px;border-radius:10px;font-size:18px;cursor:pointer">✕</button></div>${cart.map((c,i)=>`<div style="background:var(--dark3);border-radius:14px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="width:60px;height:60px;background:var(--dark);border-radius:10px;display:flex;justify-content:center;align-items:center;overflow:hidden">${allSkins.find(s=>s.name===c.name)?.img?`<img src="${allSkins.find(s=>s.name===c.name).img}" style="width:100%;height:100%;object-fit:contain">`:`<span style="font-size:28px">${c.icon}</span>`}</div><div style="flex:1"><div style="font-size:13px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:15px;font-weight:900;color:var(--red);margin-top:4px">${(c.price*c.qty).toLocaleString('ru-RU')} G</div></div><div style="display:flex;gap:4px;align-items:center"><button onclick="changeQty(${i},-1)" style="width:28px;height:28px;background:var(--dark);border:none;color:#fff;border-radius:8px;cursor:pointer">−</button><span style="width:24px;text-align:center;font-weight:900;color:#fff">${c.qty}</span><button onclick="changeQty(${i},1)" style="width:28px;height:28px;background:var(--dark);border:none;color:#fff;border-radius:8px;cursor:pointer">+</button></div></div>`).join('')}<div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid rgba(255,255,255,.05)"><div style="font-size:12px;color:var(--gray);font-weight:800">ИТОГО:</div><div style="font-size:24px;font-weight:900;color:var(--red)">${total.toLocaleString('ru-RU')} G</div></div><div style="display:flex;gap:8px"><button onclick="clearCart()" style="flex:1;background:var(--dark4);color:var(--gray2);border:none;padding:14px;border-radius:12px;font-weight:900;cursor:pointer">ОЧИСТИТЬ</button><button onclick="checkout()" style="flex:2;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border:none;padding:14px;border-radius:12px;font-weight:900;cursor:pointer">КУПИТЬ (${cart.length})</button></div></div>`;document.body.appendChild(m)}
-function changeQty(i,d){cart[i].qty+=d;if(cart[i].qty<1)cart.splice(i,1);document.getElementById('cartModal').remove();if(cart.length>0)openCart();updateCartBadge();rendInv()}
-function clearCart(){cart=[];document.getElementById('cartModal')?.remove();updateCartBadge();rendInv()}
-function checkout(){const total=cart.reduce((s,c)=>s+c.price*c.qty,0);if(gold<total){toast('❌ Мало G','lose');return}cart.forEach(c=>{gold-=c.price*c.qty;const sd=allSkins.find(s=>s.name===c.name);for(let i=0;i<c.qty;i++)inv.push({name:c.name,icon:c.icon,price:c.price,img:sd?sd.img:null,color:sd?sd.color:'#888'})});cart=[];updateCartBadge();document.getElementById('cartModal').remove();updateBal();saveGame();rendInv();toast('✅ Куплено!','win');sBuy();confetti()}
-function withdrawSkinDirect(idx){
-  const it=inv[idx];if(!it)return;
-  const uid=getUserId();
-  const u=getUser();
-  const listPrice=Math.ceil((it.price||22)/0.8);
-  const gg22Img=CDN+'G22_flock.jpg';
-  const av=`<img src="https://avatars.mds.yandex.net/i?id=e2dbf0eea03d887a95a6b2a5b1cfe7a35112f997-5243585-images-thumbs&n=13" style="width:100%;max-width:200px;border-radius:50%;margin-bottom:16px;border:3px solid var(--red)">`;
-  const m=document.createElement('div');
-  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:3000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';
-  m.id='wdModal';
-  m.innerHTML=`<div class="wd-step">
-    <div class="wd-step-title">📤 ЗАЯВКА НА ВЫВОД</div>
-    ${av}
-    <div class="wd-step-text"><b>Шаг 1.</b> Поставь эту аватарку в Standoff<br>и добавь @${u?.username||'username'}</div>
-    <img src="${gg22Img}">
-    <div class="wd-step-text"><b>Шаг 2.</b> Купи скин <b>«GG22 Flock»</b> в магазине и выстави за <b style="color:var(--red)">${listPrice} G</b></div>
-    <input type="text" id="wdP" placeholder="Введи паттерн скина" style="width:100%;background:var(--dark);border:1.5px solid var(--dark4);color:#fff;padding:12px;border-radius:10px;font-size:13px;outline:none;margin-bottom:10px;margin-top:10px">
-    <div id="wdE" style="color:var(--red);font-size:11px;margin-bottom:10px;display:none;text-align:center"></div>
-    <button class="wd-step-btn" id="wdOk">✅ ОТПРАВИТЬ ЗАЯВКУ</button>
-    <button class="wd-step-btn secondary" onclick="document.getElementById('wdModal').remove()">❌ ОТМЕНА</button>
-  </div>`;
-  document.body.appendChild(m);
-  document.getElementById('wdOk').onclick=async()=>{
-    const pattern=document.getElementById('wdP').value.trim();
-    const err=document.getElementById('wdE');
-    if(!pattern){err.style.display='block';err.innerText='❌ Введи паттерн';return}
-    const account=u?.username?'@'+u.username:'игрок';
-    const btn=document.getElementById('wdOk');
-    btn.disabled=true;btn.innerText='Отправка...';
-    try{
-      const r=await fetch(BOT_URL+'/api/withdraw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({skin:it.name,icon:it.icon,img:gg22Img,price:it.price,listPrice,skinName:'GG22 Flock',pattern,account,userId:uid})});
-      const d=await r.json();
-      if(d.ok){inv=inv.filter(i=>i!==it);totalWithdraw+=it.price||0;saveGame();rendInv();rendMain();m.remove();toast('✅ Заявка отправлена','win');confetti();updateBal();sWin()}
-      else{err.style.display='block';err.innerText='❌ Ошибка';btn.disabled=false;btn.innerText='ОТПРАВИТЬ'}
-    }catch(e){err.style.display='block';err.innerText='❌ Нет связи';btn.disabled=false;btn.innerText='ОТПРАВИТЬ'}
-  };
-}
-  async function rendProfile(){
-  const b=document.getElementById('profileBody');if(!b)return;
-  const u=getUser();
-  const name=u?.first_name||'Игрок';
-  const photo=u?.photo_url||'';
-  const id=u?.id||'—';
-  const isLogged=!!u;
-  let list=[];
-  const uid=getUserId();
-  if(uid!=='guest'){
-    try{
-      const r=await fetch(BOT_URL+'/api/my-withdraws/'+uid);
-      const d=await r.json();
-      if(d.ok&&d.list)list=d.list;
-    }catch(e){}
-  }
-  const pending=list.filter(x=>x.status==='pending').length;
-  const rejected=list.filter(x=>x.status==='rejected').length;
-  const approved=list.filter(x=>x.status==='done');
-  const approvedSum=approved.reduce((s,x)=>s+(x.price||0),0);
-  b.innerHTML=`<div class="profile-header"><div class="profile-avatar">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:44px">👤</div>`}</div><div class="profile-name">${name}</div><div class="profile-id">ID ${id}</div></div>
-  <div class="profile-bal"><div class="profile-bal-label">БАЛАНС</div><div class="profile-bal-val">${Math.floor(gold).toLocaleString('ru-RU')} <span style="color:var(--red);font-size:20px">G</span></div></div>
-  <div class="profile-stats">
-    <div class="profile-stat" onclick="openMyWithdraws()" style="cursor:pointer;border:1px solid rgba(229,9,20,.3)">
-      <div class="profile-stat-label">Всего выведено</div>
-      <div class="profile-stat-val" style="color:var(--green)">${Math.floor(approvedSum).toLocaleString('ru-RU')} G</div>
-    </div>
-    <div class="profile-stat"><div class="profile-stat-label">В ожидании</div><div class="profile-stat-val" style="color:#FFA500">${pending}</div></div>
-    <div class="profile-stat"><div class="profile-stat-label">Отклонено</div><div class="profile-stat-val" style="color:var(--red)">${rejected}</div></div>
-    <div class="profile-stat"><div class="profile-stat-label">Спинов</div><div class="profile-stat-val" style="color:var(--red)">${stats.spins}</div></div>
-    <div class="profile-stat"><div class="profile-stat-label">Побед</div><div class="profile-stat-val" style="color:var(--green)">${stats.wins}</div></div>
-    <div class="profile-stat"><div class="profile-stat-label">Поражений</div><div class="profile-stat-val" style="color:var(--red)">${stats.loses}</div></div>
-  </div>
-  ${isLogged?`<button class="btn-full" style="background:linear-gradient(135deg,#333,#111);color:#fff" onclick="logout()">ВЫЙТИ</button>`:`<button class="btn-full" style="background:linear-gradient(135deg,var(--red),var(--red2));color:#fff" onclick="login()">ВОЙТИ</button>`}`;
-}
-function openMyWithdraws(){
-  const uid=getUserId();
-  if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}
-  const m=document.createElement('div');
-  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:4000;display:flex;justify-content:center;align-items:flex-start;padding:20px;overflow-y:auto';
-  m.innerHTML=`<div style="background:var(--dark2);border-radius:20px;padding:20px;max-width:480px;width:100%;margin-top:40px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-      <div style="font-size:16px;font-weight:900;color:#fff">Мои заявки</div>
-      <button onclick="this.closest('div').parentElement.parentElement.remove()" style="background:var(--dark3);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px">✕</button>
-    </div>
-    <div id="myWithdrawsList" style="color:var(--gray)">Загрузка...</div>
-  </div>`;
-  document.body.appendChild(m);
-  fetch(BOT_URL+'/api/my-withdraws/'+uid).then(r=>r.json()).then(d=>{
-    const b=document.getElementById('myWithdrawsList');
-    if(!d.ok||!d.list||d.list.length===0){b.innerHTML='<div style="text-align:center;padding:40px;color:#666">Нет заявок</div>';return}
-    b.innerHTML=d.list.map(x=>{
-      let status,color;
-      if(x.status==='done'){status='Выдано';color='var(--green)'}
-      else if(x.status==='rejected'){status='Отклонено';color='var(--red)'}
-      else{status='Ожидание';color='#FFA500'}
-      return `<div style="background:var(--dark3);border-radius:14px;padding:12px;margin-bottom:8px;border-left:3px solid ${color}">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <div style="font-size:13px;font-weight:900;color:#fff">${x.skin}</div>
-          <div style="font-size:11px;color:${color};font-weight:900">${status}</div>
-        </div>
-        <div style="font-size:11px;color:var(--gray)">${x.price} G → выставить за ${x.listPrice||x.price} G</div>
-        <div style="font-size:10px;color:#555;margin-top:4px">${x.time||''}</div>
-        ${x.status==='rejected'&&x.reason?`<div style="margin-top:8px;padding:8px;background:rgba(229,9,20,.1);border-radius:8px;font-size:11px;color:var(--red)">Причина: ${x.reason}</div>`:''}
-      </div>`;
-    }).join('');
-  }).catch(()=>{
-    const b=document.getElementById('myWithdrawsList');
-    if(b)b.innerHTML='<div style="text-align:center;padding:40px;color:var(--red)">Ошибка связи</div>';
-  });
-}
-function showHistory(){const h=history.length>0?history.slice(0,20).map(x=>`<div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px">${x.text||x}</div>`).join(''):'<div style="text-align:center;color:#666;padding:20px">Нет записей</div>';const m=document.createElement('div');m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:3000;display:flex;justify-content:center;align-items:center;padding:20px';m.innerHTML=`<div style="background:var(--dark2);border-radius:20px;padding:20px;max-width:400px;width:100%"><div style="display:flex;justify-content:space-between;margin-bottom:16px"><div style="font-size:16px;font-weight:900;color:#fff">📜 ИСТОРИЯ</div><button onclick="this.closest('div').parentElement.parentElement.remove()" style="background:var(--dark3);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer">✕</button></div>${h}</div>`;document.body.appendChild(m)}
+function showWinModal(skin){const m=document.createElement('div');m.className='result-screen result-win';const u=getUser();const av=u?.photo_url?`<img src="${u.photo_url}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--green);margin-bottom:10px">`:'';m.innerHTML=`<div class="result-inner">${av}<div class="result-icon">🏆</div><div class="result-title" style="color:var(--green)">УСПЕХ!</div><div class="result-sub">НОВЫЙ СКИН В ИНВЕНТАРЕ</div><div class="result-skin">${skin.img?`<img src="${skin.img}">`:''}<div class="result-skin-name">${skin.name}</div></div><button class="result-btn" onclick="this.closest('.result-screen').remove()">ПРОДОЛЖИТЬ</button></div>`;document.body.appendChild(m)}
+function showLoseModal(){const m=document.createElement('div');m.className='result-screen result-lose';const u=getUser();const av=u?.photo_url?`<img src="${u.photo_url}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--red);margin-bottom:10px">`:'';m.innerHTML=`<div class="result-inner">${av}<div class="result-icon">💀</div><div class="result-title" style="color:var(--red)">НЕ УДАЛОСЬ</div><div class="result-sub">ПОПРОБУЙ ЕЩЁ РАЗ</div><button class="result-btn" onclick="this.closest('.result-screen').remove()">ПРОДОЛЖИТЬ</button></div>`;document.body.appendChild(m)}
+function openCart(){if(cart.length===0){toast('🛒 Корзина пуста','lose');return}const m=document.createElement('div');m.id='cartModal';m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:3000;display:flex;justify-content:center;align-items:flex-end';const total=cart.reduce((s,c)=>s+c.price,0);m.innerHTML=`<div style="background:var(--dark2);border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:480px;max-height:80vh;overflow-y:auto"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font-size:18px;font-weight:900;color:#fff">КОРЗИНА</div><button onclick="document.getElementById('cartModal').remove()" style="background:var(--dark3);border:none;color:#fff;width:36px;height:36px;border-radius:10px;font-size:18px;cursor:pointer">✕</button></div>${cart.map((c,i)=>{const s=allSkins.find(x=>x.name===c.name)||allCases.find(x=>x.name===c.name)||allAgents.find(x=>x.name===c.name);return `<div style="background:var(--dark3);border-radius:14px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="width:60px;height:60px;background:var(--dark);border-radius:10px;display:flex;justify-content:center;align-items:center;overflow:hidden">${s?.img?`<img src="${s.img}" style="width:100%;height:100%;object-fit:contain">`:'📦'}</div><div style="flex:1"><div style="font-size:13px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:15px;font-weight:900;color:var(--red);margin-top:4px">${c.price.toLocaleString('ru-RU')} G</div></div><button onclick="cart.splice(${i},1);document.getElementById('cartModal').remove();openCart();updateCartBadge();rendInv()" style="background:none;border:none;color:var(--red);font-size:11px;font-weight:800;cursor:pointer">УДАЛИТЬ</button></div>`}).join('')}<div style="display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid rgba(255,255,255,.05)"><div style="font-size:12px;color:var(--gray);font-weight:800">ИТОГО:</div><div style="font-size:24px;font-weight:900;color:var(--red)">${total.toLocaleString('ru-RU')} G</div></div><div style="display:flex;gap:8px"><button onclick="cart=[];document.getElementById('cartModal').remove();updateCartBadge();rendInv()" style="flex:1;background:var(--dark4);color:var(--gray2);border:none;padding:14px;border-radius:12px;font-weight:900;cursor:pointer">ОЧИСТИТЬ</button><button onclick="checkout()" style="flex:2;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border:none;padding:14px;border-radius:12px;font-weight:900;cursor:pointer">КУПИТЬ (${cart.length})</button></div></div>`;document.body.appendChild(m)}
+function checkout(){const total=cart.reduce((s,c)=>s+c.price,0);if(gold<total){toast('❌ Мало G','lose');return}cart.forEach(c=>{gold-=c.price;const s=allSkins.find(x=>x.name===c.name)||allCases.find(x=>x.name===c.name)||allAgents.find(x=>x.name===c.name);inv.push({name:c.name,price:c.price,img:s?.img||null,color:s?.color||'#888'})});cart=[];updateCartBadge();document.getElementById('cartModal').remove();updateBal();saveGame();rendInv();toast('✅ Куплено!','win');confetti()}
+function withdrawSkinDirect(idx){const it=inv[idx];if(!it)return;const uid=getUserId();const u=getUser();const listPrice=Math.ceil((it.price||22)/0.8);const gg22Img=CDN_BASE+'skins/G22_flock.jpg';const av=`<img src="https://avatars.mds.yandex.net/i?id=e2dbf0eea03d887a95a6b2a5b1cfe7a35112f997-5243585-images-thumbs&n=13" style="width:100%;max-width:200px;border-radius:50%;margin-bottom:16px;border:3px solid var(--red)">`;const m=document.createElement('div');m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:3000;display:flex;justify-content:center;align-items:center;padding:20px;overflow-y:auto';m.id='wdModal';m.innerHTML=`<div class="wd-step"><div class="wd-step-title">📤 ВЫВОД</div>${av}<div class="wd-step-text"><b>Шаг 1.</b> Поставь эту аву и добавь @${u?.username||'username'}</div><img src="${gg22Img}"><div class="wd-step-text"><b>Шаг 2.</b> Купи GG22 Flock за <b style="color:var(--red)">${listPrice} G</b></div><input type="text" id="wdP" placeholder="Паттерн" style="width:100%;background:var(--dark);border:1.5px solid var(--dark4);color:#fff;padding:12px;border-radius:10px;font-size:13px;outline:none;margin-bottom:10px;margin-top:10px"><div id="wdE" style="color:var(--red);font-size:11px;margin-bottom:10px;display:none;text-align:center"></div><button class="wd-step-btn" id="wdOk">✅ ОТПРАВИТЬ</button><button class="wd-step-btn secondary" onclick="document.getElementById('wdModal').remove()">❌ ОТМЕНА</button></div>`;document.body.appendChild(m);document.getElementById('wdOk').onclick=async()=>{const pattern=document.getElementById('wdP').value.trim();const err=document.getElementById('wdE');if(!pattern){err.style.display='block';err.innerText='❌ Введи паттерн';return}const account=u?.username?'@'+u.username:'игрок';const btn=document.getElementById('wdOk');btn.disabled=true;btn.innerText='Отправка...';try{const r=await fetch(BOT_URL+'/api/withdraw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({skin:it.name,img:gg22Img,price:it.price,listPrice,skinName:'GG22 Flock',pattern,account,userId:uid})});const d=await r.json();if(d.ok){inv=inv.filter(i=>i!==it);totalWithdraw+=it.price||0;saveGame();rendInv();rendMain();m.remove();toast('✅ Отправлено','win');confetti();updateBal();sWin()}else{err.style.display='block';err.innerText='❌ Ошибка';btn.disabled=false;btn.innerText='ОТПРАВИТЬ'}}catch(e){err.style.display='block';err.innerText='❌ Нет связи';btn.disabled=false;btn.innerText='ОТПРАВИТЬ'}}}
+async function rendProfile(){const b=document.getElementById('profileBody');if(!b)return;const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';const id=u?.id||'—';const isLogged=!!u;let list=[];const uid=getUserId();if(uid!=='guest'){try{const r=await fetch(BOT_URL+'/api/my-withdraws/'+uid);const d=await r.json();if(d.ok&&d.list)list=d.list}catch(e){}}const pending=list.filter(x=>x.status==='pending').length;const rejected=list.filter(x=>x.status==='rejected').length;const approvedSum=list.filter(x=>x.status==='done').reduce((s,x)=>s+(x.price||0),0);b.innerHTML=`<div class="profile-header"><div class="profile-avatar">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:44px">👤</div>`}</div><div class="profile-name">${name}</div><div class="profile-id">ID ${id}</div></div><div class="profile-bal"><div class="profile-bal-label">БАЛАНС</div><div class="profile-bal-val">${Math.floor(gold).toLocaleString('ru-RU')} <span style="color:var(--red);font-size:20px">G</span></div></div><div class="profile-stats"><div class="profile-stat" onclick="openMyWithdraws()" style="cursor:pointer;border:1px solid rgba(229,9,20,.3)"><div class="profile-stat-label">Всего выведено</div><div class="profile-stat-val" style="color:var(--green)">${Math.floor(approvedSum).toLocaleString('ru-RU')} G</div></div><div class="profile-stat"><div class="profile-stat-label">В ожидании</div><div class="profile-stat-val" style="color:#FFA500">${pending}</div></div><div class="profile-stat"><div class="profile-stat-label">Отклонено</div><div class="profile-stat-val" style="color:var(--red)">${rejected}</div></div><div class="profile-stat"><div class="profile-stat-label">Спинов</div><div class="profile-stat-val" style="color:var(--red)">${stats.spins}</div></div><div class="profile-stat"><div class="profile-stat-label">Побед</div><div class="profile-stat-val" style="color:var(--green)">${stats.wins}</div></div><div class="profile-stat"><div class="profile-stat-label">Поражений</div><div class="profile-stat-val" style="color:var(--red)">${stats.loses}</div></div></div>${isLogged?`<button class="btn-full" style="background:linear-gradient(135deg,#333,#111);color:#fff" onclick="logout()">ВЫЙТИ</button>`:`<button class="btn-full" style="background:linear-gradient(135deg,var(--red),var(--red2));color:#fff" onclick="login()">ВОЙТИ</button>`}`}
+function openMyWithdraws(){const uid=getUserId();if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}const m=document.createElement('div');m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:4000;display:flex;justify-content:center;align-items:flex-start;padding:20px;overflow-y:auto';m.innerHTML=`<div style="background:var(--dark2);border-radius:20px;padding:20px;max-width:480px;width:100%;margin-top:40px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font-size:16px;font-weight:900;color:#fff">Мои заявки</div><button onclick="this.closest('div').parentElement.parentElement.remove()" style="background:var(--dark3);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px">✕</button></div><div id="myWithdrawsList" style="color:var(--gray)">Загрузка...</div></div>`;document.body.appendChild(m);fetch(BOT_URL+'/api/my-withdraws/'+uid).then(r=>r.json()).then(d=>{const b=document.getElementById('myWithdrawsList');if(!d.ok||!d.list||d.list.length===0){b.innerHTML='<div style="text-align:center;padding:40px;color:#666">Нет заявок</div>';return}b.innerHTML=d.list.map(x=>{let status,color;if(x.status==='done'){status='Выдано';color='var(--green)'}else if(x.status==='rejected'){status='Отклонено';color='var(--red)'}else{status='Ожидание';color='#FFA500'}return `<div style="background:var(--dark3);border-radius:14px;padding:12px;margin-bottom:8px;border-left:3px solid ${color}"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><div style="font-size:13px;font-weight:900;color:#fff">${x.skin}</div><div style="font-size:11px;color:${color};font-weight:900">${status}</div></div><div style="font-size:11px;color:var(--gray)">${x.price} G → ${x.listPrice||x.price} G</div><div style="font-size:10px;color:#555;margin-top:4px">${x.time||''}</div>${x.status==='rejected'&&x.reason?`<div style="margin-top:8px;padding:8px;background:rgba(229,9,20,.1);border-radius:8px;font-size:11px;color:var(--red)">Причина: ${x.reason}</div>`:''}</div>`}).join('')}).catch(()=>{const b=document.getElementById('myWithdrawsList');if(b)b.innerHTML='<div style="text-align:center;padding:40px;color:var(--red)">Ошибка связи</div>'})}
+function showHistory(){const h=history.length>0?history.slice(0,20).map(x=>`<div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px">${x.text||x}</div>`).join(''):'<div style="text-align:center;color:#666;padding:20px">Нет записей</div>';const m=document.createElement('div');m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:3000;display:flex;justify-content:center;align-items:center;padding:20px';m.innerHTML=`<div style="background:var(--dark2);border-radius:20px;padding:20px;max-width:400px;width:100%"><div style="display:flex;justify-content:space-between;margin-bottom:16px"><div style="font-size:16px;font-weight:900;color:#fff">ИСТОРИЯ</div><button onclick="this.closest('div').parentElement.parentElement.remove()" style="background:var(--dark3);border:none;color:#fff;width:32px;height:32px;border-radius:8px;cursor:pointer">✕</button></div>${h}</div>`;document.body.appendChild(m)}
 function login(){toast('✅ Вход через Telegram','win')}
 function logout(){if(confirm('Выйти?')){toast('🚪 Выход','lose');setTimeout(()=>location.reload(),500)}}
-function rendSettings(){const b=document.getElementById('settingsBody');if(!b)return;const used=localStorage.getItem('sfap_ref_used_'+getUserId());b.innerHTML=`<div style="font-size:11px;color:var(--red);font-weight:900;margin-bottom:8px">🔊 ЗВУК</div><div class="settings-item"><label>Звуки</label><div class="toggle ${soundEnabled?'on':''}" id="sndToggle" onclick="toggleSound()"></div></div><div style="font-size:11px;color:var(--red);font-weight:900;margin:16px 0 8px">👤 ПРОФИЛЬ</div><div class="settings-item"><label>🎁 Реф. код</label><input type="text" id="refIn" placeholder="${used||'Код'}" ${used?'disabled':''}><button class="settings-btn" onclick="applyRef()">${used?'✅':'ОК'}</button></div><div class="settings-item"><label>🎁 Промокод</label><input type="text" id="promoIn" placeholder="Код"><button class="settings-btn" onclick="applyPromo()">ОК</button></div><div style="font-size:11px;color:var(--red);font-weight:900;margin:16px 0 8px">🗑 СБРОС</div><div class="settings-item"><label>Сбросить</label><button class="settings-btn" style="background:linear-gradient(135deg,#333,#111)" onclick="if(confirm('Удалить?')){localStorage.clear();location.reload()}">СБРОС</button></div>`}
+function rendSettings(){const b=document.getElementById('settingsBody');if(!b)return;const used=localStorage.getItem('sfap_ref_used_'+getUserId());b.innerHTML=`<div style="font-size:11px;color:var(--red);font-weight:900;margin-bottom:8px">🔊 ЗВУК</div><div class="settings-item"><label>Звуки</label><div class="toggle ${soundEnabled?'on':''}" id="sndToggle" onclick="toggleSound()"></div></div><div style="font-size:11px;color:var(--red);font-weight:900;margin:16px 0 8px">👤 ПРОФИЛЬ</div><div class="settings-item"><label>Реф. код</label><input type="text" id="refIn" placeholder="${used||'Код'}" ${used?'disabled':''}><button class="settings-btn" onclick="applyRef()">${used?'✅':'ОК'}</button></div><div class="settings-item"><label>Промокод</label><input type="text" id="promoIn" placeholder="Код"><button class="settings-btn" onclick="applyPromo()">ОК</button></div><div style="font-size:11px;color:var(--red);font-weight:900;margin:16px 0 8px">🗑 СБРОС</div><div class="settings-item"><label>Сбросить</label><button class="settings-btn" style="background:linear-gradient(135deg,#333,#111)" onclick="if(confirm('Удалить?')){localStorage.clear();location.reload()}">СБРОС</button></div>`}
 function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem('sfap_sound',soundEnabled?'1':'0');const t=document.getElementById('sndToggle');if(t)t.classList.toggle('on',soundEnabled);toast(soundEnabled?'🔊 Вкл':'🔇 Выкл','win')}
-function applyRef(){const input=document.getElementById('refIn');if(!input||input.disabled)return;const code=input.value.trim().toLowerCase();const codes={'vass':500,'slava':300,'standoff':1000};if(!codes[code]){toast('❌ Неверный','lose');return}localStorage.setItem('sfap_ref_used_'+getUserId(),code);gold+=codes[code];updateBal();saveGame();rendSettings();toast('🎉 +'+codes[code]+' G','win');sPromo();confetti()}
-function applyPromo(){const input=document.getElementById('promoIn');if(!input)return;const code=input.value.trim().toLowerCase();const codes={'flayy':500,'admin':5000};if(!codes[code]){toast('❌ Неверный','lose');return}const key='sfap_promo_'+code+'_'+getUserId();if(localStorage.getItem(key)){toast('❌ Уже','lose');return}localStorage.setItem(key,'1');gold+=codes[code];updateBal();saveGame();toast('🎁 +'+codes[code]+' G','win');sPromo();confetti();input.value=''}
-(async()=>{await loadGame();drawTicks();updateBal();rendMain();rendInv();rendTargetList();updateCartBadge();const el=document.getElementById('onlineCount');if(el){el.innerText=Math.floor(Math.random()*10)+1;setInterval(()=>el.innerText=Math.floor(Math.random()*10)+1,5000)}})();
+function applyRef(){const input=document.getElementById('refIn');if(!input||input.disabled)return;const code=input.value.trim().toLowerCase();const codes={'vass':500,'slava':300,'standoff':1000};if(!codes[code]){toast('❌ Неверный','lose');return}localStorage.setItem('sfap_ref_used_'+getUserId(),code);gold+=codes[code];updateBal();saveGame();rendSettings();toast('🎉 +'+codes[code]+' G','win');confetti()}
+function applyPromo(){const input=document.getElementById('promoIn');if(!input)return;const code=input.value.trim().toLowerCase();const codes={'flayy':500,'admin':5000};if(!codes[code]){toast('❌ Неверный','lose');return}const key='sfap_promo_'+code+'_'+getUserId();if(localStorage.getItem(key)){toast('❌ Уже','lose');return}localStorage.setItem(key,'1');gold+=codes[code];updateBal();saveGame();toast('🎁 +'+codes[code]+' G','win');confetti();input.value=''}
+function initSlider(){const s=document.getElementById('slider');if(!s)return;const start=e=>{if(!targetSkin||selectedItems.length===0){toast('❌ Выбери скины и цель','lose');return}sliderDrag=true;sliderStartX=e.touches?e.touches[0].clientX:e.clientX;e.preventDefault()};const move=e=>{if(!sliderDrag)return;const x=e.touches?e.touches[0].clientX:e.clientX;const diff=x-sliderStartX;const add=Math.round(diff/2);if(add>0)addChance(Math.min(add,50));else if(add<0)addChance(Math.max(add,-50));sliderStartX=x;e.preventDefault()};const end=()=>{sliderDrag=false};s.addEventListener('touchstart',start,{passive:false});s.addEventListener('touchmove',move,{passive:false});s.addEventListener('touchend',end);s.addEventListener('mousedown',start);s.addEventListener('mousemove',move);s.addEventListener('mouseup',end)}
+(async()=>{await loadGame();drawTicks();updateBal();rendMain();rendInv();rendTargetList();updateCartBadge();updateChanceUI();initSlider();const el=document.getElementById('onlineCount');if(el){el.innerText=Math.floor(Math.random()*10)+1;setInterval(()=>el.innerText=Math.floor(Math.random()*10)+1,5000)}})();
 </script></body></html>
