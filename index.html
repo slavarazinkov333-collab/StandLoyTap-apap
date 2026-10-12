@@ -352,21 +352,31 @@ function rendTargetList(){const b=document.getElementById('targetList');if(!b)re
 function toggleCard(idx){const c=document.getElementById('card-'+idx);if(!c)return;const isOpen=c.classList.contains('open');document.querySelectorAll('.card.open').forEach(x=>x.classList.remove('open'));if(!isOpen)c.classList.add('open')}
 function toggleCart(name,price){const i=cart.findIndex(c=>c.name===name);if(i>=0)cart.splice(i,1);else{if(gold<price){toast('❌ Мало G','lose');return}cart.push({name,price})}updateCartBadge();rendInv()}
 function updateCartBadge(){const b=document.getElementById('cartBadge');if(!b)return;if(cart.length>0){b.style.display='block';b.innerText=cart.length}else b.style.display='none'}
-function pickTargetCard(name,price,color){const skin=allSkins.find(s=>s.name===name);targetSkin={name,price,color,img:skin?skin.img:null};rendMain();rendTargetList();recomputePct();toast('🎯 '+name,'win')}
-function addToUpgrade(idx){const it=inv[idx];if(!it)return;if(!selectedItems.includes(it)){if(selectedItems.length>=6){toast('❌ Макс 6','lose');return}selectedItems.push(it)}rendMain();recomputePct();document.querySelectorAll('.card.open').forEach(c=>c.classList.remove('open'));toast('⬆️ Добавлен','win')}
+function pickTargetCard(name,price,color){const skin=allSkins.find(s=>s.name===name);targetSkin={name,price,color,img:skin?skin.img:null};rendMain();rendTargetList();recomputePct();updatePctButtons();toast('🎯 '+name,'win')}
+function addToUpgrade(idx){const it=inv[idx];if(!it)return;if(!selectedItems.includes(it)){if(selectedItems.length>=6){toast('❌ Макс 6','lose');return}selectedItems.push(it)}rendMain();recomputePct();updatePctButtons();document.querySelectorAll('.card.open').forEach(c=>c.classList.remove('open'));toast('⬆️ Добавлен','win')}
 function sellSkin(idx){if(idx<0||idx>=inv.length)return;const it=inv[idx],sp=Math.round((it.price||50)*0.7);gold+=sp;inv.splice(idx,1);selectedItems=selectedItems.filter(i=>i!==it);updateBal();saveGame();rendInv();rendMain();toast('💸 +'+sp+' G','win')}
 function recomputePct(){
-if(selectedItems.length===0||!targetSkin){selPct=null;return}
+if(selectedItems.length===0||!targetSkin){selPct=null;updatePctButtons();checkUpgradeBtn();return}
 const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
 const total=invSum+chanceGold;
 let pct=(total/targetSkin.price)*100;
 if(pct>99)pct=99;
 if(pct<0.01)pct=0.01;
 selPct=pct;
-const maxPct=(invSum/targetSkin.price)*100;
 const maxAdd=Math.max(0,targetSkin.price-invSum-20);
 if(chanceGold>maxAdd)chanceGold=maxAdd;
 updateChanceUI();
+updatePctButtons();
+}
+function updatePctButtons(){
+const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
+const total=invSum+chanceGold;
+const realPct=targetSkin&&targetSkin.price>0?(total/targetSkin.price)*100:0;
+document.querySelectorAll('#pcntRow .pb').forEach(b=>{
+const val=parseFloat(b.innerText);
+if(!targetSkin||selectedItems.length===0||val>realPct+0.1){b.classList.add('gray');b.classList.remove('sel')}
+else{b.classList.remove('gray')}
+});
 }
 function updateChanceUI(){
 document.getElementById('chanceVal').innerText=chanceGold.toLocaleString('ru-RU')+' G';
@@ -387,23 +397,29 @@ const maxAdd=Math.max(0,targetSkin.price-invSum-20);
 if(v>0){const canAdd=Math.min(v,maxAdd-chanceGold);if(canAdd<=0){toast('❌ Макс','lose');return}if(gold<canAdd){toast('❌ Мало G','lose');return}gold-=canAdd;chanceGold+=canAdd}
 else{const rem=Math.min(Math.abs(v),chanceGold);gold+=rem;chanceGold-=rem}
 if(chanceGold<0)chanceGold=0;
-updateBal();updateChanceUI();saveGame();
+updateBal();updateChanceUI();updatePctButtons();saveGame();
 }
 function setMaxChance(){if(!targetSkin||selectedItems.length===0){toast('❌ Выбери скины и цель','lose');return}const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);const maxAdd=Math.max(0,targetSkin.price-invSum-20);const need=maxAdd-chanceGold;if(need<=0){toast('❌ Макс','lose');return}addChance(need)}
 function setPct(p,el){
 if(inv.length===0){toast('❌ Инвентарь пуст','lose');return}
-if(!targetSkin){toast('❌ Сначала выбери цель','lose');return}
 if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}
 const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
-const maxPct=(invSum/targetSkin.price)*100;
-if(p>maxPct&&p>0.01){toast('❌ Макс '+formatPct(maxPct),'lose');return}
-selPct=p;
+if(!targetSkin){
+const idealPrice=invSum/(p/100);
+let closest=allSkins[0],minDiff=Math.abs(allSkins[0].price-idealPrice);
+allSkins.forEach(s=>{const d=Math.abs(s.price-idealPrice);if(d<minDiff){minDiff=d;closest=s}});
+targetSkin={name:closest.name,price:closest.price,color:closest.color,img:closest.img};
+rendMain();rendTargetList();
+}
+const realPct=Math.min(99,(invSum/targetSkin.price)*100);
+if(p>realPct&&Math.abs(p-realPct)>0.5){toast('❌ Только '+formatPct(realPct),'lose');return}
+selPct=realPct;
 document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
 if(el)el.classList.add('sel');
-document.getElementById('pt').innerText=formatPct(p);
+document.getElementById('pt').innerText=formatPct(realPct);
 const w=document.getElementById('wheel');
-w.style.setProperty('--wa',(p/100)*360+'deg');
-checkUpgradeBtn();
+w.style.setProperty('--wa',(realPct/100)*360+'deg');
+checkUpgradeBtn();updatePctButtons();
 }
 function checkUpgradeBtn(){const hs=selectedItems.length>0,ht=targetSkin!==null,hp=selPct!==null;const btn=document.getElementById('upgradeBtn');if(hs&&ht&&hp&&!isSpinning){btn.disabled=false;btn.classList.add('active')}else{btn.disabled=true;btn.classList.remove('active')}}
 function rendMain(){if(selectedItems.length===0){document.getElementById('leftIcons').innerHTML='';document.getElementById('selCount').innerText='0 ИЗ 6'}else{const ic=selectedItems.map(s=>s.img?`<img src="${s.img}">`:`<span style="font-size:50px">${s.icon||'📦'}</span>`).join('');document.getElementById('leftIcons').innerHTML=ic;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ 6'}if(targetSkin){const ih=targetSkin.img?`<img src="${targetSkin.img}">`:`<span style="font-size:50px">📦</span>`;document.getElementById('rightIcons').innerHTML=ih;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{document.getElementById('rightIcons').innerHTML='';document.getElementById('targetCount').innerText='НЕ ВЫБРАНА'}checkUpgradeBtn()}
@@ -431,7 +447,7 @@ stats.spins++;isSpinning=false;selectedItems=[];targetSkin=null;selPct=null;chan
 wrap.style.transition='none';wrap.style.transform='rotate(0deg)';
 w.style.setProperty('--wa','0deg');document.getElementById('pt').innerText='?%';
 document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
-rendMain();rendInv();updateChanceUI();saveGame();
+rendMain();rendInv();updateChanceUI();updatePctButtons();saveGame();
 },sd*1000);
 }
 function showWinModal(skin){const m=document.createElement('div');m.className='result-screen result-win';const u=getUser();const av=u?.photo_url?`<img src="${u.photo_url}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--green);margin-bottom:10px">`:'';m.innerHTML=`<div class="result-inner">${av}<div class="result-icon">🏆</div><div class="result-title" style="color:var(--green)">УСПЕХ!</div><div class="result-sub">НОВЫЙ СКИН В ИНВЕНТАРЕ</div><div class="result-skin">${skin.img?`<img src="${skin.img}">`:''}<div class="result-skin-name">${skin.name}</div></div><button class="result-btn" onclick="this.closest('.result-screen').remove()">ПРОДОЛЖИТЬ</button></div>`;document.body.appendChild(m)}
@@ -449,5 +465,5 @@ function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem('sfap_sou
 function applyRef(){const input=document.getElementById('refIn');if(!input||input.disabled)return;const code=input.value.trim().toLowerCase();const codes={'vass':500,'slava':300,'standoff':1000};if(!codes[code]){toast('❌ Неверный','lose');return}localStorage.setItem('sfap_ref_used_'+getUserId(),code);gold+=codes[code];updateBal();saveGame();rendSettings();toast('🎉 +'+codes[code]+' G','win');confetti()}
 function applyPromo(){const input=document.getElementById('promoIn');if(!input)return;const code=input.value.trim().toLowerCase();const codes={'flayy':500,'admin':5000};if(!codes[code]){toast('❌ Неверный','lose');return}const key='sfap_promo_'+code+'_'+getUserId();if(localStorage.getItem(key)){toast('❌ Уже','lose');return}localStorage.setItem(key,'1');gold+=codes[code];updateBal();saveGame();toast('🎁 +'+codes[code]+' G','win');confetti();input.value=''}
 function initSlider(){const s=document.getElementById('slider');if(!s)return;const start=e=>{if(!targetSkin||selectedItems.length===0){toast('❌ Выбери скины и цель','lose');return}sliderDrag=true;sliderStartX=e.touches?e.touches[0].clientX:e.clientX;e.preventDefault()};const move=e=>{if(!sliderDrag)return;const x=e.touches?e.touches[0].clientX:e.clientX;const diff=x-sliderStartX;const add=Math.round(diff/2);if(add>0)addChance(Math.min(add,50));else if(add<0)addChance(Math.max(add,-50));sliderStartX=x;e.preventDefault()};const end=()=>{sliderDrag=false};s.addEventListener('touchstart',start,{passive:false});s.addEventListener('touchmove',move,{passive:false});s.addEventListener('touchend',end);s.addEventListener('mousedown',start);s.addEventListener('mousemove',move);s.addEventListener('mouseup',end)}
-(async()=>{await loadGame();drawTicks();updateBal();rendMain();rendInv();rendTargetList();updateCartBadge();updateChanceUI();initSlider();const el=document.getElementById('onlineCount');if(el){el.innerText=Math.floor(Math.random()*10)+1;setInterval(()=>el.innerText=Math.floor(Math.random()*10)+1,5000)}})();
+(async()=>{await loadGame();drawTicks();updateBal();rendMain();rendInv();rendTargetList();updateCartBadge();updateChanceUI();updatePctButtons();initSlider();const el=document.getElementById('onlineCount');if(el){el.innerText=Math.floor(Math.random()*10)+1;setInterval(()=>el.innerText=Math.floor(Math.random()*10)+1,5000)}})();
 </script></body></html>
