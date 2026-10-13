@@ -298,6 +298,54 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 @keyframes legendBadgePulse{0%,100%{box-shadow:0 0 20px rgba(74,158,255,.4)}50%{box-shadow:0 0 40px rgba(74,158,255,.9)}}
 .legend-badge .ic{font-size:16px;animation:crownBounce 1.5s ease-in-out infinite}
 @keyframes crownBounce{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-8deg)}}
+.ref-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(14px);z-index:5000;display:flex;justify-content:center;align-items:flex-start;padding:16px;overflow-y:auto}
+.ref-modal{background:linear-gradient(165deg,#16161a,#0a0a0d);border:1.5px solid rgba(229,9,20,.35);border-radius:26px;padding:22px;max-width:480px;width:100%;margin-top:16px;position:relative;overflow:hidden;box-shadow:0 25px 80px rgba(229,9,20,.35);animation:refSlide .55s cubic-bezier(.16,1,.3,1)}
+@keyframes refSlide{0%{transform:translateY(60px) scale(.92);opacity:0}60%{transform:translateY(-6px) scale(1.01);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}
+.ref-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid rgba(229,9,20,.2)}
+.ref-head h2{font-size:19px;font-weight:900;color:#fff;letter-spacing:1px;display:flex;align-items:center;gap:10px}
+.ref-head h2 .ic{width:38px;height:38px;background:linear-gradient(135deg,var(--red),var(--red2));border-radius:12px;display:flex;justify-content:center;align-items:center;font-size:20px;box-shadow:0 0 25px rgba(229,9,20,.6)}
+.ref-close{background:var(--dark3);border:none;color:var(--red);width:38px;height:38px;border-radius:11px;cursor:pointer;font-size:18px;font-weight:900}
+.ref-legend-banner{background:linear-gradient(135deg,rgba(74,158,255,.2),rgba(0,150,255,.08));border:1.5px solid rgba(74,158,255,.6);border-radius:16px;padding:14px;margin-bottom:16px;text-align:center;animation:legendPulse 2s ease-in-out infinite}
+@keyframes legendPulse{0%,100%{box-shadow:0 0 20px rgba(74,158,255,.4)}50%{box-shadow:0 0 40px rgba(74,158,255,.8)}}
+.ref-legend-title{font-size:18px;font-weight:900;color:#4a9eff;letter-spacing:2px;text-shadow:0 0 20px rgba(74,158,255,.9),0 0 40px rgba(74,158,255,.6);animation:neonFlicker 3s ease-in-out infinite}
+@keyframes neonFlicker{0%,100%{opacity:1}50%{opacity:.85;text-shadow:0 0 30px rgba(74,158,255,1),0 0 60px rgba(74,158,255,.8)}}
+.ref-legend-sub{font-size:11px;color:#4a9eff;font-weight:800;letter-spacing:1px;margin-top:6px;opacity:.85}
+.ref-my-code-block{background:linear-gradient(135deg,rgba(229,9,20,.12),rgba(139,0,0,.04));border:1.5px solid rgba(229,9,20,.35);border-radius:18px;padding:16px;margin-bottom:14px}
+.ref-label{font-size:10px;color:var(--gray2);font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.ref-code-display{font-size:28px;font-weight:900;color:#fff;letter-spacing:4px;font-family:'Courier New',monospace;text-align:center;padding:14px;background:rgba(0,0,0,.5);border-radius:12px;border:1px dashed rgba(229,9,20,.4);text-shadow:0 0 15px rgba(229,9,20,.8);animation:codeGlow 2.5s ease-in-out infinite;margin-bottom:10px}
+@keyframes codeGlow{0%,100%{border-color:rgba(229,9,20,.4)}50%{border-color:rgba(229,9,20,.8);text-shadow:0 0 25px rgba(229,9,20,1)}}
+.ref-code-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ref-action-btn{padding:12px;border-radius:12px;font-size:12px;font-weight:900;cursor:pointer;border:none;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;gap:6px}
+.ref-action-btn.copy{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 20px rgba(229,9,20,.5)}
+.ref-action-btn.share{background:linear-gradient(135deg,#229ED9,#1682b8);color:#fff;box-shadow:0 0 20px rgba(34,158,217,.5)}
+.ref-progress-block{background:rgba(0,0,0,.35);border:1.5px solid rgba(255,184,0,.3);border-radius:18px;padding:16px;margin-bottom:14px}
+.ref-progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ref-progress-head .lbl{font-size:11px;color:var(--gray2);font-weight:900;letter-spacing:1.5px;text-transform:uppercase}
+.ref-progress-head .cnt{font-size:15px;font-weight:900;color:#ffb800;text-shadow:0 0 15px rgba(255,184,0,.6)}
+.ref-progress-bar{height:14px;background:rgba(0,0,0,.5);border-radius:7px;overflow:hidden;border:1px solid rgba(255,184,0,.2)}
+.ref-progress-fill{height:100%;background:linear-gradient(90deg,#ffb800,#ff8c00,#ffb800);border-radius:7px;transition:width 1s ease-out;box-shadow:0 0 20px rgba(255,184,0,.8);background-size:200% 100%;animation:progressShine 3s linear infinite}
+@keyframes progressShine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.ref-stages{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
+.ref-stage{padding:8px 6px;border-radius:10px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);text-align:center;font-size:10px;font-weight:900;color:var(--gray2)}
+.ref-stage.done{background:linear-gradient(135deg,rgba(76,175,80,.2),rgba(76,175,80,.05));border-color:rgba(76,175,80,.5);color:var(--green);box-shadow:0 0 15px rgba(76,175,80,.3)}
+.ref-stage.current{background:linear-gradient(135deg,rgba(255,184,0,.2),rgba(255,140,0,.05));border-color:rgba(255,184,0,.6);color:#ffb800;animation:stagePulse 1.5s ease-in-out infinite}
+@keyframes stagePulse{0%,100%{box-shadow:0 0 10px rgba(255,184,0,.4)}50%{box-shadow:0 0 25px rgba(255,184,0,.8)}}
+.ref-stage .st-num{font-size:14px;color:#fff;display:block;margin-top:2px}
+.ref-stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ref-stat-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center}
+.ref-stat-lbl{font-size:9px;color:var(--gray2);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ref-stat-val{font-size:22px;font-weight:900;color:#fff}
+.ref-stat-val.green{color:var(--green);text-shadow:0 0 15px rgba(76,175,80,.5)}
+.ref-stat-val.gold{color:#ffb800;text-shadow:0 0 15px rgba(255,184,0,.5)}
+.ref-input-block{padding-top:14px;margin-top:6px;border-top:1px solid rgba(255,255,255,.06)}
+.ref-input-block .ttl{font-size:11px;color:var(--gray2);font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.ref-input-wrap{position:relative;margin-bottom:10px}
+.ref-input-wrap input{width:100%;background:rgba(0,0,0,.5);border:1.5px solid rgba(229,9,20,.25);color:#fff;padding:16px 18px;border-radius:14px;font-size:15px;font-weight:900;outline:none;letter-spacing:2px;text-align:center;text-transform:uppercase;font-family:'Courier New',monospace}
+.ref-input-wrap input:focus{border-color:var(--red);box-shadow:0 0 25px rgba(229,9,20,.5)}
+.ref-input-wrap input::placeholder{color:rgba(255,255,255,.25);letter-spacing:1px;font-family:Inter,sans-serif;font-weight:700;font-size:13px;text-transform:none}
+.ref-apply-btn{width:100%;padding:16px;border-radius:14px;font-weight:900;font-size:15px;cursor:pointer;border:none;letter-spacing:2px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 25px rgba(229,9,20,.5);animation:applyPulse 2s ease-in-out infinite}
+@keyframes applyPulse{0%,100%{box-shadow:0 0 25px rgba(229,9,20,.5)}50%{box-shadow:0 0 40px rgba(229,9,20,.9)}}
+.ref-apply-btn:disabled{opacity:.5;cursor:not-allowed;animation:none}
 </style></head><body>
 <div class="top"><div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="stats"><div class="row-stat"><span class="dot"></span><span class="val" id="onlineCount">0</span></div><div class="row-stat"><span class="up"></span><span class="val" id="incomeVal">0</span></div></div></div><div class="top-right"><div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div></div>
 <div class="event-bar"><div class="event-card clickable" id="bonusCard" onclick="claimBonus()"><div class="event-icon gold" id="bonusIcon">🎁</div><div class="event-info"><div class="event-title">Ежедневный бонус</div><div class="event-sub" id="bonusSub">Забрать скин</div><div class="event-pct gold" id="bonusStatus">ДОСТУПНО</div></div></div></div>
