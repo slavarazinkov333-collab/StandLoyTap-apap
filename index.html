@@ -709,8 +709,6 @@ document.getElementById('liveTrack').innerHTML=items+items;
 setInterval(loadLiveFeed,30000);
 
 async function addLiveFeed(skin,pct){try{const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';await fetch(BOT_URL+'/api/live/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),playerName:name,photoUrl:photo,skinName:skin.name,skinPrice:skin.price,skinImg:skin.img,pct:Math.round(pct||0),type:'win'})})}catch(e){}}
-</script>
-
 // ================== СПИН ==================
 function spinUpgrade(){
 if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}
