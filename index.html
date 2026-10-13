@@ -37,8 +37,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .main{padding:12px 16px}
 .wheel-wrap{position:relative;width:280px;height:280px;margin:10px auto;display:flex;justify-content:center;align-items:center}
 .wheel{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#0d0d10,#050505);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 80px rgba(229,9,20,.25),inset 0 0 100px rgba(0,0,0,.95);border:2px solid rgba(229,9,20,.2);overflow:hidden}
-.wheel-zone{position:absolute;inset:0;border-radius:50%;pointer-events:none;z-index:1;transition:opacity .3s ease}
-.wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from -90deg,#e50914 0deg,#8b0000 var(--pct-angle,0deg),transparent var(--pct-angle,0deg),transparent 360deg);opacity:0;transition:opacity .4s ease}
+.wheel-zone{position:absolute;inset:0;border-radius:50%;pointer-events:none;z-index:1}
+.wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 180deg,#e50914 0deg,#8b0000 var(--pct-angle,0deg),transparent var(--pct-angle,0deg),transparent 360deg);opacity:0;transition:opacity .4s ease;border-radius:50%}
 .wheel-zone-fill.visible{opacity:.85}
 .wheel-zone-glow{position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle,transparent 60%,rgba(229,9,20,.3) 100%);opacity:0;transition:opacity .4s ease}
 .wheel-zone-glow.visible{opacity:1}
@@ -64,7 +64,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .upgrade-btn.spinning::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shimmer 1.5s infinite}
 @keyframes shimmer{0%{left:-100%}100%{left:100%}}
 .slots-preview{display:flex;gap:8px;margin-top:16px}
-.slot-prev{flex:1;background:var(--dark2);border:1.5px solid rgba(229,9,20,.18);border-radius:14px;padding:14px;text-align:center;min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:all .2s}
+.slot-prev{flex:1;background:var(--dark2);border:1.5px solid rgba(229,9,20,.18);border-radius:14px;padding:14px;text-align:center;min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center}
 .slot-prev-lbl{font-size:10px;font-weight:800;color:var(--gray2);margin-bottom:6px}
 .slot-prev-cnt{font-size:9px;color:var(--gray);font-weight:700;margin-top:6px}
 .slot-prev-icons{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
@@ -80,9 +80,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .history-btn{background:var(--dark3);border:1px solid rgba(229,9,20,.2);border-radius:10px;padding:8px 14px;color:var(--red);font-size:11px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px}
 .history-btn svg{width:14px;height:14px;fill:currentColor}
 .sub-tabs{display:flex;gap:6px;background:var(--dark2);padding:6px;border-radius:12px;margin-bottom:12px}
-.sub-tab{flex:1;background:none;border:none;color:var(--gray);font-size:12px;font-weight:800;padding:12px;border-radius:10px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:6px}
+.sub-tab{flex:1;background:none;border:none;color:var(--gray);font-size:12px;font-weight:800;padding:12px;border-radius:10px;cursor:pointer}
 .sub-tab.active{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff}
-.sub-tab svg{width:16px;height:16px;fill:currentColor}
 .shop-tabs{display:flex;gap:6px;margin-bottom:12px}
 .shop-tab{flex:1;background:var(--dark3);border:1.5px solid var(--dark4);border-radius:12px;padding:12px 6px;color:var(--gray);font-size:11px;font-weight:800;cursor:pointer}
 .shop-tab.active{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-color:var(--red)}
@@ -238,6 +237,8 @@ let cart=[],invMode='inv',bigTab='inv',shopTab='skins';
 let soundEnabled=localStorage.getItem('sfap_sound')!=='0';
 let gameLoaded=false;
 let lightningOn=false;
+let currentWheelAngle=0;
+let wheelAnimId=null;
 let audioCtx=null;
 function initAudio(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}}
 function beep(f,t,d,v){if(!soundEnabled)return;try{initAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=f;o.type=t||'sine';g.gain.setValueAtTime(v||.1,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);o.start();o.stop(audioCtx.currentTime+d)}catch(e){}}
@@ -274,8 +275,29 @@ function pickTargetCard(name,price,color){if(isSpinning){toast('⏳ Идёт с�
 function addToUpgrade(idx){if(isSpinning){toast('⏳ Идёт спин','lose');return}const it=inv[idx];if(!it)return;if(!selectedItems.includes(it)){if(selectedItems.length>=6){toast('❌ Макс 6','lose');return}selectedItems.push(it)}rendMain();recomputePct();document.querySelectorAll('.card.open').forEach(c=>c.classList.remove('open'));toast('⬆️ Добавлен','win')}
 function sellSkin(idx){if(isSpinning){toast('⏳ Идёт спин','lose');return}if(idx<0||idx>=inv.length)return;const it=inv[idx],sp=Math.round((it.price||50)*0.7);gold+=sp;inv.splice(idx,1);selectedItems=selectedItems.filter(i=>i!==it);updateBal();saveGame();rendInv();rendMain();toast('💸 +'+sp+' G','win')}
 function recomputePct(){if(selectedItems.length===0||!targetSkin){selPct=null;checkUpgradeBtn();return}const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);let pct=(invSum/targetSkin.price)*100;if(pct>99)pct=99;if(pct<0.01)pct=0.01;selPct=pct;updateWheelPct(pct);checkUpgradeBtn()}
-function updateWheelPct(pct){document.getElementById('pt').innerText=formatPct(pct);document.getElementById('pt').classList.add('active');const fill=document.getElementById('wheelZoneFill');const glow=document.getElementById('wheelZoneGlow');const angle=(pct/100)*360;fill.style.setProperty('--pct-angle',angle+'deg');fill.classList.add('visible');glow.classList.add('visible')}
-function clearWheelPct(){document.getElementById('pt').innerText='?%';document.getElementById('pt').classList.remove('active');document.getElementById('wheelZoneFill').classList.remove('visible');document.getElementById('wheelZoneGlow').classList.remove('visible')}
+function updateWheelPct(pct){
+  document.getElementById('pt').innerText=formatPct(pct);
+  document.getElementById('pt').classList.add('active');
+  const fill=document.getElementById('wheelZoneFill');
+  const glow=document.getElementById('wheelZoneGlow');
+  const targetAngle=(pct/100)*360;
+  fill.classList.add('visible');
+  glow.classList.add('visible');
+  if(wheelAnimId)cancelAnimationFrame(wheelAnimId);
+  const startAngle=currentWheelAngle;
+  const startTime=performance.now();
+  const duration=600;
+  function anim(now){
+    const t=Math.min(1,(now-startTime)/duration);
+    const eased=1-Math.pow(1-t,3);
+    currentWheelAngle=startAngle+(targetAngle-startAngle)*eased;
+    fill.style.setProperty('--pct-angle',currentWheelAngle+'deg');
+    if(t<1)wheelAnimId=requestAnimationFrame(anim);
+    else wheelAnimId=null;
+  }
+  wheelAnimId=requestAnimationFrame(anim);
+}
+function clearWheelPct(){document.getElementById('pt').innerText='?%';document.getElementById('pt').classList.remove('active');document.getElementById('wheelZoneFill').classList.remove('visible');document.getElementById('wheelZoneGlow').classList.remove('visible');currentWheelAngle=0;if(wheelAnimId){cancelAnimationFrame(wheelAnimId);wheelAnimId=null}}
 function setPct(p,el){if(isSpinning){toast('⏳ Идёт спин','lose');return}if(inv.length===0){toast('❌ Инвентарь пуст','lose');return}if(selectedItems.length===0){toast('❌ Выбери скины в апгрейд','lose');return}const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);const idealPrice=invSum/(p/100);let closest=allSkins[0],minDiff=Math.abs(allSkins[0].price-idealPrice);allSkins.forEach(s=>{const d=Math.abs(s.price-idealPrice);if(d<minDiff){minDiff=d;closest=s}});targetSkin={name:closest.name,price:closest.price,color:closest.color,img:closest.img};const realPct=Math.min(99,(invSum/targetSkin.price)*100);selPct=realPct;document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));if(el)el.classList.add('sel');updateWheelPct(realPct);rendMain();rendTargetList();checkUpgradeBtn()}
 function checkUpgradeBtn(){const hs=selectedItems.length>0,ht=targetSkin!==null,hp=selPct!==null;const btn=document.getElementById('upgradeBtn');if(hs&&ht&&hp&&!isSpinning){btn.disabled=false;btn.classList.add('active')}else{btn.disabled=true;btn.classList.remove('active')}}
 function rendMain(){if(selectedItems.length===0){document.getElementById('leftIcons').innerHTML='';document.getElementById('selCount').innerText='0 ИЗ 6'}else{const ic=selectedItems.map(s=>s.img?`<img src="${s.img}">`:`<span style="font-size:50px">${s.icon||'📦'}</span>`).join('');document.getElementById('leftIcons').innerHTML=ic;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ 6'}if(targetSkin){const ih=targetSkin.img?`<img src="${targetSkin.img}">`:`<span style="font-size:50px">📦</span>`;document.getElementById('rightIcons').innerHTML=ih;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{document.getElementById('rightIcons').innerHTML='';document.getElementById('targetCount').innerText='НЕ ВЫБРАНА'}checkUpgradeBtn()}
@@ -305,9 +327,9 @@ let tc=0;const maxTicks=Math.floor(durSec*6.67);
 const tickInt=setInterval(()=>{sTick();tc++;if(tc>maxTicks)clearInterval(tickInt)},150);
 setTimeout(()=>{
 clearInterval(tickInt);
-const finalAngle=totalRotation%360;
+const arrowAngle=(360-(totalRotation%360))%360;
 const winZone=(selPct/100)*360;
-const win=finalAngle<=winZone;
+const win=arrowAngle<=winZone;
 if(win){const lostItems=[...selectedItems];selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});const ws={...targetSkin};inv.push(ws);stats.wins++;showWinModal(ws);sWin();confetti()}
 else{const lostItems=[...selectedItems];stats.loses++;selectedItems.forEach(it=>{inv=inv.filter(i=>i!==it)});showLoseModal(lostItems);sLose();sparksRed()}
 stats.spins++;
