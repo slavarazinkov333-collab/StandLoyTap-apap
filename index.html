@@ -357,6 +357,46 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .profile-bal-val .g-badge{background:linear-gradient(135deg,#ffd700,#4a9eff,#1e5cb8) !important;-webkit-text-fill-color:#fff !important;color:#fff !important;filter:none !important}
 .wd-skin-price,.wd-skin-list,.topup-sum-val{color:transparent !important;background:linear-gradient(135deg,#ffd700 0%,#4a9eff 60%,#1e5cb8 100%) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;font-weight:900 !important;filter:drop-shadow(0 0 6px rgba(74,158,255,.6))}
 .pt.active{color:transparent !important;background:linear-gradient(135deg,#ffd700 0%,#4a9eff 60%,#1e5cb8 100%) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;filter:drop-shadow(0 0 15px rgba(74,158,255,.8)) drop-shadow(0 0 30px rgba(255,215,0,.5))}
+.hist-filter-row{display:flex;gap:8px;margin-bottom:14px;padding:0 4px}
+.hist-filter-btn{flex:1;padding:12px 8px;border-radius:12px;font-size:12px;font-weight:900;letter-spacing:1px;cursor:pointer;border:1.5px solid var(--dark4);background:var(--dark3);color:var(--gray2);transition:all .2s}
+.hist-filter-btn.active{background:linear-gradient(135deg,#ffd700,#ffb800);color:#1a1a1a;border-color:transparent;box-shadow:0 0 20px rgba(255,184,0,.5)}
+.hist-list{display:flex;flex-direction:column;gap:12px}
+.hist-card{background:linear-gradient(165deg,rgba(30,30,35,.95),rgba(15,15,18,.95));border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;position:relative;overflow:hidden;animation:histIn .4s ease}
+.hist-card.win{border-color:rgba(76,175,80,.35);background:linear-gradient(165deg,rgba(20,40,20,.95),rgba(10,20,10,.95))}
+.hist-card.lose{border-color:rgba(229,9,20,.3);background:linear-gradient(165deg,rgba(40,15,15,.95),rgba(20,5,5,.95))}
+@keyframes histIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.hist-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hist-ava{width:26px;height:26px;border-radius:50%;background:var(--dark3);overflow:hidden;border:1.5px solid rgba(255,255,255,.15);display:flex;justify-content:center;align-items:center;font-size:12px;flex-shrink:0}
+.hist-ava img{width:100%;height:100%;object-fit:cover}
+.hist-name{font-size:11px;font-weight:900;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.hist-time-sm{font-size:10px;color:var(--gray);font-weight:700;flex-shrink:0}
+.hist-icons{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hist-skin-sm{width:56px;height:56px;background:rgba(0,0,0,.4);border-radius:12px;padding:4px;object-fit:contain;flex-shrink:0;border:1px solid rgba(255,255,255,.08)}
+.hist-arrow{font-size:18px;color:var(--gray);flex-shrink:0}
+.hist-target-big{width:90px;height:90px;background:rgba(0,0,0,.4);border-radius:16px;padding:6px;object-fit:contain;flex-shrink:0;border:2px solid rgba(255,184,0,.4)}
+.hist-card.win .hist-target-big{border-color:rgba(76,175,80,.5);box-shadow:0 0 20px rgba(76,175,80,.3)}
+.hist-card.lose .hist-target-big{border-color:rgba(229,9,20,.5);box-shadow:0 0 20px rgba(229,9,20,.3)}
+.hist-info{flex:1;min-width:0}
+.hist-label{font-size:9px;color:#ffb800;font-weight:900;letter-spacing:1.5px;margin-bottom:4px;text-transform:uppercase}
+.hist-model{font-size:11px;color:var(--gray2);font-weight:800;letter-spacing:.5px;margin-bottom:2px}
+.hist-target-name{font-size:16px;font-weight:900;color:#fff;margin-bottom:6px;line-height:1.2}
+.hist-price{font-size:16px;font-weight:900;color:transparent;background:linear-gradient(135deg,#ffd700,#4a9eff,#1e5cb8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 6px rgba(74,158,255,.6))}
+.hist-price .g-sm{display:inline-flex;width:18px;height:18px;background:linear-gradient(135deg,#ffd700,#4a9eff);border-radius:50%;color:#fff;-webkit-text-fill-color:#fff;font-size:11px;font-weight:900;justify-content:center;align-items:center;margin-left:4px;vertical-align:middle}
+.hist-bottom{display:flex;justify-content:space-between;align-items:flex-end;padding-top:10px;border-top:1px solid rgba(255,255,255,.06);gap:8px}
+.hist-pct-block{flex:1;min-width:0}
+.hist-pct-label{font-size:9px;color:var(--gray);font-weight:900;letter-spacing:1.5px;margin-bottom:4px}
+.hist-pct-val{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
+.hist-pct-bar{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.hist-pct-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.hist-card.win .hist-pct-fill{background:linear-gradient(90deg,#4CAF50,#2e7d32);box-shadow:0 0 10px rgba(76,175,80,.7)}
+.hist-card.lose .hist-pct-fill{background:linear-gradient(90deg,#e50914,#8b0000);box-shadow:0 0 10px rgba(229,9,20,.7)}
+.hist-badge{padding:8px 14px;border-radius:12px;font-size:11px;font-weight:900;letter-spacing:1px;display:flex;align-items:center;gap:6px;flex-shrink:0;white-space:nowrap}
+.hist-badge.win{background:linear-gradient(135deg,rgba(76,175,80,.2),rgba(46,125,50,.1));color:#4CAF50;border:1.5px solid rgba(76,175,80,.6);box-shadow:0 0 15px rgba(76,175,80,.3)}
+.hist-badge.lose{background:linear-gradient(135deg,rgba(229,9,20,.2),rgba(139,0,0,.1));color:#e50914;border:1.5px solid rgba(229,9,20,.6);box-shadow:0 0 15px rgba(229,9,20,.3)}
+.hist-date{font-size:10px;color:var(--gray);font-weight:700;text-align:right;margin-top:6px}
+.hist-empty{text-align:center;padding:60px 20px;color:var(--gray)}
+.hist-empty-ic{font-size:60px;margin-bottom:16px;opacity:.5}
+.hist-empty-txt{font-size:14px;font-weight:800;color:var(--gray2)}
 </style></head><body>
 <div class="top"><div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="stats"><div class="row-stat"><span class="dot"></span><span class="val" id="onlineCount">0</span></div><div class="row-stat"><span class="up"></span><span class="val" id="incomeVal">0</span></div></div></div><div class="top-right"><div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div></div>
 <div class="event-bar"><div class="event-card clickable" id="bonusCard" onclick="claimBonus()"><div class="event-icon gold" id="bonusIcon">🎁</div><div class="event-info"><div class="event-title">Ежедневный бонус</div><div class="event-sub" id="bonusSub">Забрать скин</div><div class="event-pct gold" id="bonusStatus">ДОСТУПНО</div></div></div></div>
@@ -545,7 +585,7 @@ ${refData.isLegend?`<div style="text-align:center;margin-bottom:14px"><div class
 <div class="profile-section"><div class="best-drop-card"><div class="best-drop-header"><h3>👑 ЛУЧШИЙ ДРОП</h3><span class="best-drop-badge">TOP DROP</span></div>${bestDrop?`<div class="best-drop-body"><div class="best-drop-info"><div class="best-drop-name">${bestDrop.name.split(' ')[0]||'—'}</div><div class="best-drop-skin">${bestDrop.name}</div><div class="best-drop-price">${(bestDrop.price||0).toLocaleString('ru-RU')} <span class="g-badge-small">G</span></div></div>${bestDrop.img?`<img src="${bestDrop.img}" class="best-drop-img" onerror="this.style.display='none'">`:''}</div>`:`<div class="best-drop-empty">Пока нет скинов</div>`}<div class="topup-sum-row"><span class="topup-sum-label">СУММА ПОПОЛНЕНИЙ:</span><span class="topup-sum-val">${Math.floor(totalTopup||0).toLocaleString('ru-RU')} G</span></div></div></div>
 <div class="profile-tabs"><button class="profile-tab ${profileTab==='inv'?'active':''}" onclick="switchProfileTab('inv')">📦 ИНВЕНТАРЬ <span class="cnt">${inv.length}</span></button><button class="profile-tab ${profileTab==='upg'?'active':''}" onclick="switchProfileTab('upg')">⬆ АПГРЕЙДЫ <span class="cnt">${totalGames}</span></button><button class="profile-tab ${profileTab==='pay'?'active':''}" onclick="switchProfileTab('pay')">💳 ПЛАТЕЖИ <span class="cnt">${wdList.length}</span></button></div>
 <div class="profile-tab-content ${profileTab==='inv'?'active':''}" id="pTabInv"><div class="profile-sort-row"><button class="profile-sort-btn active" id="sortExp" onclick="sortInv('exp')">ДОРОЖЕ</button><button class="profile-sort-btn" id="sortCheap" onclick="sortInv('cheap')">ДЕШЕВЛЕ</button><button class="profile-sort-btn danger" onclick="sellAllInv()">🗑 ПРОДАТЬ ВСЕ</button></div><div class="profile-grid" id="profileInvGrid"></div></div>
-<div class="profile-tab-content ${profileTab==='upg'?'active':''}" id="pTabUpg"><div class="profile-empty"><div class="profile-empty-ic">⬆</div><div class="profile-empty-txt">История апгрейдов: ${totalGames} игр</div></div></div>
+<div class="profile-tab-content ${profileTab==='upg'?'active':''}" id="pTabUpg"><div class="hist-filter-row"><button class="hist-filter-btn active" id="histFilterAll" onclick="setHistFilter('all')">ВСЕ</button><button class="hist-filter-btn" id="histFilterWin" onclick="setHistFilter('win')">ПОБЕДЫ</button><button class="hist-filter-btn" id="histFilterLose" onclick="setHistFilter('lose')">ПОРАЖЕНИЯ</button></div><div class="hist-list" id="histList"><div class="hist-empty"><div class="hist-empty-ic">📜</div><div class="hist-empty-txt">Загрузка...</div></div></div></div>
 <div class="profile-tab-content ${profileTab==='pay'?'active':''}" id="pTabPay"><div class="profile-empty"><div class="profile-empty-ic">💳</div><div class="profile-empty-txt">Заявок на вывод: ${wdList.length}</div></div><button class="btn-full" style="background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;margin-top:12px" onclick="openMyWithdraws()">📋 ВСЕ ЗАЯВКИ</button></div>
 </div>`;
 renderProfileInv('exp');
@@ -563,6 +603,93 @@ function updateBonusUI(){const card=document.getElementById('bonusCard');const s
 setInterval(()=>{if(!bonusState.available)updateBonusUI()},60000);
 async function claimBonus(){if(bonusState.available===false){const left=Math.floor((bonusState.nextAt-Date.now())/1000/60);const h=Math.floor(left/60);const m2=left%60;toast('⏳ Через '+h+'ч '+m2+'м','lose');return}const uid=getUserId();if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}const card=document.getElementById('bonusCard');card.classList.add('bonus-cooldown');try{const r=await fetch(BOT_URL+'/api/bonus/claim',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid})});const d=await r.json();if(!d.ok){toast('❌ '+(d.error||'Ошибка'),'lose');card.classList.remove('bonus-cooldown');return}const skin=d.skin;if(!Array.isArray(inv))inv=[];inv.push(skin);saveGame();rendInv();const isRare=skin.price>=5;if(isRare){confettiGold();sBonus()}else{sWin();confetti()}showBonusModal(skin,isRare);await checkBonusStatus()}catch(e){toast('❌ Нет связи','lose');card.classList.remove('bonus-cooldown')}}
 function showBonusModal(skin,isRare){const m=document.createElement('div');m.className='result-screen result-bonus';m.innerHTML=`<div class="result-inner"><div class="result-box bonus">${skin.img?`<img src="${skin.img}">`:''}</div><div class="result-title">ЕЖЕДНЕВНЫЙ БОНУС</div><div class="result-sub">${isRare?'🔥 РЕДКИЙ СКИН!':'ПОДАРОК ПОЛУЧЕН'}</div><div class="result-skin-name">${skin.name} <span style="color:#fff;font-size:14px">(${skin.price} G)</span></div><button class="result-btn" onclick="this.closest('.result-screen').remove()">ЗАБРАТЬ</button></div>`;document.body.appendChild(m)}
+let histFilter='all';
+let histData=[];
+async function saveHistory(entry){
+try{
+const u=getUser();
+await fetch(BOT_URL+'/api/history/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+userId:getUserId(),
+skinName:entry.skinName||'',
+skinImg:entry.skinImg||'',
+model:entry.model||'',
+targetName:entry.targetName||'',
+targetImg:entry.targetImg||'',
+targetPrice:entry.targetPrice||0,
+pct:entry.pct||0,
+win:entry.win||false,
+name:u?.first_name||'Игрок',
+photoUrl:u?.photo_url||''
+})});
+}catch(e){}
+}
+async function loadHistory(){
+try{
+const r=await fetch(BOT_URL+'/api/history/list');
+const d=await r.json();
+if(!d.ok)return;
+histData=d.list||[];
+renderHistory();
+}catch(e){}
+}
+function setHistFilter(f){histFilter=f;document.querySelectorAll('.hist-filter-btn').forEach(b=>b.classList.remove('active'));const btn=document.getElementById('histFilter'+(f==='all'?'All':f==='win'?'Win':'Lose'));if(btn)btn.classList.add('active');renderHistory()}
+function renderHistory(){
+const list=document.getElementById('histList');
+if(!list)return;
+let arr=histData.slice();
+if(histFilter==='win')arr=arr.filter(x=>x.win===true);
+else if(histFilter==='lose')arr=arr.filter(x=>x.win!==true);
+if(arr.length===0){list.innerHTML='<div class="hist-empty"><div class="hist-empty-ic">📜</div><div class="hist-empty-txt">Записей нет</div></div>';return}
+list.innerHTML=arr.slice(0,200).map(x=>{
+const cls=x.win?'win':'lose';
+const badgeCls=x.win?'win':'lose';
+const badgeTxt=x.win?'✅ УСПЕХ':'❌ ПОТЕРЯ';
+const dateStr=formatHistDate(x.ts);
+const pctVal=(x.pct||0).toFixed(2);
+const pctWidth=Math.min(100,x.pct||0);
+const nameEsc=(x.name||'Игрок').slice(0,12).replace(/[<>&]/g,'');
+return `<div class="hist-card ${cls}">
+<div class="hist-head">
+<div class="hist-ava">${x.photoUrl?`<img src="${x.photoUrl}" onerror="this.outerHTML='👤'">`:'👤'}</div>
+<div class="hist-name">${nameEsc}</div>
+<div class="hist-time-sm">${dateStr}</div>
+</div>
+<div class="hist-icons">
+${x.skinImg?`<img src="${x.skinImg}" class="hist-skin-sm" onerror="this.style.display='none'">`:`<div class="hist-skin-sm" style="display:flex;justify-content:center;align-items:center;font-size:24px">📦</div>`}
+<div class="hist-arrow">→</div>
+${x.targetImg?`<img src="${x.targetImg}" class="hist-target-big" onerror="this.style.display='none'">`:`<div class="hist-target-big" style="display:flex;justify-content:center;align-items:center;font-size:36px">📦</div>`}
+<div class="hist-info">
+<div class="hist-label">ОБНОВЛЕНИЕ</div>
+<div class="hist-model">${(x.targetName||'').split(' ')[0]||'—'}</div>
+<div class="hist-target-name">${(x.targetName||'').split(' ').slice(1).join(' ')||x.targetName||'—'}</div>
+<div class="hist-price">${(x.targetPrice||0).toLocaleString('ru-RU')}<span class="g-sm">G</span></div>
+</div>
+</div>
+<div class="hist-bottom">
+<div class="hist-pct-block">
+<div class="hist-pct-label">% ШАНС</div>
+<div class="hist-pct-val">${pctVal}%</div>
+<div class="hist-pct-bar"><div class="hist-pct-fill" style="width:${pctWidth}%"></div></div>
+</div>
+<div class="hist-badge ${badgeCls}">${badgeTxt}</div>
+</div>
+</div>`;
+}).join('');
+}
+function formatHistDate(ts){
+if(!ts)return '';
+const d=new Date(ts);
+const months=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const day=d.getDate();
+const mon=months[d.getMonth()];
+const hh=String(d.getHours()).padStart(2,'0');
+const mm=String(d.getMinutes()).padStart(2,'0');
+return day+' '+mon+'. '+hh+':'+mm;
+}
+async function initHistoryTab(){
+await loadHistory();
+setInterval(()=>{const pb=document.getElementById('profileScreen');if(pb&&pb.classList.contains('open')&&profileTab==='upg')loadHistory()},15000);
+  }
 async function loadLiveFeed(){try{const r=await fetch(BOT_URL+'/api/live');const d=await r.json();if(!d.ok||!d.list||d.list.length===0){document.getElementById('liveTrack').innerHTML='<span class="live-empty">Пока никто не выигрывал...</span>';return}const items=d.list.slice(0,15).map(x=>{const name=(x.playerName||'Игрок').slice(0,8).replace(/[<>&]/g,'');const photo=x.photoUrl||'';const pct=x.pct||0;const up=pct>=50;return `<div class="live-item">${photo?`<img src="${photo}" class="live-ava" onerror="this.outerHTML='<div class=live-ava-ph>👤</div>'">`:`<div class="live-ava-ph">👤</div>`}<div class="live-info"><div class="live-name">${name}...</div><div class="live-meta"><span class="${up?'live-arrow-up':'live-arrow-down'}">${up?'↑':'↓'}</span><span class="live-pct">${pct}%</span></div></div>${x.skinImg?`<img src="${x.skinImg}" class="live-skin" onerror="this.outerHTML='<div class=live-skin-ph>📦</div>'">`:`<div class="live-skin-ph">📦</div>`}</div>`}).join('');document.getElementById('liveTrack').innerHTML=items+items}catch(e){document.getElementById('liveTrack').innerHTML='<span class="live-empty">Ошибка загрузки</span>'}}
 setInterval(loadLiveFeed,30000);
 async function addLiveFeed(skin,pct){try{const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';await fetch(BOT_URL+'/api/live/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),playerName:name,photoUrl:photo,skinName:skin.name,skinPrice:skin.price,skinImg:skin.img,pct:Math.round(pct||0),type:'win'})})}catch(e){}}
