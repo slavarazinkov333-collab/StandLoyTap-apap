@@ -460,13 +460,7 @@ function setPct(p,el){if(isSpinning){toast('⏳ Идёт спин','lose');retur
 function checkUpgradeBtn(){const hs=selectedItems.length>0,ht=targetSkin!==null,hp=selPct!==null;const btn=document.getElementById('upgradeBtn');if(hs&&ht&&hp&&!isSpinning){btn.disabled=false;btn.classList.add('active')}else{btn.disabled=true;btn.classList.remove('active')}}
 function rendMain(){if(selectedItems.length===0){document.getElementById('leftIcons').innerHTML='';document.getElementById('selCount').innerText='0 ИЗ 6'}else{const ic=selectedItems.map(s=>s.img?`<img src="${s.img}">`:`<span style="font-size:50px">${s.icon||'📦'}</span>`).join('');document.getElementById('leftIcons').innerHTML=ic;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ 6'}if(targetSkin){const ih=targetSkin.img?`<img src="${targetSkin.img}">`:`<span style="font-size:50px">📦</span>`;document.getElementById('rightIcons').innerHTML=ih;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{document.getElementById('rightIcons').innerHTML='';document.getElementById('targetCount').innerText='НЕ ВЫБРАНА'}checkUpgradeBtn()}
 function toggleLightning(){if(isSpinning){toast('⏳ Идёт спин','lose');return}lightningOn=!lightningOn;const btn=document.getElementById('lightningBtn');const lbl=document.getElementById('lightningLbl');if(lightningOn){btn.classList.add('on');lbl.innerText='ВКЛ';toast('⚡ Быстрый спин ВКЛ','win')}else{btn.classList.remove('on');lbl.innerText='ВЫКЛ';toast('⚡ Быстрый спин ВЫКЛ','lose')}}
-function lockUI(lock){document.getElementById('upgradeBtn').disabled=lock;document.querySelectorAll('.pb').forEach(b=>b.disabled=lock);const lb=document.getElementById('lightningBtn');if(lock)lb.classList.add('locked');else lb.classList.remove('locked')}
-function spinUpgrade(){
-function removeItemsFromInv(items){
-const counts={};
-items.forEach(x=>{const k=x.name+'|'+x.price+'|'+x.img;counts[k]=(counts[k]||0)+1});
-return inv.filter(it=>{const k=it.name+'|'+it.price+'|'+it.img;if(counts[k]&&counts[k]>0){counts[k]--;return false}return true});
-}
+function removeItemsFromInv(items){const counts={};items.forEach(x=>{const k=x.name+'|'+x.price+'|'+x.img;counts[k]=(counts[k]||0)+1});return inv.filter(it=>{const k=it.name+'|'+it.price+'|'+it.img;if(counts[k]&&counts[k]>0){counts[k]--;return false}return true})}
 function spinUpgrade(){
 if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}
 if(!targetSkin){toast('❌ Выбери цель','lose');return}
