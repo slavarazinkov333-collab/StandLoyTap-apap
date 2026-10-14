@@ -544,8 +544,9 @@ const winZone=(totalPct/100)*360;
 const win=arrowAngle<=winZone;
 const lostItems=[...selectedItems];
 inv=removeItemsFromInv(selectedItems);
-if(win){const ws={...targetSkin};inv.push(ws);stats.wins++;showWinModal(ws);sWin();confetti();addLiveFeed(ws,spinPct)}
-else{stats.loses++;showLoseModal(lostItems);sLose();sparksRed()}
+const skinPut=lostItems[0]||{name:'—',img:''};
+if(win){const ws={...targetSkin};inv.push(ws);stats.wins++;showWinModal(ws);sWin();confetti();addLiveFeed(ws,spinPct);saveHistory({skinName:skinPut.name,skinImg:skinPut.img,model:skinPut.name.split(' ')[0]||'',targetName:targetSkin.name,targetImg:targetSkin.img,targetPrice:targetSkin.price,pct:spinPct,win:true})}
+else{stats.loses++;showLoseModal(lostItems);sLose();sparksRed();saveHistory({skinName:skinPut.name,skinImg:skinPut.img,model:skinPut.name.split(' ')[0]||'',targetName:targetSkin.name,targetImg:targetSkin.img,targetPrice:targetSkin.price,pct:spinPct,win:false})}
 if(hasBoost)consumeBoost();
 stats.spins++;
 isSpinning=false;
