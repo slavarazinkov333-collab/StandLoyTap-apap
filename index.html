@@ -462,6 +462,12 @@ function rendMain(){if(selectedItems.length===0){document.getElementById('leftIc
 function toggleLightning(){if(isSpinning){toast('⏳ Идёт спин','lose');return}lightningOn=!lightningOn;const btn=document.getElementById('lightningBtn');const lbl=document.getElementById('lightningLbl');if(lightningOn){btn.classList.add('on');lbl.innerText='ВКЛ';toast('⚡ Быстрый спин ВКЛ','win')}else{btn.classList.remove('on');lbl.innerText='ВЫКЛ';toast('⚡ Быстрый спин ВЫКЛ','lose')}}
 function lockUI(lock){document.getElementById('upgradeBtn').disabled=lock;document.querySelectorAll('.pb').forEach(b=>b.disabled=lock);const lb=document.getElementById('lightningBtn');if(lock)lb.classList.add('locked');else lb.classList.remove('locked')}
 function spinUpgrade(){
+function removeItemsFromInv(items){
+const counts={};
+items.forEach(x=>{const k=x.name+'|'+x.price+'|'+x.img;counts[k]=(counts[k]||0)+1});
+return inv.filter(it=>{const k=it.name+'|'+it.price+'|'+it.img;if(counts[k]&&counts[k]>0){counts[k]--;return false}return true});
+}
+function spinUpgrade(){
 if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}
 if(!targetSkin){toast('❌ Выбери цель','lose');return}
 if(!selPct){toast('❌ Выбери процент','lose');return}
@@ -480,7 +486,6 @@ const td=-totalRotation;
 const spinPct=selPct;
 const hasBoost=refBoost.spinsLeft>0;
 const totalPct=hasBoost?Math.min(99,spinPct+5):spinPct;
-const keysToRemove=selectedItems.map(x=>x.name+'|'+x.price+'|'+x.img);
 wrap.style.transition='none';wrap.style.transform='rotate(0deg)';wrap.offsetHeight;
 wrap.style.transition='transform '+durSec+'s cubic-bezier(.15,.6,.2,1)';
 wrap.style.transform=`rotate(${td}deg)`;
@@ -492,7 +497,7 @@ const arrowAngle=(360-(totalRotation%360))%360;
 const winZone=(totalPct/100)*360;
 const win=arrowAngle<=winZone;
 const lostItems=[...selectedItems];
-inv=inv.filter(i=>!keysToRemove.includes(i.name+'|'+i.price+'|'+i.img));
+inv=removeItemsFromInv(selectedItems);
 if(win){const ws={...targetSkin};inv.push(ws);stats.wins++;showWinModal(ws);sWin();confetti();addLiveFeed(ws,spinPct)}
 else{stats.loses++;showLoseModal(lostItems);sLose();sparksRed()}
 if(hasBoost)consumeBoost();
