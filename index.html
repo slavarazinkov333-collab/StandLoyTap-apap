@@ -1,4 +1,4 @@
-<!DOCTYPE html>openTasksModal<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>StandFliutApap</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>StandFliutApap</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 :root{--red:#e50914;--red2:#8b0000;--dark:#0a0a0a;--dark2:#121214;--dark3:#1a1a1f;--dark4:#222228;--gray:#666;--gray2:#999;--green:#4CAF50;--purple:#9b8aff;--pink:#ff69b4;--blue:#4a9eff;--yellow:#ffd700;--gold:#ffb800}
 body{background:var(--dark);color:#fff;min-height:100vh;overflow-x:hidden;padding-bottom:100px}
@@ -866,4 +866,86 @@ function updateBonusUI(){const card=document.getElementById('bonusCard');const s
 setInterval(()=>{if(!bonusState.available)updateBonusUI()},60000);
 async function claimBonus(){if(bonusState.available===false){const left=Math.floor((bonusState.nextAt-Date.now())/1000/60);const h=Math.floor(left/60);const m2=left%60;toast('⏳ Через '+h+'ч '+m2+'м','lose');return}const uid=getUserId();if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}const card=document.getElementById('bonusCard');card.classList.add('bonus-cooldown');try{const r=await fetch(BOT_URL+'/api/bonus/claim',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid})});const d=await r.json();if(!d.ok){toast('❌ '+(d.error||'Ошибка'),'lose');card.classList.remove('bonus-cooldown');return}const skin=d.skin;if(!Array.isArray(inv))inv=[];inv.push(skin);saveGame();rendInv();const isRare=skin.price>=5;if(isRare){confettiGold();sBonus()}else{sWin();confetti()}showBonusModal(skin,isRare);await checkBonusStatus()}catch(e){toast('❌ Нет связи','lose');card.classList.remove('bonus-cooldown')}}
 function showBonusModal(skin,isRare){const m=document.createElement('div');m.className='result-screen result-bonus';m.innerHTML=`<div class="result-inner"><div class="result-box bonus">${skin.img?`<img src="${skin.img}">`:''}</div><div class="result-title">ЕЖЕДНЕВНЫЙ БОНУС</div><div class="result-sub">${isRare?'🔥 РЕДКИЙ СКИН!':'ПОДАРОК ПОЛУЧЕН'}</div><div class="result-skin-name">${skin.name} <span style="color:#fff;font-size:14px">(${skin.price} G)</span></div><button class="result-btn" onclick="this.closest('.result-screen').remove()">ЗАБРАТЬ</button></div>`;document.body.appendChild(m)}
+// ============ ЕЖЕДНЕВНЫЕ ЗАДАНИЯ ============
+async function openTasksModal(){
+  const uid=getUserId();
+  if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}
+  try{
+    const r=await fetch(BOT_URL+'/api/tasks/status/'+uid);
+    const d=await r.json();
+    if(!d.ok){toast('❌ Ошибка загрузки','lose');return}
+    const tasks=d.tasks||[];
+    const items=tasks.map(t=>{
+      const done=t.progress>=t.need;
+      const cls=t.claimed?'claimed':(done?'done':'');
+      const pct=Math.min(100,Math.round((t.progress/t.need)*100));
+      const btnCls=t.claimed?'claimed':(done?'active':'');
+      const btnTxt=t.claimed?'✅ ПОЛУЧЕНО':(done?'🎁 ЗАБРАТЬ СКИН':'⏳ '+t.progress+'/'+t.need);
+      return `<div class="task-item ${cls}">
+        <div class="task-top">
+          <div class="task-ico">${getTaskIcon(t.type)}</div>
+          <div class="task-info">
+            <div class="task-title">${t.title}</div>
+            <div class="task-progress">Прогресс: <b>${t.progress}</b> / ${t.need}</div>
+          </div>
+          <div class="task-reward">🎁 СКИН</div>
+        </div>
+        <div class="task-bar"><div class="task-bar-fill" style="width:${pct}%"></div></div>
+        <button class="task-claim ${btnCls}" ${t.claimed||!done?'disabled':''} onclick="claimTask('${t.id}')">${btnTxt}</button>
+      </div>`;
+    }).join('');
+    const html=`<div class="tasks-modal" id="tasksModal" onclick="if(event.target===this)this.remove()">
+      <div class="tasks-inner">
+        <div class="tasks-head">
+          <h2><span class="ic">🎁</span> ЗАДАНИЯ ДНЯ</h2>
+          <button class="tasks-close" onclick="document.getElementById('tasksModal').remove()">✕</button>
+        </div>
+        <div class="tasks-sub">⏰ Обновятся через 24 часа • Награда: скин 1-20 G</div>
+        ${items||'<div class="tasks-empty">Задания не загрузились</div>'}
+      </div>
+    </div>`;
+    const old=document.getElementById('tasksModal');
+    if(old)old.remove();
+    document.body.insertAdjacentHTML('beforeend',html);
+  }catch(e){toast('❌ Ошибка сети','lose')}
+}
+
+function getTaskIcon(type){
+  const icons={spin:'🎰',win:'🏆',sell:'💸',buy:'📦',bonus:'🎁',friend:'👥'};
+  return icons[type]||'🎯';
+}
+
+async function claimTask(taskId){
+  const uid=getUserId();
+  if(uid==='guest')return;
+  try{
+    const r=await fetch(BOT_URL+'/api/tasks/claim',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({userId:uid,taskId})
+    });
+    const d=await r.json();
+    if(!d.ok){toast('❌ '+(d.error||'Ошибка'),'lose');return}
+    if(d.skin){
+      if(!Array.isArray(inv))inv=[];
+      inv.push(d.skin);
+      saveGame();
+      rendInv();
+      toast('🎁 Получен скин: '+d.skin.name+' ('+d.skin.price+' G)','win');
+      confetti();
+    }
+    document.getElementById('tasksModal')?.remove();
+    setTimeout(openTasksModal,600);
+  }catch(e){toast('❌ Ошибка сети','lose')}
+}
+
+async function trackTask(type,amount){
+  const uid=getUserId();
+  if(uid==='guest')return;
+  try{
+    await fetch(BOT_URL+'/api/tasks/progress',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({userId:uid,type,amount:amount||1})
+    });
+  }catch(e){}
+      }
 </script></body></html>
