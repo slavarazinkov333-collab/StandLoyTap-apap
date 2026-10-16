@@ -519,8 +519,46 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .task-claim.claimed{background:linear-gradient(135deg,#4CAF50,#2e7d32);color:#fff;cursor:default}
 @keyframes taskPulse{0%,100%{box-shadow:0 0 20px rgba(255,184,0,.5)}50%{box-shadow:0 0 35px rgba(255,184,0,.9)}}
 .tasks-empty{text-align:center;padding:30px 20px;color:var(--gray2);font-size:13px;font-weight:800}
+/* ========== VIP ========== */
+.vip-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:10px;font-size:11px;font-weight:900;color:#1a1a1a;letter-spacing:1px;box-shadow:0 0 20px rgba(255,184,0,.6);animation:vipPulse 2s ease-in-out infinite}
+@keyframes vipPulse{0%,100%{box-shadow:0 0 20px rgba(255,184,0,.6)}50%{box-shadow:0 0 35px rgba(255,184,0,.9)}}
+.vip-badge .crown{font-size:14px;animation:crownBounce 1.5s ease-in-out infinite}
+.vip-frame{position:relative;display:inline-block;border-radius:26px;padding:3px;background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);background-size:300% 300%;animation:vipFrameSpin 3s linear infinite;box-shadow:0 0 25px rgba(255,184,0,.8),0 0 50px rgba(255,140,0,.6)}
+.vip-frame::after{content:'👑';position:absolute;top:-8px;right:-8px;font-size:20px;filter:drop-shadow(0 0 8px rgba(255,184,0,1));z-index:5}
+@keyframes vipFrameSpin{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.vip-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.94);backdrop-filter:blur(14px);z-index:5800;display:flex;justify-content:center;align-items:flex-start;padding:16px;overflow-y:auto}
+.vip-modal{background:linear-gradient(165deg,#1a1408,#0a0800);border:1.5px solid rgba(255,184,0,.6);border-radius:24px;padding:22px;max-width:480px;width:100%;margin:16px auto;box-shadow:0 25px 80px rgba(255,184,0,.4);position:relative}
+.vip-modal-head{text-align:center;margin-bottom:20px}
+.vip-crown-big{font-size:70px;filter:drop-shadow(0 0 30px rgba(255,184,0,1));animation:legendPop 1s ease-out}
+.vip-modal-title{font-size:26px;font-weight:900;color:#ffd700;letter-spacing:2px;text-shadow:0 0 30px rgba(255,184,0,.9);margin-top:10px}
+.vip-modal-sub{font-size:12px;color:#c9a961;font-weight:800;letter-spacing:1.5px;margin-top:6px;text-transform:uppercase}
+.vip-features{background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);border-radius:16px;padding:14px;margin-bottom:16px}
+.vip-features-title{font-size:11px;color:#ffb800;font-weight:900;letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
+.vip-feature-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:12px;color:#fff;font-weight:700;border-bottom:1px solid rgba(255,184,0,.1)}
+.vip-feature-row:last-child{border-bottom:none}
+.vip-feature-row .ic{font-size:16px;width:24px;text-align:center;flex-shrink:0}
+.vip-feature-row .txt{flex:1;line-height:1.3}
+.vip-price-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.vip-price-card{background:linear-gradient(165deg,rgba(30,30,35,.95),rgba(15,15,18,.95));border:1.5px solid rgba(255,184,0,.3);border-radius:16px;padding:14px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.vip-price-card:active{transform:scale(.97);border-color:#ffb800}
+.vip-price-card.recommended{border-color:#ffb800;background:linear-gradient(165deg,rgba(255,184,0,.15),rgba(255,140,0,.05));box-shadow:0 0 20px rgba(255,184,0,.4)}
+.vip-price-badge{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-size:9px;font-weight:900;padding:3px 10px;border-radius:8px;letter-spacing:1px}
+.vip-price-icon{font-size:28px;margin-bottom:6px}
+.vip-price-label{font-size:11px;color:var(--gray2);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.vip-price-value{font-size:22px;font-weight:900;color:transparent;background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
+.vip-price-note{font-size:9px;color:#c9a961;font-weight:800;margin-top:4px}
+.vip-buy-btn{width:100%;padding:16px;border-radius:14px;font-weight:900;font-size:15px;cursor:pointer;border:none;letter-spacing:2px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;box-shadow:0 0 30px rgba(255,184,0,.6);margin-bottom:8px;animation:vipPulse 2s ease-in-out infinite}
+.vip-close-btn{width:100%;padding:14px;border-radius:14px;font-weight:900;font-size:14px;cursor:pointer;border:none;background:var(--dark3);color:var(--gray2);letter-spacing:1px}
+.vip-status-card{background:linear-gradient(135deg,rgba(255,184,0,.15),rgba(255,140,0,.05));border:1.5px solid rgba(255,184,0,.5);border-radius:18px;padding:16px;margin-bottom:14px}
+.vip-status-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.vip-status-title{font-size:13px;font-weight:900;color:#ffb800;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.vip-status-time{font-size:11px;color:#c9a961;font-weight:800;font-family:monospace}
+.vip-claim-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vip-claim-btn{padding:12px;border-radius:12px;font-weight:900;font-size:12px;cursor:pointer;border:none;letter-spacing:.5px;background:linear-gradient(135deg,#4CAF50,#2e7d32);color:#fff;box-shadow:0 0 15px rgba(76,175,80,.4)}
+.vip-claim-btn:disabled{opacity:.5;cursor:not-allowed;background:var(--dark3);color:var(--gray2);box-shadow:none}
+.vip-claim-btn.weekly{background:linear-gradient(135deg,#9b8aff,#6a4cff);box-shadow:0 0 15px rgba(155,138,255,.4)}
 </style></head><body>
-<div class="top"><div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="stats"><div class="row-stat"><span class="dot"></span><span class="val" id="onlineCount">0</span></div><div class="row-stat"><span class="up"></span><span class="val" id="incomeVal">0</span></div></div></div><div class="top-right"><div class="cart-btn" onclick="openTasksModal()" style="border-color:rgba(255,184,0,.3)"><span style="font-size:18px">🎁</span></div><div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div></div>
+<div class="top"><div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="stats"><div class="row-stat"><span class="dot"></span><span class="val" id="onlineCount">0</span></div><div class="row-stat"><span class="up"></span><span class="val" id="incomeVal">0</span></div></div></div><div class="top-right"><div class="cart-btn" onclick="openVipModal()" style="border-color:rgba(255,184,0,.4);background:linear-gradient(135deg,rgba(255,184,0,.15),rgba(255,140,0,.05))"><span style="font-size:18px">👑</span></div><div class="cart-btn" onclick="openTasksModal()" style="border-color:rgba(255,184,0,.3)"><span style="font-size:18px">🎁</span></div><div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div></div>
 <div class="event-bar"><div class="event-card clickable" id="bonusCard" onclick="claimBonus()"><div class="event-icon gold" id="bonusIcon">🎁</div><div class="event-info"><div class="event-title">Ежедневный бонус</div><div class="event-sub" id="bonusSub">Забрать скин</div><div class="event-pct gold" id="bonusStatus">ДОСТУПНО</div></div></div></div>
 <div class="live-bar"><div class="live-track" id="liveTrack"><span class="live-empty">Загрузка ленты...</span></div></div>
 <div class="friends-btn-wrap"><button class="friends-btn" onclick="openFriends()">👥 ДРУЗЬЯ <span class="badge-mini" id="friendsBadge">0</span></button><button class="friends-btn" onclick="openTasksModal()" style="background:linear-gradient(135deg,#ffb800,#ff8c00);box-shadow:0 0 20px rgba(255,184,0,.5)">🎁 ЗАДАНИЯ</button></div>
@@ -575,20 +613,57 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 <button class="legend-claim-btn" onclick="closeLegendPopup()">ЗАБРАТЬ</button>
 </div>
 </div>
-<div class="scr" id="topupScreen"><div class="sh"><h2><span>BALANCE</span></h2><button class="cb" onclick="closeS('topupScreen')">✕</button></div><div class="sb"><div class="empty-block"><div class="empty-icon">💰</div><div class="empty-title">Пополнение</div><div class="empty-sub">Скоро...</div></div></div></div>
-<div class="scr" id="tasksScreen"><div class="sh"><h2><span>WK TOP</span></h2><button class="cb" onclick="closeS('tasksScreen')">✕</button></div><div class="sb"><div class="empty-block"><div class="empty-icon">🏆</div><div class="empty-title">Топ</div><div class="empty-sub">Скоро...</div></div></div></div>
-<div class="scr" id="profileScreen"><div class="sh"><h2><span>ПРОФИЛЬ</span></h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div><div class="sb" id="profileBody" style="padding:0"></div></div>
-<div class="scr" id="settingsScreen"><div class="sh"><h2><span>МЕНЮ</span></h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div><div class="sb" id="settingsBody"></div></div>
-<div class="friends-modal-overlay" id="friendsModal" style="display:none">
-<div class="friends-modal">
-<div class="friends-head"><h2><span class="ic">👥</span> ДРУЗЬЯ</h2><button class="friends-close" onclick="closeFriends()">✕</button></div>
-<div class="friends-search-block"><div class="friends-search-title">🔍 ДОБАВИТЬ ПО ID</div><div class="friends-search-row"><input type="text" id="friendIdInput" placeholder="Введи ID друга" maxlength="20"><button class="friends-search-add" onclick="sendFriendRequest()">➕</button></div></div>
-<div class="friends-section-title" id="reqTitle" style="display:none">📥 ЗАЯВКИ <span class="friends-count" id="reqCount">0</span></div>
-<div class="friends-list" id="requestsList" style="display:none"></div>
-<div class="friends-section-title">📌 РЕКОМЕНДУЕМЫЕ</div>
-<div class="friends-scroll" id="recList"><div class="fr-empty"><div class="fr-empty-ic">⏳</div><div class="fr-empty-txt">Загрузка...</div></div></div>
-<div class="friends-section-title">👥 МОИ ДРУЗЬЯ <span class="friends-count" id="friendsCount">0</span></div>
-<div class="friends-list" id="friendsList"><div class="fr-empty"><div class="fr-empty-ic">📭</div><div class="fr-empty-txt">Пока нет друзей</div></div></div>
+<div class="vip-modal-overlay" id="vipModal" style="display:none">
+<div class="vip-modal">
+<div class="vip-modal-head">
+<div class="vip-crown-big">👑</div>
+<div class="vip-modal-title">VIP СТАТУС</div>
+<div class="vip-modal-sub">ПРЕИМУЩЕСТВА НА 30 ДНЕЙ</div>
+</div>
+<div class="vip-features">
+<div class="vip-features-title">🎁 ЧТО ДАЁТ VIP</div>
+<div class="vip-feature-row"><span class="ic">🎰</span><span class="txt"><b>+5%</b> к шансу выигрыша в апгрейде</span></div>
+<div class="vip-feature-row"><span class="ic">💰</span><span class="txt"><b>+5%</b> к пополнению баланса</span></div>
+<div class="vip-feature-row"><span class="ic">🎁</span><span class="txt"><b>+20 G</b> каждый день бесплатно</span></div>
+<div class="vip-feature-row"><span class="ic">👑</span><span class="txt">VIP-значок и золотая рамка</span></div>
+<div class="vip-feature-row"><span class="ic">⚡</span><span class="txt">Быстрый спин всегда включён</span></div>
+<div class="vip-feature-row"><span class="ic">📈</span><span class="txt">x1.5 к реферальным наградам</span></div>
+<div class="vip-feature-row"><span class="ic">💸</span><span class="txt"><b>-5%</b> комиссия при выводе</span></div>
+<div class="vip-feature-row"><span class="ic">🎰</span><span class="txt"><b>+1 спин в день</b> бесплатно</span></div>
+<div class="vip-feature-row"><span class="ic">🎁</span><span class="txt">Бонусный скин <b>20-50 G</b> каждую неделю</span></div>
+</div>
+<div id="vipBuyView">
+<div class="vip-price-row">
+<div class="vip-price-card" onclick="buyVipGold()">
+<div class="vip-price-icon">💰</div>
+<div class="vip-price-label">ЗА ГОЛДУ</div>
+<div class="vip-price-value">780 G</div>
+<div class="vip-price-note">Внутренняя валюта</div>
+</div>
+<div class="vip-price-card recommended" onclick="buyVipMoney()">
+<div class="vip-price-badge">ВЫГОДНО</div>
+<div class="vip-price-icon">💵</div>
+<div class="vip-price-label">ЗА ДЕНЬГИ</div>
+<div class="vip-price-value">690 ₽</div>
+<div class="vip-price-note">Telegram Stars</div>
+</div>
+</div>
+<button class="vip-buy-btn" onclick="buyVipGold()">💰 КУПИТЬ ЗА 780 G</button>
+<button class="vip-close-btn" onclick="closeVipModal()">✕ ЗАКРЫТЬ</button>
+</div>
+<div id="vipActiveView" style="display:none">
+<div class="vip-status-card">
+<div class="vip-status-head">
+<div class="vip-status-title">👑 VIP АКТИВЕН</div>
+<div class="vip-status-time" id="vipTimeLeft">—</div>
+</div>
+<div class="vip-claim-row">
+<button class="vip-claim-btn" id="vipClaimDaily" onclick="claimVipDaily()">🎁 +20 G</button>
+<button class="vip-claim-btn weekly" id="vipClaimWeekly" onclick="claimVipWeekly()">🎁 СКИН</button>
+</div>
+</div>
+<button class="vip-close-btn" onclick="closeVipModal()">✕ ЗАКРЫТЬ</button>
+</div>
 </div>
 </div>
 <script>
@@ -614,6 +689,7 @@ let refData={code:'',invited:0,earned:0,stage:1,nextGoal:10,isLegend:false};
 let refBoost={spinsLeft:0,expire:0};
 let spinControl='off';
 let audioCtx=null;
+let vipData={isVip:false,expires:0,canClaimDaily:false,canClaimWeekly:false};
 function initAudio(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}}
 function beep(f,t,d,v){if(!soundEnabled)return;try{initAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=f;o.type=t||'sine';g.gain.setValueAtTime(v||.1,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);o.start();o.stop(audioCtx.currentTime+d)}catch(e){}}
 function sClick(){beep(600,'square',.05,.05)}
@@ -670,14 +746,18 @@ rendInv();rendTargetList();
 const wrap=document.getElementById('arrowWrap');
 const btn=document.getElementById('upgradeBtn');
 btn.classList.remove('active');
-const duration=lightningOn?2000:10000;
+const duration=(lightningOn||vipData.isVip)?2000:10000;
 const durSec=duration/1000;
 const ra=Math.floor(Math.random()*360);
 const totalRotation=1800+ra;
 const td=-totalRotation;
 const spinPct=selPct;
 const hasBoost=refBoost.spinsLeft>0;
-const totalPct=hasBoost?Math.min(99,spinPct+5):spinPct;
+const hasVip=vipData.isVip===true;
+let bonusPct=0;
+if(hasBoost)bonusPct+=5;
+if(hasVip)bonusPct+=5;
+const totalPct=bonusPct>0?Math.min(99,spinPct+bonusPct):spinPct;
 wrap.style.transition='none';wrap.style.transform='rotate(0deg)';wrap.offsetHeight;
 wrap.style.transition='transform '+durSec+'s cubic-bezier(.15,.6,.2,1)';
 wrap.style.transform=`rotate(${td}deg)`;
@@ -726,13 +806,19 @@ const displayId=uid==='guest'?'#00000':'#'+uid.slice(-5);
 let wdList=[];if(uid!=='guest'){try{const r=await fetch(BOT_URL+'/api/my-withdraws/'+uid);const d=await r.json();if(d.ok&&d.list)wdList=d.list}catch(e){}}
 const totalGames=stats.spins||0;const wins=stats.wins||0;const loses=stats.loses||0;
 const winPct=totalGames>0?Math.round((wins/totalGames)*100):0;
-const myAvatarHtml = refData.isLegend
-  ? `<div class="legend-frame-big"><div class="profile-avatar-big">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:40px">👤</div>`}<div class="online-dot"></div></div></div>`
-  : `<div class="profile-avatar-big">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:40px">👤</div>`}<div class="online-dot"></div></div>`;
+const baseAvatar=`<div class="profile-avatar-big">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:40px">👤</div>`}<div class="online-dot"></div></div>`;
+const myAvatarHtml = vipData.isVip
+  ? `<div class="vip-frame">${baseAvatar}</div>`
+  : (refData.isLegend
+    ? `<div class="legend-frame-big">${baseAvatar}</div>`
+    : baseAvatar);
+const vipBadge = vipData.isVip ? `<div class="vip-badge"><span class="crown">👑</span> VIP</div>` : '';
+const legendBadgeSmall = refData.isLegend ? `<div style="text-align:center;margin-top:8px"><div class="legend-badge"><span class="ic">👑</span> ТЫ ЛЕГЕНДА</div></div>` : '';
 b.innerHTML=`<div class="profile-wrap"><div class="profile-top-bar"><h1>ПРОФИЛЬ ИГРОКА</h1><button class="btn-topup-top" onclick="openS('topupScreen')">+ ПОПОЛНИТЬ</button></div>
-${refData.isLegend?`<div style="text-align:center;margin-bottom:14px"><div class="legend-badge"><span class="ic">👑</span> ТЫ ЛЕГЕНДА</div></div>`:''}
+${vipBadge}
+${legendBadgeSmall}
 <div class="profile-main-card"><div class="profile-header-row">${myAvatarHtml}<div class="profile-user-info"><div class="profile-username">${name}</div><div class="profile-id-row"><span class="profile-id-text">ID: ${displayId}</span><button class="copy-id-btn" onclick="copyUserId()">📋</button></div></div></div><div class="profile-balance-block"><div class="profile-balance-label">БАЛАНС</div><div class="profile-balance-row"><div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span class="g-badge">G</span></div><div class="profile-coins-ico">💰</div></div></div></div>
-<div class="profile-actions-row"><button class="profile-action-btn telegram" onclick="toast('✅ Telegram привязан','win')">✈️ ПРИВЯЗАТЬ TELEGRAM</button><button class="profile-action-btn" onclick="openRefModal()">🎁 ПРОМОКОД / КОД</button><button class="profile-action-btn full" onclick="openRefModal()">👥 КОД ДРУГА</button></div>
+<div class="profile-actions-row"><button class="profile-action-btn telegram" onclick="toast('✅ Telegram привязан','win')">✈️ ПРИВЯЗАТЬ TELEGRAM</button><button class="profile-action-btn" onclick="openVipModal()" style="background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;border-color:transparent;box-shadow:0 0 20px rgba(255,184,0,.5)">👑 VIP</button><button class="profile-action-btn" onclick="openRefModal()">🎁 ПРОМОКОД / КОД</button><button class="profile-action-btn full" onclick="openRefModal()">👥 КОД ДРУГА</button></div>
 <div class="profile-section"><div class="profile-section-title"><h2><span class="ic">🏆</span> СТАТИСТИКА ИГР</h2><span class="profile-section-badge">ВСЕГО ИГР: ${totalGames}</span></div><div class="stats-grid-3"><div class="stat-block"><div class="stat-block-label">ИГР</div><div class="stat-block-val">${totalGames}</div></div><div class="stat-block green"><div class="stat-block-label">ПОБЕД</div><div class="stat-block-val">${wins}</div></div><div class="stat-block red"><div class="stat-block-label">ПРОИГРЫШЕЙ</div><div class="stat-block-val">${loses}</div></div></div><div class="progress-win"><div class="progress-win-label"><span>% ПРОЦЕНТ ПОБЕД</span><span class="val">${winPct}%</span></div><div class="progress-win-bar"><div class="progress-win-fill" style="width:${winPct}%"></div></div></div></div>
 <div class="profile-section"><div class="best-drop-card"><div class="best-drop-header"><h3>👑 ЛУЧШИЙ ДРОП</h3><span class="best-drop-badge">TOP DROP</span></div>${bestDrop?`<div class="best-drop-body"><div class="best-drop-info"><div class="best-drop-name">${bestDrop.name.split(' ')[0]||'—'}</div><div class="best-drop-skin">${bestDrop.name}</div><div class="best-drop-price">${(bestDrop.price||0).toLocaleString('ru-RU')} <span class="g-badge-small">G</span></div></div>${bestDrop.img?`<img src="${bestDrop.img}" class="best-drop-img" onerror="this.style.display='none'">`:''}</div>`:`<div class="best-drop-empty">Пока нет скинов</div>`}<div class="topup-sum-row"><span class="topup-sum-label">СУММА ПОПОЛНЕНИЙ:</span><span class="topup-sum-val">${Math.floor(totalTopup||0).toLocaleString('ru-RU')} G</span></div></div></div>
 <div class="profile-tabs"><button class="profile-tab ${profileTab==='inv'?'active':''}" onclick="switchProfileTab('inv')">📦 ИНВЕНТАРЬ <span class="cnt">${inv.length}</span></button><button class="profile-tab ${profileTab==='upg'?'active':''}" onclick="switchProfileTab('upg')">⬆ АПГРЕЙДЫ <span class="cnt">${totalGames}</span></button><button class="profile-tab ${profileTab==='pay'?'active':''}" onclick="switchProfileTab('pay')">💳 ПЛАТЕЖИ <span class="cnt">${wdList.length}</span></button></div>
@@ -850,11 +936,113 @@ async function trackTask(type,amount){
   try{await fetch(BOT_URL+'/api/tasks/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,type,amount:amount||1})})}catch(e){}
 }
 
+// ============ VIP ============
+async function loadVipStatus(){
+  const uid=getUserId();
+  if(uid==='guest')return;
+  try{
+    const r=await fetch(BOT_URL+'/api/vip/status/'+uid);
+    const d=await r.json();
+    if(d.ok){
+      vipData={isVip:d.isVip,expires:d.expires||0,canClaimDaily:d.canClaimDaily,canClaimWeekly:d.canClaimWeekly};
+      const pb=document.getElementById('profileBody');
+      if(pb&&document.getElementById('profileScreen')?.classList.contains('open'))rendProfile();
+    }
+  }catch(e){}
+}
+function openVipModal(){
+  const m=document.getElementById('vipModal');
+  if(!m)return;
+  m.style.display='flex';
+  updateVipModalView();
+}
+function closeVipModal(){const m=document.getElementById('vipModal');if(m)m.style.display='none'}
+function updateVipModalView(){
+  const buyView=document.getElementById('vipBuyView');
+  const activeView=document.getElementById('vipActiveView');
+  if(vipData.isVip){
+    buyView.style.display='none';
+    activeView.style.display='block';
+    const left=vipData.expires-Date.now();
+    const days=Math.floor(left/1000/60/60/24);
+    const hours=Math.floor((left/1000/60/60)%24);
+    const tl=document.getElementById('vipTimeLeft');
+    if(tl)tl.innerText=days+'д '+hours+'ч';
+    const cd=document.getElementById('vipClaimDaily');
+    const cw=document.getElementById('vipClaimWeekly');
+    if(cd)cd.disabled=!vipData.canClaimDaily;
+    if(cw)cw.disabled=!vipData.canClaimWeekly;
+  }else{
+    buyView.style.display='block';
+    activeView.style.display='none';
+  }
+}
+async function buyVipGold(){
+  const uid=getUserId();
+  if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}
+  if(gold<780){toast('❌ Мало G. Нужно 780 G','lose');return}
+  if(!confirm('Купить VIP за 780 G?'))return;
+  try{
+    const r=await fetch(BOT_URL+'/api/vip/buy-gold',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid})});
+    const d=await r.json();
+    if(!d.ok){
+      if(d.error==='Not enough G')toast('❌ Мало G. Нужно '+d.need,'lose');
+      else toast('❌ '+(d.error||'Ошибка'),'lose');
+      return;
+    }
+    gold=d.newGold||gold;
+    updateBal();saveGame();
+    await loadVipStatus();
+    updateVipModalView();
+    toast('👑 VIP АКТИВИРОВАН!','win');
+    confettiGold();sBonus();
+  }catch(e){toast('❌ Ошибка сети','lose')}
+}
+async function buyVipMoney(){
+  const uid=getUserId();
+  if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}
+  if(!confirm('Купить VIP за 690₽? (тестовый режим)'))return;
+  try{
+    const r=await fetch(BOT_URL+'/api/vip/buy-money',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,paymentId:'test_'+Date.now()})});
+    const d=await r.json();
+    if(!d.ok){toast('❌ '+(d.error||'Ошибка'),'lose');return}
+    await loadVipStatus();
+    updateVipModalView();
+    toast('👑 VIP АКТИВИРОВАН!','win');
+    confettiGold();sBonus();
+  }catch(e){toast('❌ Ошибка сети','lose')}
+}
+async function claimVipDaily(){
+  const uid=getUserId();
+  if(uid==='guest')return;
+  try{
+    const r=await fetch(BOT_URL+'/api/vip/claim-daily',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid})});
+    const d=await r.json();
+    if(!d.ok){if(d.error==='Cooldown')toast('⏳ Через '+d.minutesLeft+' мин','lose');else toast('❌ '+(d.error||'Ошибка'),'lose');return}
+    gold=d.newGold||gold;
+    updateBal();saveGame();
+    await loadVipStatus();updateVipModalView();
+    toast('🎁 +'+d.reward+' G VIP-бонус!','win');
+    confetti();
+  }catch(e){toast('❌ Ошибка','lose')}
+}
+async function claimVipWeekly(){
+  const uid=getUserId();
+  if(uid==='guest')return;
+  try{
+    const r=await fetch(BOT_URL+'/api/vip/claim-weekly',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid})});
+    const d=await r.json();
+    if(!d.ok){if(d.error==='Cooldown')toast('⏳ Через '+d.hoursLeft+'ч','lose');else toast('❌ '+(d.error||'Ошибка'),'lose');return}
+    if(d.skin){if(!Array.isArray(inv))inv=[];inv.push(d.skin);saveGame();rendInv();toast('🎁 Получен VIP-скин: '+d.skin.name,'win');confettiGold()}
+    await loadVipStatus();updateVipModalView();
+  }catch(e){toast('❌ Ошибка','lose')}
+}
+
 function openCart2(){}
-(async()=>{await loadGame();drawTicks();updateBal();rendMain();rendInv();rendTargetList();updateCartBadge();await checkBonusStatus();loadLiveFeed();loadRefData();loadFriendsData().catch(()=>{});setTimeout(()=>{if(refData.isLegend&&!localStorage.getItem('sfap_legend_shown_'+getUserId())){showLegendPopup();localStorage.setItem('sfap_legend_shown_'+getUserId(),'1')}},1500);setTimeout(()=>{updateBoostUI();loadHistory()},500);setInterval(updateBoostUI,30000);setInterval(()=>{if(profileTab==='upg'&&document.getElementById('profileScreen')?.classList.contains('open'))loadHistory()},15000);setInterval(async()=>{try{const uid=getUserId();if(uid==='guest')return;if(!gameLoaded)return;if(isSpinning)return;const r=await fetch(BOT_URL+'/api/load/'+uid);const d=await r.json();if(d.ok&&d.data){const oldGold=gold;const oldInv=JSON.stringify(inv);const oldWD=totalWithdraw;applySaveData(d.data);localStorage.setItem('sfap_save_'+uid,JSON.stringify(d.data));updateBal();if(oldGold!==gold||oldInv!==JSON.stringify(inv)||oldWD!==totalWithdraw){rendMain();rendInv();const pb=document.getElementById('profileBody');if(pb&&document.getElementById('profileScreen')?.classList.contains('open'))rendProfile()}}}catch(e){}},10000);const el=document.getElementById('onlineCount');if(el){el.innerText=Math.floor(Math.random()*10)+1;setInterval(()=>el.innerText=Math.floor(Math.random()*10)+1,5000)}})();
+(async()=>{await loadGame();drawTicks();updateBal();rendMain();rendInv();rendTargetList();updateCartBadge();await checkBonusStatus();await loadVipStatus();loadLiveFeed();loadRefData();loadFriendsData().catch(()=>{});setTimeout(()=>{if(refData.isLegend&&!localStorage.getItem('sfap_legend_shown_'+getUserId())){showLegendPopup();localStorage.setItem('sfap_legend_shown_'+getUserId(),'1')}},1500);setTimeout(()=>{updateBoostUI();loadHistory()},500);setInterval(updateBoostUI,30000);setInterval(()=>{if(profileTab==='upg'&&document.getElementById('profileScreen')?.classList.contains('open'))loadHistory()},15000);setInterval(async()=>{try{const uid=getUserId();if(uid==='guest')return;if(!gameLoaded)return;if(isSpinning)return;const r=await fetch(BOT_URL+'/api/load/'+uid);const d=await r.json();if(d.ok&&d.data){const oldGold=gold;const oldInv=JSON.stringify(inv);const oldWD=totalWithdraw;applySaveData(d.data);localStorage.setItem('sfap_save_'+uid,JSON.stringify(d.data));updateBal();if(oldGold!==gold||oldInv!==JSON.stringify(inv)||oldWD!==totalWithdraw){rendMain();rendInv();const pb=document.getElementById('profileBody');if(pb&&document.getElementById('profileScreen')?.classList.contains('open'))rendProfile()}}}catch(e){}},10000);const el=document.getElementById('onlineCount');if(el){el.innerText=Math.floor(Math.random()*10)+1;setInterval(()=>el.innerText=Math.floor(Math.random()*10)+1,5000)}})();
 async function checkBonusStatus(){const uid=getUserId();if(uid==='guest'){bonusState={available:true,nextAt:0};return}try{const r=await fetch(BOT_URL+'/api/bonus/status/'+uid);const d=await r.json();if(!d.ok)return;bonusState={available:d.available,nextAt:d.nextAt||0};updateBonusUI()}catch(e){}}
 function updateBonusUI(){const card=document.getElementById('bonusCard');const status=document.getElementById('bonusStatus');const sub=document.getElementById('bonusSub');const icon=document.getElementById('bonusIcon');if(bonusState.available){card.classList.remove('bonus-cooldown');card.classList.add('bonus-available','clickable');icon.classList.add('pulsing');status.className='event-pct gold';status.innerText='ДОСТУПНО';sub.innerText='Забрать скин'}else{card.classList.remove('bonus-available','clickable');card.classList.add('bonus-cooldown');icon.classList.remove('pulsing');status.className='event-pct gray';const left=Math.max(0,Math.floor((bonusState.nextAt-Date.now())/1000/60));const h=Math.floor(left/60);const m2=left%60;status.innerText=(h>0?h+'ч ':'')+m2+'м';sub.innerText='Уже получен'}}
 setInterval(()=>{if(!bonusState.available)updateBonusUI()},60000);
 async function claimBonus(){if(bonusState.available===false){const left=Math.floor((bonusState.nextAt-Date.now())/1000/60);const h=Math.floor(left/60);const m2=left%60;toast('⏳ Через '+h+'ч '+m2+'м','lose');return}const uid=getUserId();if(uid==='guest'){toast('❌ Открой через Telegram','lose');return}const card=document.getElementById('bonusCard');card.classList.add('bonus-cooldown');try{const r=await fetch(BOT_URL+'/api/bonus/claim',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid})});const d=await r.json();if(!d.ok){toast('❌ '+(d.error||'Ошибка'),'lose');card.classList.remove('bonus-cooldown');return}const skin=d.skin;if(!Array.isArray(inv))inv=[];inv.push(skin);saveGame();rendInv();trackTask('bonus',1);const isRare=skin.price>=5;if(isRare){confettiGold();sBonus()}else{sWin();confetti()}showBonusModal(skin,isRare);await checkBonusStatus()}catch(e){toast('❌ Нет связи','lose');card.classList.remove('bonus-cooldown')}}
 function showBonusModal(skin,isRare){const m=document.createElement('div');m.className='result-screen result-bonus';m.innerHTML=`<div class="result-inner"><div class="result-box bonus">${skin.img?`<img src="${skin.img}">`:''}</div><div class="result-title">ЕЖЕДНЕВНЫЙ БОНУС</div><div class="result-sub">${isRare?'🔥 РЕДКИЙ СКИН!':'ПОДАРОК ПОЛУЧЕН'}</div><div class="result-skin-name">${skin.name} <span style="color:#fff;font-size:14px">(${skin.price} G)</span></div><button class="result-btn" onclick="this.closest('.result-screen').remove()">ЗАБРАТЬ</button></div>`;document.body.appendChild(m)}
-</script></body></html>                                
+</script></body></html>
