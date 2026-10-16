@@ -169,7 +169,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .boost-indicator{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#4a9eff,#1e5cb8);color:#fff;font-size:11px;font-weight:900;padding:6px 14px;border-radius:10px;letter-spacing:1px;box-shadow:0 0 25px rgba(74,158,255,.8);animation:boostFloat 2s ease-in-out infinite;z-index:30;display:none;border:1.5px solid rgba(255,255,255,.3);white-space:nowrap}
 .boost-indicator.active{display:flex;align-items:center;gap:6px}
 @keyframes boostFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
-.pcnt-row{display:none}
+.pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:16px}
 .pb{background:var(--dark3);border:1.5px solid var(--dark4);border-radius:8px;padding:10px 4px;color:var(--gray);font-size:11px;font-weight:900;cursor:pointer;transition:all .2s}
 .pb.sel{border-color:var(--red);background:rgba(229,9,20,.15);color:var(--red);box-shadow:0 0 12px rgba(229,9,20,.3)}
 .pb:disabled{opacity:.4;cursor:not-allowed}
@@ -190,12 +190,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .slot-prev-lbl{font-size:10px;font-weight:800;color:var(--gray2);margin-bottom:8px}
 .slot-prev-cnt{font-size:9px;color:var(--gray);font-weight:700;margin-top:8px}
 .slot-prev-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:100%;max-width:180px;margin:0 auto;justify-items:center}
-.slot-prev-icons img{width:100%;max-width:50px;height:50px;object-fit:contain;background:rgba(0,0,0,.3);border-radius:8px;padding:2px}
-.slot-prev-icons .empty-slot{width:100%;max-width:50px;height:50px;background:rgba(0,0,0,.2);border:1px dashed rgba(255,255,255,.1);border-radius:8px}
-.slot-item-wrapper{position:relative;display:flex;justify-content:center;align-items:center;width:100%;max-width:50px;aspect-ratio:1}
-.slot-item-wrapper img{width:100%;height:100%;object-fit:contain;background:rgba(0,0,0,.3);border-radius:8px;padding:2px}
-.slot-remove{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:linear-gradient(135deg,#e50914,#8b0000);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:11px;font-weight:900;cursor:pointer;border:1.5px solid var(--dark);box-shadow:0 0 8px rgba(229,9,20,.6);z-index:5}
-.slot-remove:active{transform:scale(.9)}
+.slot-prev-icons .slot-cell{width:100%;aspect-ratio:1;display:flex;justify-content:center;align-items:center;position:relative;max-width:50px}
+.slot-prev-icons .slot-cell img{width:100%;height:100%;object-fit:contain;background:rgba(0,0,0,.3);border-radius:8px;padding:2px}
+.slot-prev-icons .empty-slot{width:100%;aspect-ratio:1;background:rgba(0,0,0,.2);border:1px dashed rgba(255,255,255,.1);border-radius:8px;max-width:50px}
+.slot-prev-icons .slot-remove{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:linear-gradient(135deg,#e50914,#8b0000);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:11px;font-weight:900;cursor:pointer;border:1.5px solid var(--dark);box-shadow:0 0 8px rgba(229,9,20,.6);z-index:5}
+.slot-prev-icons .slot-remove:active{transform:scale(.9)}
 .big-tabs{display:flex;gap:6px;margin-top:16px;background:var(--dark2);padding:6px;border-radius:16px;border:1px solid rgba(229,9,20,.12)}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:12px;font-weight:900;padding:14px 6px;border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:6px}
 .big-tab.active{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 20px rgba(229,9,20,.4)}
@@ -558,7 +557,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .vip-claim-btn{padding:12px;border-radius:12px;font-weight:900;font-size:12px;cursor:pointer;border:none;letter-spacing:.5px;background:linear-gradient(135deg,#4CAF50,#2e7d32);color:#fff;box-shadow:0 0 15px rgba(76,175,80,.4)}
 .vip-claim-btn:disabled{opacity:.5;cursor:not-allowed;background:var(--dark3);color:var(--gray2);box-shadow:none}
 .vip-claim-btn.weekly{background:linear-gradient(135deg,#9b8aff,#6a4cff);box-shadow:0 0 15px rgba(155,138,255,.4)}
-/* ========== ШЕСТЕРЁНКА ПРОЦЕНТОВ ========== */
 .gear-btn{width:44px;height:44px;background:var(--dark3);border:1.5px solid rgba(229,9,20,.3);border-radius:12px;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:20px;flex-shrink:0;transition:all .2s}
 .gear-btn:active{transform:scale(.9);background:var(--dark4)}
 .gear-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.94);backdrop-filter:blur(14px);z-index:5900;display:flex;justify-content:center;align-items:center;padding:16px}
@@ -767,7 +765,7 @@ function updateWheelPct(pct){document.getElementById('pt').innerText=formatPct(p
 function clearWheelPct(){document.getElementById('pt').innerText='?%';document.getElementById('pt').classList.remove('active');document.getElementById('wheelZoneFill').classList.remove('visible');document.getElementById('wheelZoneGlow').classList.remove('visible');currentWheelAngle=0;if(wheelAnimId){cancelAnimationFrame(wheelAnimId);wheelAnimId=null}}
 function setPct(p,el){if(isSpinning){toast('⏳ Идёт спин','lose');return}if(inv.length===0){toast('❌ Инвентарь пуст','lose');return}if(selectedItems.length===0){toast('❌ Выбери скины в апгрейд','lose');return}const safePct=Math.min(90,p);const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);const idealPrice=invSum/(safePct/100);let closest=allSkins[0],minDiff=Math.abs(allSkins[0].price-idealPrice);allSkins.forEach(s=>{const d=Math.abs(s.price-idealPrice);if(d<minDiff){minDiff=d;closest=s}});targetSkin={name:closest.name,price:closest.price,color:closest.color,img:closest.img};let realPct=(invSum/targetSkin.price)*100;if(realPct>90)realPct=90;selPct=realPct;document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));if(el)el.classList.add('sel');updateWheelPct(realPct);rendMain();rendTargetList();checkUpgradeBtn()}
 function checkUpgradeBtn(){const hs=selectedItems.length>0,ht=targetSkin!==null,hp=selPct!==null;const btn=document.getElementById('upgradeBtn');if(hs&&ht&&hp&&!isSpinning){btn.disabled=false;btn.classList.add('active')}else{btn.disabled=true;btn.classList.remove('active')}}
-function rendMain(){const leftIcons=document.getElementById('leftIcons');if(selectedItems.length===0){leftIcons.innerHTML='<div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div>';document.getElementById('selCount').innerText='0 ИЗ 6'}else{let h='';for(let i=0;i<6;i++){const s=selectedItems[i];if(s){h+=`<div class="slot-item-wrapper">${s.img?`<img src="${s.img}" onerror="this.style.opacity=.3">`:'<div style="font-size:20px">📦</div>'}<div class="slot-remove" onclick="event.stopPropagation();removeFromUpgrade(${i})">✕</div></div>`}else{h+='<div class="empty-slot"></div>'}}leftIcons.innerHTML=h;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ 6'}const rightIcons=document.getElementById('rightIcons');if(targetSkin){const ih=targetSkin.img?`<img src="${targetSkin.img}">`:'<span style="font-size:40px">📦</span>';rightIcons.innerHTML=`<div style="grid-column:1/-1;display:flex;justify-content:center">${ih}</div>`;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{rightIcons.innerHTML='<div class="empty-slot"></div>';document.getElementById('targetCount').innerText='НЕ ВЫБРАНА'}checkUpgradeBtn()}
+function rendMain(){const leftIcons=document.getElementById('leftIcons');if(selectedItems.length===0){leftIcons.innerHTML='<div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div><div class="empty-slot"></div>';document.getElementById('selCount').innerText='0 ИЗ 6'}else{let h='';for(let i=0;i<6;i++){const s=selectedItems[i];if(s){h+=`<div class="slot-cell">${s.img?`<img src="${s.img}" onerror="this.style.opacity=.3">`:'<div style="font-size:20px">📦</div>'}<div class="slot-remove" onclick="event.stopPropagation();removeFromUpgrade(${i})">✕</div></div>`}else{h+='<div class="empty-slot"></div>'}}leftIcons.innerHTML=h;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ 6'}const rightIcons=document.getElementById('rightIcons');if(targetSkin){const ih=targetSkin.img?`<img src="${targetSkin.img}">`:'<span style="font-size:40px">📦</span>';rightIcons.innerHTML=`<div class="slot-cell" style="grid-column:1/-1;max-width:100px">${ih}</div>`;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{rightIcons.innerHTML='<div class="empty-slot"></div>';document.getElementById('targetCount').innerText='НЕ ВЫБРАНА'}checkUpgradeBtn()}
 function toggleLightning(){if(isSpinning){toast('⏳ Идёт спин','lose');return}lightningOn=!lightningOn;const btn=document.getElementById('lightningBtn');const lbl=document.getElementById('lightningLbl');if(lightningOn){btn.classList.add('on');lbl.innerText='ВКЛ';toast('⚡ Быстрый спин ВКЛ','win')}else{btn.classList.remove('on');lbl.innerText='ВЫКЛ';toast('⚡ Быстрый спин ВЫКЛ','lose')}}
 function lockUI(lock){document.getElementById('upgradeBtn').disabled=lock;document.querySelectorAll('.pb').forEach(b=>b.disabled=lock);const lb=document.getElementById('lightningBtn');if(lock)lb.classList.add('locked');else lb.classList.remove('locked')}
 function spinUpgrade(){
@@ -803,7 +801,11 @@ clearInterval(tickInt);
 let win;
 try{const sc=await fetch(BOT_URL+'/api/spinControl/'+getUserId());const scd=await sc.json();if(scd.result==='win')win=true;else if(scd.result==='lose')win=false;else{const arrowAngle=(360-(totalRotation%360))%360;const winZone=(totalPct/100)*360;win=arrowAngle<=winZone}}catch(e){const arrowAngle=(360-(totalRotation%360))%360;const winZone=(totalPct/100)*360;win=arrowAngle<=winZone}
 const lostItems=[...selectedItems];
-inv=removeItemsFromInv(selectedItems);
+// ФИКС: удаляем именно выбранные скины (по ссылке)
+lostItems.forEach(lost=>{
+  const i=inv.indexOf(lost);
+  if(i>=0)inv.splice(i,1);
+});
 const skinPut=lostItems[0]||{name:'—',img:''};
 if(win){
 const ws={name:targetSkin.name,price:targetSkin.price,color:targetSkin.color,img:targetSkin.img};inv.push(ws);stats.wins++;showWinModal(ws);sWin();confetti();addLiveFeed(ws,spinPct);
@@ -1067,28 +1069,12 @@ function closeGearModal(){const m=document.getElementById('gearModal');if(m)m.st
 function renderGearList(){
   const inner=document.getElementById('gearModalInner');
   const curPct=selPct?Math.round(selPct):null;
-  inner.innerHTML=`
-    <div class="gear-head"><h2><span class="ic">⚙️</span> НАСТРОЙКА ПРОЦЕНТОВ</h2><button class="friends-close" onclick="closeGearModal()">✕</button></div>
-    <div class="gear-hint">📊 Максимум 90% • Нажми на процент чтобы изменить</div>
-    <div class="gear-list">${customPcts.map((p,i)=>`<div class="gear-item ${curPct===p?'active':''}" onclick="editPct(${i})"><span class="gear-edit-icon">✏️</span><div class="gear-item-val">${p}%</div><div class="gear-item-lbl">КНОПКА ${i+1}</div></div>`).join('')}</div>
-    <div class="gear-hint">⚠️ Меняй значение от 1% до 90%</div>
-    <button class="gear-reset-btn" onclick="resetPcts()">🔄 СБРОСИТЬ ПО УМОЛЧАНИЮ</button>
-    <button class="gear-close-btn" onclick="closeGearModal()">✅ ГОТОВО</button>
-  `;
+  inner.innerHTML=`<div class="gear-head"><h2><span class="ic">⚙️</span> ПРОЦЕНТЫ</h2><button class="friends-close" onclick="closeGearModal()">✕</button></div><div class="gear-hint">📊 Максимум 90% • Нажми чтобы изменить</div><div class="gear-list">${customPcts.map((p,i)=>`<div class="gear-item ${curPct===p?'active':''}" onclick="editPct(${i})"><span class="gear-edit-icon">✏️</span><div class="gear-item-val">${p}%</div><div class="gear-item-lbl">КНОПКА ${i+1}</div></div>`).join('')}</div><div class="gear-hint">⚠️ Меняй значение от 1% до 90%</div><button class="gear-reset-btn" onclick="resetPcts()">🔄 СБРОСИТЬ</button><button class="gear-close-btn" onclick="closeGearModal()">✅ ГОТОВО</button>`;
 }
 function editPct(idx){
   const inner=document.getElementById('gearModalInner');
   const old=customPcts[idx];
-  inner.innerHTML=`
-    <div class="gear-head"><h2><span class="ic">✏️</span> ИЗМЕНИТЬ ПРОЦЕНТ</h2><button class="friends-close" onclick="renderGearList()">✕</button></div>
-    <div class="gear-hint">Кнопка ${idx+1} • Сейчас: <b style="color:#ffb800">${old}%</b></div>
-    <input type="number" class="gear-edit-input" id="gearEditInput" value="${old}" min="1" max="90" autofocus>
-    <div class="gear-hint">Мин: 1% • Макс: 90%</div>
-    <div class="gear-edit-btns">
-      <button class="gear-edit-btn cancel" onclick="renderGearList()">❌ ОТМЕНА</button>
-      <button class="gear-edit-btn save" onclick="savePct(${idx})">✅ СОХРАНИТЬ</button>
-    </div>
-  `;
+  inner.innerHTML=`<div class="gear-head"><h2><span class="ic">✏️</span> ИЗМЕНИТЬ</h2><button class="friends-close" onclick="renderGearList()">✕</button></div><div class="gear-hint">Кнопка ${idx+1} • Сейчас: <b style="color:#ffb800">${old}%</b></div><input type="number" class="gear-edit-input" id="gearEditInput" value="${old}" min="1" max="90" autofocus><div class="gear-hint">Мин: 1% • Макс: 90%</div><div class="gear-edit-btns"><button class="gear-edit-btn cancel" onclick="renderGearList()">❌ ОТМЕНА</button><button class="gear-edit-btn save" onclick="savePct(${idx})">✅ СОХРАНИТЬ</button></div>`;
   setTimeout(()=>document.getElementById('gearEditInput')?.focus(),100);
 }
 function savePct(idx){
@@ -1101,10 +1087,10 @@ function savePct(idx){
   saveCustomPcts();
   renderPctRow();
   renderGearList();
-  toast('✅ Процент сохранён: '+v+'%','win');
+  toast('✅ Процент: '+v+'%','win');
 }
 function resetPcts(){
-  if(!confirm('Сбросить все проценты по умолчанию?'))return;
+  if(!confirm('Сбросить проценты?'))return;
   customPcts=[...DEFAULT_PCTS];
   saveCustomPcts();
   renderPctRow();
