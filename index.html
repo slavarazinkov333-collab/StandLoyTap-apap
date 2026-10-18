@@ -46,7 +46,7 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .wheel-wrap{position:relative;width:100%;aspect-ratio:1;max-width:340px;margin:10px auto;display:flex;justify-content:center;align-items:center}
 .wheel{width:90%;height:90%;border-radius:50%;background:var(--panel);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.8), inset 0 0 40px rgba(0,0,0,.5);border:4px solid #1a1a22}
 .wheel-zone{position:absolute;inset:-4px;border-radius:50%;pointer-events:none;z-index:1;overflow:hidden}
-.wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 0deg, var(--gold) 0deg, var(--gold) var(--pct-angle,0deg), #1a1a22 var(--pct-angle,0deg), #1a1a22 360deg);opacity:0;transition:opacity .4s ease}
+.wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 180deg, var(--gold) 0deg, var(--gold) var(--pct-angle,0deg), #1a1a22 var(--pct-angle,0deg), #1a1a22 360deg);opacity:0;transition:opacity .4s ease}
 .wheel-zone-fill.visible{opacity:.9}
 .wheel::before{content:'';position:absolute;width:75%;height:75%;border-radius:50%;background:var(--bg);border:1px solid var(--border);z-index:2}
 .wheel-ticks{position:absolute;width:100%;height:100%;border-radius:50%;pointer-events:none;z-index:3}
@@ -115,7 +115,6 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .nb-center .circle{width:50px;height:50px;background:var(--panel-l);border-radius:16px;display:flex;justify-content:center;align-items:center;border:1px solid var(--border);box-shadow:0 5px 15px rgba(0,0,0,.5)}
 .nb-center .circle svg{width:24px;height:24px;fill:var(--gold)}
 
-/* PROFILE */
 .profile-wrap{padding:16px}
 .profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
 .profile-header-row{display:flex;align-items:center;gap:12px}
@@ -136,9 +135,9 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .stat-block-label{font-size:9px;color:var(--gray2);font-weight:800;margin-bottom:4px}
 .stat-block-val{font-size:16px;font-weight:900;color:var(--white)}
 
-/* BEST DROP GOLD GLOW */
-.best-drop-card{background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;box-shadow:0 0 30px rgba(255,184,0,.4), inset 0 0 30px rgba(255,184,0,.05);animation:goldPulse 2s ease-in-out infinite}
+.best-drop-card{background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;box-shadow:0 0 30px rgba(255,184,0,.4), inset 0 0 30px rgba(255,184,0,.05);animation:goldPulse 1.8s ease-in-out infinite,bestDropGlow 2.5s ease-in-out infinite alternate}
 @keyframes goldPulse{0%,100%{box-shadow:0 0 30px rgba(255,184,0,.4), inset 0 0 30px rgba(255,184,0,.05)}50%{box-shadow:0 0 50px rgba(255,184,0,.7), inset 0 0 40px rgba(255,184,0,.1)}}
+@keyframes bestDropGlow{0%{border-color:#ffb800;filter:brightness(1)}100%{border-color:#ffe066;filter:brightness(1.15)}}
 .best-drop-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 30%,rgba(255,215,0,.15) 50%,transparent 70%);animation:shine 3s linear infinite;pointer-events:none}
 @keyframes shine{0%{transform:translateX(-100%) rotate(45deg)}100%{transform:translateX(100%) rotate(45deg)}}
 .best-drop-img{width:70px;height:70px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 0 15px rgba(255,215,0,.8))}
@@ -146,8 +145,8 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .best-drop-label{font-size:10px;font-weight:900;color:var(--gold);letter-spacing:1px;margin-bottom:4px}
 .best-drop-name{font-size:14px;font-weight:900;color:var(--white);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .best-drop-price{font-size:16px;font-weight:900;color:var(--gold);text-shadow:0 0 10px rgba(255,184,0,.6)}
+.best-drop-empty{background:var(--panel-l);border:1px dashed var(--border);border-radius:16px;padding:20px;text-align:center;color:var(--gray2);font-size:12px;font-weight:800}
 
-/* VIP PROFILE BLOCK */
 .vip-profile-block{background:linear-gradient(135deg,#1a1408,#0a0800);border:1px solid var(--gold);border-radius:16px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
 .vip-profile-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .vip-profile-crown{font-size:28px;filter:drop-shadow(0 0 10px rgba(255,184,0,.8))}
@@ -157,7 +156,6 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .vip-profile-feature{font-size:11px;color:#fff;font-weight:700;display:flex;align-items:center;gap:6px}
 .vip-profile-btn{width:100%;margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;border:none;cursor:pointer;font-size:12px;letter-spacing:1px}
 
-/* HISTORY */
 .hist-item{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
 .hist-item.win{border-left:3px solid var(--green-l)}
 .hist-item.lose{border-left:3px solid var(--red)}
@@ -574,13 +572,43 @@ isSpinning=false;wrap.style.transition='none';wrap.style.transform='rotate(0deg)
 function closeResult(){document.getElementById('resultScreen')?.remove();selectedItems=[];targetSkin=null;selPct=null;rendMain();rendInv();rendTargetList();clearWheelPct();checkUpgradeBtn();saveGame()}
 function showWinModal(skin){const m=document.createElement('div');m.id='resultScreen';m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(76,175,80,.35),rgba(0,0,0,.97) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(10px)';m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center;animation:slideUp .5s ease-out"><div style="font-size:26px;font-weight:900;color:var(--green-l);margin-bottom:10px;text-shadow:0 0 20px rgba(76,175,80,.8)">🎉 УСПЕХ!</div><div style="font-size:12px;font-weight:800;color:var(--green-l);margin-bottom:20px;letter-spacing:1px">ПРЕДМЕТ ДОБАВЛЕН В ИНВЕНТАРЬ</div><div style="width:180px;height:180px;margin:0 auto 20px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:24px;display:flex;justify-content:center;align-items:center;padding:15px;box-shadow:0 0 50px rgba(76,175,80,.7)">${skin.img?`<img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))">`:''}</div><div style="font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px">${skin.name}</div><div style="font-size:16px;font-weight:900;color:var(--gold);margin-bottom:24px">${skin.price} G</div><button style="width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:15px;letter-spacing:1px;cursor:pointer;box-shadow:0 0 20px rgba(255,215,0,.4)" onclick="closeResult()">ЗАБРАТЬ</button></div>`;document.body.appendChild(m)}
 
-function showLoseModal(items){const lostSkin=items[0]||{name:'—',img:'',price:0};const m=document.createElement('div');m.id='resultScreen';m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.35),rgba(0,0,0,.97) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(10px)';m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center;animation:slideUp .5s ease-out"><div style="font-size:26px;font-weight:900;color:var(--red);margin-bottom:10px;text-shadow:0 0 20px rgba(229,9,20,.8)">💀 НЕУДАЧА</div><div style="font-size:12px;font-weight:800;color:var(--red);margin-bottom:20px;letter-spacing:1px">ПРЕДМЕТ ПОТЕРЯН</div><div style="width:180px;height:180px;margin:0 auto 20px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:24px;display:flex;justify-content:center;align-items:center;padding:15px;box-shadow:0 0 50px rgba(229,9,20,.7)">${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))">`:''}</div><div style="font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px">${lostSkin.name}</div><div style="font-size:16px;font-weight:900;color:var(--red);margin-bottom:24px">-${lostSkin.price||0} G</div><button style="width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:15px;letter-spacing:1px;cursor:pointer;box-shadow:0 0 20px rgba(229,9,20,.4)" onclick="closeResult()">ПОНЯТНО</button></div>`;document.body.appendChild(m)}
+function showLoseModal(items){const lostSkin=items[0]||{name:'—',img:'',price:0};const m=document.createElement('div');m.id='resultScreen';m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.35),rgba(0,0,0,.97) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(10px)';m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center;animation:slideUp .5s ease-out"><div style="font-size:26px;font-weight:900;color:var(--red);margin-bottom:10px;text-shadow:0 0 20px rgba(229,9,20,.8)">НЕУДАЧА</div><div style="font-size:12px;font-weight:800;color:var(--red);margin-bottom:20px;letter-spacing:1px">ПРЕДМЕТ ПОТЕРЯН</div><div style="width:180px;height:180px;margin:0 auto 20px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:24px;display:flex;justify-content:center;align-items:center;padding:15px;box-shadow:0 0 50px rgba(229,9,20,.7)">${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))">`:''}</div><div style="font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px">${lostSkin.name}</div><div style="font-size:16px;font-weight:900;color:var(--red);margin-bottom:24px">-${lostSkin.price||0} G</div><button style="width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:15px;letter-spacing:1px;cursor:pointer;box-shadow:0 0 20px rgba(229,9,20,.4)" onclick="closeResult()">ПОНЯТНО</button></div>`;document.body.appendChild(m)}
 
 function trackTask(type,amount){fetch(BOT_URL+'/api/tasks/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),type,amount})}).catch(()=>{})}
 function saveHistory(e){history.unshift({...e,ts:Date.now()});if(history.length>50)history.pop();fetch(BOT_URL+'/api/history/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),targetName:e.targetName,targetPrice:e.targetPrice,pct:e.pct,win:e.win})}).catch(()=>{})}
 function consumeBoost(){refBoost.spinsLeft--;saveGame()}
 
-function withdrawSkinDirect(idx){const it=inv[idx];if(!it)return;const m=document.createElement('div');m.className='modal-overlay';m.id='wdModal';m.innerHTML=`<div class="modal-content"><button class="modal-close" onclick="document.getElementById('wdModal').remove()">✕</button><div class="modal-title">📤 ВЫВОД СКИНА</div><div style="text-align:center;margin-bottom:16px"><img src="${it.img}" style="width:80px;height:80px;object-fit:contain"><div style="font-size:14px;font-weight:900;margin-top:8px">${it.name}</div><div style="color:var(--gold);font-weight:900">${it.price} G</div></div><div style="font-size:11px;color:var(--gray2);margin-bottom:12px;line-height:1.5">Выставь этот скин на площадке и введи паттерн, чтобы мы его купили.</div><input type="text" id="wdPattern" placeholder="Паттерн скина" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:#fff;outline:none;margin-bottom:12px"><button class="vip-buy-btn" style="background:var(--green)" onclick="submitWithdraw(${idx})">ОТПРАВИТЬ</button></div>`;document.body.appendChild(m)}
+function withdrawSkinDirect(idx){
+  const it=inv[idx];if(!it)return;
+  const u=getUser();
+  const listPrice=Math.ceil((it.price||22)/0.8);
+  const gg22Img=CDN_BASE+'skins/G22_flock.jpg';
+  const avImg='https://avatars.mds.yandex.net/i?id=e2dbf0eea03d887a95a6b2a5b1cfe7a35112f997-5243585-images-thumbs&n=13';
+  const m=document.createElement('div');m.className='modal-overlay';m.id='wdModal';
+  m.innerHTML=`<div class="modal-content" style="max-width:420px">
+    <button class="modal-close" onclick="document.getElementById('wdModal').remove()">✕</button>
+    <div style="text-align:center;font-size:13px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:6px">📤 ЗАЯВКА НА ВЫВОД</div>
+    <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;text-align:center">
+      <img src="${avImg}" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);margin-bottom:8px;object-fit:cover">
+      <div style="font-size:11px;color:#fff;font-weight:700">Поставь эту аву и добавь<br><b style="color:var(--blue)">@${u?.username||'username'}</b></div>
+    </div>
+    <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;text-align:center">
+      <div style="font-size:11px;color:#fff;font-weight:700;margin-bottom:8px">Купи <b style="color:var(--green)">GG22 Flock</b> за</div>
+      <div style="font-size:20px;font-weight:900;color:var(--gold);margin-bottom:8px">${listPrice} G</div>
+      <img src="${gg22Img}" style="width:120px;height:80px;object-fit:contain" onerror="this.style.display='none'">
+    </div>
+    <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px">
+      <div style="font-size:10px;color:var(--gray2);font-weight:800;margin-bottom:8px">ВЫВОДИМЫЙ СКИН</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="${it.img}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px">
+        <div><div style="font-size:13px;font-weight:900">${it.name}</div><div style="font-size:12px;color:var(--red);font-weight:900">${it.price} G</div></div>
+      </div>
+    </div>
+    <input type="text" id="wdPattern" placeholder="🎯 Введи паттерн скина" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:#fff;outline:none;margin-bottom:12px">
+    <button class="vip-buy-btn" onclick="submitWithdraw(${idx})">✅ ОТПРАВИТЬ ЗАЯВКУ</button>
+  </div>`;
+  document.body.appendChild(m);
+}
 async function submitWithdraw(idx){const it=inv[idx];const pattern=document.getElementById('wdPattern').value.trim();if(!pattern){toast('❌ Введи паттерн','lose');return}toast('✅ Заявка создана','win');document.getElementById('wdModal').remove()}
 
 async function openTasksModal(){
@@ -629,7 +657,7 @@ async function loadLiveFeed(){
 }
 setInterval(loadLiveFeed,30000);
 
-/* === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ (rendProfile, openFriendProfileFull, openRefModal, rendSettings, init) === */
+/* === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ === */
 async function rendProfile(){
   const b=document.getElementById('profileBody');
   const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';
@@ -638,7 +666,6 @@ async function rendProfile(){
   const legendBadge = refData.isLegend ? `<div style="margin-top:4px"><span class="legend-badge"><span>👑</span> ЛЕГЕНДА</span></div>` : '';
   const winRate = stats.spins>0?Math.round((stats.wins/stats.spins)*100):0;
 
-  // VIP блок
   let vipBlock='';
   if(vipData.isVip){
     const exp = vipData.expires ? new Date(vipData.expires).toLocaleDateString('ru-RU') : '∞';
@@ -666,7 +693,6 @@ async function rendProfile(){
     </div>`;
   }
 
-  // Лучший дроп
   let bestDropBlock='';
   if(bestDrop && bestDrop.name){
     bestDropBlock=`<div class="profile-section">
@@ -679,6 +705,11 @@ async function rendProfile(){
           <div class="best-drop-price">${(bestDrop.price||0).toLocaleString('ru-RU')} G</div>
         </div>
       </div>
+    </div>`;
+  } else {
+    bestDropBlock=`<div class="profile-section">
+      <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
+      <div class="best-drop-empty">Пока нет дропа — крути барабан!</div>
     </div>`;
   }
 
@@ -851,4 +882,4 @@ function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem('sfap_sou
   loadLiveFeed();
   try{if(window.Telegram?.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand();const u=getUser();if(u&&u.photo_url){const av=document.getElementById('topAv');if(av)av.innerHTML=`<img src="${u.photo_url}">`}}}catch(e){}
 })();
-</script></body></html> 
+</script></body></html>
