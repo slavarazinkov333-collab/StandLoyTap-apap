@@ -1,6 +1,6 @@
- <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>StandFliutApap</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>StandFliutApap</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--border-hl:#404050;--gold:#ffb800;--gold-glow:rgba(255,184,0,.4);--red:#e50914;--red2:#8b0000;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--font-main:'Inter',sans-serif}
+:root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--border-hl:#404050;--gold:#ffb800;--red:#e50914;--red2:#8b0000;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff;--pink:#ff69b4;--yellow:#ffd700}
 body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:100px;background-image:radial-gradient(circle at top center,rgba(255,184,0,.03),transparent 50%);background-attachment:fixed}
 body::before{content:'';position:fixed;inset:0;background:url('https://www.transparenttextures.com/patterns/carbon-fibre.png');opacity:.05;pointer-events:none;z-index:0}
 
@@ -21,15 +21,16 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .av-top:hover{border-color:var(--gold)}
 .av-top img{width:100%;height:100%;object-fit:cover}
 
-/* LIVE BAR */
-.live-bar{margin:8px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:44px;overflow:hidden;position:relative;display:flex;align-items:center}
+/* LIVE BAR (Стиль как на скрине) */
+.live-bar{margin:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:60px;overflow:hidden;position:relative;display:flex;align-items:center}
 .live-bar::before{content:'LIVE';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:var(--white);background:var(--red);padding:3px 8px;border-radius:4px;letter-spacing:1px;z-index:3}
 .live-track{display:flex;gap:12px;white-space:nowrap;animation:scrollLeft 25s linear infinite;padding-left:65px;align-items:center;height:100%}
-.live-item{display:flex;align-items:center;gap:8px;flex-shrink:0;padding-right:12px;border-right:1px solid var(--border)}
-.live-item:last-child{border-right:none}
-.live-name{font-size:10px;font-weight:800;color:var(--gray2)}
-.live-price{font-size:11px;font-weight:900;color:var(--gold)}
-.live-skin{width:28px;height:28px;object-fit:contain;border-radius:4px;background:rgba(255,255,255,.05);padding:2px}
+.live-item{display:flex;align-items:center;gap:10px;flex-shrink:0;padding:6px 12px;background:var(--panel-l);border-radius:8px;border:1px solid var(--border);border-left:4px solid var(--gold);cursor:pointer}
+.live-item:active{background:var(--border)}
+.live-info{display:flex;flex-direction:column;gap:2px}
+.live-name{font-size:12px;font-weight:900;color:var(--white)}
+.live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 6px;border-radius:4px;width:fit-content}
+.live-skin{width:50px;height:30px;object-fit:contain}
 .live-empty{padding-left:65px;font-size:10px;color:var(--gray);font-weight:700}
 
 /* BUTTONS ROW */
@@ -38,7 +39,6 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--gray2);font-size:11px;font-weight:800;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s}
 .friends-btn:hover{border-color:var(--white);color:var(--white)}
 .gear-btn{width:36px;height:36px;background:var(--panel);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:all .2s}
-.gear-btn:hover{border-color:var(--white);background:var(--panel-l)}
 
 /* MAIN WHEEL AREA */
 .main{padding:0 16px}
@@ -93,11 +93,9 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 
 /* NEW SKIN CARD (PREMIUM STYLE) */
 .card{background:var(--panel);border-radius:12px;position:relative;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);transition:border-color .2s}
-.card.bonus{border-color:rgba(255,184,0,.3)}
 .card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center, var(--panel-l) 0%, transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
 .card-img-wrap img{width:90%;height:90%;object-fit:contain;filter:drop-shadow(0 10px 15px rgba(0,0,0,.5))}
 .card-info{padding:10px;display:flex;flex-direction:column;gap:4px;background:var(--panel)}
-.card-rarity{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--gray2);display:flex;align-items:center;gap:4px}
 .card-name{font-size:12px;font-weight:800;color:var(--white);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card-price{font-size:13px;font-weight:900;color:var(--gold);display:flex;align-items:center;gap:2px;margin-top:2px}
 .card-price::after{content:'G';font-size:10px;color:var(--gray2)}
@@ -149,13 +147,21 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 .stat-block-label{font-size:9px;color:var(--gray2);font-weight:800;margin-bottom:4px}
 .stat-block-val{font-size:16px;font-weight:900;color:var(--white)}
 
-/* MODALS (REF, TASKS, VIP etc - Dark premium) */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px}
-.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,.6)}
+/* LEGEND & VIP FRAMES */
+.legend-frame{position:relative;display:inline-block;border-radius:50%;padding:3px;background:linear-gradient(135deg,#ffd700,#4a9eff,#1e5cb8,#ffd700);background-size:300% 300%;animation:spinFrame 3s linear infinite;box-shadow:0 0 25px rgba(74,158,255,.8)}
+.legend-frame .profile-avatar-big{border:none!important;margin:0}
+@keyframes spinFrame{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.legend-frame::after{content:'👑';position:absolute;bottom:-4px;right:-4px;font-size:16px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:50%;width:24px;height:24px;display:flex;justify-content:center;align-items:center;box-shadow:0 0 15px rgba(255,184,0,.9);border:2px solid #0a0a0d;z-index:5}
+.vip-frame{position:relative;display:inline-block;border-radius:16px;padding:3px;background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);background-size:300% 300%;animation:spinFrame 3s linear infinite;box-shadow:0 0 25px rgba(255,184,0,.8)}
+.vip-frame::after{content:'👑';position:absolute;top:-8px;right:-8px;font-size:18px;filter:drop-shadow(0 0 8px rgba(255,184,0,1));z-index:5}
+
+/* MODALS (REF, TASKS, VIP etc) */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
+.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,.6);position:relative}
 .modal-title{font-size:16px;font-weight:900;color:var(--white);margin-bottom:16px;text-align:center}
-.modal-btn{width:100%;padding:14px;border-radius:10px;font-size:13px;font-weight:900;cursor:pointer;border:none;background:var(--panel-l);color:var(--white);margin-top:8px}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px}
 </style></head><body>
-<div class="top">
+ <div class="top">
   <div class="top-left">
     <svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg>
     <div class="stats">
@@ -325,8 +331,8 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 
 <div class="gear-modal-overlay" id="gearModal" style="display:none">
   <div class="gear-modal" id="gearModalInner"></div>
-      </div>
-      <script>
+</div>
+<script>
 const BOT_URL='https://admin-bot-03ly.onrender.com';
 const CDN_BASE='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
 const allSkins=[{name:'AKR Carbon',price:56,color:'#4a9eff',img:CDN_BASE+'skins/AKR_CARBON.jpg'},{name:'AKR Evolution',price:3,color:'#4a9eff',img:CDN_BASE+'skins/AKR_EVOLUTION.jpg'},{name:'AKR Nano',price:23,color:'#4a9eff',img:CDN_BASE+'skins/AKR_NANO.jpg'},{name:'AKR 12 Carbon',price:10,color:'#4a9eff',img:CDN_BASE+'skins/AKR12_CARBON.jpg'},{name:'AKR 12 Hanami',price:220,color:'#ff4444',img:CDN_BASE+'skins/AKR12_HANAMI.jpg'},{name:'AKR 12 Railgun',price:1100,color:'#ff69b4',img:CDN_BASE+'skins/AKR12_RAILGUN.jpg'},{name:'AWM Sport V2',price:74250,color:'#ffd700',img:CDN_BASE+'skins/AWM_SPORTV2.jpg'},{name:'AWM Treasure Hunter',price:104200,color:'#ffd700',img:CDN_BASE+'skins/AWM_TREASUREHUNTER.jpg'},{name:'Butterfly Dragon Glass',price:2250,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_DragonGlass.jpg'},{name:'Butterfly Starfall',price:1407,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_Starfall.jpg'},{name:'Butterfly Twilight',price:1000000,color:'#ffd700',img:CDN_BASE+'skins/Butterfly_Twilight.jpg'},{name:'M4 Ironclad',price:34,color:'#9b8aff',img:CDN_BASE+'skins/M4_IRONCLAD.jpg'},{name:'M4 Necromancer',price:880,color:'#ff69b4',img:CDN_BASE+'skins/M4_NECROMANCER.jpg'},{name:'M4 Pixel Storm',price:766,color:'#ff4444',img:CDN_BASE+'skins/M4_PiXELSTORM.jpg'},{name:'M4 Samurai',price:500,color:'#ff4444',img:CDN_BASE+'skins/M4_SAMURAI.jpg'},{name:'M4A1 Bubblegum',price:225,color:'#ff4444',img:CDN_BASE+'skins/M4A1_Bublgam.jpg'},{name:'M4A1 Kitsune',price:2,color:'#4a9eff',img:CDN_BASE+'skins/M4A1_KITSUNE.jpg'},{name:'M4A1 Sour',price:24,color:'#9b8aff',img:CDN_BASE+'skins/M4A1_SOUR.jpg'},{name:'M4A1 Sparkling Gaze',price:95,color:'#ff4444',img:CDN_BASE+'skins/M4a1_SparkingGaze.jpg'},{name:'M9 Bayonet Amber Koi',price:3700,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_AmberKOI.jpg'},{name:'M9 Bayonet Dragon Glass',price:34000,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_DragonGlass.jpg'},{name:'Tanto Dojo',price:990,color:'#ff4444',img:CDN_BASE+'skins/Tanto_Dojo.jpg'},{name:'G22 Monster',price:670,color:'#9b8aff',img:CDN_BASE+'skins/G22_Monster.jpg'},{name:'G22 Nest',price:540,color:'#ff4444',img:CDN_BASE+'skins/G22_Nest.jpg'},{name:'G22 Relic',price:11780,color:'#ffd700',img:CDN_BASE+'skins/G22_Relic.jpg'},{name:'G22 Twilight (ST)',price:1951,color:'#ff4444',img:CDN_BASE+'skins/G22_Twilight.jpg'},{name:'M4A1 Demon',price:5,color:'#4a9eff',img:CDN_BASE+'skins/M4a1_Demon.jpg'},{name:'P90 Burning King',price:710,color:'#ff4444',img:CDN_BASE+'skins/P90_BurnngKing.jpg'},{name:'P90 Iron Will',price:45,color:'#9b8aff',img:CDN_BASE+'skins/P90_IronWill.jpg'},{name:'P90 Opps',price:50,color:'#ff69b4',img:CDN_BASE+'skins/P90_Opps.jpg'},{name:'P350 Forest Spirit',price:890,color:'#ff4444',img:CDN_BASE+'skins/P350_ForestSpirit.jpg'},{name:'P350 Oni',price:1,color:'#4a9eff',img:CDN_BASE+'skins/P350_Oni.jpg'},{name:'P350 Raider',price:31,color:'#9b8aff',img:CDN_BASE+'skins/P350_Raider.jpg'},{name:'P350 Tag King',price:20,color:'#ff69b4',img:CDN_BASE+'skins/P350_TagKing.jpg'},{name:'USP 2 Years',price:400,color:'#4a9eff',img:CDN_BASE+'skins/Usp_2Yers.jpg'},{name:'USP 2 Years Red',price:1020,color:'#9b8aff',img:CDN_BASE+'skins/Usp_2YersRed.jpg'},{name:'USP Genesis',price:23000,color:'#ffd700',img:CDN_BASE+'skins/Usp_Genesis.jpg'},{name:'USP Ignite',price:7,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Lgnite.jpg'},{name:'USP Mirage Menace',price:2940,color:'#ff4444',img:CDN_BASE+'skins/Usp_MirageMenace.jpg'},{name:'USP Pisces',price:20,color:'#9b8aff',img:CDN_BASE+'skins/Usp_Pisces.jpg'},{name:'USP Suture',price:14,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Suture.jpg'}];
@@ -369,14 +375,12 @@ document.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'||e.target.c
 
 function saveGame(){try{const uid=getUserId();if(uid==='guest')return;if(!gameLoaded)return;const u=getUser();const data={gold,inv,stats,totalWithdraw,totalTopup,bestDrop,photoUrl:u?.photo_url||'',firstName:u?.first_name||'Игрок',isLegend:refData.isLegend||false,isVip:vipData.isVip||false,vipExpires:vipData.expires||0,ts:Date.now()};localStorage.setItem('sfap_save_'+uid,JSON.stringify(data));fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,data})})}catch(e){}}
 async function loadGame(){try{const uid=getUserId();if(uid==='guest'){gameLoaded=true;return}try{const b=await fetch(BOT_URL+'/api/ban/'+uid);const bd=await b.json();if(bd.ok&&bd.banned){showBanScreen(bd.reason||'Нарушение');return}}catch(e){}try{const r=await fetch(BOT_URL+'/api/load/'+uid);const d=await r.json();if(d.ok&&d.data){applySaveData(d.data);localStorage.setItem('sfap_save_'+uid,JSON.stringify(d.data));gameLoaded=true;return}}catch(e){}const l=localStorage.getItem('sfap_save_'+uid);if(l)applySaveData(JSON.parse(l));gameLoaded=true}catch(e){gameLoaded=true}}
-function showBanScreen(reason){document.body.innerHTML='<div class="ban-screen" style="position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;padding:24px;"><div style="text-align:center"><div style="font-size:80px;margin-bottom:20px">🚫</div><div style="font-size:24px;font-weight:900;color:var(--red);margin-bottom:12px">ВЫ ЗАБАНЕНЫ</div><div style="font-size:14px;color:var(--gray2)">Причина: <b style="color:#fff">'+reason+'</b></div></div></div>'}
+function showBanScreen(reason){document.body.innerHTML='<div style="position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;padding:24px;text-align:center"><div><div style="font-size:80px;margin-bottom:20px">🚫</div><div style="font-size:24px;font-weight:900;color:var(--red);margin-bottom:12px">ВЫ ЗАБАНЕНЫ</div><div style="font-size:14px;color:var(--gray2)">Причина: <b style="color:#fff">'+reason+'</b></div></div></div>'}
 function applySaveData(d){if(!d)return;if(typeof d.gold==='number')gold=d.gold;if(Array.isArray(d.inv))inv=d.inv;if(d.stats)stats=d.stats;if(typeof d.totalWithdraw==='number')totalWithdraw=d.totalWithdraw;if(typeof d.totalTopup==='number')totalTopup=d.totalTopup;if(d.bestDrop)bestDrop=d.bestDrop;if(d.isLegend!==undefined)refData.isLegend=!!d.isLegend;if(d.isVip!==undefined)vipData.isVip=!!d.isVip;if(d.vipExpires!==undefined)vipData.expires=d.vipExpires||0}
 setInterval(saveGame,5000);
 
 function toast(m,t){const e=document.getElementById('toast');e.className='toast '+(t||'')+' show';e.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid '+(t==='win'?'var(--green-l)':(t==='lose'?'var(--red)':'var(--border)'))+';padding:16px 24px;border-radius:12px;color:#fff;font-size:13px;font-weight:800;z-index:9999;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5)';e.innerText=m;setTimeout(()=>e.style.display='none',2500)}
-function confetti(){for(let i=0;i<80;i++){const c=document.createElement('div');c.className='confetti';c.style.cssText='position:fixed;width:8px;height:8px;background:'+['#ffb800','#fff','#4CAF50'][Math.floor(Math.random()*3)]+';left:'+(Math.random()*100)+'%;top:-20px;z-index:9998;pointer-events:none;transition:transform 3s linear,opacity 3s linear';document.body.appendChild(c);requestAnimationFrame(()=>{c.style.transform='translateY(110vh) rotate(720deg)';c.style.opacity='0'});setTimeout(()=>c.remove(),3000)}}
-function confettiGold(){confetti()}
-function sparksRed(){confetti()}
+function confetti(){for(let i=0;i<40;i++){const c=document.createElement('div');c.style.cssText='position:fixed;width:8px;height:8px;background:'+['#ffb800','#fff','#4CAF50'][Math.floor(Math.random()*3)]+';left:'+(Math.random()*100)+'%;top:-20px;z-index:9998;pointer-events:none;transition:transform 2s linear,opacity 2s linear';document.body.appendChild(c);requestAnimationFrame(()=>{c.style.transform='translateY(110vh) rotate(720deg)';c.style.opacity='0'});setTimeout(()=>c.remove(),2000)}}
 function updateBal(){document.getElementById('goldTop').innerText=Math.floor(gold).toLocaleString('ru-RU')}
 function formatPct(p){if(p>=0.1)return p.toFixed(1)+'%';if(p>=0.01)return p.toFixed(2)+'%';if(p>=0.001)return p.toFixed(3)+'%';return '0.01%'}
 
@@ -391,7 +395,7 @@ function switchBigTab(m){bigTab=m;document.getElementById('bigTabInv').classList
 function switchSub(m){invMode=m;document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none';document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)';document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none';document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)';const st=document.getElementById('shopTabs');if(st)st.style.display=m==='shop'?'flex':'none';rendInv()}
 function switchShopTab(t){shopTab=t;document.getElementById('tabSkins').style.color=t==='skins'?'var(--white)':'var(--gray2)';document.getElementById('tabCases').style.color=t==='cases'?'var(--white)':'var(--gray2)';document.getElementById('tabAgents').style.color=t==='agents'?'var(--white)':'var(--gray2)';rendInv()}
 
-// ============ НОВЫЙ РЕНДЕР КАРТОЧЕК (Кнопки всегда видны) ============
+// ============ НОВЫЙ РЕНДЕР КАРТОЧЕК ============
 function rendInv(){
   const b=document.getElementById('invList');if(!b)return;
   const q=(document.getElementById('searchInp')?.value||'').toLowerCase();
@@ -490,7 +494,7 @@ const bonusKeys=lostItems.map(x=>x.name+'|'+x.price+'|'+(x.img||''));
 inv=inv.filter(it=>!bonusKeys.includes(it.name+'|'+it.price+'|'+(it.img||'')));
 selectedItems=[];const skinPut=lostItems[0]||{name:'—',img:''};
 if(win){const ws={...targetSkin};inv.push(ws);stats.wins++;showWinModal(ws);sWin();confetti();if(!bestDrop||(ws.price||0)>(bestDrop.price||0))bestDrop={name:ws.name,img:ws.img||'',price:ws.price||0,ts:Date.now()};saveHistory({win:true,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct})}
-else{stats.loses++;showLoseModal(lostItems);sLose();sparksRed();saveHistory({win:false,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct})}
+else{stats.loses++;showLoseModal(lostItems);sLose();saveHistory({win:false,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct})}
 if(hasBoost)consumeBoost();stats.spins++;trackTask('spin',1);if(win)trackTask('win',1);
 isSpinning=false;wrap.style.transition='none';wrap.style.transform='rotate(0deg)';clearWheelPct();document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));lockUI(false);saveGame();
 },duration);
@@ -500,20 +504,98 @@ function closeResult(){document.getElementById('resultScreen')?.remove();selecte
 function showWinModal(skin){const m=document.createElement('div');m.id='resultScreen';m.className='result-screen';m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(10px)';m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:24px"><div style="font-size:24px;font-weight:900;color:var(--green-l);margin-bottom:8px">УСПЕХ!</div><div style="font-size:12px;color:var(--gray2);margin-bottom:20px">ПРЕДМЕТ ПОЛУЧЕН</div><div style="width:150px;height:150px;margin:0 auto 20px;background:var(--panel-l);border-radius:20px;display:flex;justify-content:center;align-items:center;padding:10px">${skin.img?`<img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain">`:''}</div><div style="font-size:18px;font-weight:900;color:var(--white);margin-bottom:24px">${skin.name}</div><button class="result-btn" style="width:100%;padding:16px;border-radius:12px;border:none;background:var(--green-l);color:#fff;font-weight:900" onclick="closeResult()">ПРОДОЛЖАТЬ</button></div>`;document.body.appendChild(m)}
 function showLoseModal(items){const lostSkin=items[0]||{name:'—'};const m=document.createElement('div');m.id='resultScreen';m.className='result-screen';m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(10px)';m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:24px"><div style="font-size:24px;font-weight:900;color:var(--red);margin-bottom:8px">НЕУДАЧА</div><div style="font-size:12px;color:var(--gray2);margin-bottom:20px">ПРЕДМЕТ ПОТЕРЯН</div><div style="width:150px;height:150px;margin:0 auto 20px;background:var(--panel-l);border-radius:20px;display:flex;justify-content:center;align-items:center;padding:10px">${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain">`:''}</div><div style="font-size:18px;font-weight:900;color:var(--white);margin-bottom:24px">${lostSkin.name}</div><button class="result-btn" style="width:100%;padding:16px;border-radius:12px;border:none;background:var(--red);color:#fff;font-weight:900" onclick="closeResult()">ПРОДОЛЖАТЬ</button></div>`;document.body.appendChild(m)}
 
-function withdrawSkinDirect(idx){const it=inv[idx];if(!it)return;toast('Вывод скина пока в разработке','lose')} // Заглушка для теста
 function trackTask(type,amount){fetch(BOT_URL+'/api/tasks/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),type,amount})}).catch(()=>{})}
 function saveHistory(e){fetch(BOT_URL+'/api/history/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),targetName:e.targetName,targetPrice:e.targetPrice,pct:e.pct,win:e.win})}).catch(()=>{})}
 function consumeBoost(){refBoost.spinsLeft--;saveGame()}
+function withdrawSkinDirect(idx){const it=inv[idx];if(!it)return;toast('Вывод скина пока в разработке','lose')} // Заглушка
 
-async function rendProfile(){document.getElementById('profileBody').innerHTML='<div style="padding:40px;text-align:center;color:var(--gray2);font-weight:800">Профиль обновляется...</div>'}
-function rendSettings(){document.getElementById('settingsBody').innerHTML='<div style="padding:40px;text-align:center;color:var(--gray2);font-weight:800">Настройки обновляются...</div>'}
-function openVipModal(){document.getElementById('vipModal').style.display='flex'}
-function closeVipModal(){document.getElementById('vipModal').style.display='none'}
-function openGearModal(){document.getElementById('gearModal').style.display='flex'}
-function openFriends(){document.getElementById('friendsModal').style.display='flex'}
-function closeFriends(){document.getElementById('friendsModal').style.display='none'}
-function openTasksModal(){toast('Задания временно отключены','lose')}
+// ============ LIVE FEED ============
+async function loadLiveFeed(){
+  try{
+    const r=await fetch(BOT_URL+'/api/live');
+    const d=await r.json();
+    if(!d.ok||!d.list||d.list.length===0){document.getElementById('liveTrack').innerHTML='<span class="live-empty">Пока нет рекордов</span>';return}
+    const items=d.list.slice(0,5).map(x=>{
+      const name=(x.playerName||'Игрок').slice(0,10).replace(/[<>&]/g,'');
+      return `<div class="live-item" onclick="openFriendProfileFull('${x.userId}')">
+        <div class="live-info">
+          <div class="live-name">${name}</div>
+          <div class="live-pct">${(x.pct||0)}%</div>
+        </div>
+        ${x.skinImg?`<img src="${x.skinImg}" class="live-skin" onerror="this.style.display='none'">`:'<div class="live-skin">📦</div>'}
+      </div>`
+    }).join('');
+    document.getElementById('liveTrack').innerHTML=items+items;
+  }catch(e){document.getElementById('liveTrack').innerHTML='<span class="live-empty">Ошибка загрузки</span>'}
+}
+setInterval(loadLiveFeed,30000);
 
+// ============ PROFILE ============
+async function rendProfile(){
+  const b=document.getElementById('profileBody');if(!b)return;
+  const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';const uid=getUserId();
+  const displayId=uid==='guest'?'#00000':'#'+uid.slice(-5);
+  
+  const baseAvatar=`<div class="profile-avatar-big">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:30px">👤</div>`}</div>`;
+  const myAvatarHtml = vipData.isVip ? `<div class="vip-frame">${baseAvatar}</div>` : (refData.isLegend ? `<div class="legend-frame">${baseAvatar}</div>` : baseAvatar);
+  
+  b.innerHTML=`<div class="profile-wrap">
+    <div class="profile-main-card">
+      <div class="profile-header-row">
+        ${myAvatarHtml}
+        <div class="profile-user-info">
+          <div class="profile-username">${name}</div>
+          <div class="profile-id-row"><span class="profile-id-text">ID: ${displayId}</span></div>
+        </div>
+      </div>
+      <div class="profile-balance-block">
+        <div class="profile-balance-label">БАЛАНС</div>
+        <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span>G</span></div>
+      </div>
+    </div>
+    <div class="profile-section">
+       <div class="profile-section-title"><h2>ИНВЕНТАРЬ (${inv.length})</h2></div>
+       <div class="grid" style="grid-template-columns:repeat(2,1fr)">${inv.map((it,idx)=>`
+          <div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:0">
+            <div class="card-img-wrap"><img src="${it.img}"></div>
+            <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${it.price} G</div></div>
+            <div class="card-actions"><button class="btn-sell" style="grid-column:span 2" onclick="sellSkinProfile(${idx})">💸 ПРОДАТЬ</button></div>
+          </div>
+       `).join('')}</div>
+    </div>
+  </div>`;
+}
+function sellSkinProfile(idx){if(idx<0||idx>=inv.length)return;const it=inv[idx];const sp=Math.round((it.price||50)*0.7);gold+=sp;inv.splice(idx,1);updateBal();saveGame();rendInv();rendMain();rendProfile();toast('💸 +'+sp+' G','win')}
+
+// ============ FRIEND PROFILE (ИНВЕНТАРЬ ДРУГА) ============
+async function openFriendProfileFull(fid){
+  if(!fid||fid==='undefined')return;
+  try{
+    const r=await fetch(BOT_URL+'/api/friends/profile/'+fid+'/'+getUserId());
+    const d=await r.json();
+    if(!d.ok){toast('❌ Ошибка профиля','lose');return}
+    const p=d.profile;
+    const m=document.createElement('div');m.className='modal-overlay';m.id='frProfileModal';m.onclick=(e)=>{if(e.target===m)m.remove()};
+    m.innerHTML=`<div class="modal-content">
+      <button class="modal-close" onclick="document.getElementById('frProfileModal').remove()">✕</button>
+      <div class="modal-title">${p.name}</div>
+      <div style="text-align:center;font-size:24px;font-weight:900;color:var(--gold);margin-bottom:16px">${Math.floor(p.gold)} G</div>
+      <div class="profile-section-title"><h2>ИНВЕНТАРЬ (${p.invCount})</h2></div>
+      <div class="grid" style="grid-template-columns:repeat(2,1fr);max-height:300px;overflow-y:auto">
+        ${p.inv && p.inv.length>0 ? p.inv.map(it=>`
+          <div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:0">
+            <div class="card-img-wrap"><img src="${it.img}"></div>
+            <div class="card-info"><div class="card-name">${it.name}</div></div>
+          </div>
+        `).join('') : '<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2)">Пусто</div>'}
+      </div>
+      <button class="profile-action-btn" style="width:100%;margin-top:16px;background:var(--red)" onclick="toast('Вывод скина друга в разработке','lose')">ЗАБРАТЬ СКИН</button>
+    </div>`;
+    document.body.appendChild(m);
+  }catch(e){toast('❌ Ошибка сети','lose')}
+}
+
+// ============ START ============
 (async()=>{
   await loadGame();
   drawTicks();
@@ -522,5 +604,6 @@ function openTasksModal(){toast('Задания временно отключе�
   rendMain();
   rendInv();
   rendTargetList();
+  loadLiveFeed();
 })();
 </script></body></html>
