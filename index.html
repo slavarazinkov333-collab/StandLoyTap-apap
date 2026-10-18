@@ -255,7 +255,6 @@ body::before{content:'';position:fixed;inset:0;background:url('https://www.trans
 
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:#fff;font-size:13px;font-weight:800;z-index:9999;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5);display:none}
 
-/* SORT/FILTER BAR */
 .filter-bar{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
 .filter-bar::-webkit-scrollbar{display:none}
 .filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer;transition:all .2s}
@@ -453,13 +452,13 @@ async function loadGame(){try{const uid=getUserId();if(uid==='guest'){gameLoaded
 function applySaveData(d){if(!d)return;if(typeof d.gold==='number')gold=d.gold;if(Array.isArray(d.inv))inv=d.inv;if(d.stats)stats=d.stats;if(typeof d.totalWithdraw==='number')totalWithdraw=d.totalWithdraw;if(d.bestDrop)bestDrop=d.bestDrop;if(Array.isArray(d.history))history=d.history;if(d.isLegend!==undefined)refData.isLegend=!!d.isLegend;if(d.isVip!==undefined)vipData.isVip=!!d.isVip;if(d.vipExpires!==undefined)vipData.expires=d.vipExpires||0}
 setInterval(saveGame,5000);
 
-function toast(m,t){const e=document.getElementById('toast');e.className='toast '+(t||'')+' show';e.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid '+(t==='win'?'var(--green-l)':(t==='lose'?'var(--red)':'var(--border)'))+';padding:16px 24px;border-radius:12px;color:#fff;font-size:13px;font-weight:800;z-index:9999;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5)';e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
+function toast(m,t){const e=document.getElementById('toast');if(!e)return;e.className='toast '+(t||'')+' show';e.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid '+(t==='win'?'var(--green-l)':(t==='lose'?'var(--red)':'var(--border)'))+';padding:16px 24px;border-radius:12px;color:#fff;font-size:13px;font-weight:800;z-index:9999;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5)';e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
 function confetti(){for(let i=0;i<40;i++){const c=document.createElement('div');c.style.cssText='position:fixed;width:8px;height:8px;background:'+['#ffb800','#fff','#4CAF50'][Math.floor(Math.random()*3)]+';left:'+(Math.random()*100)+'%;top:-20px;z-index:9998;pointer-events:none;transition:transform 2s linear,opacity 2s linear';document.body.appendChild(c);requestAnimationFrame(()=>{c.style.transform='translateY(110vh) rotate(720deg)';c.style.opacity='0'});setTimeout(()=>c.remove(),2000)}}
-function updateBal(){document.getElementById('goldTop').innerText=Math.floor(gold).toLocaleString('ru-RU')}
+function updateBal(){const el=document.getElementById('goldTop');if(el)el.innerText=Math.floor(gold).toLocaleString('ru-RU')}
 function formatPct(p){if(p>=0.1)return p.toFixed(1)+'%';if(p>=0.01)return p.toFixed(2)+'%';if(p>=0.001)return p.toFixed(3)+'%';return '0.01%'}
-function openS(id){document.getElementById(id).classList.add('open');if(id==='profileScreen')rendProfile();if(id==='settingsScreen')rendSettings()}
-function closeS(id){document.getElementById(id).classList.remove('open')}
-function scrollToShop(){switchBigTab('inv');switchSub('shop');document.getElementById('invList').scrollIntoView({behavior:'smooth'})}
+function openS(id){const el=document.getElementById(id);if(!el)return;el.classList.add('open');if(id==='profileScreen')rendProfile();if(id==='settingsScreen')rendSettings()}
+function closeS(id){const el=document.getElementById(id);if(!el)return;el.classList.remove('open')}
+function scrollToShop(){switchBigTab('inv');switchSub('shop');const el=document.getElementById('invList');if(el)el.scrollIntoView({behavior:'smooth'})}
 
 function drawTicks(){const t=document.getElementById('wheelTicks');if(!t)return;let h='';for(let i=0;i<36;i++){const a=i*(360/36);const maj=i%3===0;h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg"></div>`}t.innerHTML=h}
 function renderPctRow(){const b=document.getElementById('pcntRow');if(!b)return;b.innerHTML=customPcts.map(p=>`<button class="pb" onclick="setPct(${p},this)">${p}%</button>`).join('')}
@@ -538,11 +537,8 @@ function updateCartBadge(){const b=document.getElementById('cartBadge');if(!b)re
 
 function addShopItemToUpgrade(name,price,color){
   if(isSpinning)return;
-  const it={name,price,color,img:(allSkins.find(x=>x.name===name)||allCases.find(x=>x.name===name)||allAgents.find(x=>x.name===name))?.img||null};
-  if(selectedItems.length>=MAX_UPGRADE){toast('❌ Макс '+MAX_UPGRADE,'lose');return}
-  // Проверяем, куплен ли уже такой
   const owned=inv.find(x=>x.name===name);
-  if(!owned){toast('🛒 Сначала купи его в корзине!','lose');return}
+  if(!owned){toast('🛒 Сначала купи его!','lose');return}
   const idx=inv.indexOf(owned);
   addToUpgrade(idx);
 }
@@ -552,22 +548,22 @@ function removeFromUpgradeItem(item){if(isSpinning)return;const i=selectedItems.
 function clearUpgrade(){if(isSpinning)return;selectedItems=[];selPct=null;clearWheelPct();rendMain();toast('✕ Очищено','win')}
 function sellSkin(idx){const it=inv[idx];if(!it)return;const sp=Math.round((it.price||50)*0.7);if(confirm(`Продать ${it.name} за ${sp} G?`)){gold+=sp;inv.splice(idx,1);selectedItems=selectedItems.filter(i=>i!==it);updateBal();saveGame();rendInv();rendMain();trackTask('sell',1);toast('💸 +'+sp+' G','win')}}
 function recomputePct(){if(selectedItems.length===0||!targetSkin){selPct=null;checkUpgradeBtn();return}const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);let pct=(invSum/targetSkin.price)*100;if(pct>90)pct=90;if(pct<0.01)pct=0.01;selPct=pct;updateWheelPct(pct);checkUpgradeBtn()}
-function updateWheelPct(pct){document.getElementById('pt').innerText=formatPct(pct);const fill=document.getElementById('wheelZoneFill');const targetAngle=(pct/100)*360;fill.classList.add('visible');const startAngle=currentWheelAngle;const startTime=performance.now();const duration=600;function anim(now){const t=Math.min(1,(now-startTime)/duration);const eased=1-Math.pow(1-t,3);currentWheelAngle=startAngle+(targetAngle-startAngle)*eased;fill.style.setProperty('--pct-angle',currentWheelAngle+'deg');if(t<1)wheelAnimId=requestAnimationFrame(anim);else wheelAnimId=null}wheelAnimId=requestAnimationFrame(anim)}
-function clearWheelPct(){document.getElementById('pt').innerText='?%';document.getElementById('wheelZoneFill').classList.remove('visible');currentWheelAngle=0;if(wheelAnimId)cancelAnimationFrame(wheelAnimId)}
+function updateWheelPct(pct){const ptEl=document.getElementById('pt');if(ptEl)ptEl.innerText=formatPct(pct);const fill=document.getElementById('wheelZoneFill');if(!fill)return;const targetAngle=(pct/100)*360;fill.classList.add('visible');const startAngle=currentWheelAngle;const startTime=performance.now();const duration=600;function anim(now){const t=Math.min(1,(now-startTime)/duration);const eased=1-Math.pow(1-t,3);currentWheelAngle=startAngle+(targetAngle-startAngle)*eased;fill.style.setProperty('--pct-angle',currentWheelAngle+'deg');if(t<1)wheelAnimId=requestAnimationFrame(anim);else wheelAnimId=null}wheelAnimId=requestAnimationFrame(anim)}
+function clearWheelPct(){const ptEl=document.getElementById('pt');if(ptEl)ptEl.innerText='?%';const fill=document.getElementById('wheelZoneFill');if(fill)fill.classList.remove('visible');currentWheelAngle=0;if(wheelAnimId)cancelAnimationFrame(wheelAnimId)}
 function setPct(p,el){if(isSpinning)return;if(selectedItems.length===0){toast('❌ Выбери скины','lose');return}const safePct=Math.min(90,p);const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);const idealPrice=invSum/(safePct/100);let closest=allSkins[0],minDiff=Math.abs(allSkins[0].price-idealPrice);allSkins.forEach(s=>{const d=Math.abs(s.price-idealPrice);if(d<minDiff){minDiff=d;closest=s}});targetSkin={name:closest.name,price:closest.price,color:closest.color,img:closest.img};let realPct=(invSum/targetSkin.price)*100;if(realPct>90)realPct=90;selPct=realPct;document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));if(el)el.classList.add('sel');updateWheelPct(realPct);rendMain();rendTargetList();checkUpgradeBtn()}
-function checkUpgradeBtn(){const btn=document.getElementById('upgradeBtn');if(selectedItems.length>0&&targetSkin&&selPct&&!isSpinning){btn.disabled=false;btn.style.opacity='1'}else{btn.disabled=true;btn.style.opacity='.5'}}
+function checkUpgradeBtn(){const btn=document.getElementById('upgradeBtn');if(!btn)return;if(selectedItems.length>0&&targetSkin&&selPct&&!isSpinning){btn.disabled=false;btn.style.opacity='1'}else{btn.disabled=true;btn.style.opacity='.5'}}
 function rendMain(){
   const leftIcons=document.getElementById('leftIcons');
-  let h='';for(let i=0;i<MAX_UPGRADE;i++){const s=selectedItems[i];if(s){h+=`<div class="slot-cell">${s.img?`<img src="${s.img}">`:'📦'}<div class="slot-remove" onclick="removeFromUpgradeItem(selectedItems[${i}])">✕</div></div>`}else if(i<6){h+='<div class="empty-slot"></div>'}}
-  leftIcons.innerHTML=h;document.getElementById('selCount').innerText=selectedItems.length+' ИЗ '+MAX_UPGRADE;
+  if(leftIcons){let h='';for(let i=0;i<MAX_UPGRADE;i++){const s=selectedItems[i];if(s){h+=`<div class="slot-cell">${s.img?`<img src="${s.img}">`:'📦'}<div class="slot-remove" onclick="removeFromUpgradeItem(selectedItems[${i}])">✕</div></div>`}else if(i<6){h+='<div class="empty-slot"></div>'}}leftIcons.innerHTML=h}
+  const selCount=document.getElementById('selCount');if(selCount)selCount.innerText=selectedItems.length+' ИЗ '+MAX_UPGRADE;
   const sum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
   const sumEl=document.getElementById('selSum');if(sumEl)sumEl.innerText=sum.toLocaleString('ru-RU')+' G';
   const rightIcons=document.getElementById('rightIcons');
-  if(targetSkin){rightIcons.innerHTML=`<div class="slot-cell" style="grid-column:1/-1;max-width:80px"><img src="${targetSkin.img}"></div>`;document.getElementById('targetCount').innerText=targetSkin.price+' G'}else{rightIcons.innerHTML='<div class="empty-slot"></div>';document.getElementById('targetCount').innerText='НЕ ВЫБРАНА'}
+  if(rightIcons){if(targetSkin){rightIcons.innerHTML=`<div class="slot-cell" style="grid-column:1/-1;max-width:80px"><img src="${targetSkin.img}"></div>`;const tc=document.getElementById('targetCount');if(tc)tc.innerText=targetSkin.price+' G'}else{rightIcons.innerHTML='<div class="empty-slot"></div>';const tc=document.getElementById('targetCount');if(tc)tc.innerText='НЕ ВЫБРАНА'}}
   checkUpgradeBtn()
 }
-function toggleLightning(){if(isSpinning)return;lightningOn=!lightningOn;const btn=document.getElementById('lightningBtn');if(lightningOn)btn.classList.add('on');else btn.classList.remove('on')}
-function lockUI(lock){document.getElementById('upgradeBtn').disabled=lock;document.querySelectorAll('.pb').forEach(b=>b.disabled=lock)}
+function toggleLightning(){if(isSpinning)return;lightningOn=!lightningOn;const btn=document.getElementById('lightningBtn');if(!btn)return;if(lightningOn)btn.classList.add('on');else btn.classList.remove('on')}
+function lockUI(lock){const ub=document.getElementById('upgradeBtn');if(ub)ub.disabled=lock;document.querySelectorAll('.pb').forEach(b=>b.disabled=lock)}
 
 function spinUpgrade(){
 if(selectedItems.length===0||!targetSkin||!selPct||isSpinning)return;
@@ -691,132 +687,134 @@ async function loadLiveFeed(){
 setInterval(loadLiveFeed,30000);
 
 /* === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ === */
-  async function rendProfile(){
-  const b=document.getElementById('profileBody');
-  const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';
-  const baseAvatar=`<div class="profile-avatar-big">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:30px">👤</div>`}</div>`;
-  const myAvatarHtml = vipData.isVip ? `<div class="vip-frame">${baseAvatar}</div>` : (refData.isLegend ? `<div class="legend-frame">${baseAvatar}</div>` : baseAvatar);
-  const legendBadge = refData.isLegend ? `<div style="margin-top:4px"><span class="legend-badge"><span>👑</span> ЛЕГЕНДА</span></div>` : '';
-  const winRate = stats.spins>0?Math.round((stats.wins/stats.spins)*100):0;
+async function rendProfile(){
+  try{
+    const b=document.getElementById('profileBody');
+    const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';
+    const baseAvatar=`<div class="profile-avatar-big">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:30px">👤</div>`}</div>`;
+    const myAvatarHtml = vipData.isVip ? `<div class="vip-frame">${baseAvatar}</div>` : (refData.isLegend ? `<div class="legend-frame">${baseAvatar}</div>` : baseAvatar);
+    const legendBadge = refData.isLegend ? `<div style="margin-top:4px"><span class="legend-badge"><span>👑</span> ЛЕГЕНДА</span></div>` : '';
+    const winRate = stats.spins>0?Math.round((stats.wins/stats.spins)*100):0;
 
-  let vipBlock='';
-  if(vipData.isVip){
-    const exp = vipData.expires ? new Date(vipData.expires).toLocaleDateString('ru-RU') : '∞';
-    vipBlock=`<div class="vip-profile-block">
-      <div class="vip-profile-head"><div class="vip-profile-crown">👑</div><div><div class="vip-profile-title">VIP АКТИВЕН</div><div class="vip-profile-sub">До ${exp}</div></div></div>
-      <div class="vip-profile-features">
-        <div class="vip-profile-feature">🎰 +5% к шансу выигрыша</div>
-        <div class="vip-profile-feature">💰 +5% к пополнению</div>
-        <div class="vip-profile-feature">🎁 +20 G ежедневно</div>
-        <div class="vip-profile-feature">⚡ Быстрый спин всегда включён</div>
-        <div class="vip-profile-feature">📈 x1.5 к рефералам</div>
-        <div class="vip-profile-feature">💸 -5% комиссия при выводе</div>
-      </div>
-    </div>`;
-  } else {
-    vipBlock=`<div class="vip-profile-block">
-      <div class="vip-profile-head"><div class="vip-profile-crown">👑</div><div><div class="vip-profile-title">VIP СТАТУС</div><div class="vip-profile-sub">Получи преимущества</div></div></div>
-      <div class="vip-profile-features">
-        <div class="vip-profile-feature">🎰 +5% к шансу выигрыша</div>
-        <div class="vip-profile-feature">💰 +5% к пополнению</div>
-        <div class="vip-profile-feature">🎁 +20 G ежедневно</div>
-        <div class="vip-profile-feature">⚡ Быстрый спин</div>
-      </div>
-      <button class="vip-profile-btn" onclick="openVipModal()">👑 КУПИТЬ VIP</button>
-    </div>`;
-  }
-
-  let bestDropBlock='';
-  if(bestDrop && bestDrop.name){
-    bestDropBlock=`<div class="profile-section">
-      <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
-      <div class="best-drop-card">
-        ${bestDrop.img?`<img src="${bestDrop.img}" class="best-drop-img" onerror="this.style.display='none'">`:''}
-        <div class="best-drop-info">
-          <div class="best-drop-label">★ РЕКОРД</div>
-          <div class="best-drop-name">${bestDrop.name}</div>
-          <div class="best-drop-price">${(bestDrop.price||0).toLocaleString('ru-RU')} G</div>
+    let vipBlock='';
+    if(vipData.isVip){
+      const exp = vipData.expires ? new Date(vipData.expires).toLocaleDateString('ru-RU') : '∞';
+      vipBlock=`<div class="vip-profile-block">
+        <div class="vip-profile-head"><div class="vip-profile-crown">👑</div><div><div class="vip-profile-title">VIP АКТИВЕН</div><div class="vip-profile-sub">До ${exp}</div></div></div>
+        <div class="vip-profile-features">
+          <div class="vip-profile-feature">🎰 +5% к шансу выигрыша</div>
+          <div class="vip-profile-feature">💰 +5% к пополнению</div>
+          <div class="vip-profile-feature">🎁 +20 G ежедневно</div>
+          <div class="vip-profile-feature">⚡ Быстрый спин всегда включён</div>
+          <div class="vip-profile-feature">📈 x1.5 к рефералам</div>
+          <div class="vip-profile-feature">💸 -5% комиссия при выводе</div>
         </div>
-      </div>
-    </div>`;
-  } else {
-    bestDropBlock=`<div class="profile-section">
-      <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
-      <div class="best-drop-empty">Пока нет дропа — крути барабан!</div>
-    </div>`;
-  }
-
-  const histFiltered = historyFilter==='all'?history:history.filter(h=>historyFilter==='win'?h.win:!h.win);
-
-  b.innerHTML=`<div class="profile-wrap">
-    <div class="profile-main-card">
-      <div class="profile-header-row">
-        ${myAvatarHtml}
-        <div class="profile-user-info">
-          <div class="profile-username">${name}</div>
-          <div class="profile-id-text">ID: #${getUserId().slice(-5)}</div>
-          ${legendBadge}
+      </div>`;
+    } else {
+      vipBlock=`<div class="vip-profile-block">
+        <div class="vip-profile-head"><div class="vip-profile-crown">👑</div><div><div class="vip-profile-title">VIP СТАТУС</div><div class="vip-profile-sub">Получи преимущества</div></div></div>
+        <div class="vip-profile-features">
+          <div class="vip-profile-feature">🎰 +5% к шансу выигрыша</div>
+          <div class="vip-profile-feature">💰 +5% к пополнению</div>
+          <div class="vip-profile-feature">🎁 +20 G ежедневно</div>
+          <div class="vip-profile-feature">⚡ Быстрый спин</div>
         </div>
-      </div>
-      <div class="profile-balance-block">
-        <div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div>
-        <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span>G</span></div>
-      </div>
-    </div>
+        <button class="vip-profile-btn" onclick="openVipModal()">👑 КУПИТЬ VIP</button>
+      </div>`;
+    }
 
-    <div class="profile-actions-row" style="margin-top:12px; grid-template-columns: 1fr 1fr;">
-      <button class="profile-action-btn" onclick="openRefModal()">🎁 ПРОМОКОД</button>
-      <button class="profile-action-btn" onclick="openRefModal()">👥 КОД ДРУГА</button>
-    </div>
-
-    <div class="profile-section">
-      <div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div>
-      <div class="stats-grid-3">
-        <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div>
-        <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div>
-        <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div>
-      </div>
-    </div>
-
-    ${bestDropBlock}
-    ${vipBlock}
-
-    <div class="profile-tabs" style="display:flex;gap:4px;margin-bottom:12px">
-      <button class="big-tab ${profileTab==='inv'?'active':''}" onclick="profileTab='inv';rendProfile()">ИНВЕНТАРЬ</button>
-      <button class="big-tab ${profileTab==='hist'?'active':''}" onclick="profileTab='hist';rendProfile()">ИСТОРИЯ КАТКОВ</button>
-    </div>
-
-    ${profileTab==='inv' ? `
-    <div class="profile-section">
-       <div class="profile-section-title"><h2>ИНВЕНТАРЬ (${inv.length})</h2></div>
-       <div class="grid" style="grid-template-columns:repeat(2,1fr)">${inv.length===0?'<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':inv.map((it,idx)=>`
-          <div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:0">
-            <div class="card-img-wrap"><img src="${it.img}"></div>
-            <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${it.price} G</div></div>
-            <div class="card-actions">
-              <button class="btn-upg" onclick="addToUpgrade(${idx});closeS('profileScreen')">⬆ АП</button>
-              <button class="btn-wd" onclick="withdrawSkinDirect(${idx})">📤 ВЫВОД</button>
-              <button class="btn-sell" style="grid-column:span 2" onclick="sellSkinProfile(${idx})">💸 ПРОДАТЬ</button>
-            </div>
+    let bestDropBlock='';
+    if(bestDrop && bestDrop.name){
+      bestDropBlock=`<div class="profile-section">
+        <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
+        <div class="best-drop-card">
+          ${bestDrop.img?`<img src="${bestDrop.img}" class="best-drop-img" onerror="this.style.display='none'">`:''}
+          <div class="best-drop-info">
+            <div class="best-drop-label">★ РЕКОРД</div>
+            <div class="best-drop-name">${bestDrop.name}</div>
+            <div class="best-drop-price">${(bestDrop.price||0).toLocaleString('ru-RU')} G</div>
           </div>
-       `).join('')}</div>
-    </div>` : `
-    <div class="profile-section">
-       <div class="profile-section-title"><h2>ИСТОРИЯ КАТКОВ (${histFiltered.length})</h2></div>
-       <div class="filter-bar" style="margin-bottom:12px">
-         <div class="filter-chip ${historyFilter==='all'?'active':''}" onclick="historyFilter='all';rendProfile()">ВСЕ</div>
-         <div class="filter-chip ${historyFilter==='win'?'active':''}" onclick="historyFilter='win';rendProfile()">✅ ПОБЕДЫ</div>
-         <div class="filter-chip ${historyFilter==='lose'?'active':''}" onclick="historyFilter='lose';rendProfile()">❌ ПОРАЖЕНИЯ</div>
-       </div>
-       ${histFiltered.length===0?'<div style="text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':histFiltered.map(h=>`
-         <div class="hist-item ${h.win?'win':'lose'}">
-           <img src="${h.targetImg}" class="hist-img" onerror="this.style.display='none'">
-           <div class="hist-info"><div class="hist-title">${h.targetName}</div><div class="hist-sub">${h.pct}% шанс</div></div>
-           <div class="hist-price ${h.win?'win':'lose'}">${h.win?'+':'-'}${h.targetPrice} G</div>
+        </div>
+      </div>`;
+    } else {
+      bestDropBlock=`<div class="profile-section">
+        <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
+        <div class="best-drop-empty">Пока нет дропа — крути барабан!</div>
+      </div>`;
+    }
+
+    const histFiltered = historyFilter==='all'?history:history.filter(h=>historyFilter==='win'?h.win:!h.win);
+
+    b.innerHTML=`<div class="profile-wrap">
+      <div class="profile-main-card">
+        <div class="profile-header-row">
+          ${myAvatarHtml}
+          <div class="profile-user-info">
+            <div class="profile-username">${name}</div>
+            <div class="profile-id-text">ID: #${getUserId().slice(-5)}</div>
+            ${legendBadge}
+          </div>
+        </div>
+        <div class="profile-balance-block">
+          <div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div>
+          <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span>G</span></div>
+        </div>
+      </div>
+
+      <div class="profile-actions-row" style="margin-top:12px; grid-template-columns: 1fr 1fr;">
+        <button class="profile-action-btn" onclick="openRefModal()">🎁 ПРОМОКОД</button>
+        <button class="profile-action-btn" onclick="openRefModal()">👥 КОД ДРУГА</button>
+      </div>
+
+      <div class="profile-section">
+        <div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div>
+        <div class="stats-grid-3">
+          <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div>
+          <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div>
+          <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div>
+        </div>
+      </div>
+
+      ${bestDropBlock}
+      ${vipBlock}
+
+      <div class="profile-tabs" style="display:flex;gap:4px;margin-bottom:12px">
+        <button class="big-tab ${profileTab==='inv'?'active':''}" onclick="profileTab='inv';rendProfile()">ИНВЕНТАРЬ</button>
+        <button class="big-tab ${profileTab==='hist'?'active':''}" onclick="profileTab='hist';rendProfile()">ИСТОРИЯ КАТКОВ</button>
+      </div>
+
+      ${profileTab==='inv' ? `
+      <div class="profile-section">
+         <div class="profile-section-title"><h2>ИНВЕНТАРЬ (${inv.length})</h2></div>
+         <div class="grid" style="grid-template-columns:repeat(2,1fr)">${inv.length===0?'<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':inv.map((it,idx)=>`
+            <div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:0">
+              <div class="card-img-wrap"><img src="${it.img}"></div>
+              <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${it.price} G</div></div>
+              <div class="card-actions">
+                <button class="btn-upg" onclick="addToUpgrade(${idx});closeS('profileScreen')">⬆ АП</button>
+                <button class="btn-wd" onclick="withdrawSkinDirect(${idx})">📤 ВЫВОД</button>
+                <button class="btn-sell" style="grid-column:span 2" onclick="sellSkinProfile(${idx})">💸 ПРОДАТЬ</button>
+              </div>
+            </div>
+         `).join('')}</div>
+      </div>` : `
+      <div class="profile-section">
+         <div class="profile-section-title"><h2>ИСТОРИЯ КАТКОВ (${histFiltered.length})</h2></div>
+         <div class="filter-bar" style="margin-bottom:12px">
+           <div class="filter-chip ${historyFilter==='all'?'active':''}" onclick="historyFilter='all';rendProfile()">ВСЕ</div>
+           <div class="filter-chip ${historyFilter==='win'?'active':''}" onclick="historyFilter='win';rendProfile()">✅ ПОБЕДЫ</div>
+           <div class="filter-chip ${historyFilter==='lose'?'active':''}" onclick="historyFilter='lose';rendProfile()">❌ ПОРАЖЕНИЯ</div>
          </div>
-       `).join('')}
-    </div>`}
-  </div>`;
+         ${histFiltered.length===0?'<div style="text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':histFiltered.map(h=>`
+           <div class="hist-item ${h.win?'win':'lose'}">
+             <img src="${h.targetImg}" class="hist-img" onerror="this.style.display='none'">
+             <div class="hist-info"><div class="hist-title">${h.targetName}</div><div class="hist-sub">${h.pct}% шанс</div></div>
+             <div class="hist-price ${h.win?'win':'lose'}">${h.win?'+':'-'}${h.targetPrice} G</div>
+           </div>
+         `).join('')}
+      </div>`}
+    </div>`;
+  }catch(err){console.error('rendProfile error:',err)}
 }
 function sellSkinProfile(idx){const it=inv[idx];if(!it)return;const sp=Math.round((it.price||50)*0.7);if(confirm(`Продать ${it.name} за ${sp} G?`)){gold+=sp;inv.splice(idx,1);updateBal();saveGame();rendInv();rendMain();rendProfile();toast('💸 +'+sp+' G','win')}}
 
