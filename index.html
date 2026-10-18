@@ -798,9 +798,10 @@ const tickInt=setInterval(()=>{sTick();tc++;if(tc>maxTicks)clearInterval(tickInt
 setTimeout(async()=>{
 clearInterval(tickInt);
 let win;
-try{const sc=await fetch(BOT_URL+'/api/spinControl/'+getUserId());const scd=await sc.json();if(scd.result==='win')win=true;else if(scd.result==='lose')win=false;else{const arrowAngle=(360-(totalRotation%360))%360;const winZone=(totalPct/100)*360;win=arrowAngle<=winZone}}catch(e){const arrowAngle=(360-(totalRotation%360))%360;const winZone=(totalPct/100)*360;win=arrowAngle<=winZone}
 const lostItems=[...selectedItems];
 for(let i=lostItems.length-1;i>=0;i--){const idx=inv.indexOf(lostItems[i]);if(idx>=0)inv.splice(idx,1)}
+const bonusKeys=lostItems.map(x=>x.name+'|'+x.price+'|'+(x.img||''));
+inv=inv.filter(it=>!bonusKeys.includes(it.name+'|'+it.price+'|'+(it.img||'')));
 selectedItems=[];
 const skinPut=lostItems[0]||{name:'—',img:''};
 if(win){
