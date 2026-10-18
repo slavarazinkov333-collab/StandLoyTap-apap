@@ -566,9 +566,10 @@ function openCart(){
 function checkout(){
   const total=cart.reduce((s,c)=>s+c.price,0);
   if(gold<total){toast('❌ Мало G','lose');return}
+  const buyCount=cart.length;
   cart.forEach(c=>{gold-=c.price;const s=allSkins.find(x=>x.name===c.name)||allCases.find(x=>x.name===c.name)||allAgents.find(x=>x.name===c.name);inv.push({name:c.name,price:c.price,img:s?.img||null,color:s?.color||'#888'})});
   cart=[];updateCartBadge();document.getElementById('cartModal').remove();updateBal();saveGame();rendInv();toast('✅ Куплено!','win');confetti();
-  trackTask('buy',cart.length);
+  trackTask('buy',buyCount);
 }
 
 function pickTargetCard(name,price,color){if(isSpinning)return;const skin=allSkins.find(s=>s.name===name);targetSkin={name,price,color,img:skin?skin.img:null};const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);if(invSum>0){let autoPct=Math.min(90,(invSum/targetSkin.price)*100);selPct=autoPct;updateWheelPct(autoPct)}rendMain();rendTargetList();checkUpgradeBtn()}
