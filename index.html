@@ -691,7 +691,7 @@ async function loadLiveFeed(){
 setInterval(loadLiveFeed,30000);
 
 /* === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ === */
-async function rendProfile(){
+  async function rendProfile(){
   const b=document.getElementById('profileBody');
   const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';
   const baseAvatar=`<div class="profile-avatar-big">${photo?`<img src="${photo}">`:`<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:30px">👤</div>`}</div>`;
@@ -912,15 +912,21 @@ function rendSettings(){
 function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem('sfap_sound',soundEnabled?'1':'0');rendSettings()}
 
 (async()=>{
-  await loadGame();
-  drawTicks();
-  renderPctRow();
-  updateBal();
-  rendMain();
-  renderFilters();
-  rendInv();
-  rendTargetList();
-  loadLiveFeed();
-  try{if(window.Telegram?.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand();const u=getUser();if(u&&u.photo_url){const av=document.getElementById('topAv');if(av)av.innerHTML=`<img src="${u.photo_url}">`}}}catch(e){}
+  try{
+    await loadGame();
+    drawTicks();
+    renderPctRow();
+    updateBal();
+    rendMain();
+    renderFilters();
+    rendInv();
+    rendTargetList();
+    loadLiveFeed();
+    try{if(window.Telegram?.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand();const u=getUser();if(u&&u.photo_url){const av=document.getElementById('topAv');if(av)av.innerHTML=`<img src="${u.photo_url}">`}}}catch(e){}
+  }catch(err){
+    console.error('INIT ERROR:',err);
+    const lt=document.getElementById('liveTrack');
+    if(lt)lt.innerHTML='<span class="live-empty">Ошибка загрузки. Очисти кэш ТГ.</span>';
+  }
 })();
 </script></body></html>
