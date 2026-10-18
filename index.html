@@ -33,13 +33,16 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .gear-btn{width:36px;height:36px;background:var(--panel);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:16px;flex-shrink:0}
 .main{padding:0 16px}
 .wheel-wrap{position:relative;width:100%;aspect-ratio:1;max-width:340px;margin:10px auto;display:flex;justify-content:center;align-items:center}
-.wheel{width:90%;height:90%;border-radius:50%;background:var(--panel);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.8);border:4px solid #1a1a22}
+.wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),0 0 80px rgba(255,184,0,.15),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
 .wheel-zone{position:absolute;inset:-4px;border-radius:50%;pointer-events:none;z-index:1;overflow:hidden}
 .wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 180deg,var(--gold) 0deg,var(--gold) var(--pct-angle,0deg),#1a1a22 var(--pct-angle,0deg),#1a1a22 360deg);opacity:0;transition:opacity .4s}
 .wheel-zone-fill.visible{opacity:.9}
 .wheel::before{content:'';position:absolute;width:75%;height:75%;border-radius:50%;background:var(--bg);border:1px solid var(--border);z-index:2}
+.wheel-ticks{position:absolute;width:100%;height:100%;border-radius:50%;pointer-events:none;z-index:3}
+.tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.4);transform-origin:center 150px;transform:translateX(-50%) rotate(var(--a));border-radius:1px}
+.tick.major{width:3px;height:14px;background:var(--gold);box-shadow:0 0 8px rgba(255,184,0,.8)}
 .wheel-center{position:relative;z-index:5;text-align:center}
-.pt{font-size:52px;font-weight:900;line-height:1;letter-spacing:-2px}
+.pt{font-size:52px;font-weight:900;line-height:1;letter-spacing:-2px;text-shadow:0 0 20px rgba(255,184,0,.4)}
 .pl{font-size:9px;color:var(--gray2);letter-spacing:4px;margin-top:4px;font-weight:700}
 .arrow-wrap{position:absolute;inset:0;pointer-events:none;z-index:25}
 .arrow{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:32px;height:44px;filter:drop-shadow(0 4px 10px rgba(255,184,0,.8))}
@@ -214,6 +217,13 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .sort-bar::-webkit-scrollbar{display:none}
 .sort-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
 .sort-chip.active{border-color:var(--blue);color:var(--blue);background:rgba(74,158,255,.1)}
+@keyframes popupIn{0%{opacity:0;transform:scale(.7) translateY(30px)}60%{transform:scale(1.05) translateY(-5px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
+.popup-lose-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
+.popup-item{animation:itemFloat 2s ease-in-out infinite}
+@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
+.popup-title-win{background:linear-gradient(135deg,#4CAF50,#8BC34A,#4CAF50);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(76,175,80,.9))}
+.popup-title-lose{background:linear-gradient(135deg,#e50914,#ff6b6b,#e50914);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(229,9,20,.9))}
 </style></head><body>
 <div class="top">
 <div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="rank-badge"><div class="rn" id="rankNameTop">НОВИЧОК</div><div id="rankLevelTop">LVL 1</div></div></div>
@@ -227,7 +237,7 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 <div class="gear-btn" onclick="openGearModal()">⚙️</div>
 </div>
 <div class="main">
-<div class="wheel-wrap"><div class="wheel" id="wheel"><div class="wheel-zone"><div class="wheel-zone-fill" id="wheelZoneFill"></div></div><div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">CHANCE</div></div></div><div class="arrow-wrap" id="arrowWrap"><div class="arrow"><svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg></div></div></div>
+<div class="wheel-wrap"><div class="wheel" id="wheel"><div class="wheel-zone"><div class="wheel-zone-fill" id="wheelZoneFill"></div></div><div class="wheel-ticks" id="wheelTicks"></div><div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">CHANCE</div></div></div><div class="arrow-wrap" id="arrowWrap"><div class="arrow"><svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg></div></div></div>
 <div class="pcnt-row" id="pcntRow"></div>
 <div class="action-row"><button class="lightning-btn" id="lightningBtn" onclick="toggleLightning()"><div class="ic">⚡</div></button><button class="upgrade-btn" id="upgradeBtn" onclick="spinUpgrade()" disabled>UPGRADE</button></div>
 <div class="slots-preview">
@@ -304,6 +314,7 @@ function formatPct(p){if(p>=0.1)return p.toFixed(1)+'%';if(p>=0.01)return p.toFi
 function openS(id){const el=document.getElementById(id);if(!el)return;el.classList.add('open');if(id==='profileScreen')rendProfile();if(id==='settingsScreen')rendSettings()}
 function closeS(id){const el=document.getElementById(id);if(!el)return;el.classList.remove('open')}
 function scrollToShop(){switchBigTab('inv');switchSub('shop');const el=document.getElementById('invList');if(el)el.scrollIntoView({behavior:'smooth'})}
+function drawTicks(){const t=document.getElementById('wheelTicks');if(!t)return;let h='';for(let i=0;i<36;i++){const a=i*(360/36);const maj=i%3===0;h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg"></div>`}t.innerHTML=h}
 function renderPctRow(){const b=document.getElementById('pcntRow');if(!b)return;b.innerHTML=customPcts.map(p=>`<button class="pb" onclick="setPct(${p},this)">${p}%</button>`).join('')}
 function switchBigTab(m){bigTab=m;document.getElementById('bigTabInv').classList.toggle('active',m==='inv');document.getElementById('bigTabTarget').classList.toggle('active',m==='target');document.getElementById('panelInv').classList.toggle('active',m==='inv');document.getElementById('panelTarget').classList.toggle('active',m==='target');if(m==='target')rendTargetList()}
 function switchSub(m){invMode=m;document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none';document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)';document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none';document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)';const st=document.getElementById('shopTabs');if(st)st.style.display=m==='shop'?'flex':'none';renderFilters();rendInv()}
@@ -327,8 +338,7 @@ function rendMain(){const leftIcons=document.getElementById('leftIcons');if(left
 function pickTargetCard(name,price,color){if(isSpinning)return;const skin=allSkins.find(s=>s.name===name);targetSkin={name,price,color,img:skin?skin.img:null};const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);if(invSum>0){let autoPct=Math.min(90,(invSum/targetSkin.price)*100);selPct=autoPct;updateWheelPct(autoPct)}rendMain();rendTargetList();checkUpgradeBtn()}
 function toggleLightning(){if(isSpinning)return;lightningOn=!lightningOn;const btn=document.getElementById('lightningBtn');if(!btn)return;if(lightningOn)btn.classList.add('on');else btn.classList.remove('on')}
 function lockUI(lock){const ub=document.getElementById('upgradeBtn');if(ub)ub.disabled=lock;document.querySelectorAll('.pb').forEach(b=>b.disabled=lock)}
-/* === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ === */
-  async function spinUpgrade(){
+async function spinUpgrade(){
   if(selectedItems.length===0||!targetSkin||!selPct||isSpinning)return;
   isSpinning=true;lockUI(true);rendInv();rendTargetList();
   const wrap=document.getElementById('arrowWrap');
@@ -369,19 +379,46 @@ function lockUI(lock){const ub=document.getElementById('upgradeBtn');if(ub)ub.di
     }
     if(upgradeHistory.length>100)upgradeHistory.pop();
     if(hasBoost)consumeBoost();
-    stats.spins++;checkAchievements();
+    stats.spins++;
     isSpinning=false;wrap.style.transition='none';wrap.style.transform='rotate(0deg)';
     clearWheelPct();document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
     lockUI(false);updateRankUI();saveGame();
   },duration);
 }
 function closeResult(){document.getElementById('resultScreen')?.remove();selectedItems=[];targetSkin=null;selPct=null;rendMain();rendInv();rendTargetList();clearWheelPct();checkUpgradeBtn();saveGame()}
-function showWinModal(skin){const m=document.createElement('div');m.id='resultScreen';m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(76,175,80,.35),rgba(0,0,0,.97) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px';m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--green-l);margin-bottom:10px">🎉 УСПЕХ!</div><div style="width:180px;height:180px;margin:0 auto 20px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:24px;display:flex;justify-content:center;align-items:center;padding:15px">${skin.img?`<img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain">`:''}</div><div style="font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px">${skin.name}</div><div style="font-size:16px;font-weight:900;color:var(--gold);margin-bottom:24px">${skin.price} G</div><button style="width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:15px;cursor:pointer" onclick="closeResult()">ЗАБРАТЬ</button></div>`;document.body.appendChild(m)}
-function showLoseModal(items){const lostSkin=items[0]||{name:'—',img:'',price:0};const m=document.createElement('div');m.id='resultScreen';m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.35),rgba(0,0,0,.97) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px';m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center"><div style="font-size:26px;font-weight:900;color:var(--red);margin-bottom:10px">НЕУДАЧА</div><div style="width:180px;height:180px;margin:0 auto 20px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:24px;display:flex;justify-content:center;align-items:center;padding:15px">${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain">`:''}</div><div style="font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px">${lostSkin.name}</div><div style="font-size:16px;font-weight:900;color:var(--red);margin-bottom:24px">-${lostSkin.price||0} G</div><button style="width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:15px;cursor:pointer" onclick="closeResult()">ПОНЯТНО</button></div>`;document.body.appendChild(m)}
+
+function showWinModal(skin){
+  const m=document.createElement('div');m.id='resultScreen';
+  m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(76,175,80,.45),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
+  m.innerHTML=`<div class="popup-win-card" style="max-width:380px;width:100%;text-align:center">
+    <div style="font-size:12px;font-weight:900;color:var(--green-l);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(76,175,80,.8)">★ ПОБЕДА ★</div>
+    <div class="popup-title-win" style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">УСПЕХ!</div>
+    <div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(76,175,80,.8),inset 0 0 30px rgba(76,175,80,.3)">${skin.img?`<img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))">`:''}</div>
+    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${skin.name}</div>
+    <div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px;text-shadow:0 0 15px rgba(255,184,0,.6)">+${skin.price} G</div>
+    <button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer;box-shadow:0 0 30px rgba(255,215,0,.6),0 8px 20px rgba(0,0,0,.4);transition:transform .1s" onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform='scale(1)'" onclick="closeResult()">🎁 ЗАБРАТЬ</button>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+function showLoseModal(items){
+  const lostSkin=items[0]||{name:'—',img:'',price:0};
+  const m=document.createElement('div');m.id='resultScreen';
+  m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.5),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
+  m.innerHTML=`<div class="popup-lose-card" style="max-width:380px;width:100%;text-align:center">
+    <div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(229,9,20,.8)">★ ПОРАЖЕНИЕ ★</div>
+    <div class="popup-title-lose" style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">НЕУДАЧА</div>
+    <div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(229,9,20,.8),inset 0 0 30px rgba(229,9,20,.3)">${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))">`:''}</div>
+    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${lostSkin.name}</div>
+    <div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px;text-shadow:0 0 15px rgba(229,9,20,.6)">-${lostSkin.price||0} G</div>
+    <button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer;box-shadow:0 0 30px rgba(229,9,20,.6),0 8px 20px rgba(0,0,0,.4);transition:transform .1s" onmousedown="this.style.transform='scale(.96)'" onmouseup="this.style.transform='scale(1)'" onclick="closeResult()">ПОНЯТНО</button>
+  </div>`;
+  document.body.appendChild(m);
+}
+
 function trackTask(type,amount){fetch(BOT_URL+'/api/tasks/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),type,amount})}).catch(()=>{})}
 function saveHistory(e){history.unshift({...e,ts:Date.now()});if(history.length>100)history.pop();fetch(BOT_URL+'/api/history/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),targetName:e.targetName,targetPrice:e.targetPrice,pct:e.pct,win:e.win})}).catch(()=>{})}
 function consumeBoost(){refBoost.spinsLeft--;saveGame()}
-function checkAchievements(){}
 
 // ========== СОХРАНЕНИЕ ==========
 function saveGame(){
@@ -403,7 +440,7 @@ async function loadGame(){
 function applySaveData(d){if(!d)return;if(typeof d.gold==='number')gold=d.gold;if(Array.isArray(d.inv))inv=d.inv;if(d.stats)stats=d.stats;if(d.bestDrop)bestDrop=d.bestDrop;if(Array.isArray(d.history))history=d.history;if(Array.isArray(d.upgradeHistory))upgradeHistory=d.upgradeHistory;if(d.isLegend!==undefined)refData.isLegend=!!d.isLegend;if(d.isVip!==undefined)vipData.isVip=!!d.isVip;if(d.vipExpires!==undefined)vipData.expires=d.vipExpires||0}
 setInterval(saveGame,5000);
 
-// ========== КОРЗИНА (ФИКС) ==========
+// ========== КОРЗИНА ==========
 async function openCart(){
   if(cart.length===0){toast('🛒 Корзина пуста','lose');return}
   const m=document.createElement('div');m.className='modal-overlay';m.id='cartModal';
@@ -682,6 +719,7 @@ function updateRankUI(){const r=getRank();const rn=document.getElementById('rank
 (async()=>{
   try{
     await loadGame();
+    drawTicks();
     renderPctRow();updateBal();rendMain();renderFilters();rendInv();rendTargetList();
     loadLiveFeed();updateRankUI();
     try{if(window.Telegram?.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand();const u=getUser();if(u&&u.photo_url){const av=document.getElementById('topAv');if(av)av.innerHTML=`<img src="${u.photo_url}">`}}}catch(e){}
