@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>StandFliutApap</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 :root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
-body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:90px}
+body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes popIn{0%{transform:scale(0.8);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -35,20 +35,19 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden}
 .av-top img{width:100%;height:100%;object-fit:cover}
 
-.live-bar{margin:12px 16px;background:linear-gradient(90deg,rgba(18,18,22,0.9),rgba(30,30,38,0.9));border:1px solid var(--border);border-radius:12px;height:64px;overflow:hidden;position:relative;display:flex;align-items:center;box-shadow:inset 0 2px 10px rgba(0,0,0,0.5)}
-.live-bar::before{content:'LIVE';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:#fff;background:var(--red);padding:4px 10px;border-radius:6px;z-index:3;box-shadow:0 0 15px rgba(229,9,20,0.6);animation:pulse 1.5s infinite}
+.live-bar{margin:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:60px;overflow:hidden;position:relative;display:flex;align-items:center}
+.live-bar::before{content:'LIVE';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:#fff;background:var(--red);padding:4px 10px;border-radius:6px;z-index:3}
 .live-track{display:flex;gap:12px;white-space:nowrap;animation:scrollLeft 30s linear infinite;padding-left:70px;align-items:center;height:100%}
-.live-item{display:flex;align-items:center;gap:12px;flex-shrink:0;padding:8px 14px;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid rgba(255,255,255,0.05);border-left:3px solid var(--gold);cursor:pointer;transition:0.2s}
-.live-item:active{background:rgba(255,255,255,0.08)}
+.live-item{display:flex;align-items:center;gap:12px;flex-shrink:0;padding:8px 14px;background:var(--panel-l);border-radius:10px;border:1px solid var(--border);border-left:3px solid var(--gold);cursor:pointer}
 .live-info{display:flex;flex-direction:column;gap:2px}
 .live-name{font-size:12px;font-weight:900;color:#fff}
 .live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 6px;border-radius:4px;width:fit-content}
-.live-skin{width:55px;height:35px;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.5))}
+.live-skin{width:55px;height:35px;object-fit:contain}
 .live-empty{padding-left:70px;font-size:11px;color:var(--gray);font-weight:700}
 
 .friends-btn-wrap{margin:0 16px 12px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
 .friends-btn-wrap::-webkit-scrollbar{display:none}
-.friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--gray2);font-size:12px;font-weight:800;cursor:pointer;transition:0.2s;display:flex;align-items:center;gap:6px}
+.friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 16px;color:var(--gray2);font-size:12px;font-weight:800;cursor:pointer;transition:0.2s}
 .friends-btn:active{background:var(--panel-l);transform:scale(0.96)}
 
 .main{padding:0 16px}
@@ -79,6 +78,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;transition:0.2s}
 .upgrade-btn:active{transform:scale(0.98)}
 .upgrade-btn:disabled{opacity:.5;background:var(--panel);transform:none}
+
 .upg-guarantee{text-align:center;margin-top:16px;margin-bottom:8px}
 .upg-guarantee-title{font-size:10px;font-weight:800;color:var(--gray2);text-transform:uppercase}
 .upg-guarantee-val{font-size:16px;font-weight:900;color:var(--gold)}
@@ -92,6 +92,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .upg-skin-item{width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(0,0,0,0.6))}
 .upg-empty-icon{width:50px;height:50px;border:2px dashed #ffb800;border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:20px;color:#ffb800;opacity:0.8}
 .upg-price-bottom{margin-top:auto;font-size:16px;font-weight:900;color:#ffb800}
+
 .big-tabs{display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;transition:0.2s}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
@@ -114,6 +115,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .btn-upg-action{background:linear-gradient(180deg,#ffd700,#ffb800);color:#1a1a1a}
 .btn-sell-action{background:#2a2a2a;color:#fff;border:1px solid #444}
 .btn-withdraw-action{background:linear-gradient(180deg,#4CAF50,#2e7d32);color:#fff}
+
 .bottom{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(12,12,15,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.05);padding:8px 16px 20px 16px;display:flex;justify-content:space-between;align-items:flex-end}
 .nb{background:none;border:none;color:var(--gray);font-size:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px;font-weight:800;transition:0.2s}
 .nb:active{transform:scale(0.9)}
@@ -124,6 +126,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .nb-plus .circle{width:56px;height:56px;background:linear-gradient(135deg,var(--gold),#ff8c00);border-radius:50%;display:flex;justify-content:center;align-items:center;box-shadow:0 8px 20px rgba(255,184,0,0.4);transition:0.2s}
 .nb-plus .circle:active{transform:scale(0.92)}
 .nb-plus .circle svg{width:28px;height:28px;fill:#1a1a1a}
+
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
 .modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto;animation:popIn 0.3s}
 .modal-title{font-size:18px;font-weight:900;margin-bottom:16px;text-align:center}
@@ -170,7 +173,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 
 <div class="top">
 <div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="rank-badge"><div class="rn" id="rankNameTop">НОВИЧОК</div><div id="rankLevelTop">LVL 1</div></div></div>
-<div class="top-right"><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div>
+<div class="top-right"><div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div>
 </div>
 
 <div class="live-bar"><div class="live-track" id="liveTrack"><span class="live-empty">Загрузка ленты...</span></div></div>
@@ -221,68 +224,75 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 <div class="modal-overlay" id="frProfileModal" style="display:none"><div class="modal-content" id="frProfileBody"></div></div>
 <div class="toast" id="toast"></div>
 
-<!-- === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ === -->
 <script>
-// ========== БАЗА ДАННЫХ ==========
+// === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ ===
 const BOT_URL='https://admin-bot-03ly.onrender.com';
 const CDN_BASE='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
+
+// ПОЛНЫЙ СПИСОК ВСЕХ 41 СКИНА (как было изначально)
 const allSkins=[
-  {name:'AKR Carbon',price:56,color:'#4a9eff',img:CDN_BASE+'skins/AKR_CARBON.jpg'},
-  {name:'AKR Evolution',price:3,color:'#4a9eff',img:CDN_BASE+'skins/AKR_EVOLUTION.jpg'},
-  {name:'AWM Sport V2',price:74250,color:'#ffd700',img:CDN_BASE+'skins/AWM_SPORTV2.jpg'},
-  {name:'Butterfly Dragon Glass',price:2250,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_DragonGlass.jpg'},
-  {name:'M4 Samurai',price:500,color:'#ff4444',img:CDN_BASE+'skins/M4_SAMURAI.jpg'},
-  {name:'M4A1 Kitsune',price:2,color:'#4a9eff',img:CDN_BASE+'skins/M4A1_KITSUNE.jpg'},
-  {name:'M9 Bayonet Amber Koi',price:3700,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_AmberKOI.jpg'},
-  {name:'G22 Monster',price:670,color:'#9b8aff',img:CDN_BASE+'skins/G22_Monster.jpg'},
-  {name:'P350 Oni',price:1,color:'#4a9eff',img:CDN_BASE+'skins/P350_Oni.jpg'}
+{name:'AKR Carbon',price:56,color:'#4a9eff',img:CDN_BASE+'skins/AKR_CARBON.jpg'},
+{name:'AKR Evolution',price:3,color:'#4a9eff',img:CDN_BASE+'skins/AKR_EVOLUTION.jpg'},
+{name:'AKR Nano',price:23,color:'#4a9eff',img:CDN_BASE+'skins/AKR_NANO.jpg'},
+{name:'AKR 12 Carbon',price:10,color:'#4a9eff',img:CDN_BASE+'skins/AKR12_CARBON.jpg'},
+{name:'AKR 12 Hanami',price:220,color:'#ff4444',img:CDN_BASE+'skins/AKR12_HANAMI.jpg'},
+{name:'AKR 12 Railgun',price:1100,color:'#ff69b4',img:CDN_BASE+'skins/AKR12_RAILGUN.jpg'},
+{name:'AWM Sport V2',price:74250,color:'#ffd700',img:CDN_BASE+'skins/AWM_SPORTV2.jpg'},
+{name:'AWM Treasure Hunter',price:104200,color:'#ffd700',img:CDN_BASE+'skins/AWM_TREASUREHUNTER.jpg'},
+{name:'Butterfly Dragon Glass',price:2250,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_DragonGlass.jpg'},
+{name:'Butterfly Starfall',price:1407,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_Starfall.jpg'},
+{name:'Butterfly Twilight',price:1000000,color:'#ffd700',img:CDN_BASE+'skins/Butterfly_Twilight.jpg'},
+{name:'M4 Ironclad',price:34,color:'#9b8aff',img:CDN_BASE+'skins/M4_IRONCLAD.jpg'},
+{name:'M4 Necromancer',price:880,color:'#ff69b4',img:CDN_BASE+'skins/M4_NECROMANCER.jpg'},
+{name:'M4 Pixel Storm',price:766,color:'#ff4444',img:CDN_BASE+'skins/M4_PiXELSTORM.jpg'},
+{name:'M4 Samurai',price:500,color:'#ff4444',img:CDN_BASE+'skins/M4_SAMURAI.jpg'},
+{name:'M4A1 Bubblegum',price:225,color:'#ff4444',img:CDN_BASE+'skins/M4A1_Bublgam.jpg'},
+{name:'M4A1 Kitsune',price:2,color:'#4a9eff',img:CDN_BASE+'skins/M4A1_KITSUNE.jpg'},
+{name:'M4A1 Sour',price:24,color:'#9b8aff',img:CDN_BASE+'skins/M4A1_SOUR.jpg'},
+{name:'M4A1 Sparkling Gaze',price:95,color:'#ff4444',img:CDN_BASE+'skins/M4a1_SparkingGaze.jpg'},
+{name:'M9 Bayonet Amber Koi',price:3700,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_AmberKOI.jpg'},
+{name:'M9 Bayonet Dragon Glass',price:34000,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_DragonGlass.jpg'},
+{name:'Tanto Dojo',price:990,color:'#ff4444',img:CDN_BASE+'skins/Tanto_Dojo.jpg'},
+{name:'G22 Monster',price:670,color:'#9b8aff',img:CDN_BASE+'skins/G22_Monster.jpg'},
+{name:'G22 Nest',price:540,color:'#ff4444',img:CDN_BASE+'skins/G22_Nest.jpg'},
+{name:'G22 Relic',price:11780,color:'#ffd700',img:CDN_BASE+'skins/G22_Relic.jpg'},
+{name:'G22 Twilight (ST)',price:1951,color:'#ff4444',img:CDN_BASE+'skins/G22_Twilight.jpg'},
+{name:'M4A1 Demon',price:5,color:'#4a9eff',img:CDN_BASE+'skins/M4a1_Demon.jpg'},
+{name:'P90 Burning King',price:710,color:'#ff4444',img:CDN_BASE+'skins/P90_BurnngKing.jpg'},
+{name:'P90 Iron Will',price:45,color:'#9b8aff',img:CDN_BASE+'skins/P90_IronWill.jpg'},
+{name:'P90 Opps',price:50,color:'#ff69b4',img:CDN_BASE+'skins/P90_Opps.jpg'},
+{name:'P350 Forest Spirit',price:890,color:'#ff4444',img:CDN_BASE+'skins/P350_ForestSpirit.jpg'},
+{name:'P350 Oni',price:1,color:'#4a9eff',img:CDN_BASE+'skins/P350_Oni.jpg'},
+{name:'P350 Raider',price:31,color:'#9b8aff',img:CDN_BASE+'skins/P350_Raider.jpg'},
+{name:'P350 Tag King',price:20,color:'#ff69b4',img:CDN_BASE+'skins/P350_TagKing.jpg'},
+{name:'USP 2 Years',price:400,color:'#4a9eff',img:CDN_BASE+'skins/Usp_2Yers.jpg'},
+{name:'USP 2 Years Red',price:1020,color:'#9b8aff',img:CDN_BASE+'skins/Usp_2YersRed.jpg'},
+{name:'USP Genesis',price:23000,color:'#ffd700',img:CDN_BASE+'skins/Usp_Genesis.jpg'},
+{name:'USP Ignite',price:7,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Lgnite.jpg'},
+{name:'USP Mirage Menace',price:2940,color:'#ff4444',img:CDN_BASE+'skins/Usp_MirageMenace.jpg'},
+{name:'USP Pisces',price:20,color:'#9b8aff',img:CDN_BASE+'skins/Usp_Pisces.jpg'},
+{name:'USP Suture',price:14,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Suture.jpg'}
 ];
 
-// ========== ПЕРЕМЕННЫЕ ==========
+const DEFAULT_PCTS=[90,67,55,44,33,22];
+const MAX_UPGRADE=10;
+
+// ПЕРЕМЕННЫЕ
 let gold=0, inv=[], stats={spins:0,wins:0,loses:0}, bestDrop=null, history=[], upgradeHistory=[];
 let selectedItems=[], targetSkin=null, selPct=null, isSpinning=false;
 let cart=[], invMode='inv', bigTab='inv';
-let activeCardName = null, gameLoaded = false;
+let soundEnabled=localStorage.getItem('sfap_sound')!=='0';
+let gameLoaded=false, lightningOn=false, currentWheelAngle=0, wheelAnimId=null;
+let vipData={isVip:false,expires:0};
+let customPcts=[...DEFAULT_PCTS];
+let activeCardName = null;
+let refData={code:'',invited:0,earned:0,stage:1,nextGoal:10,isLegend:false};
 
-// ========== УТИЛИТЫ ==========
 function getUserId(){const t=window.Telegram?.WebApp?.initDataUnsafe?.user;return t?.id?String(t.id):'guest'}
 function getUser(){return window.Telegram?.WebApp?.initDataUnsafe?.user||null}
 
-function toast(m){
-  const e=document.getElementById('toast');
-  if(!e)return;
-  e.style.display='block';
-  e.innerText=m;
-  setTimeout(()=>e.style.display='none',2500);
-}
-
-function updateBal(){
-  const el=document.getElementById('goldTop');
-  if(el)el.innerText=Math.floor(gold).toLocaleString('ru-RU');
-}
-
-function openS(id){
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.classList.add('open');
-  if(id==='profileScreen')rendProfile();
-  if(id==='settingsScreen')rendSettings();
-}
-
-function closeS(id){
-  const el=document.getElementById(id);
-  if(el)el.classList.remove('open');
-}
-
-function scrollToShop(){
-  switchBigTab('inv');
-  switchSub('shop');
-  const el=document.getElementById('invList');
-  if(el)el.scrollIntoView({behavior:'smooth'});
-}
-
-// ========== ЗВУКИ ==========
 function playSound(type) {
+  if(!soundEnabled) return;
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const o = ctx.createOscillator(), g = ctx.createGain();
@@ -295,22 +305,27 @@ function playSound(type) {
   } catch(e){}
 }
 
-// ========== СОХРАНЕНИЕ / ЗАГРУЗКА ==========
+function toast(m){
+  const e=document.getElementById('toast');
+  if(!e)return;
+  e.style.display='block';
+  e.innerText=m;
+  setTimeout(()=>e.style.display='none',2500);
+}
+function updateBal(){const el=document.getElementById('goldTop');if(el)el.innerText=Math.floor(gold).toLocaleString('ru-RU')}
+function openS(id){const el=document.getElementById(id);if(!el)return;el.classList.add('open');if(id==='profileScreen')rendProfile();if(id==='settingsScreen')rendSettings()}
+function closeS(id){const el=document.getElementById(id);if(el)el.classList.remove('open')}
+function scrollToShop(){switchBigTab('inv');switchSub('shop');const el=document.getElementById('invList');if(el)el.scrollIntoView({behavior:'smooth'})}
+
+// СОХРАНЕНИЕ / ЗАГРУЗКА
 function saveGame(){
   try{
-    const uid=getUserId(); 
-    if(uid==='guest')return; 
-    if(!gameLoaded)return;
-    const data={gold,inv,stats,bestDrop,history,upgradeHistory,ts:Date.now()};
+    const uid=getUserId(); if(uid==='guest')return; if(!gameLoaded)return;
+    const data={gold,inv,stats,bestDrop,history,upgradeHistory,isLegend:refData.isLegend||false,isVip:vipData.isVip||false,vipExpires:vipData.expires||0,ts:Date.now()};
     localStorage.setItem('sfap_save_'+uid,JSON.stringify(data));
-    fetch(BOT_URL+'/api/save-merge',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({userId:uid,data})
-    }).catch(()=>{});
+    fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,data})}).catch(()=>{});
   }catch(e){}
 }
-
 async function loadGame(){
   try{
     const uid=getUserId();
@@ -325,7 +340,6 @@ async function loadGame(){
     gameLoaded=true;
   }catch(e){gameLoaded=true}
 }
-
 function applySaveData(d){
   if(!d)return;
   if(typeof d.gold==='number')gold=d.gold;
@@ -334,10 +348,42 @@ function applySaveData(d){
   if(d.bestDrop)bestDrop=d.bestDrop;
   if(Array.isArray(d.history))history=d.history;
   if(Array.isArray(d.upgradeHistory))upgradeHistory=d.upgradeHistory;
+  if(d.isLegend!==undefined)refData.isLegend=!!d.isLegend;
+  if(d.isVip!==undefined)vipData.isVip=!!d.isVip;
+  if(d.vipExpires!==undefined)vipData.expires=d.vipExpires||0;
 }
 setInterval(saveGame,5000);
 
-// ========== ЛОГИКА КАРТОЧЕК ==========
+// ПРОЦЕНТЫ И ШЕСТЕРЕНКА
+function loadCustomPcts(){try{const s=localStorage.getItem('sfap_pcts');if(s){const a=JSON.parse(s);if(Array.isArray(a)&&a.length===6)customPcts=a}}catch(e){}}
+function saveCustomPcts(){try{localStorage.setItem('sfap_pcts',JSON.stringify(customPcts))}catch(e){}}
+loadCustomPcts();
+
+function renderPctRow(){
+  const b=document.getElementById('pcntRow');
+  if(!b)return;
+  b.innerHTML=customPcts.map(p=>`<button class="pb" onclick="setPct(${p},this)">${p}%</button>`).join('');
+}
+
+function setPct(p,el){
+  if(isSpinning)return;
+  if(selectedItems.length===0){toast('Сначала выбери скины');return}
+  const safePct=Math.min(90,p);
+  const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
+  const idealPrice=invSum/(safePct/100);
+  let closest=allSkins[0],minDiff=Math.abs(allSkins[0].price-idealPrice);
+  allSkins.forEach(s=>{const d=Math.abs(s.price-idealPrice);if(d<minDiff){minDiff=d;closest=s}});
+  targetSkin={name:closest.name,price:closest.price,color:closest.color,img:closest.img};
+  let realPct=(invSum/targetSkin.price)*100;
+  if(realPct>90)realPct=90;
+  selPct=realPct;
+  document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
+  if(el)el.classList.add('sel');
+  rendMain();
+  toast('Цель подобрана под '+p+'%');
+}
+
+// КАРТОЧКИ И КОРЗИНА
 function toggleCard(name) {
   playSound('click');
   if (activeCardName === name) activeCardName = null;
@@ -345,79 +391,42 @@ function toggleCard(name) {
   rendInv();
   if (document.getElementById('profileScreen').classList.contains('open')) rendProfile();
 }
-
 function addToUpgradeByName(name) {
   if(selectedItems.length>=10){toast('Максимум 10 скинов!');return;}
   const idx = inv.findIndex(x => x.name === name);
-  if (idx >= 0) {
-    selectedItems.push(inv[idx]);
-    rendMain();
-    playSound('click');
-    toast('Добавлен в апгрейд');
-  }
+  if (idx >= 0) { selectedItems.push(inv[idx]); rendMain(); playSound('click'); toast('Добавлен в апгрейд'); }
 }
-
 function sellSkinByName(name) {
   const idx = inv.findIndex(x => x.name === name);
   if (idx >= 0) {
     const p = Math.floor(inv[idx].price * 0.7);
     gold += p; inv.splice(idx, 1);
-    updateBal(); rendInv(); rendProfile();
-    toast('Продано за ' + p + ' G');
-    playSound('win');
-    saveGame();
+    updateBal(); rendInv(); rendProfile(); toast('Продано за ' + p + ' G'); playSound('win'); saveGame();
   }
 }
 
-// ========== КОРЗИНА ==========
 function toggleCart(name, price) {
   const i = cart.findIndex(c => c.name === name);
-  if (i >= 0) {
-    cart.splice(i, 1);
-    toast('Удалено из корзины');
-  } else {
-    cart.push({name, price});
-    toast('Добавлено в корзину');
-  }
-  rendInv();
+  if (i >= 0) { cart.splice(i, 1); toast('Удалено из корзины'); } 
+  else { cart.push({name, price}); toast('Добавлено в корзину'); }
+  updateCartBadge(); rendInv();
 }
+function updateCartBadge(){const b=document.getElementById('cartBadge');if(!b)return;if(cart.length>0){b.style.display='block';b.innerText=cart.length}else b.style.display='none'}
 
 function openCart() {
   const m = document.getElementById('cartModal');
   const list = document.getElementById('cartList');
   if (!m || !list) return;
   m.style.display = 'flex';
-  
-  if (cart.length === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray2)">Корзина пуста</div>';
-    return;
-  }
-  
+  if (cart.length === 0) { list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray2)">Корзина пуста</div>'; return; }
   let total = 0;
   list.innerHTML = cart.map((c, i) => {
     const s = allSkins.find(x => x.name === c.name);
     total += c.price;
-    return `
-      <div style="background:var(--panel-l);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
-        <img src="${s?.img||''}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px">
-        <div style="flex:1">
-          <div style="font-size:12px;font-weight:900;color:var(--white)">${c.name}</div>
-          <div style="font-size:13px;color:var(--gold);font-weight:900">${c.price} G</div>
-        </div>
-        <button onclick="cart.splice(${i},1);openCart();rendInv()" style="background:none;border:none;color:var(--red);font-size:16px;font-weight:900;cursor:pointer">✕</button>
-      </div>
-    `;
+    return `<div style="background:var(--panel-l);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><img src="${s?.img||''}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px"><div style="flex:1"><div style="font-size:12px;font-weight:900;color:var(--white)">${c.name}</div><div style="font-size:13px;color:var(--gold);font-weight:900">${c.price} G</div></div><button onclick="cart.splice(${i},1);openCart();rendInv();updateCartBadge()" style="background:none;border:none;color:var(--red);font-size:16px;font-weight:900;cursor:pointer">✕</button></div>`;
   }).join('');
-  
-  list.innerHTML += `
-    <div style="display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-top:12px">
-      <div style="font-size:12px;color:var(--gray2);font-weight:800">ИТОГО:</div>
-      <div style="font-size:20px;font-weight:900;color:var(--gold)">${total} G</div>
-    </div>
-    <button class="vip-buy-btn" style="width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;border:none;cursor:pointer;margin-top:16px" onclick="checkout()">✅ КУПИТЬ</button>
-  `;
+  list.innerHTML += `<div style="display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-top:12px"><div style="font-size:12px;color:var(--gray2);font-weight:800">ИТОГО:</div><div style="font-size:20px;font-weight:900;color:var(--gold)">${total} G</div></div><button class="vip-buy-btn" style="width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;border:none;cursor:pointer;margin-top:16px" onclick="checkout()">✅ КУПИТЬ</button>`;
 }
-
 async function checkout() {
   const total = cart.reduce((s, c) => s + c.price, 0);
   if (gold < total) { toast('❌ Мало G'); return; }
@@ -426,46 +435,26 @@ async function checkout() {
     const s = allSkins.find(x => x.name === c.name);
     inv.push({ name: c.name, price: c.price, img: s?.img, color: s?.color });
   });
-  cart = [];
-  updateBal();
-  rendInv();
+  cart = []; updateCartBadge(); updateBal(); rendInv();
   document.getElementById('cartModal').style.display = 'none';
-  toast('✅ Куплено!');
-  playSound('win');
-  saveGame();
+  toast('✅ Куплено!'); playSound('win'); saveGame();
 }
 
-// ========== ТАБЫ И РЕНДЕР ==========
-function switchBigTab(m){
-  bigTab=m;
-  document.getElementById('bigTabInv').classList.toggle('active',m==='inv');
-  document.getElementById('bigTabTarget').classList.toggle('active',m==='target');
-  document.getElementById('panelInv').classList.toggle('active',m==='inv');
-  document.getElementById('panelTarget').classList.toggle('active',m==='target');
-  if(m==='target')rendTargetList();
-}
-
-function switchSub(m){
-  invMode=m;
-  document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none';
-  document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)';
-  document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none';
-  document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)';
-  rendInv();
-}
+// РЕНДЕР
+function switchBigTab(m){bigTab=m;document.getElementById('bigTabInv').classList.toggle('active',m==='inv');document.getElementById('bigTabTarget').classList.toggle('active',m==='target');document.getElementById('panelInv').classList.toggle('active',m==='inv');document.getElementById('panelTarget').classList.toggle('active',m==='target');if(m==='target')rendTargetList()}
+function switchSub(m){invMode=m;document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none';document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)';document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none';document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)';rendInv()}
 
 function rendInv(){
   const b=document.getElementById('invList');if(!b)return;
   const q=(document.getElementById('searchInp')?.value||'').toLowerCase();
   let f=invMode==='shop'?allSkins:inv;
   f=f.filter(it=>it.name.toLowerCase().includes(q));
-  
   b.innerHTML=f.map(it=>{
     const firstName=it.name.split(' ')[0];
     const skinName=it.name.split(' ').slice(1).join(' ')||'Skin';
     const isActive = activeCardName === it.name;
     const inCart = cart.find(c => c.name === it.name);
-    return `<div class="inv-card animate-fade ${isActive?'active':''}" onclick="toggleCard('${it.name}')">
+    return `<div class="inv-card ${isActive?'active':''}" onclick="toggleCard('${it.name}')">
       <img src="${it.img||''}" class="inv-card-img" onerror="this.style.display='none'">
       <div class="inv-card-name">${firstName}</div>
       <div class="inv-card-skin" style="color:${it.color||'#fff'}">${skinName}</div>
@@ -489,7 +478,7 @@ function rendTargetList(){
     const firstName=it.name.split(' ')[0];
     const skinName=it.name.split(' ').slice(1).join(' ')||'Skin';
     const isSel=targetSkin&&targetSkin.name===it.name;
-    return `<div class="inv-card animate-fade" style="border-color:${isSel?'var(--gold)':'#222'}" onclick="pickTarget('${it.name}',${it.price},'${it.color}','${it.img}')">
+    return `<div class="inv-card" style="border-color:${isSel?'var(--gold)':'#222'}" onclick="pickTarget('${it.name}',${it.price},'${it.color}','${it.img}')">
       <img src="${it.img||''}" class="inv-card-img">
       <div class="inv-card-name">${firstName}</div>
       <div class="inv-card-skin" style="color:${it.color}">${skinName}</div>
@@ -498,335 +487,114 @@ function rendTargetList(){
     </div>`
   }).join('');
 }
+function pickTarget(name, price, color, img){targetSkin={name,price,color,img};toast('Цель выбрана: '+name);playSound('click');rendMain();switchBigTab('inv')}
 
-function pickTarget(name, price, color, img){
-  targetSkin={name,price,color,img};
-  toast('Цель выбрана: '+name);
-  playSound('click');
-  rendMain();
-  switchBigTab('inv');
-}
-
-// ========== АПГРЕЙД ==========
 function rendMain(){
-  const selCount = document.getElementById('selCount');
-  const leftIcons = document.getElementById('leftIcons');
-  const selSum = document.getElementById('selSum');
-  const rightIcons = document.getElementById('rightIcons');
-  const targetCount = document.getElementById('targetCount');
-
-  if(selCount) selCount.innerText=selectedItems.length+' ИЗ 10';
-  if(leftIcons) leftIcons.innerHTML=selectedItems.map(s=>`<img src="${s.img}" class="upg-skin-item animate-pop">`).join('')||'<div class="upg-empty-icon">+</div>';
-  if(selSum) selSum.innerText=selectedItems.reduce((a,b)=>a+(b.price||0),0)+' G';
-  
-  if(targetSkin) {
-    if(rightIcons) rightIcons.innerHTML=`<img src="${targetSkin.img}" class="upg-skin-item animate-pop">`;
-    if(targetCount) targetCount.innerText=targetSkin.price+' G';
-  } else {
-    if(rightIcons) rightIcons.innerHTML='<div class="upg-empty-icon">🎯</div>';
-    if(targetCount) targetCount.innerText='0 G';
-  }
+  const selCount=document.getElementById('selCount'), leftIcons=document.getElementById('leftIcons'), selSum=document.getElementById('selSum'), rightIcons=document.getElementById('rightIcons'), targetCount=document.getElementById('targetCount');
+  if(selCount)selCount.innerText=selectedItems.length+' ИЗ 10';
+  if(leftIcons)leftIcons.innerHTML=selectedItems.map(s=>`<img src="${s.img}" class="upg-skin-item">`).join('')||'<div class="upg-empty-icon">+</div>';
+  if(selSum)selSum.innerText=selectedItems.reduce((a,b)=>a+(b.price||0),0)+' G';
+  if(targetSkin){if(rightIcons)rightIcons.innerHTML=`<img src="${targetSkin.img}" class="upg-skin-item">`;if(targetCount)targetCount.innerText=targetSkin.price+' G'}else{if(rightIcons)rightIcons.innerHTML='<div class="upg-empty-icon">🎯</div>';if(targetCount)targetCount.innerText='0 G'}
 }
+function toggleLightning(){if(isSpinning)return;lightningOn=!lightningOn;const btn=document.getElementById('lightningBtn');if(!btn)return;if(lightningOn)btn.classList.add('on');else btn.classList.remove('on')}
 
-function toggleLightning(){
-  const btn = document.getElementById('lightningBtn');
-  if(btn) btn.classList.toggle('on');
-}
-
+// СПИН
 function spinUpgrade(){
   if(isSpinning) return;
   if(selectedItems.length===0 || !targetSkin) { toast('Выбери скины и цель!'); return; }
-  
   isSpinning = true;
-  const btn = document.getElementById('upgradeBtn');
-  if(btn) btn.disabled = true;
-  
+  const btn = document.getElementById('upgradeBtn'); if(btn) btn.disabled = true;
   const wrap = document.getElementById('arrowWrap');
-  if(wrap) {
-    wrap.style.transition = 'transform 3s cubic-bezier(.15,.6,.2,1)';
-    const deg = 1800 + Math.random() * 360;
-    wrap.style.transform = `rotate(-${deg}deg)`;
-  }
-  
+  if(wrap) { wrap.style.transition = 'transform 3s cubic-bezier(.15,.6,.2,1)'; const deg = 1800 + Math.random() * 360; wrap.style.transform = `rotate(-${deg}deg)`; }
   setTimeout(()=>{
-    isSpinning = false;
-    if(btn) btn.disabled = false;
-    if(wrap) {
-      wrap.style.transition = 'none'; wrap.style.transform = 'rotate(0deg)';
-    }
-    
+    isSpinning = false; if(btn) btn.disabled = false;
+    if(wrap) { wrap.style.transition = 'none'; wrap.style.transform = 'rotate(0deg)'; }
     const win = Math.random() < 0.4;
     const lostItems = [...selectedItems];
     const sum = lostItems.reduce((a,b)=>a+(b.price||0),0);
-    
     selectedItems = [];
-    
     if(win) {
-      playSound('win');
-      toast('🎉 ПОБЕДА! Получен: ' + targetSkin.name);
-      inv.push(targetSkin);
-      stats.wins++;
+      playSound('win'); toast('🎉 ПОБЕДА! Получен: ' + targetSkin.name);
+      inv.push(targetSkin); stats.wins++;
       if(!bestDrop || targetSkin.price > bestDrop.price) bestDrop = targetSkin;
     } else {
-      playSound('lose');
-      toast('💀 ПРОИГРЫШ...');
+      playSound('lose'); toast('💀 ПРОИГРЫШ...');
       stats.loses++;
       const refund = Math.floor(sum * 0.6);
-      if(refund > 0) { 
-        setTimeout(()=>toast('🛡 Гарантия: возвращено '+refund+' G'), 2000); 
-        gold += refund; 
-      }
+      if(refund > 0) { setTimeout(()=>toast('🛡 Гарантия: возвращено '+refund+' G'), 2000); gold += refund; }
     }
-    
-    if(!win) {
-       lostItems.forEach(item => {
-         const idx = inv.indexOf(item);
-         if(idx >= 0) inv.splice(idx, 1);
-       });
-    }
-    
+    if(!win) { lostItems.forEach(item => { const idx = inv.indexOf(item); if(idx >= 0) inv.splice(idx, 1); }); }
     stats.spins++;
     updateBal(); rendMain(); rendInv(); saveGame();
   }, 3000);
 }
 
-// ========== ОТКРЫТИЕ МОДАЛОК ==========
-function openFriends(){ document.getElementById('friendsModal').style.display='flex'; loadFriends(); }
-function openTasksModal(){ document.getElementById('tasksModal').style.display='flex'; }
-function openVipModal(){ document.getElementById('vipModal').style.display='flex'; }
-
-// === ЧАСТЬ 3 НАЧНЁТСЯ ЗДЕСЬ ===
-// ========== ПРОФИЛЬ ==========
+// ПРОФИЛЬ
 function rendProfile(){
-  const b=document.getElementById('profileBody');
-  if(!b) return;
-  const u=getUser();
-  const name=u?.first_name||'Игрок';
-  const photo=u?.photo_url||'';
+  const b=document.getElementById('profileBody'); if(!b) return;
+  const u=getUser(); const name=u?.first_name||'Игрок'; const photo=u?.photo_url||'';
   const winRate=stats.spins>0?Math.round((stats.wins/stats.spins)*100):0;
-
-  b.innerHTML=`<div class="profile-wrap animate-slide">
+  b.innerHTML=`<div class="profile-wrap">
     <div class="profile-main-card">
       <div class="profile-avatar-big">${photo?`<img src="${photo}">`:'👤'}</div>
       <div class="profile-username">${name}</div>
       <div class="profile-id-text">ID: #${getUserId().slice(-5)}</div>
-      <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span style="font-size:14px;color:var(--gray2)">G</span></div>
+      <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} G</div>
     </div>
-    
-    <div class="profile-section">
-      <div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div>
-      <div class="stats-grid-3">
-        <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div>
-        <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green)">${stats.wins}</div></div>
-        <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div>
-      </div>
-    </div>
-
-    ${bestDrop ? `<div class="profile-section">
-      <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
-      <div class="best-drop-card">
-        <img src="${bestDrop.img}" class="best-drop-img">
-        <div><div class="best-drop-label">★ РЕКОРД</div><div class="best-drop-name">${bestDrop.name}</div><div class="best-drop-price">${bestDrop.price} G</div></div>
-      </div>
-    </div>` : ''}
-
-    <div class="profile-section">
-      <div class="profile-section-title"><h2>🎒 ИНВЕНТАРЬ (${inv.length})</h2></div>
-      <div class="grid">${inv.length===0?'<div style="grid-column:span 2;text-align:center;color:var(--gray2);padding:20px">Пусто</div>':inv.map((it)=>{
-        const firstName=it.name.split(' ')[0];
-        const skinName=it.name.split(' ').slice(1).join(' ')||'Skin';
-        const isActive = activeCardName === it.name;
-        return `<div class="inv-card ${isActive?'active':''}" onclick="toggleCard('${it.name}')">
-          <img src="${it.img}" class="inv-card-img" onerror="this.style.display='none'">
-          <div class="inv-card-name">${firstName}</div>
-          <div class="inv-card-skin" style="color:${it.color}">${skinName}</div>
-          <div class="inv-card-divider"></div>
-          <div class="inv-card-bottom">${it.price} <div class="inv-card-price-icon">G</div></div>
-          <div class="card-overlay">
-            <button class="card-btn btn-upg-action" onclick="event.stopPropagation();addToUpgradeByName('${it.name}');toggleCard('${it.name}');closeS('profileScreen')">В АПГРЕЙД</button>
-            <button class="card-btn btn-withdraw-action" onclick="event.stopPropagation();toast('Заявка на вывод создана');toggleCard('${it.name}')">ВЫВЕСТИ</button>
-            <button class="card-btn btn-sell-action" onclick="event.stopPropagation();sellSkinByName('${it.name}');toggleCard('${it.name}')">ПРОДАТЬ</button>
-          </div>
-        </div>`
-      }).join('')}</div>
-    </div>
+    <div class="profile-section"><div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div><div class="stats-grid-3"><div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div><div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green)">${stats.wins}</div></div><div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div></div></div>
+    ${bestDrop ? `<div class="profile-section"><div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div><div class="best-drop-card"><img src="${bestDrop.img}" class="best-drop-img"><div><div class="best-drop-label">★ РЕКОРД</div><div class="best-drop-name">${bestDrop.name}</div><div class="best-drop-price">${bestDrop.price} G</div></div></div></div>` : ''}
+    <div class="profile-section"><div class="profile-section-title"><h2>🎒 ИНВЕНТАРЬ (${inv.length})</h2></div><div class="grid">${inv.length===0?'<div style="grid-column:span 2;text-align:center;color:var(--gray2)">Пусто</div>':inv.map((it)=>{
+      const firstName=it.name.split(' ')[0]; const skinName=it.name.split(' ').slice(1).join(' ')||'Skin'; const isActive = activeCardName === it.name;
+      return `<div class="inv-card ${isActive?'active':''}" onclick="toggleCard('${it.name}')"><img src="${it.img}" class="inv-card-img"><div class="inv-card-name">${firstName}</div><div class="inv-card-skin" style="color:${it.color}">${skinName}</div><div class="inv-card-divider"></div><div class="inv-card-bottom">${it.price} <div class="inv-card-price-icon">G</div></div><div class="card-overlay"><button class="card-btn btn-upg-action" onclick="event.stopPropagation();addToUpgradeByName('${it.name}');toggleCard('${it.name}');closeS('profileScreen')">В АПГРЕЙД</button><button class="card-btn btn-sell-action" onclick="event.stopPropagation();sellSkinByName('${it.name}');toggleCard('${it.name}')">ПРОДАТЬ</button></div></div>`
+    }).join('')}</div></div>
   </div>`;
 }
 
-// ========== ДРУЗЬЯ (СПИСОК) ==========
-async function loadFriends(){
-  const list = document.getElementById('friendsList');
-  if(!list) return;
-  list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray2)">Загрузка...</div>';
-  try {
-    const r = await fetch(BOT_URL+'/api/friends/list/'+getUserId());
-    const d = await r.json();
-    if(!d.ok || !d.friends || d.friends.length === 0) {
-      list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray2)">У тебя пока нет друзей</div>';
-      return;
-    }
-    list.innerHTML = d.friends.map(f => `
-      <div onclick="openFriendProfile('${f.id}')" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--panel-l);border-radius:12px;margin-bottom:10px;cursor:pointer">
-        <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--border)">
-          <img src="${f.photoUrl||''}" style="width:100%;height:100%;object-fit:cover">
-        </div>
-        <div style="flex:1">
-          <div style="font-size:14px;font-weight:900">${f.name}</div>
-          <div style="font-size:11px;color:var(--gold)">${Math.floor(f.gold||0)} G</div>
-        </div>
-      </div>
-    `).join('');
-  } catch(e) {
-    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red)">Ошибка загрузки</div>';
-  }
+// ДРУЗЬЯ И LIVE
+async function openFriends(){document.getElementById('friendsModal').style.display='flex';loadFriends()}
+function loadFriends(){
+  const list=document.getElementById('friendsList');
+  fetch(BOT_URL+'/api/friends/list/'+getUserId()).then(r=>r.json()).then(d=>{
+    if(!d.ok||!d.friends||d.friends.length===0){list.innerHTML='<div style="text-align:center;padding:20px;color:var(--gray2)">Нет друзей</div>';return}
+    list.innerHTML=d.friends.map(f=>`<div onclick="openFriendProfile('${f.id}')" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--panel-l);border-radius:12px;margin-bottom:10px;cursor:pointer"><div style="width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--border)"><img src="${f.photoUrl||''}" style="width:100%;height:100%;object-fit:cover"></div><div style="flex:1"><div style="font-size:14px;font-weight:900">${f.name}</div><div style="font-size:11px;color:var(--gold)">${Math.floor(f.gold||0)} G</div></div></div>`).join('');
+  }).catch(()=>list.innerHTML='<div style="text-align:center;padding:20px;color:var(--red)">Ошибка</div>');
 }
-
-// ========== ПРОФИЛЬ ДРУГА ==========
-async function openFriendProfile(fid){
-  const m = document.getElementById('frProfileModal');
-  const b = document.getElementById('frProfileBody');
-  if(!m || !b) return;
-  m.style.display = 'flex';
-  b.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray2)">Загрузка...</div>';
-
-  try {
-    const r = await fetch(BOT_URL+'/api/friends/profile/'+fid+'/'+getUserId());
-    const d = await r.json();
-    if(!d.ok || !d.profile) throw new Error('Ошибка');
-    const p = d.profile;
-    const pStats = p.stats || {spins:0,wins:0,loses:0};
-    const pRate = pStats.spins>0?Math.round((pStats.wins/pStats.spins)*100):0;
-
-    b.innerHTML = `
-      <button class="modal-close" onclick="document.getElementById('frProfileModal').style.display='none'">✕</button>
-      <div class="profile-main-card" style="margin-top:10px">
-        <div class="profile-avatar-big"><img src="${p.photoUrl||''}" onerror="this.style.display='none'"></div>
-        <div class="profile-username">${p.name}</div>
-        <div class="profile-id-text">ID: ${fid}</div>
-        <div class="profile-balance-val">${Math.floor(p.gold||0)} G</div>
-      </div>
-      
-      <div class="profile-section">
-        <div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div>
-        <div class="stats-grid-3">
-          <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${pStats.spins}</div></div>
-          <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green)">${pStats.wins}</div></div>
-          <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${pRate}%</div></div>
-        </div>
-      </div>
-
-      ${p.bestDrop ? `<div class="profile-section">
-        <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
-        <div class="best-drop-card">
-          <img src="${p.bestDrop.img}" class="best-drop-img">
-          <div><div class="best-drop-label">★ РЕКОРД</div><div class="best-drop-name">${p.bestDrop.name}</div><div class="best-drop-price">${p.bestDrop.price} G</div></div>
-        </div>
-      </div>` : ''}
-
-      <div class="profile-section">
-        <div class="profile-section-title"><h2>🎒 ИНВЕНТАРЬ (${p.invCount||0})</h2></div>
-        <div class="grid">${p.inv && p.inv.length > 0 ? p.inv.map(it=>`
-          <div class="inv-card">
-            <img src="${it.img}" class="inv-card-img">
-            <div class="inv-card-name">${it.name.split(' ')[0]}</div>
-            <div class="inv-card-skin" style="color:${it.color||'#fff'}">${it.name.split(' ').slice(1).join(' ')||'Skin'}</div>
-          </div>
-        `).join('') : '<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2)">Пусто</div>'}</div>
-      </div>
-    `;
-  } catch(e) {
-    b.innerHTML = '<div style="text-align:center;padding:40px;color:var(--red)">Ошибка загрузки профиля</div>';
-  }
+function openFriendProfile(fid){
+  const m=document.getElementById('frProfileModal'); const b=document.getElementById('frProfileBody'); m.style.display='flex'; b.innerHTML='<div style="text-align:center;padding:40px;color:var(--gray2)">Загрузка...</div>';
+  fetch(BOT_URL+'/api/friends/profile/'+fid+'/'+getUserId()).then(r=>r.json()).then(d=>{
+    if(!d.ok||!d.profile)throw new Error();
+    const p=d.profile; const pStats=p.stats||{spins:0,wins:0,loses:0}; const pRate=pStats.spins>0?Math.round((pStats.wins/pStats.spins)*100):0;
+    b.innerHTML=`<button class="modal-close" onclick="document.getElementById('frProfileModal').style.display='none'">✕</button><div class="profile-main-card" style="margin-top:10px"><div class="profile-avatar-big"><img src="${p.photoUrl||''}"></div><div class="profile-username">${p.name}</div><div class="profile-id-text">ID: ${fid}</div><div class="profile-balance-val">${Math.floor(p.gold||0)} G</div></div><div class="profile-section"><div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div><div class="stats-grid-3"><div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${pStats.spins}</div></div><div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green)">${pStats.wins}</div></div><div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${pRate}%</div></div></div></div>${p.bestDrop?`<div class="profile-section"><div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div><div class="best-drop-card"><img src="${p.bestDrop.img}" class="best-drop-img"><div><div class="best-drop-label">★ РЕКОРД</div><div class="best-drop-name">${p.bestDrop.name}</div><div class="best-drop-price">${p.bestDrop.price} G</div></div></div></div>`:''}`;
+  }).catch(()=>b.innerHTML='<div style="text-align:center;padding:40px;color:var(--red)">Ошибка</div>');
 }
-
-// ========== LIVE-ЛЕНТА ==========
 async function loadLiveFeed(){
-  const track = document.getElementById('liveTrack');
-  if(!track) return;
-  try {
-    const r = await fetch(BOT_URL+'/api/live');
-    const d = await r.json();
-    if(!d.ok || !d.list || d.list.length === 0) {
-      track.innerHTML = '<span class="live-empty">Пока нет рекордов</span>';
-      return;
-    }
-    const items = d.list.slice(0, 10).map(x => `
-      <div class="live-item" onclick="openFriendProfile('${x.userId}')">
-        <div class="live-info">
-          <div class="live-name">${x.playerName}</div>
-          <div class="live-pct">${x.pct || 0}%</div>
-        </div>
-        <img src="${x.skinImg}" class="live-skin" onerror="this.style.display='none'">
-      </div>
-    `).join('');
-    track.innerHTML = items + items;
-  } catch(e) {
-    track.innerHTML = '<span class="live-empty">Ошибка загрузки</span>';
-  }
+  const track=document.getElementById('liveTrack'); if(!track)return;
+  try{const r=await fetch(BOT_URL+'/api/live');const d=await r.json();
+    if(!d.ok||!d.list||d.list.length===0){track.innerHTML='<span class="live-empty">Пока нет рекордов</span>';return}
+    const items=d.list.slice(0,10).map(x=>`<div class="live-item" onclick="openFriendProfile('${x.userId}')"><div class="live-info"><div class="live-name">${x.playerName}</div><div class="live-pct">${x.pct||0}%</div></div><img src="${x.skinImg}" class="live-skin"></div>`).join('');
+    track.innerHTML=items+items;
+  }catch(e){track.innerHTML='<span class="live-empty">Ошибка загрузки</span>'}
 }
 
-// ========== НАСТРОЙКИ ==========
+// НАСТРОЙКИ / VIP / ЗАДАНИЯ
 function rendSettings(){
-  const b = document.getElementById('settingsBody');
-  if(!b) return;
-  b.innerHTML = `
-    <div class="settings-item" onclick="openS('profileScreen');closeS('settingsScreen')">
-      <label>👤 Профиль</label><span style="color:var(--gray2)">></span>
-    </div>
-    <div class="settings-item" onclick="toast('Режимы в разработке')">
-      <label>🎮 Режимы игры</label><span style="color:var(--gray2)">></span>
-    </div>
-    <div class="settings-item">
-      <label>🔊 Звуки</label><div class="toggle on" onclick="this.classList.toggle('on')"></div>
-    </div>
-    <div class="settings-item">
-      <label>📳 Вибрация</label><div class="toggle on" onclick="this.classList.toggle('on')"></div>
-    </div>
-    <div class="settings-item" onclick="toast('Поддержка: @admin')">
-      <label>🛠 Поддержка</label><span style="color:var(--gray2)">></span>
-    </div>
-    <div class="settings-item" onclick="if(confirm('Сбросить игру?')){localStorage.clear();location.reload()}">
-      <label style="color:var(--red)">🗑 Сбросить игру</label>
-    </div>
-  `;
+  const b=document.getElementById('settingsBody'); if(!b)return;
+  b.innerHTML=`<div class="settings-item" onclick="openS('profileScreen');closeS('settingsScreen')"><label>👤 Профиль</label><span style="color:var(--gray2)">></span></div><div class="settings-item" onclick="toast('Режимы в разработке')"><label>🎮 Режимы игры</label><span style="color:var(--gray2)">></span></div><div class="settings-item"><label>🔊 Звуки</label><div class="toggle ${soundEnabled?'on':''}" onclick="toggleSound()"></div></div><div class="settings-item" onclick="if(confirm('Сбросить игру?')){localStorage.clear();location.reload()}"><label style="color:var(--red)">🗑 Сбросить игру</label></div>`;
 }
+function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem('sfap_sound',soundEnabled?'1':'0');rendSettings()}
 
-// ========== ЗАПУСК ==========
+function openVipModal(){document.getElementById('vipModal').style.display='flex'}
+function openTasksModal(){document.getElementById('tasksModal').style.display='flex';const list=document.getElementById('tasksList');list.innerHTML='<div style="text-align:center;padding:20px;color:var(--gray2)">Загрузка...</div>';fetch(BOT_URL+'/api/tasks/status/'+getUserId()).then(r=>r.json()).then(d=>{if(!d.ok)throw new Error();list.innerHTML=d.tasks.map(t=>{const done=t.progress>=t.need;return `<div class="task-item"><div class="task-ico">🎯</div><div class="task-info"><div class="task-title">${t.title}</div><div class="task-progress">${t.progress} / ${t.need}</div></div><button class="task-claim" ${t.claimed||!done?'disabled':''} onclick="claimTask('${t.id}')">${t.claimed?'ПОЛУЧЕНО':(done?'ЗАБРАТЬ':'ЖДЕМ')}</button></div>`}).join('')}).catch(()=>list.innerHTML='<div style="color:var(--red)">Ошибка</div>')}
+function claimTask(id){fetch(BOT_URL+'/api/tasks/claim',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),taskId:id})}).then(r=>r.json()).then(d=>{if(d.ok&&d.skin){inv.push(d.skin);saveGame();rendInv();toast('🎁 Получен скин!');document.getElementById('tasksModal').style.display='none'}else toast('❌ Ошибка')}).catch(()=>toast('❌ Ошибка'))}
+
+// ЗАПУСК
 (async()=>{
-  setTimeout(() => {
-    const loader = document.getElementById('loader');
-    if(loader) {
-      loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 500);
-    }
-  }, 1500);
-
+  setTimeout(()=>{const loader=document.getElementById('loader');if(loader){loader.style.opacity='0';setTimeout(()=>loader.style.display='none',500)}},1500);
   await loadGame();
-  updateBal();
-  rendInv();
-  rendMain();
-
-  const pcntRow = document.getElementById('pcntRow');
-  if(pcntRow) pcntRow.innerHTML = [90,67,55,44,33,22].map(p=>`<button class="pb">${p}%</button>`).join('');
-
-  const ticks = document.getElementById('wheelTicks');
-  if(ticks) {
-    let h = '';
-    for(let i=0; i<36; i++) {
-      const a = i * 10;
-      const maj = i % 3 === 0;
-      h += `<div class="tick ${maj?'major':''}" style="--a:${a}deg"></div>`;
-    }
-    ticks.innerHTML = h;
-  }
-
-  loadLiveFeed();
-  setInterval(loadLiveFeed, 30000);
-
-  const u = getUser();
-  if(u && u.photo_url) {
-    const av = document.getElementById('topAv');
-    if(av) av.innerHTML = `<img src="${u.photo_url}">`;
-  }
+  updateBal(); rendInv(); rendMain(); renderPctRow();
+  const ticks=document.getElementById('wheelTicks');
+  if(ticks){let h='';for(let i=0;i<36;i++){const a=i*10;const maj=i%3===0;h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg"></div>`}ticks.innerHTML=h}
+  loadLiveFeed(); setInterval(loadLiveFeed,30000);
+  const u=getUser(); if(u&&u.photo_url){const av=document.getElementById('topAv');if(av)av.innerHTML=`<img src="${u.photo_url}">`}
 })();
 </script></body></html>
