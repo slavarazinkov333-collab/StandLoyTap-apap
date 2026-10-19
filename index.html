@@ -446,8 +446,10 @@ function rendMain(){
   if(leftIcons){
     let h='';
     if(selectedItems.length === 0) {
-      h = '<div class="empty-slot">+</div>';
+      // Если пусто — показываем только плюсик
+      h = '<div class="empty-slot" style="margin:0 auto;">+</div>';
     } else {
+      // Если есть скины — показываем только их, БЕЗ пустых квадратов
       for(let i=0;i<selectedItems.length;i++){
         const s=selectedItems[i];
         h+=`<div class="slot-cell">
@@ -473,7 +475,7 @@ function rendMain(){
       const tc=document.getElementById('targetCount');
       if(tc) tc.innerText=targetSkin.price.toLocaleString('ru-RU')+' G';
     } else {
-      rightIcons.innerHTML='<div class="empty-slot">🎯</div>';
+      rightIcons.innerHTML='<div class="empty-slot" style="margin:0 auto;">🎯</div>';
       const tc=document.getElementById('targetCount');
       if(tc) tc.innerText='НЕ ВЫБРАНА';
     }
