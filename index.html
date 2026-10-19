@@ -236,24 +236,33 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .onboarding-btn{width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;border:none;cursor:pointer;margin-top:8px}
 
 /* НОВЫЙ СТИЛЬ КАРТОЧЕК */
-.inv-card{background:linear-gradient(180deg,#1b1b1b 0%,#111111 100%);border-radius:12px;padding:12px;display:flex;flex-direction:column;cursor:pointer;border:1px solid #2a2a2a;transition:transform 0.2s,border-color 0.2s;position:relative;overflow:hidden}
-.inv-card:hover{border-color:#444;transform:translateY(-2px)}
-.inv-card:active{transform:scale(0.97)}
-.inv-card-img{width:100%;height:120px;object-fit:contain;margin-bottom:8px;filter:drop-shadow(0 10px 15px rgba(0,0,0,0.6))}
-.inv-card-name{font-size:14px;font-weight:800;color:#888;line-height:1.1}
-.inv-card-skin{font-size:16px;font-weight:900;line-height:1.1}
-.inv-card-bottom{display:flex;justify-content:flex-end;align-items:center;gap:4px;margin-top:12px;font-size:18px;font-weight:900;color:#fff}
+.inv-card{background:linear-gradient(180deg,#1b1b1b 0%,#111111 100%);border-radius:16px;padding:16px;display:flex;flex-direction:column;cursor:pointer;border:1px solid #222;transition:transform 0.2s,border-color 0.2s;position:relative;overflow:hidden;min-height:220px}
+.inv-card:hover{border-color:#444}
+.inv-card.active{border-color:var(--gold);background:linear-gradient(180deg,#222018 0%,#111111 100%)}
+.inv-card-img{width:100%;height:110px;object-fit:contain;margin-bottom:12px;filter:drop-shadow(0 10px 15px rgba(0,0,0,0.6));transition:opacity 0.3s}
+.inv-card.active .inv-card-img{opacity:0.15;filter:blur(4px)}
+.inv-card-info{display:flex;flex-direction:column;transition:opacity 0.3s}
+.inv-card.active .inv-card-info{opacity:0}
+.inv-card-divider{height:1px;background:#333;margin:8px 0}
+.inv-card-name{font-size:15px;font-weight:800;color:#888;line-height:1.2}
+.inv-card-skin{font-size:18px;font-weight:900;line-height:1.2;margin-bottom:4px}
+.inv-card-bottom{display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:20px;font-weight:900;color:#fff;margin-top:auto}
 .inv-card-price-icon{width:20px;height:20px;background:#fff;color:#000;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:12px;font-weight:900}
-.upg-container{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.upg-box{background:linear-gradient(180deg,#1a1a1a 0%,#111 100%);border:2px dashed #333;border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;min-height:200px;position:relative}
-.upg-box-title{font-size:12px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center}
-.upg-box-count{font-size:14px;font-weight:900;color:var(--gold);margin-bottom:10px}
-.upg-skins-list{display:flex;flex-direction:column;gap:6px;align-items:center;width:100%}
-.upg-skin-item{width:60px;height:60px;object-fit:contain;background:#222;border-radius:8px;padding:4px}
-.upg-guarantee{text-align:center;margin-bottom:16px}
-.upg-guarantee-title{font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;letter-spacing:1px}
-.upg-guarantee-val{font-size:24px;font-weight:900;color:var(--gold);text-shadow:0 0 10px rgba(255,184,0,0.5)}
-.upg-guarantee-sub{font-size:10px;color:var(--gray2);font-weight:800;margin-top:4px}
+
+/* КНОПКИ ВНУТРИ КАРТОЧКИ */
+.card-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:10;background:rgba(15,15,15,0.85);backdrop-filter:blur(2px)}
+.inv-card.active .card-overlay{opacity:1;pointer-events:auto}
+.card-btn{width:100%;padding:12px;border-radius:10px;font-size:14px;font-weight:900;border:none;cursor:pointer;margin-bottom:8px;transition:transform 0.1s}
+.card-btn:active{transform:scale(0.96)}
+.btn-upg-action{background:linear-gradient(180deg,#ffd700,#ffb800);color:#1a1a1a;box-shadow:0 4px 15px rgba(255,184,0,0.3)}
+.btn-sell-action{background:#2a2a2a;color:#fff;border:1px solid #444}
+.btn-withdraw-action{background:linear-gradient(180deg,#4CAF50,#2e7d32);color:#fff;box-shadow:0 4px 15px rgba(76,175,80,0.3)}
+
+/* ГАРАНТИЯ (АККУРАТНАЯ) */
+.upg-guarantee{text-align:center;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.upg-guarantee-title{font-size:10px;font-weight:800;color:var(--gray2);text-transform:uppercase;letter-spacing:1px;opacity:0.8}
+.upg-guarantee-val{font-size:18px;font-weight:900;color:var(--gold);text-shadow:0 0 10px rgba(255,184,0,0.3)}
+.upg-guarantee-sub{font-size:9px;color:var(--gray2);font-weight:700;opacity:0.7}
 .skin-modal-btn{width:100%;padding:16px;border-radius:12px;font-size:16px;font-weight:900;border:none;cursor:pointer;margin-bottom:10px;transition:transform 0.1s}
 .skin-modal-btn:active{transform:scale(0.98)}
 .btn-upg-action{background:linear-gradient(180deg,#ffd700,#ffb800);color:#1a1a1a;box-shadow:0 4px 15px rgba(255,184,0,0.4)}
@@ -431,16 +440,40 @@ function switchSub(m){invMode=m;document.getElementById('subInv').style.backgrou
 function switchShopTab(t){shopTab=t;document.getElementById('tabSkins').style.color=t==='skins'?'var(--white)':'var(--gray2)';document.getElementById('tabAgents').style.color=t==='agents'?'var(--white)':'var(--gray2)';renderFilters();rendInv()}
 function renderFilters(){const fb=document.getElementById('filterBar');const sb=document.getElementById('sortBar');if(!fb||!sb)return;const filters=[{k:'all',l:'ВСЕ'},{k:'legend',l:'🟡 LEGEND'},{k:'epic',l:'🔴 EPIC'},{k:'rare',l:'🟣 RARE'},{k:'uncommon',l:'🔵 UNCOMMON'},{k:'common',l:'⚪ COMMON'}];fb.innerHTML=filters.map(f=>`<div class="filter-chip ${invFilter===f.k?'active':''}" onclick="invFilter='${f.k}';renderFilters();rendInv()">${f.l}</div>`).join('');const sorts=[{k:'price-asc',l:'↑ ЦЕНА'},{k:'price-desc',l:'↓ ЦЕНА'},{k:'name',l:'A-Z'}];sb.innerHTML=sorts.map(s=>`<div class="sort-chip ${invSort===s.k?'active':''}" onclick="invSort='${s.k}';renderFilters();rendInv()">${s.l}</div>`).join('')}
 
+let activeCardName = null;
+
+function toggleCard(name) {
+  if (activeCardName === name) activeCardName = null;
+  else activeCardName = name;
+  rendInv();
+  // Обновляем и профиль, если он открыт
+  if (document.getElementById('profileScreen').classList.contains('open')) rendProfile();
+}
+
 function rendInv(){
   const b=document.getElementById('invList');if(!b)return;
   const q=(document.getElementById('searchInp')?.value||'').toLowerCase();
+  
   if(invMode==='shop'){
     let list=shopTab==='skins'?allSkins:allAgents;
     let f=list.filter(s=>s.name.toLowerCase().includes(q));f.sort((a,b)=>a.price-b.price);
     b.innerHTML=f.map(s=>{
       const firstName=s.name.split(' ')[0];
       const skinName=s.name.split(' ').slice(1).join(' ')||'Skin';
-      return `<div class="inv-card" onclick="openSkinModal('${s.name}',${s.price},'${s.color}','${s.img}')"><img src="${s.img||''}" class="inv-card-img" onerror="this.style.display='none'"><div class="inv-card-name">${firstName}</div><div class="inv-card-skin" style="color:${s.color}">${skinName}</div><div class="inv-card-bottom">${s.price.toLocaleString('ru-RU')} <div class="inv-card-price-icon">G</div></div></div>`
+      const isActive = activeCardName === s.name;
+      const inCart = cart.find(c => c.name === s.name);
+      return `<div class="inv-card ${isActive?'active':''}" onclick="toggleCard('${s.name}')">
+        <img src="${s.img||''}" class="inv-card-img" onerror="this.style.display='none'">
+        <div class="inv-card-info">
+          <div class="inv-card-divider"></div>
+          <div class="inv-card-name">${firstName}</div>
+          <div class="inv-card-skin" style="color:${s.color}">${skinName}</div>
+          <div class="inv-card-bottom">${s.price.toLocaleString('ru-RU')} <div class="inv-card-price-icon">G</div></div>
+        </div>
+        <div class="card-overlay">
+          <button class="card-btn btn-upg-action" onclick="event.stopPropagation();toggleCart('${s.name}',${s.price});toggleCard('${s.name}')">${inCart ? '✓ В КОРЗИНЕ' : 'КУПИТЬ'}</button>
+        </div>
+      </div>`
     }).join('');
   } else {
     let f=inv.filter(it=>it.name.toLowerCase().includes(q));
@@ -448,15 +481,29 @@ function rendInv(){
     if(invSort==='price-asc')f.sort((a,b)=>(a.price||0)-(b.price||0));
     else if(invSort==='price-desc')f.sort((a,b)=>(b.price||0)-(a.price||0));
     else if(invSort==='name')f.sort((a,b)=>a.name.localeCompare(b.name));
+    
     if(f.length===0){b.innerHTML='<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--gray2);font-size:13px;font-weight:800">Ничего не найдено</div>';return}
+    
     b.innerHTML=f.map(it=>{
       const firstName=it.name.split(' ')[0];
       const skinName=it.name.split(' ').slice(1).join(' ')||'Skin';
-      return `<div class="inv-card" onclick="openSkinModal('${it.name}',${it.price},'${it.color||'#888'}','${it.img}')"><img src="${it.img||''}" class="inv-card-img" onerror="this.style.display='none'"><div class="inv-card-name">${firstName}</div><div class="inv-card-skin" style="color:${it.color||'#fff'}">${skinName}</div><div class="inv-card-bottom">${(it.price||0).toLocaleString('ru-RU')} <div class="inv-card-price-icon">G</div></div></div>`
+      const isActive = activeCardName === it.name;
+      return `<div class="inv-card ${isActive?'active':''}" onclick="toggleCard('${it.name}')">
+        <img src="${it.img||''}" class="inv-card-img" onerror="this.style.display='none'">
+        <div class="inv-card-info">
+          <div class="inv-card-divider"></div>
+          <div class="inv-card-name">${firstName}</div>
+          <div class="inv-card-skin" style="color:${it.color||'#fff'}">${skinName}</div>
+          <div class="inv-card-bottom">${(it.price||0).toLocaleString('ru-RU')} <div class="inv-card-price-icon">G</div></div>
+        </div>
+        <div class="card-overlay">
+          <button class="card-btn btn-upg-action" onclick="event.stopPropagation();addToUpgradeByName('${it.name}');toggleCard('${it.name}')">В АПГРЕЙД</button>
+          <button class="card-btn btn-sell-action" onclick="event.stopPropagation();sellSkinByName('${it.name}');toggleCard('${it.name}')">ПРОДАТЬ</button>
+        </div>
+      </div>`
     }).join('');
   }
 }
-
 function openSkinModal(name, price, color, img) {
   const isOwned = inv.some(x => x.name === name);
   let buttonsHtml = '';
@@ -612,6 +659,7 @@ async function loadLiveFeed(){try{const r=await fetch(BOT_URL+'/api/live');const
 setInterval(loadLiveFeed,30000);
 
 async function rendProfile(){
+async function rendProfile(){
   try{
     const b=document.getElementById('profileBody');
     const u=getUser();const name=u?.first_name||'Игрок';const photo=u?.photo_url||'';
@@ -636,7 +684,25 @@ async function rendProfile(){
     const histFiltered=historyFilter==='all'?upgradeHistory:upgradeHistory.filter(h=>historyFilter==='win'?h.win:!h.win);
     const chartBlock=`<div class="profile-section"><div class="profile-section-title"><h2>📈 ГРАФИК БАЛАНСА</h2></div><div class="chart-wrap"><div class="chart-bars">${[0,0,0,0,0,0,gold].map((v,i)=>{const max=Math.max(gold,100);const h=Math.max(4,(v/max)*100);return `<div class="chart-bar" style="height:${h}%;position:relative"><span class="chart-bar-label">${['-6','-5','-4','-3','-2','-1','Сегодня'][i]}</span></div>`}).join('')}</div></div></div>`;
     
-    b.innerHTML=`<div class="profile-wrap"><div class="profile-main-card"><div class="profile-header-row">${myAvatarHtml}<div class="profile-user-info"><div class="profile-username">${name}</div><div class="profile-id-text">ID: #${getUserId().slice(-5)}</div><div style="display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap"><span class="title-badge ${titleCls}">${getRankName()}</span><span style="font-size:10px;color:var(--gold);font-weight:900">LVL ${RANKS.indexOf(rank)+1}</span></div>${legendBadge}</div></div><div class="profile-balance-block"><div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div><div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span>G</span></div></div><div style="font-size:10px;color:var(--gray2);text-align:right;margin-top:4px">≈ ${gToRub} ₽</div></div><div class="profile-actions-row" style="margin-top:12px;"><button class="profile-action-btn" onclick="openRefModal()">🎁 ПРОМОКОД</button><button class="profile-action-btn" onclick="openMarket()">💎 БИРЖА</button></div><div class="profile-section"><div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div><div class="stats-grid-3"><div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div><div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div><div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div></div></div>${chartBlock}${bestDropBlock}${vipBlock}${achBlock}${titleBlock}${frameBlock}${avatarBlock}${bgBlock}<div style="display:flex;gap:4px;margin-bottom:12px"><button class="big-tab ${profileTab==='inv'?'active':''}" onclick="profileTab='inv';rendProfile()">ИНВЕНТАРЬ</button><button class="big-tab ${profileTab==='hist'?'active':''}" onclick="profileTab='hist';rendProfile()">ИСТОРИЯ</button></div>${profileTab==='inv'?`<div class="profile-section"><div class="profile-section-title"><h2>ИНВЕНТАРЬ (${inv.length})</h2></div><div class="grid">${inv.length===0?'<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':inv.map((it,idx)=>{const fn=it.name.split(' ')[0];const sn=it.name.split(' ').slice(1).join(' ')||'Skin';return `<div class="inv-card" onclick="openSkinModal('${it.name}',${it.price},'${it.color||'#888'}','${it.img}')"><img src="${it.img}" class="inv-card-img" onerror="this.style.display='none'"><div class="inv-card-name">${fn}</div><div class="inv-card-skin" style="color:${it.color||'#fff'}">${sn}</div><div class="inv-card-bottom">${it.price} <div class="inv-card-price-icon">G</div></div></div>`}).join('')}</div></div>`:`<div class="profile-section"><div class="profile-section-title"><h2>ИСТОРИЯ АПГРЕЙДОВ (${histFiltered.length})</h2></div><div class="filter-bar" style="margin-bottom:12px"><div class="filter-chip ${historyFilter==='all'?'active':''}" onclick="historyFilter='all';rendProfile()">ВСЕ</div><div class="filter-chip ${historyFilter==='win'?'active':''}" onclick="historyFilter='win';rendProfile()">✅ ПОБЕДЫ</div><div class="filter-chip ${historyFilter==='lose'?'active':''}" onclick="historyFilter='lose';rendProfile()">❌ ПОРАЖЕНИЯ</div></div>${histFiltered.length===0?'<div style="text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':histFiltered.map(h=>`<div class="hist-item ${h.win?'win':'lose'}"><img src="${h.targetImg}" class="hist-img" onerror="this.style.display='none'"><div class="hist-info"><div class="hist-title">${h.targetName}</div><div class="hist-sub">${h.pct}% шанс</div></div><div class="hist-price ${h.win?'win':'lose'}">${h.win?'+':'-'}${h.targetPrice} G</div></div>`).join('')}</div>`}</div>`;
+    b.innerHTML=`<div class="profile-wrap"><div class="profile-main-card"><div class="profile-header-row">${myAvatarHtml}<div class="profile-user-info"><div class="profile-username">${name}</div><div class="profile-id-text">ID: #${getUserId().slice(-5)}</div><div style="display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap"><span class="title-badge ${titleCls}">${getRankName()}</span><span style="font-size:10px;color:var(--gold);font-weight:900">LVL ${RANKS.indexOf(rank)+1}</span></div>${legendBadge}</div></div><div class="profile-balance-block"><div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div><div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span>G</span></div></div><div style="font-size:10px;color:var(--gray2);text-align:right;margin-top:4px">≈ ${gToRub} ₽</div></div><div class="profile-actions-row" style="margin-top:12px;"><button class="profile-action-btn" onclick="openRefModal()">🎁 ПРОМОКОД</button><button class="profile-action-btn" onclick="openMarket()">💎 БИРЖА</button></div><div class="profile-section"><div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div><div class="stats-grid-3"><div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div><div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div><div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div></div></div>${chartBlock}${bestDropBlock}${vipBlock}${achBlock}${titleBlock}${frameBlock}${avatarBlock}${bgBlock}<div style="display:flex;gap:4px;margin-bottom:12px"><button class="big-tab ${profileTab==='inv'?'active':''}" onclick="profileTab='inv';rendProfile()">ИНВЕНТАРЬ</button><button class="big-tab ${profileTab==='hist'?'active':''}" onclick="profileTab='hist';rendProfile()">ИСТОРИЯ</button></div>${profileTab==='inv'?`<div class="profile-section"><div class="profile-section-title"><h2>ИНВЕНТАРЬ (${inv.length})</h2></div><div class="grid">${inv.length===0?'<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':inv.map((it,idx)=>{
+      const fn=it.name.split(' ')[0];
+      const sn=it.name.split(' ').slice(1).join(' ')||'Skin';
+      const isActive = (typeof activeCardName !== 'undefined' && activeCardName === it.name);
+      return `<div class="inv-card ${isActive?'active':''}" onclick="toggleCard('${it.name}')">
+        <img src="${it.img}" class="inv-card-img" onerror="this.style.display='none'">
+        <div class="inv-card-info">
+          <div class="inv-card-divider"></div>
+          <div class="inv-card-name">${fn}</div>
+          <div class="inv-card-skin" style="color:${it.color||'#fff'}">${sn}</div>
+          <div class="inv-card-bottom">${it.price} <div class="inv-card-price-icon">G</div></div>
+        </div>
+        <div class="card-overlay">
+          <button class="card-btn btn-upg-action" onclick="event.stopPropagation();addToUpgradeByName('${it.name}');toggleCard('${it.name}')">В АПГРЕЙД</button>
+          <button class="card-btn btn-withdraw-action" onclick="event.stopPropagation();withdrawSkinDirect(${idx});toggleCard('${it.name}')">ВЫВЕСТИ</button>
+          <button class="card-btn btn-sell-action" onclick="event.stopPropagation();sellSkinByName('${it.name}');toggleCard('${it.name}')">ПРОДАТЬ</button>
+        </div>
+      </div>`
+    }).join('')}</div></div>`:`<div class="profile-section"><div class="profile-section-title"><h2>ИСТОРИЯ АПГРЕЙДОВ (${histFiltered.length})</h2></div><div class="filter-bar" style="margin-bottom:12px"><div class="filter-chip ${historyFilter==='all'?'active':''}" onclick="historyFilter='all';rendProfile()">ВСЕ</div><div class="filter-chip ${historyFilter==='win'?'active':''}" onclick="historyFilter='win';rendProfile()">✅ ПОБЕДЫ</div><div class="filter-chip ${historyFilter==='lose'?'active':''}" onclick="historyFilter='lose';rendProfile()">❌ ПОРАЖЕНИЯ</div></div>${histFiltered.length===0?'<div style="text-align:center;padding:20px;color:var(--gray2)">Пусто</div>':histFiltered.map(h=>`<div class="hist-item ${h.win?'win':'lose'}"><img src="${h.targetImg}" class="hist-img" onerror="this.style.display='none'"><div class="hist-info"><div class="hist-title">${h.targetName}</div><div class="hist-sub">${h.pct}% шанс</div></div><div class="hist-price ${h.win?'win':'lose'}">${h.win?'+':'-'}${h.targetPrice} G</div></div>`).join('')}</div>`}</div>`;
   }catch(err){console.error('rendProfile error:',err)}
 }
 function pickAvatar(id){if(currentAvatar===id)currentAvatar='emoji1';else currentAvatar=id;localStorage.setItem('sfap_avatar',currentAvatar);updateTopAvatar();rendProfile()}
@@ -665,4 +731,8 @@ function updateRankUI(){const r=getRank();const rn=document.getElementById('rank
 function showOnboarding(){if(localStorage.getItem('sfap_onboarded'))return;const steps=[{ico:'🎰',title:'ДОБРО ПОЖАЛОВАТЬ!',text:'Это игра в апгрейд скинов. Выбирай скины из инвентаря, цель — и крути барабан!'},{ico:'🛒',title:'МАГАЗИН',text:'Покупай скины в магазине или получай их из заданий, бонусов и апгрейдов.'},{ico:'📤',title:'ВЫВОД',text:'Выводи реальные скины! Нужно купить GG22 Flock и выставить на площадке.'}];let i=0;const render=()=>{const s=steps[i];const m=document.getElementById('onboardingModal')||document.createElement('div');m.className='onboarding';m.id='onboardingModal';m.innerHTML=`<div class="onboarding-inner"><div class="onboarding-step"><div class="onboarding-ico">${s.ico}</div><div class="onboarding-title">${s.title}</div><div class="onboarding-text">${s.text}</div></div><button class="onboarding-btn" onclick="nextOnboarding()">${i<steps.length-1?'ДАЛЕЕ':'ПОНЯТНО'}</button></div>`;if(!document.getElementById('onboardingModal'))document.body.appendChild(m)};window.nextOnboarding=()=>{i++;if(i>=steps.length){document.getElementById('onboardingModal').remove();localStorage.setItem('sfap_onboarded','1')}else render()};render()}
 
 (async()=>{try{await loadGame();drawTicks();renderPctRow();updateBal();rendMain();renderFilters();rendInv();rendTargetList();loadLiveFeed();updateRankUI();updateTopAvatar();checkHappyHour();try{if(window.Telegram?.WebApp){window.Telegram.WebApp.ready();window.Telegram.WebApp.expand();const u=getUser();if(u&&u.photo_url){updateTopAvatar()}}}catch(e){}showOnboarding()}catch(err){console.error('INIT ERROR:',err);const lt=document.getElementById('liveTrack');if(lt)lt.innerHTML='<span class="live-empty">Ошибка загрузки. Очисти кэш ТГ.</span>'}})();
+function withdrawSkinByName(name) {
+  const idx = inv.findIndex(x => x.name === name);
+  if (idx >= 0) withdrawSkinDirect(idx);
+}
 </script></body></html>
