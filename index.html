@@ -202,40 +202,18 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 @keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
 .popup-title-win{background:linear-gradient(135deg,#4CAF50,#8BC34A,#4CAF50);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(76,175,80,.9))}
 .popup-title-lose{background:linear-gradient(135deg,#e50914,#ff6b6b,#e50914);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(229,9,20,.9))}
-.achievement-badge{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:10px;background:var(--panel-l);border:1px solid var(--border);border-radius:12px;min-width:80px}
-.achievement-badge.unlocked{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,184,0,.15),rgba(255,140,0,.05));box-shadow:0 0 15px rgba(255,184,0,.3)}
-.achievement-ico{font-size:28px;filter:grayscale(1);opacity:.4}
-.achievement-badge.unlocked .achievement-ico{filter:grayscale(0);opacity:1}
-.achievement-name{font-size:9px;font-weight:900;color:var(--gray2);text-align:center;line-height:1.2}
-.achievement-badge.unlocked .achievement-name{color:var(--gold)}
-.title-badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:9px;font-weight:900;letter-spacing:.5px}
-.title-novice{background:#555;color:#fff}.title-pro{background:linear-gradient(135deg,#4a9eff,#2e6db8);color:#fff}.title-master{background:linear-gradient(135deg,#9b8aff,#6a4cff);color:#fff}.title-legend{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a}.title-god{background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;box-shadow:0 0 10px rgba(229,9,20,.6)}
-.skeleton{background:linear-gradient(90deg,var(--panel-l) 25%,var(--border) 50%,var(--panel-l) 75%);background-size:200% 100%;animation:skel 1.5s infinite;border-radius:8px}
-@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.chart-wrap{background:var(--panel-l);border-radius:12px;padding:14px;margin-top:8px}
-.chart-bars{display:flex;align-items:flex-end;gap:4px;height:120px}
-.chart-bar{flex:1;background:linear-gradient(180deg,var(--gold),#ff8c00);border-radius:4px 4px 0 0;min-height:4px;position:relative;transition:height .5s}
-.chart-bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--gray2);font-weight:800;white-space:nowrap}
-.happy-hour-banner{margin:12px 16px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;animation:happyGlow 1.5s ease-in-out infinite}
-@keyframes happyGlow{0%,100%{box-shadow:0 0 20px rgba(255,215,0,.5)}50%{box-shadow:0 0 40px rgba(255,215,0,.9)}}
-.happy-hour-banner .ico{font-size:28px}
-.happy-hour-banner .txt{flex:1}
-.happy-hour-banner .title{font-size:13px;font-weight:900;color:#1a1a1a}
-.happy-hour-banner .sub{font-size:10px;font-weight:700;color:#1a1a1a;opacity:.8}
-.lottery-card{background:linear-gradient(135deg,#9b8aff,#6a4cff);border:none;border-radius:16px;padding:16px;margin:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer}
-.lottery-card .ico{font-size:32px}
-.lottery-card .txt{flex:1}
-.lottery-card .title{font-size:14px;font-weight:900;color:#fff}
-.lottery-card .sub{font-size:10px;font-weight:700;color:#fff;opacity:.85}
-.onboarding{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9000;display:flex;justify-content:center;align-items:center;padding:20px}
-.onboarding-inner{max-width:340px;text-align:center}
-.onboarding-step{background:var(--panel);border:1px solid var(--gold);border-radius:20px;padding:24px;margin-bottom:16px}
-.onboarding-ico{font-size:60px;margin-bottom:12px}
-.onboarding-title{font-size:18px;font-weight:900;color:var(--gold);margin-bottom:8px}
-.onboarding-text{font-size:13px;color:var(--white);line-height:1.5;font-weight:600}
-.onboarding-btn{width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;border:none;cursor:pointer;margin-top:8px}
 
-/* НОВЫЙ СТИЛЬ КАРТОЧЕК */
+/* КРАСИВЫЕ ОКОШКИ ДЛЯ АПГРЕЙДА */
+.upg-container{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.upg-box{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:16px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;min-height:180px;position:relative;cursor:pointer}
+.upg-box-title{font-size:11px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.5px;text-align:center}
+.upg-box-count{font-size:13px;font-weight:900;color:#ffb800;margin-bottom:12px}
+.upg-skins-list{display:flex;flex-direction:column;gap:6px;align-items:center;width:100%;flex:1;justify-content:center}
+.upg-skin-item{width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 10px 15px rgba(0,0,0,0.6))}
+.upg-empty-icon{width:60px;height:60px;border:2px dashed #ffb800;border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:24px;color:#ffb800;margin:10px 0;opacity:0.8}
+.upg-price-bottom{margin-top:auto;font-size:18px;font-weight:900;color:#ffb800;display:flex;align-items:center;gap:4px}
+
+/* НОВЫЙ СТИЛЬ КАРТОЧЕК В ИНВЕНТАРЕ И МАГАЗИНЕ */
 .inv-card{background:linear-gradient(180deg,#1b1b1b 0%,#111111 100%);border-radius:16px;padding:16px;display:flex;flex-direction:column;cursor:pointer;border:1px solid #222;transition:transform 0.2s,border-color 0.2s;position:relative;overflow:hidden;min-height:220px}
 .inv-card:hover{border-color:#444}
 .inv-card.active{border-color:var(--gold);background:linear-gradient(180deg,#222018 0%,#111111 100%)}
@@ -248,8 +226,6 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .inv-card-skin{font-size:18px;font-weight:900;line-height:1.2;margin-bottom:4px}
 .inv-card-bottom{display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:20px;font-weight:900;color:#fff;margin-top:auto}
 .inv-card-price-icon{width:20px;height:20px;background:#fff;color:#000;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:12px;font-weight:900}
-
-/* КНОПКИ ВНУТРИ КАРТОЧКИ */
 .card-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:10;background:rgba(15,15,15,0.85);backdrop-filter:blur(2px)}
 .inv-card.active .card-overlay{opacity:1;pointer-events:auto}
 .card-btn{width:100%;padding:12px;border-radius:10px;font-size:14px;font-weight:900;border:none;cursor:pointer;margin-bottom:8px;transition:transform 0.1s}
@@ -258,126 +234,84 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .btn-sell-action{background:#2a2a2a;color:#fff;border:1px solid #444}
 .btn-withdraw-action{background:linear-gradient(180deg,#4CAF50,#2e7d32);color:#fff;box-shadow:0 4px 15px rgba(76,175,80,0.3)}
 
-/* ГАРАНТИЯ (АККУРАТНАЯ) */
+/* ГАРАНТИЯ */
 .upg-guarantee{text-align:center;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;gap:2px}
 .upg-guarantee-title{font-size:10px;font-weight:800;color:var(--gray2);text-transform:uppercase;letter-spacing:1px;opacity:0.8}
 .upg-guarantee-val{font-size:18px;font-weight:900;color:var(--gold);text-shadow:0 0 10px rgba(255,184,0,0.3)}
 .upg-guarantee-sub{font-size:9px;color:var(--gray2);font-weight:700;opacity:0.7}
-.skin-modal-btn{width:100%;padding:16px;border-radius:12px;font-size:16px;font-weight:900;border:none;cursor:pointer;margin-bottom:10px;transition:transform 0.1s}
-.skin-modal-btn:active{transform:scale(0.98)}
-.btn-upg-action{background:linear-gradient(180deg,#ffd700,#ffb800);color:#1a1a1a;box-shadow:0 4px 15px rgba(255,184,0,0.4)}
-.btn-sell-action{background:#222;color:#fff;border:1px solid #444}
-.btn-withdraw-action{background:linear-gradient(180deg,#4CAF50,#2e7d32);color:#fff;box-shadow:0 4px 15px rgba(76,175,80,0.4)}
 </style></head><body>
-<!-- HTML ВСТАВЬ ИЗ ПРОШЛОГО СООБЩЕНИЯ (он не менялся, кроме апгрейда) -->
-
-<!-- === ЧАСТЬ 2 НАЧНЁТСЯ ЗДЕСЬ === -->
 <div class="top">
-  <div class="top-left">
-    <svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg>
-    <div class="rank-badge"><div class="rn" id="rankNameTop">НОВИЧОК</div><div id="rankLevelTop">LVL 1</div></div>
-  </div>
-  <div class="top-right">
-    <div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div>
-    <div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
-    <div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div>
-  </div>
+<div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="rank-badge"><div class="rn" id="rankNameTop">НОВИЧОК</div><div id="rankLevelTop">LVL 1</div></div></div>
+<div class="top-right"><div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div></div>
 </div>
-
 <div class="live-bar"><div class="live-track" id="liveTrack"><span class="live-empty">Загрузка...</span></div></div>
 <div id="happyHourBanner" class="happy-hour-banner" style="display:none"><div class="ico">🎉</div><div class="txt"><div class="title">СЧАСТЛИВЫЙ ЧАС!</div><div class="sub" id="happyHourSub">x2 шанс на 30 мин</div></div></div>
-
 <div class="friends-btn-wrap">
-  <button class="friends-btn" onclick="openFriends()">👥 ДРУЗЬЯ</button>
-  <button class="friends-btn" onclick="openTasksModal()">🎯 ЗАДАНИЯ</button>
-  <button class="friends-btn" onclick="openAchievements()">🏅 ДОСТИЖЕНИЯ</button>
-  <button class="friends-btn" onclick="openVipModal()" style="color:var(--gold)">👑 VIP</button>
-  <div class="gear-btn" onclick="openGearModal()">⚙️</div>
+<button class="friends-btn" onclick="openFriends()">👥 ДРУЗЬЯ</button>
+<button class="friends-btn" onclick="openTasksModal()">🎯 ЗАДАНИЯ</button>
+<button class="friends-btn" onclick="openAchievements()">🏅 ДОСТИЖЕНИЯ</button>
+<button class="friends-btn" onclick="openVipModal()" style="color:var(--gold)">👑 VIP</button>
+<div class="gear-btn" onclick="openGearModal()">⚙️</div>
 </div>
-
 <div class="main">
-  <div class="wheel-wrap">
-    <div class="wheel" id="wheel">
-      <div class="wheel-zone"><div class="wheel-zone-fill" id="wheelZoneFill"></div></div>
-      <div class="wheel-ticks" id="wheelTicks"></div>
-      <div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">CHANCE</div></div>
-    </div>
-    <div class="arrow-wrap" id="arrowWrap"><div class="arrow"><svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg></div></div>
-  </div>
-
-  <div class="pcnt-row" id="pcntRow"></div>
-  
-  <div class="action-row">
-    <button class="lightning-btn" id="lightningBtn" onclick="toggleLightning()"><div class="ic">⚡</div></button>
-    <button class="upgrade-btn" id="upgradeBtn" onclick="spinUpgrade()" disabled>UPGRADE</button>
-  </div>
-
-  <div class="upg-guarantee">
-    <div class="upg-guarantee-title">ГАРАНТИЯ ВОЗВРАТА</div>
-    <div class="upg-guarantee-val" id="upgGuaranteeVal">60%</div>
-    <div class="upg-guarantee-sub" id="upgGuaranteeSub">Если проиграешь — вернем 60%</div>
-  </div>
-
-  <div class="upg-container">
-    <div class="upg-box" onclick="switchBigTab('inv')">
-      <div class="upg-box-title">ВЫБЕРИТЕ СКИНЫ</div>
-      <div class="upg-box-count" id="selCount">1 ИЗ 10</div>
-      <div class="upg-skins-list" id="leftIcons"></div>
-      <div style="margin-top:auto; font-size:18px; font-weight:900; color:#fff;" id="selSum">0 <span style="color:#ffb800">G</span></div>
-    </div>
-    <div class="upg-box" onclick="switchBigTab('target')">
-      <div class="upg-box-title">ВЫБЕРИТЕ ЦЕЛЬ</div>
-      <div class="upg-box-count" style="color:#ffb800">ИЗ СПИСКА СПРАВА</div>
-      <div class="upg-skins-list" id="rightIcons"><div style="font-size:40px;opacity:0.3">🎯</div></div>
-      <div style="margin-top:auto; font-size:18px; font-weight:900; color:#ffb800;" id="targetCount">0 G</div>
-    </div>
-  </div>
-
-  <div class="big-tabs">
-    <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button>
-    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ПРОКАЧАТЬ ДО</button>
-  </div>
-
-  <div class="panel active" id="panelInv">
-    <div style="display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px;">
-      <button id="subInv" onclick="switchSub('inv')" style="flex:1;background:var(--panel-l);border:none;color:var(--white);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МОИ СКИНЫ</button>
-      <button id="subShop" onclick="switchSub('shop')" style="flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МАГАЗИН</button>
-    </div>
-    <div id="shopTabs" style="display:none;gap:4px;margin-top:8px;">
-      <button id="tabSkins" onclick="switchShopTab('skins')" style="flex:1;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--white);font-size:10px;font-weight:800;cursor:pointer;">СКИНЫ</button>
-      <button id="tabAgents" onclick="switchShopTab('agents')" style="flex:1;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer;">АГЕНТЫ</button>
-    </div>
-    <div style="margin-top:12px;"><input type="text" id="searchInp" placeholder="Поиск..." oninput="rendInv()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
-    <div class="filter-bar" id="filterBar"></div>
-    <div class="sort-bar" id="sortBar"></div>
-    <div class="grid" id="invList"></div>
-  </div>
-
-  <div class="panel" id="panelTarget">
-    <div style="margin-top:12px;"><input type="text" id="targetSearchInp" placeholder="Поиск цели..." oninput="rendTargetList()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
-    <div class="grid" id="targetList"></div>
-  </div>
+<div class="wheel-wrap"><div class="wheel" id="wheel"><div class="wheel-zone"><div class="wheel-zone-fill" id="wheelZoneFill"></div></div><div class="wheel-ticks" id="wheelTicks"></div><div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">CHANCE</div></div></div><div class="arrow-wrap" id="arrowWrap"><div class="arrow"><svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg></div></div></div>
+<div class="pcnt-row" id="pcntRow"></div>
+<div class="action-row"><button class="lightning-btn" id="lightningBtn" onclick="toggleLightning()"><div class="ic">⚡</div></button><button class="upgrade-btn" id="upgradeBtn" onclick="spinUpgrade()" disabled>UPGRADE</button></div>
+<div class="upg-guarantee">
+<div class="upg-guarantee-title">ГАРАНТИЯ ВОЗВРАТА</div>
+<div class="upg-guarantee-val" id="upgGuaranteeVal">60%</div>
+<div class="upg-guarantee-sub" id="upgGuaranteeSub">Если проиграешь — вернем 60%</div>
 </div>
-
+<div class="upg-container">
+<div class="upg-box" onclick="switchBigTab('inv')">
+<div class="upg-box-title">ВЫБЕРИТЕ СКИНЫ</div>
+<div class="upg-box-count" id="selCount">0 ИЗ 10</div>
+<div class="upg-skins-list" id="leftIcons"></div>
+<div class="upg-price-bottom" id="selSum">0 G</div>
+</div>
+<div class="upg-box" onclick="switchBigTab('target')">
+<div class="upg-box-title">ВЫБЕРИТЕ ЦЕЛЬ</div>
+<div class="upg-box-count" style="color:#ffb800">ИЗ СПИСКА СПРАВА</div>
+<div class="upg-skins-list" id="rightIcons"></div>
+<div class="upg-price-bottom" id="targetCount">0 G</div>
+</div>
+</div>
+<div class="big-tabs">
+<button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button>
+<button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ПРОКАЧАТЬ ДО</button>
+</div>
+<div class="panel active" id="panelInv">
+<div style="display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px;">
+<button id="subInv" onclick="switchSub('inv')" style="flex:1;background:var(--panel-l);border:none;color:var(--white);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МОИ СКИНЫ</button>
+<button id="subShop" onclick="switchSub('shop')" style="flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МАГАЗИН</button>
+</div>
+<div id="shopTabs" style="display:none;gap:4px;margin-top:8px;">
+<button id="tabSkins" onclick="switchShopTab('skins')" style="flex:1;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--white);font-size:10px;font-weight:800;cursor:pointer;">СКИНЫ</button>
+<button id="tabAgents" onclick="switchShopTab('agents')" style="flex:1;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer;">АГЕНТЫ</button>
+</div>
+<div style="margin-top:12px;"><input type="text" id="searchInp" placeholder="Поиск..." oninput="rendInv()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
+<div class="filter-bar" id="filterBar"></div>
+<div class="sort-bar" id="sortBar"></div>
+<div class="grid" id="invList"></div>
+</div>
+<div class="panel" id="panelTarget">
+<div style="margin-top:12px;"><input type="text" id="targetSearchInp" placeholder="Поиск цели..." oninput="rendTargetList()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
+<div class="grid" id="targetList"></div>
+</div>
+</div>
 <div class="lottery-card" onclick="openLottery()"><div class="ico">🎰</div><div class="txt"><div class="title">ЛОТЕРЕЯ</div><div class="sub" id="lotterySub">Билет 10 G → до 1000 G</div></div></div>
-
 <div class="bottom">
-  <button class="nb" onclick="scrollToShop()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span>SHOP</span></button>
-  <button class="nb nb-center active" onclick="openS('profileScreen')"><div class="circle"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div></button>
-  <button class="nb" onclick="openS('settingsScreen')"><svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg><span>МЕНЮ</span></button>
+<button class="nb" onclick="scrollToShop()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><span>SHOP</span></button>
+<button class="nb nb-center active" onclick="openS('profileScreen')"><div class="circle"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div></button>
+<button class="nb" onclick="openS('settingsScreen')"><svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg><span>МЕНЮ</span></button>
 </div>
-
 <div class="toast" id="toast"></div>
 <div class="scr" id="topupScreen"><div class="sh"><h2>ПОПОЛНЕНИЕ</h2><button class="cb" onclick="closeS('topupScreen')">✕</button></div><div class="sb"><div style="text-align:center;padding:40px;color:var(--gray2)">Скоро...</div></div></div>
 <div class="scr" id="profileScreen"><div class="sh"><h2>ПРОФИЛЬ</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div><div class="sb" id="profileBody" style="padding:0"></div></div>
 <div class="scr" id="settingsScreen"><div class="sh"><h2>МЕНЮ</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div><div class="sb" id="settingsBody"></div></div>
-
 <div class="friends-modal-overlay" id="friendsModal" style="display:none"><div class="friends-modal"><div class="friends-head"><h2>👥 ДРУЗЬЯ</h2><button class="friends-close" onclick="closeFriends()">✕</button></div><div class="friends-search-block"><input type="text" id="friendIdInput" placeholder="Введи ID друга"><button class="friends-search-add" onclick="sendFriendRequest()">➕</button></div><div id="reqTitle" style="display:none;font-size:11px;color:var(--red);font-weight:900;margin-bottom:8px;">📥 ЗАЯВКИ</div><div id="requestsList" style="display:none"></div><div style="font-size:11px;color:var(--gray2);font-weight:900;margin:16px 0 8px;">📌 РЕКОМЕНДУЕМЫЕ</div><div class="friends-scroll" id="recList"></div><div style="font-size:11px;color:var(--gray2);font-weight:900;margin:16px 0 8px;">👥 МОИ ДРУЗЬЯ</div><div id="friendsList"></div></div></div>
-
 <div class="modal-overlay" id="tasksModal" style="display:none"><div class="modal-content" style="max-width:420px"><button class="modal-close" onclick="document.getElementById('tasksModal').style.display='none'">✕</button><div class="modal-title">🎯 ЗАДАНИЯ ДНЯ</div><div id="tasksList"></div></div></div>
-
 <div class="vip-modal-overlay" id="vipModal" style="display:none"><div class="vip-modal"><button class="modal-close" onclick="closeVipModal()" style="right:16px;top:16px;position:absolute">✕</button><div class="vip-modal-head"><div class="vip-crown-big">👑</div><div class="vip-modal-title">VIP СТАТУС</div></div><div class="vip-features"><div class="vip-feature"><span>🎰</span> <b>+5%</b> к шансу выигрыша</div><div class="vip-feature"><span>💰</span> <b>+5%</b> к пополнению</div><div class="vip-feature"><span>🎁</span> <b>+20 G</b> каждый день</div><div class="vip-feature"><span>👑</span> VIP-значок и золотая рамка</div><div class="vip-feature"><span>⚡</span> Быстрый спин</div><div class="vip-feature"><span>📈</span> x1.5 к рефералам</div><div class="vip-feature"><span>💸</span> <b>-5%</b> комиссия при выводе</div></div><div class="vip-price-row"><div class="vip-price-card" onclick="buyVipGold()"><div style="font-size:20px">💰</div><div style="font-size:11px;color:var(--gray2)">ЗА ГОЛДУ</div><div class="vip-price-value">780 G</div></div><div class="vip-price-card recommended" onclick="buyVipMoney()"><div style="font-size:20px">💵</div><div style="font-size:11px;color:var(--gray2)">ЗА ДЕНЬГИ</div><div class="vip-price-value">690 ₽</div></div></div><button class="vip-buy-btn" onclick="buyVipGold()">💰 КУПИТЬ ЗА 780 G</button><button class="vip-close-btn" onclick="closeVipModal()">ЗАКРЫТЬ</button></div></div>
-
 <div class="gear-modal-overlay" id="gearModal" style="display:none"><div class="gear-modal"><div style="font-size:14px;font-weight:900;margin-bottom:12px">⚙️ НАСТРОЙКА %</div><div class="gear-list" id="gearList"></div><button class="vip-close-btn" onclick="document.getElementById('gearModal').style.display='none'">ГОТОВО</button></div></div>
 <script>
 const BOT_URL='https://admin-bot-03ly.onrender.com';
@@ -524,11 +458,19 @@ function setPct(p,el){if(isSpinning)return;if(selectedItems.length===0){toast('�
 function checkUpgradeBtn(){const btn=document.getElementById('upgradeBtn');if(!btn)return;if(selectedItems.length>0&&targetSkin&&selPct&&!isSpinning){btn.disabled=false;btn.style.opacity='1'}else{btn.disabled=true;btn.style.opacity='.5'}}
 function rendMain(){
   const leftIcons=document.getElementById('leftIcons');
-  if(leftIcons){let h='';for(let i=0;i<selectedItems.length;i++){const s=selectedItems[i];h+=`<div style="position:relative"><img src="${s.img}" class="upg-skin-item" style="margin-bottom:-20px; z-index:${i}"><div class="slot-remove" style="z-index:${i+10}; right:-4px; top:-4px;" onclick="removeFromUpgradeItem(selectedItems[${i}])">✕</div></div>`}leftIcons.innerHTML=h}
+  if(leftIcons){
+    let h='';
+    for(let i=0;i<selectedItems.length;i++){
+      const s=selectedItems[i];
+      h+=`<div style="position:relative; margin-bottom:-30px;"><img src="${s.img}" class="upg-skin-item" style="z-index:${i};"><div class="slot-remove" style="z-index:${i+10}; right:0px; top:-5px;" onclick="event.stopPropagation(); removeFromUpgradeItem(selectedItems[${i}])">✕</div></div>`;
+    }
+    if(selectedItems.length === 0) h = '<div class="upg-empty-icon">+</div>';
+    leftIcons.innerHTML=h;
+  }
   const selCount=document.getElementById('selCount');if(selCount)selCount.innerText=selectedItems.length+' ИЗ '+MAX_UPGRADE;
   const sum=selectedItems.reduce((s,it)=>s+(it.price||0),0);const sumEl=document.getElementById('selSum');if(sumEl)sumEl.innerHTML=sum.toLocaleString('ru-RU')+' <span style="color:#ffb800">G</span>';
   const rightIcons=document.getElementById('rightIcons');
-  if(rightIcons){if(targetSkin){rightIcons.innerHTML=`<img src="${targetSkin.img}" class="upg-skin-item" style="width:80px;height:80px;">`;const tc=document.getElementById('targetCount');if(tc)tc.innerText=targetSkin.price+' G'}else{rightIcons.innerHTML='<div style="font-size:40px;opacity:0.3">🎯</div>';const tc=document.getElementById('targetCount');if(tc)tc.innerText='0 G'}}
+  if(rightIcons){if(targetSkin){rightIcons.innerHTML=`<img src="${targetSkin.img}" class="upg-skin-item">`;const tc=document.getElementById('targetCount');if(tc)tc.innerHTML=targetSkin.price.toLocaleString('ru-RU')+' <span style="color:#ffb800">G</span>'}else{rightIcons.innerHTML='<div class="upg-empty-icon">🎯</div>';const tc=document.getElementById('targetCount');if(tc)tc.innerHTML='0 <span style="color:#ffb800">G</span>'}}
   updateGuarantee();checkUpgradeBtn();
 }
 function updateGuarantee() {
