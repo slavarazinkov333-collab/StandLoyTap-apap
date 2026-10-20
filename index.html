@@ -15,6 +15,19 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 100%;pointer-events: none;z-index: -1;background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,184,0,0.4), transparent),radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.2), transparent),radial-gradient(2px 2px at 90px 40px, rgba(76,175,80,0.3), transparent),radial-gradient(1px 1px at 130px 80px, rgba(255,184,0,0.2), transparent);background-size: 150px 100px;animation: stars 6s linear infinite;}
 @keyframes stars { 0% { background-position: 0 0; } 100% { background-position: 0 200px; } }
 
+/* ПРАВОЕ МЕНЮ */
+.sidebar-right {position:fixed;top:0;right:-300px;width:280px;height:100%;background:var(--panel);z-index:2000;transition:0.3s cubic-bezier(0.4, 0, 0.2, 1);display:flex;flex-direction:column;border-left:1px solid var(--border);box-shadow:-5px 0 30px rgba(0,0,0,0.8)}
+.sidebar-right.open {right:0}
+.sidebar-overlay {position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1999;display:none}
+.sidebar-overlay.open {display:block}
+.sidebar-header {padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.sidebar-menu {padding:16px;display:flex;flex-direction:column;gap:8px}
+.menu-item {display:flex;align-items:center;gap:14px;padding:16px;background:var(--panel-l);border-radius:14px;border:1px solid var(--border);font-size:14px;font-weight:700;color:var(--white);cursor:pointer;transition:0.2s}
+.menu-item:active {background:var(--border);transform:scale(0.98)}
+.menu-item span {font-size:20px;width:24px;text-align:center}
+.menu-item .arrow {margin-left:auto;color:var(--gray2);font-size:16px}
+
+/* ВЕРХ И СТАРОЕ */
 .top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .top-left{display:flex;align-items:center;gap:12px}
 .logo-svg{width:34px;height:34px;filter:drop-shadow(0 0 8px rgba(229,9,20,0.6))}
@@ -25,25 +38,13 @@ body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 
 .cart-btn svg{width:18px;height:18px;fill:var(--white)}
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:9px;font-weight:900;border-radius:10px;padding:2px 5px;border:2px solid var(--bg);display:none}
 .bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:6px 12px;border-radius:10px;border:1px solid var(--border);cursor:pointer}
-.bal-plus{width:24px;height:24px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:16px;color:#1a1a1a;font-weight:900;box-shadow:0 0 10px rgba(255,184,0,0.5)}
-.bal-num{font-size:14px;font-weight:900;text-shadow:0 1px 2px rgba(0,0,0,0.8)}
+.bal-plus{width:24px;height:24px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:16px;color:#1a1a1a;font-weight:900}
+.bal-num{font-size:14px;font-weight:900}
 .bal-g{font-size:11px;font-weight:900;color:var(--gold)}
 .av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden}
 .av-top img{width:100%;height:100%;object-fit:cover}
 
-/* МЕНЮ СПРАВА */
-.sidebar-right{position:fixed;top:0;right:-300px;width:280px;height:100%;background:var(--panel);z-index:2000;transition:0.3s cubic-bezier(0.4, 0, 0.2, 1);display:flex;flex-direction:column;border-left:1px solid var(--border);box-shadow:-5px 0 30px rgba(0,0,0,0.8)}
-.sidebar-right.open{right:0}
-.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1999;display:none}
-.sidebar-overlay.open{display:block}
-.sidebar-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.sidebar-menu{padding:16px;display:flex;flex-direction:column;gap:8px}
-.menu-item{display:flex;align-items:center;gap:14px;padding:16px;background:var(--panel-l);border-radius:14px;border:1px solid var(--border);font-size:14px;font-weight:700;color:var(--white);cursor:pointer;transition:0.2s}
-.menu-item:active{background:var(--border);transform:scale(0.98)}
-.menu-item span{font-size:20px;width:24px;text-align:center}
-.menu-item .arrow{margin-left:auto;color:var(--gray2);font-size:16px}
-
-/* LIVE */
+/* LIVE (РАБОЧАЯ) */
 .live-bar{margin:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:60px;overflow:hidden;position:relative;display:flex;align-items:center}
 .live-bar::before{content:'LIVE';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:#fff;background:var(--red);padding:3px 8px;border-radius:4px;z-index:3;animation:livePulse 1.5s infinite}
 @keyframes livePulse{0%,100%{opacity:1}50%{opacity:0.7}}
@@ -67,7 +68,6 @@ body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 
 .tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.4);transform-origin:center 150px;transform:translateX(-50%) rotate(var(--a));border-radius:1px;animation:tickPulse 2s infinite}
 .tick.major{width:3px;height:14px;background:var(--gold);box-shadow:0 0 10px rgba(255,184,0,.8)}
 @keyframes tickPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
 .wheel-center{position:relative;z-index:5;text-align:center}
 .pt{font-size:38px;font-weight:900;line-height:1;letter-spacing:-1px;text-shadow:0 1px 3px rgba(0,0,0,0.9), 0 0 20px rgba(255,184,0,.6);color:var(--gold)}
 .pl{font-size:9px;color:var(--gray2);letter-spacing:4px;margin-top:4px;font-weight:700}
@@ -100,6 +100,7 @@ body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 
 .slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:10px;text-align:center}
 .slot-clear{font-size:11px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:6px 14px;border-radius:8px;text-transform:uppercase;letter-spacing:0.5px}
 
+/* МАГАЗИН СТЕКЛО */
 .big-tabs{display:flex;gap:4px;margin-top:20px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
@@ -107,7 +108,6 @@ body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 
 .panel.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 
-/* КАРТОЧКИ СТЕКЛО */
 .card{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border-radius:12px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,0.08);transition:0.2s}
 .card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,rgba(255,255,255,0.05) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
 .card-img-wrap img{width:90%;height:90%;object-fit:contain;filter:drop-shadow(0 5px 10px rgba(0,0,0,0.5))}
@@ -129,30 +129,114 @@ body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 
 .card-check::after {content:'✓';color:#fff;font-size:14px;font-weight:900;opacity:0}
 .card.selected .card-check::after {opacity:1}
 
-/* МОДАЛКИ */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
+/* МОДАЛКИ (СТАРЫЕ) */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
 .modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
-.modal-title{font-size:18px;font-weight:900;margin-bottom:16px;text-align:center}
+.modal-title{font-size:16px;font-weight:900;margin-bottom:16px;text-align:center}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
 
-/* ПОПАП НОВЫЙ СКИН (ЗЕЛЕНЫЙ) */
-.new-skin-popup {background: radial-gradient(circle at center, #1a2a1a 0%, #0d120d 100%);border: 1px solid rgba(0,230,118,0.2);border-radius: 28px;padding: 24px 20px;width: 100%;max-width: 360px;text-align: center;box-shadow: 0 20px 60px rgba(0,0,0,0.9);position: relative;animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;overflow: hidden;}
-.new-skin-badge {display: inline-block;background: #00e676;color: #000;font-size: 12px;font-weight: 900;padding: 6px 16px;border-radius: 20px;margin-bottom: 20px;text-transform: uppercase;letter-spacing: 1px;box-shadow: 0 0 20px rgba(0,230,118,0.4);}
-.new-skin-circle {width: 160px;height: 160px;background: rgba(0,230,118,0.1);border-radius: 50%;margin: 0 auto 20px auto;display: flex;justify-content: center;align-items: center;position: relative;}
-.new-skin-circle::before {content: ''; position: absolute; inset: 0;border-radius: 50%; border: 2px dashed rgba(0,230,118,0.3);animation: spinSlow 10s linear infinite;}
+/* ПОПАП НОВЫЙ СКИН (БОЛЬШЕ И БЕЗ ЗВЁЗД) */
+.new-skin-popup {
+  background: radial-gradient(circle at center, #1a2a1a 0%, #0d120d 100%);
+  border: 1px solid rgba(0,230,118,0.2);
+  border-radius: 28px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 380px; /* Увеличили */
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+  position: relative;
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  overflow: hidden;
+}
+.new-skin-badge {
+  display: inline-block;
+  background: #00e676;
+  color: #000;
+  font-size: 13px; /* Увеличили */
+  font-weight: 900;
+  padding: 8px 20px; /* Увеличили */
+  border-radius: 20px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 20px rgba(0,230,118,0.4);
+}
+.new-skin-circle {
+  width: 180px; /* Увеличили */
+  height: 180px;
+  background: rgba(0,230,118,0.1);
+  border-radius: 50%;
+  margin: 0 auto 24px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.new-skin-circle::before {
+  content: ''; position: absolute; inset: 0;
+  border-radius: 50%; border: 2px dashed rgba(0,230,118,0.3);
+  animation: spinSlow 10s linear infinite;
+}
 @keyframes spinSlow { 100% { transform: rotate(360deg); } }
-.new-skin-img {max-width: 120%;max-height: 120%;object-fit: contain;filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));animation: floatItem 3s ease-in-out infinite;}
+.new-skin-img {
+  max-width: 120%;
+  max-height: 120%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+  animation: floatItem 3s ease-in-out infinite;
+}
 @keyframes floatItem { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-.new-skin-title {font-size: 20px;font-weight: 900;color: var(--white);line-height: 1.1;margin-bottom: 12px;text-transform: uppercase;}
-.new-skin-desc {font-size: 12px;font-weight: 800;color: var(--green);margin-bottom: 16px;text-transform: uppercase;letter-spacing: 1px;}
-.new-skin-name {font-size: 20px;font-weight: 900;color: var(--gold);margin-bottom: 4px;}
-.new-skin-type {font-size: 12px;font-weight: 800;color: var(--gray2);text-transform: uppercase;margin-bottom: 24px;letter-spacing: 2px;}
-.new-skin-btn {width: 100%;padding: 18px;background: linear-gradient(135deg, #ffd700, #ff8c00);border: none;border-radius: 16px;color: #000;font-size: 16px;font-weight: 900;text-transform: uppercase;cursor: pointer;box-shadow: 0 10px 20px rgba(255,184,0,0.3);transition: 0.2s;}
+.new-skin-title {
+  font-size: 24px; /* Увеличили */
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.new-skin-desc {
+  font-size: 13px; /* Увеличили */
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.new-skin-name {
+  font-size: 24px; /* Увеличили */
+  font-weight: 900;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.new-skin-type {
+  font-size: 13px; /* Увеличили */
+  font-weight: 800;
+  color: var(--gray2);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  letter-spacing: 2px;
+}
+.new-skin-btn {
+  width: 100%;
+  padding: 20px; /* Увеличили */
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  border: none;
+  border-radius: 16px;
+  color: #000;
+  font-size: 18px; /* Увеличили */
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(255,184,0,0.3);
+  transition: 0.2s;
+}
 .new-skin-btn:active { transform: scale(0.95); }
+
 @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-/* ПРОФИЛЬ */
+/* ПРОФИЛЬ (СТАРЫЙ) */
 .profile-wrap{padding:16px}
 .profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
 .profile-header-row{display:flex;align-items:center;gap:12px}
@@ -188,68 +272,39 @@ body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 
 .hist-price{font-size:14px;font-weight:900}
 .hist-price.win{color:var(--green-l)}
 .hist-price.lose{color:var(--red)}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
-.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
-.modal-title{font-size:16px;font-weight:900;margin-bottom:16px;text-align:center}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
-.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none}
-.filter-bar{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.filter-bar::-webkit-scrollbar{display:none}
-.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
-.filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(255,184,0,.1)}
-.sort-bar{display:flex;gap:6px;margin-top:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.sort-bar::-webkit-scrollbar{display:none}
-.sort-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
-.sort-chip.active{border-color:var(--blue);color:var(--blue);background:rgba(74,158,255,.1)}
-@keyframes popupIn{0%{opacity:0;transform:scale(.7) translateY(30px)}60%{transform:scale(1.05) translateY(-5px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-.popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
-.popup-lose-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
-.popup-item{animation:itemFloat 2s ease-in-out infinite}
-@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
-.popup-title-win{background:linear-gradient(135deg,#4CAF50,#8BC34A,#4CAF50);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(76,175,80,.9))}
-.popup-title-lose{background:linear-gradient(135deg,#e50914,#ff6b6b,#e50914);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(229,9,20,.9))}
-.achievement-badge{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:10px;background:var(--panel-l);border:1px solid var(--border);border-radius:12px;min-width:80px}
-.achievement-badge.unlocked{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,184,0,.15),rgba(255,140,0,.05));box-shadow:0 0 15px rgba(255,184,0,.3)}
-.achievement-ico{font-size:28px;filter:grayscale(1);opacity:.4}
-.achievement-badge.unlocked .achievement-ico{filter:grayscale(0);opacity:1}
-.achievement-name{font-size:9px;font-weight:900;color:var(--gray2);text-align:center;line-height:1.2}
-.achievement-badge.unlocked .achievement-name{color:var(--gold)}
-.title-badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:9px;font-weight:900;letter-spacing:.5px}
-.title-novice{background:#555;color:#fff}
-.title-pro{background:linear-gradient(135deg,#4a9eff,#2e6db8);color:#fff}
-.title-master{background:linear-gradient(135deg,#9b8aff,#6a4cff);color:#fff}
-.title-legend{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a}
-.title-god{background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;box-shadow:0 0 10px rgba(229,9,20,.6)}
 .skeleton{background:linear-gradient(90deg,var(--panel-l) 25%,var(--border) 50%,var(--panel-l) 75%);background-size:200% 100%;animation:skel 1.5s infinite;border-radius:8px}
 @keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .chart-wrap{background:var(--panel-l);border-radius:12px;padding:14px;margin-top:8px}
 .chart-bars{display:flex;align-items:flex-end;gap:4px;height:120px}
 .chart-bar{flex:1;background:linear-gradient(180deg,var(--gold),#ff8c00);border-radius:4px 4px 0 0;min-height:4px;position:relative;transition:height .5s}
 .chart-bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--gray2);font-weight:800;white-space:nowrap}
-.happy-hour-banner{margin:12px 16px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;animation:happyGlow 1.5s ease-in-out infinite}
-@keyframes happyGlow{0%,100%{box-shadow:0 0 20px rgba(255,215,0,.5)}50%{box-shadow:0 0 40px rgba(255,215,0,.9)}}
-.happy-hour-banner .ico{font-size:28px}
-.happy-hour-banner .txt{flex:1}
-.happy-hour-banner .title{font-size:13px;font-weight:900;color:#1a1a1a}
-.happy-hour-banner .sub{font-size:10px;font-weight:700;color:#1a1a1a;opacity:.8}
-.lottery-card{background:linear-gradient(135deg,#9b8aff,#6a4cff);border:none;border-radius:16px;padding:16px;margin:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer}
-.lottery-card .ico{font-size:32px}
-.lottery-card .txt{flex:1}
-.lottery-card .title{font-size:14px;font-weight:900;color:#fff}
-.lottery-card .sub{font-size:10px;font-weight:700;color:#fff;opacity:.85}
-.invest-btn{width:100%;padding:10px;background:var(--panel-l);border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:11px;font-weight:800;cursor:pointer;margin-top:6px}
-.bet-row{display:flex;gap:8px;margin-top:6px}
-.bet-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:10px;font-weight:900;cursor:pointer}
-.bet-btn.win{background:var(--green-l);color:#fff}
-.bet-btn.lose{background:var(--red);color:#fff}
-.onboarding{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9000;display:flex;justify-content:center;align-items:center;padding:20px}
-.onboarding-inner{max-width:340px;text-align:center}
-.onboarding-step{background:var(--panel);border:1px solid var(--gold);border-radius:20px;padding:24px;margin-bottom:16px}
-.onboarding-ico{font-size:60px;margin-bottom:12px}
-.onboarding-title{font-size:18px;font-weight:900;color:var(--gold);margin-bottom:8px}
-.onboarding-text{font-size:13px;color:var(--white);line-height:1.5;font-weight:600}
-.onboarding-btn{width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;border:none;cursor:pointer;margin-top:8px}
+.filter-bar{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
+.filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(255,184,0,.1)}
 </style></head><body>
+
+<!-- ОВЕРЛЕЙ -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- НОВОЕ ПРАВОЕ МЕНЮ -->
+<div class="sidebar-right" id="sidebar">
+  <div class="sidebar-header">
+    <div class="av-top" id="sideAvatar" style="width:50px;height:50px;border-radius:14px;">👤</div>
+    <div>
+      <div style="font-size:16px;font-weight:900;color:var(--white);" id="sideName">Игрок</div>
+      <div style="font-size:11px;color:var(--gold);font-weight:800;" id="sideId">ID: #00000</div>
+    </div>
+  </div>
+  
+  <div class="sidebar-menu">
+    <div class="menu-item" onclick="toggleSidebar();openS('profileScreen')"><span>👤</span> Мой Профиль <div class="arrow">›</div></div>
+    <div class="menu-item" onclick="toggleSidebar();openDailyRewards()"><span>🎁</span> Подарок за вход <div class="arrow">›</div></div>
+    <div class="menu-item" onclick="toggleSidebar();openFriends()"><span>👥</span> Друзья <div class="arrow">›</div></div>
+    <div class="menu-item" onclick="toggleSidebar();openS('settingsScreen')"><span>⚙️</span> Настройки <div class="arrow">›</div></div>
+  </div>
+</div>
+
 <div class="top">
 <div class="top-left"><svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg><div class="rank-badge"><div class="rn" id="rankNameTop">НОВИЧОК</div><div id="rankLevelTop">LVL 1</div></div></div>
 <div class="top-right"><div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div><div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div><div class="av-top" id="topAv" onclick="toggleSidebar()">👤</div></div>
@@ -305,16 +360,6 @@ body::before {content: '';position: fixed;top: 0; left: 0; width: 100%; height: 
 <div class="modal-overlay" id="tasksModal" style="display:none"><div class="modal-content" style="max-width:420px"><button class="modal-close" onclick="document.getElementById('tasksModal').style.display='none'">✕</button><div class="modal-title">🎯 ЗАДАНИЯ ДНЯ</div><div id="tasksList"></div></div></div>
 <div class="vip-modal-overlay" id="vipModal" style="display:none"><div class="vip-modal"><button class="modal-close" onclick="closeVipModal()" style="right:16px;top:16px;position:absolute">✕</button><div class="vip-modal-head"><div class="vip-crown-big">👑</div><div class="vip-modal-title">VIP СТАТУС</div></div><div class="vip-features"><div class="vip-feature"><span>🎰</span> <b>+5%</b> к шансу выигрыша</div><div class="vip-feature"><span>💰</span> <b>+5%</b> к пополнению</div><div class="vip-feature"><span>🎁</span> <b>+20 G</b> каждый день</div><div class="vip-feature"><span>👑</span> VIP-значок и золотая рамка</div><div class="vip-feature"><span>⚡</span> Быстрый спин</div><div class="vip-feature"><span>📈</span> x1.5 к рефералам</div><div class="vip-feature"><span>💸</span> <b>-5%</b> комиссия при выводе</div></div><div class="vip-price-row"><div class="vip-price-card" onclick="buyVipGold()"><div style="font-size:20px">💰</div><div style="font-size:11px;color:var(--gray2)">ЗА ГОЛДУ</div><div class="vip-price-value">780 G</div></div><div class="vip-price-card recommended" onclick="buyVipMoney()"><div style="font-size:20px">💵</div><div style="font-size:11px;color:var(--gray2)">ЗА ДЕНЬГИ</div><div class="vip-price-value">690 ₽</div></div></div><button class="vip-buy-btn" onclick="buyVipGold()">💰 КУПИТЬ ЗА 780 G</button><button class="vip-close-btn" onclick="closeVipModal()">ЗАКРЫТЬ</button></div></div>
 <div class="gear-modal-overlay" id="gearModal" style="display:none"><div class="gear-modal"><div style="font-size:14px;font-weight:900;margin-bottom:12px">⚙️ НАСТРОЙКА %</div><div class="gear-list" id="gearList"></div><button class="vip-close-btn" onclick="document.getElementById('gearModal').style.display='none'">ГОТОВО</button></div></div>
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-<div class="sidebar-right" id="sidebar">
-  <div class="sidebar-header"><div class="av-top" id="sideAvatar" style="width:50px;height:50px;border-radius:14px;">👤</div><div><div style="font-size:16px;font-weight:900;color:var(--white);" id="sideName">Игрок</div><div style="font-size:11px;color:var(--gold);font-weight:800;" id="sideId">ID: #00000</div></div></div>
-  <div class="sidebar-menu">
-    <div class="menu-item" onclick="toggleSidebar();openS('profileScreen')"><span>👤</span> Мой Профиль <div class="arrow">›</div></div>
-    <div class="menu-item" onclick="toggleSidebar();openDailyRewards()"><span>🎁</span> Подарок за вход <div class="arrow">›</div></div>
-    <div class="menu-item" onclick="toggleSidebar();openFriends()"><span>👥</span> Друзья <div class="arrow">›</div></div>
-    <div class="menu-item" onclick="toggleSidebar();openS('settingsScreen')"><span>⚙️</span> Настройки <div class="arrow">›</div></div>
-  </div>
-</div>
 <div class="modal-overlay" id="dailyModal" style="display:none; z-index:2500;">
   <div class="modal-content" style="max-width:420px; padding:0; background:var(--panel);">
     <button class="modal-close" onclick="closeDaily()" style="z-index:10;">✕</button>
@@ -450,23 +495,17 @@ function rendInv(){
     b.innerHTML=f.map(it=>{
       const r=getRarity(it.color||'#888');
       const realIdx=inv.indexOf(it);
-      return `<div class="card ${r}" onclick="toggleCardActions(this)">
+      return `<div class="card ${r}">
         <div class="card-img-wrap">${it.img?`<img src="${it.img}" onerror="this.style.display='none'">`:''}</div>
         <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${(it.price||0).toLocaleString('ru-RU')}</div></div>
         <div class="card-actions">
-          <button class="btn-upg" onclick="event.stopPropagation();addToUpgrade(${realIdx})">⬆ АП</button>
-          <button class="btn-wd" onclick="event.stopPropagation();withdrawSkinDirect(${realIdx})">📤 ВЫВОД</button>
-          <button class="btn-sell" style="grid-column:span 2" onclick="event.stopPropagation();sellSkin(${realIdx})">💸 ПРОДАТЬ</button>
+          <button class="btn-upg" onclick="addToUpgrade(${realIdx})">⬆ АП</button>
+          <button class="btn-wd" onclick="withdrawSkinDirect(${realIdx})">📤 ВЫВОД</button>
+          <button class="btn-sell" style="grid-column:span 2" onclick="sellSkin(${realIdx})">💸 ПРОДАТЬ</button>
         </div>
       </div>`
     }).join('');
   }
-}
-
-function toggleCardActions(el){
-  const isShowing = el.classList.contains('show-actions');
-  document.querySelectorAll('.card.show-actions').forEach(c => c.classList.remove('show-actions'));
-  if(!isShowing) el.classList.add('show-actions');
 }
 
 function rendTargetList(){
@@ -680,7 +719,7 @@ function pickTargetCard(name,price,color){
 
 function lockUI(lock){const ub=document.getElementById('upgradeBtn');if(ub)ub.disabled=lock;document.querySelectorAll('.pb').forEach(b=>b.disabled=lock)}
 
-// === СПИН (МЕДЛЕННО -> БЫСТРО -> МЕДЛЕННО) ===
+// === СПИН ===
 async function spinUpgrade(){
   if(selectedItems.length===0||!targetSkin||!selPct||isSpinning)return;
   isSpinning=true;lockUI(true);rendInv();rendTargetList();
@@ -749,7 +788,7 @@ function closeResult(){
   rendMain();rendInv();rendTargetList();clearWheelPct();checkUpgradeBtn();saveGame();
 }
 
-// ПОПАП "НОВЫЙ СКИН" (ЗЕЛЕНЫЙ)
+// НОВЫЙ ПОПАП (УВЕЛИЧЕН, БЕЗ ЗВЁЗД)
 function showWinModal(skin){
   const m=document.createElement('div');m.id='resultScreen';
   m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;';
@@ -775,16 +814,16 @@ function showLoseModal(items){
   const m=document.createElement('div');m.id='resultScreen';
   m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;';
   m.innerHTML=`
-    <div class="new-skin-popup" style="background: radial-gradient(circle at center, #2a1a1a 0%, #120d0d 100%); border-color:rgba(255,51,51,0.2);">
+    <div class="new-skin-popup" style="background: radial-gradient(circle at center, #2a1a1a 0%, #120d0d 100%); border-color:rgba(255,51,51,0.2); max-width: 380px;">
       <div class="new-skin-badge" style="background:#ff3333;color:#fff;">ПОРАЖЕНИЕ</div>
-      <div class="new-skin-circle" style="background: rgba(255,51,51,0.1);">
+      <div class="new-skin-circle" style="background: rgba(255,51,51,0.1); width: 180px; height: 180px;">
         <img src="${lostSkin.img}" class="new-skin-img">
       </div>
-      <div class="new-skin-title">НЕУДАЧА</div>
-      <div class="new-skin-desc" style="color:#ff3333;">ПРЕДМЕТ ПОТЕРЯН</div>
-      <div class="new-skin-name">${lostSkin.name}</div>
-      <div class="new-skin-type">- ${lostSkin.price||0} G</div>
-      <button class="new-skin-btn" style="background:linear-gradient(135deg,#ff3333,#b30000);color:#fff;" onclick="closeResult()">ПОНЯТНО</button>
+      <div class="new-skin-title" style="font-size: 24px;">НЕУДАЧА</div>
+      <div class="new-skin-desc" style="color:#ff3333; font-size: 13px;">ПРЕДМЕТ ПОТЕРЯН</div>
+      <div class="new-skin-name" style="font-size: 24px;">${lostSkin.name}</div>
+      <div class="new-skin-type" style="font-size: 13px;">- ${lostSkin.price||0} G</div>
+      <button class="new-skin-btn" style="background:linear-gradient(135deg,#ff3333,#b30000);color:#fff; padding: 20px; font-size: 18px;" onclick="closeResult()">ПОНЯТНО</button>
     </div>
   `;
   document.body.appendChild(m);
@@ -1011,7 +1050,7 @@ function toggleTheme(){lightTheme=!lightTheme;document.body.classList.toggle('li
 function getRank(){let r=RANKS[0];for(const rank of RANKS){if(stats.spins>=rank.need)r=rank;else break}return r}
 function updateRankUI(){const r=getRank();const rn=document.getElementById('rankNameTop');const rl=document.getElementById('rankLevelTop');if(rn)rn.innerText=r.name;if(rl)rl.innerText='LVL '+(RANKS.indexOf(r)+1)}
 
-// === СИСТЕМА ЕЖЕДНЕВНЫХ ПОДАРКОВ (АДВЕНТ) ===
+// === АДВЕНТ ===
 function openDailyRewards() {
   document.getElementById('dailyModal').style.display = 'flex';
   updateDailyUI();
