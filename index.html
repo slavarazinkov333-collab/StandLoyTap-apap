@@ -7,75 +7,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-/* === ПРЕМИАЛЬНЫЙ ИГРОВОЙ ДИЗАЙН + ЭФФЕКТЫ === */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#09090b; 
-  --panel:#141418; 
-  --panel-l:#1c1c22;
-  --border:#2a2a35;
-  --gold:#ffb800; 
-  --red:#ff3333; 
-  --green:#00e676; 
-  --gray:#8b8d98; 
-  --white:#ffffff;
+  --bg:#09090b; --panel:#141418; --panel-l:#1c1c22; --border:#2a2a35;
+  --gold:#ffb800; --red:#ff3333; --green:#00e676; --gray:#8b8d98; --white:#ffffff;
 }
 
 body{
-  background:var(--bg);
-  color:var(--white);
-  min-height:100vh;
-  overflow-x:hidden;
-  padding-bottom:100px;
+  background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; padding-bottom:100px;
   background-image: 
     radial-gradient(circle at 10% 10%, rgba(255,184,0,0.06) 0%, transparent 40%),
     radial-gradient(circle at 90% 90%, rgba(0,230,118,0.04) 0%, transparent 40%);
-  position: relative;
 }
-
-/* Анимированный фон (частицы) */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, rgba(255,184,0,0.3), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.1), transparent),
-    radial-gradient(2px 2px at 90px 40px, rgba(0,230,118,0.2), transparent),
-    radial-gradient(2px 2px at 130px 80px, rgba(255,184,0,0.1), transparent);
-  background-size: 150px 100px;
-  animation: stars 4s linear infinite;
-}
-@keyframes stars { 0% { background-position: 0 0; } 100% { background-position: 0 200px; } }
 
 /* ТОП ПАНЕЛЬ */
-.top{position:sticky;top:0;z-index:100;padding:16px;display:flex;justify-content:space-between;align-items:center;background:rgba(9,9,11,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.top{position:sticky;top:0;z-index:100;padding:16px;display:flex;justify-content:space-between;align-items:center;background:rgba(9,9,11,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
 .top-left{display:flex;align-items:center;gap:12px}
 .logo-svg{width:36px;height:36px;filter:drop-shadow(0 0 8px rgba(229,9,20,0.6))}
 .top-right{display:flex;align-items:center;gap:10px}
 
-.bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:8px 14px;border-radius:12px;border:1px solid var(--border);cursor:pointer;transition:0.2s;}
-.bal-pill:active{transform:scale(0.95);}
+.bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:8px 14px;border-radius:12px;border:1px solid var(--border);cursor:pointer;}
 .bal-plus{width:24px;height:24px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:16px;color:#1a1a1a;font-weight:900;box-shadow:0 0 10px rgba(255,184,0,0.5)}
-.bal-num{font-size:15px;font-weight:900;color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.3)}
-.bal-g{font-size:12px;font-weight:900;color:var(--gold);text-shadow:0 0 5px rgba(255,184,0,0.5)}
+.bal-num{font-size:15px;font-weight:900;color:var(--white);text-shadow:0 1px 2px rgba(0,0,0,0.8)}
+.bal-g{font-size:12px;font-weight:900;color:var(--gold)}
 
-.av-top{width:40px;height:40px;border-radius:12px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:18px;cursor:pointer;border:1px solid var(--border);overflow:hidden;transition:0.2s;}
-.av-top:active{transform:scale(0.95);}
+.av-top{width:40px;height:40px;border-radius:12px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:18px;cursor:pointer;border:1px solid var(--border);overflow:hidden;}
 .av-top img{width:100%;height:100%;object-fit:cover}
 
 /* LIVE */
-.live-bar{margin:16px;background:var(--panel);border:1px solid var(--border);border-radius:14px;height:54px;overflow:hidden;position:relative;display:flex;align-items:center;box-shadow:0 4px 15px rgba(0,0,0,0.3)}
+.live-bar{margin:16px;background:var(--panel);border:1px solid var(--border);border-radius:14px;height:54px;overflow:hidden;position:relative;display:flex;align-items:center;}
 .live-bar::before{content:'LIVE';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:900;color:#fff;background:var(--red);padding:4px 10px;border-radius:6px;z-index:3;box-shadow:0 0 15px rgba(255,51,51,0.8);animation:livePulse 1.5s infinite}
-@keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 15px rgba(255,51,51,0.8)}50%{opacity:0.7;box-shadow:0 0 5px rgba(255,51,51,0.2)}}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:0.7}}
 .live-track{display:flex;gap:12px;white-space:nowrap;animation:scrollLeft 20s linear infinite;padding-left:70px;align-items:center;height:100%}
 @keyframes scrollLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .live-item{display:flex;align-items:center;gap:10px;flex-shrink:0;padding:4px 10px;background:var(--panel-l);border-radius:8px;border:1px solid var(--border)}
 .live-name{font-size:11px;font-weight:900}
 .live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 6px;border-radius:4px}
-.live-skin{width:40px;height:25px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5))}
+.live-skin{width:40px;height:25px;object-fit:contain;}
 .live-empty{padding-left:70px;font-size:10px;color:var(--gray);}
 
 /* ГЛАВНЫЙ ЭКРАН */
@@ -87,12 +55,10 @@ body::before {
 .wheel-zone-fill.visible{opacity:1}
 .wheel::before{content:'';position:absolute;width:75%;height:75%;border-radius:50%;background:var(--bg);border:1px solid #222;z-index:2}
 .wheel-ticks{position:absolute;width:100%;height:100%;border-radius:50%;pointer-events:none;z-index:3}
-.tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.2);transform-origin:center 140px;transform:translateX(-50%) rotate(var(--a));border-radius:2px;animation:tickPulse 2s infinite}
+.tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.2);transform-origin:center 140px;transform:translateX(-50%) rotate(var(--a));border-radius:2px;}
 .tick.major{width:3px;height:14px;background:var(--gold);box-shadow:0 0 10px rgba(255,184,0,.8)}
-@keyframes tickPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
 .wheel-center{position:relative;z-index:5;text-align:center}
-.pt{font-size:38px;font-weight:900;line-height:1;letter-spacing:-1px;text-shadow:0 0 25px rgba(255,184,0,.8);color:var(--gold)}
+.pt{font-size:38px;font-weight:900;line-height:1;letter-spacing:-1px;text-shadow:0 1px 3px rgba(0,0,0,0.9), 0 0 20px rgba(255,184,0,.6);color:var(--gold)}
 .pl{font-size:9px;color:var(--gray);letter-spacing:4px;margin-top:4px;font-weight:800}
 .arrow-wrap{position:absolute;inset:0;pointer-events:none;z-index:25}
 .arrow{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:30px;height:40px;filter:drop-shadow(0 0 15px rgba(255,184,0,.9))}
@@ -100,25 +66,20 @@ body::before {
 /* КНОПКИ ПРОЦЕНТОВ */
 .pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:20px}
 .pb{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 4px;color:var(--gray);font-size:11px;font-weight:800;cursor:pointer;transition:0.2s;}
-.pb:active{transform:scale(0.95);}
 .pb.sel{background:rgba(255,184,0,0.1);border-color:var(--gold);color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,0.3);}
 
 .action-row{display:flex;gap:8px;margin-top:12px;align-items:center}
 .lightning-btn{width:44px;height:44px;background:var(--panel);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;font-size:16px;color:var(--gray);transition:0.2s}
-.lightning-btn:active{transform:scale(0.95);}
 .lightning-btn.on{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,0.3);}
 .gear-btn-upg{width:44px;height:44px;background:var(--panel);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;font-size:18px;color:var(--gray);transition:0.2s}
-.gear-btn-upg:active{transform:scale(0.95);}
 
 /* КНОПКА АПГРЕЙД (НЕОН) */
 .upgrade-btn{flex:1;background:linear-gradient(135deg,#ffb800,#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;height:44px;text-transform:uppercase;transition:all 0.2s;box-shadow:0 0 25px rgba(255,184,0,0.5);}
-.upgrade-btn:active{transform:scale(0.97);}
-.upgrade-btn:disabled{opacity:.5;background:var(--panel);box-shadow:none;color:var(--gray);transform:none;}
+.upgrade-btn:disabled{opacity:.5;background:var(--panel);box-shadow:none;color:var(--gray);}
 
 /* СЛОТЫ (ПРИЦЕЛЫ) */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.slot-prev{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:180px;position:relative;cursor:pointer;transition:0.2s;}
-.slot-prev:active{transform:scale(0.98);}
+.slot-prev{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:180px;position:relative;cursor:pointer;}
 .slot-prev-lbl{font-size:10px;font-weight:900;color:var(--gray);text-transform:uppercase;margin-bottom:10px;letter-spacing:1px}
 .slot-cell{width:100%;display:flex;justify-content:center;align-items:center;position:relative;margin-bottom:4px}
 .slot-cell img{width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 5px 15px rgba(0,0,0,0.6))}
@@ -137,15 +98,13 @@ body::before {
 .empty-slot-crosshair::before { width: 2px; height: 10px; top: -5px; }
 .empty-slot-crosshair::after { width: 10px; height: 2px; left: -5px; }
 
-.slot-remove{position:absolute;top:-5px;right:calc(50% - 40px);width:20px;height:20px;background:var(--red);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:12px;font-weight:900;cursor:pointer;border:2px solid var(--bg);z-index:5;transition:0.2s;}
-.slot-remove:active{transform:scale(0.9);}
-.slot-sum{font-size:15px;font-weight:900;color:var(--gold);margin-top:10px;text-shadow:0 0 10px rgba(255,184,0,0.4);}
-.slot-clear{font-size:10px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(255,51,51,0.1);border:1px solid rgba(255,51,51,0.3);padding:6px 14px;border-radius:8px;text-transform:uppercase;transition:0.2s;}
-.slot-clear:active{background:rgba(255,51,51,0.2);}
+.slot-remove{position:absolute;top:-5px;right:calc(50% - 40px);width:20px;height:20px;background:var(--red);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:12px;font-weight:900;cursor:pointer;border:2px solid var(--bg);z-index:5;}
+.slot-sum{font-size:15px;font-weight:900;color:var(--gold);margin-top:10px;text-shadow:0 1px 2px rgba(0,0,0,0.8);}
+.slot-clear{font-size:10px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(255,51,51,0.1);border:1px solid rgba(255,51,51,0.3);padding:6px 14px;border-radius:8px;text-transform:uppercase;}
 
 /* ВКЛАДКИ */
 .big-tabs{display:flex;gap:4px;margin-top:20px;background:var(--panel);padding:4px;border-radius:12px;border:1px solid var(--border)}
-.big-tab{flex:1;background:none;border:none;color:var(--gray);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;transition:0.2s}
+.big-tab{flex:1;background:none;border:none;color:var(--gray);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
 .panel{display:none;margin-top:16px}
 .panel.active{display:block}
@@ -155,15 +114,14 @@ body::before {
 .card{
   background:var(--panel);
   border-radius:14px;display:flex;flex-direction:column;overflow:hidden;
-  border:1px solid var(--border);position:relative;transition:0.2s;
+  border:1px solid var(--border);position:relative;
 }
-.card:active{transform:scale(0.98);}
 .card-img-wrap{width:100%;aspect-ratio:1.2;display:flex;justify-content:center;align-items:center;padding:10px;position:relative;}
 .card-img-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:40%;background:linear-gradient(to top, var(--panel), transparent);pointer-events:none;}
 .card-img-wrap img{width:90%;height:90%;object-fit:contain;filter:drop-shadow(0 10px 15px rgba(0,0,0,0.6));z-index:1;}
 .card-info{padding:10px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;border-top:1px solid var(--border);background:var(--panel-l);z-index:2;}
 .card-name{font-size:11px;font-weight:800;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;margin-right:8px}
-.card-price{font-size:14px;font-weight:900;color:var(--gold);white-space:nowrap;text-shadow:0 0 10px rgba(255,184,0,0.4);}
+.card-price{font-size:14px;font-weight:900;color:var(--gold);white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,0.8);}
 
 /* Цветовые акценты снизу карточки (по редкости) */
 .card.r-common { border-bottom: 2px solid var(--gray); }
@@ -174,48 +132,75 @@ body::before {
 
 .card-actions-overlay {position:absolute;inset:0;background:rgba(9,9,11,0.95);display:flex;flex-direction:column;justify-content:center;gap:8px;padding:12px;opacity:0;pointer-events:none;transition:0.2s;z-index:10}
 .card.show-actions .card-actions-overlay {opacity:1;pointer-events:auto}
-.btn-action {padding:10px;border-radius:10px;font-size:11px;font-weight:900;border:none;cursor:pointer;text-align:center;text-transform:uppercase;transition:0.2s}
-.btn-action:active{transform:scale(0.95);}
-.btn-action.upg {background:linear-gradient(135deg,#ffb800,#ff8c00);color:#1a1a1a;box-shadow:0 0 15px rgba(255,184,0,0.4);}
-.btn-action.sell {background:var(--red);color:#fff;box-shadow:0 0 15px rgba(255,51,51,0.4);}
+.btn-action {padding:10px;border-radius:10px;font-size:11px;font-weight:900;border:none;cursor:pointer;text-align:center;text-transform:uppercase;}
+.btn-action.upg {background:linear-gradient(135deg,#ffb800,#ff8c00);color:#1a1a1a;}
+.btn-action.sell {background:var(--red);color:#fff;}
 
-/* МАГАЗИН ГАЛОЧКИ */
-.card.selected {border-color:var(--green); border-bottom: 2px solid var(--green); box-shadow: 0 0 15px rgba(0,230,118,0.2);}
-.card-check {position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,0.6);border:2px solid var(--border);display:flex;justify-content:center;align-items:center;z-index:5;transition:0.2s}
-.card.selected .card-check {background:var(--green);border-color:var(--green);box-shadow:0 0 10px rgba(0,230,118,0.6);}
-.card-check::after {content:'✓';color:#fff;font-size:14px;font-weight:900;opacity:0;transition:0.2s}
+.card.selected {border-color:var(--green); border-bottom: 2px solid var(--green);}
+.card-check {position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,0.6);border:2px solid var(--border);display:flex;justify-content:center;align-items:center;z-index:5;}
+.card.selected .card-check {background:var(--green);border-color:var(--green);}
+.card-check::after {content:'✓';color:#fff;font-size:14px;font-weight:900;opacity:0;}
 .card.selected .card-check::after {opacity:1}
 
 /* МОДАЛКИ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
 .modal-content{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,0.9)}
 .modal-title{font-size:18px;font-weight:900;margin-bottom:16px;text-align:center;letter-spacing:0.5px}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--white);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;z-index:10;display:flex;justify-content:center;align-items:center;transition:0.2s;}
-.modal-close:active{transform:scale(0.9);}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--white);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;z-index:10;display:flex;justify-content:center;align-items:center;}
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:16px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 10px 30px rgba(0,0,0,0.8)}
 
-/* ПОПАПЫ WIN/LOSE (АНИМАЦИЯ ПАДЕНИЯ) */
-@keyframes dropIn {
-  0% { transform: scale(0.5) translateY(-50px); opacity: 0; }
-  70% { transform: scale(1.05) translateY(10px); opacity: 1; }
-  100% { transform: scale(1) translateY(0); opacity: 1; }
+/* НОВЫЙ КРАСИВЫЙ ПОПАП УСПЕХА (КАК НА СКРИНЕ) */
+.success-modal-content {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 30px 20px;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+  position: relative;
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
-.popup-win-card, .popup-lose-card {
-  animation: dropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+.success-icon-box {
+  width: 80px; height: 80px;
+  background: rgba(0, 230, 118, 0.1);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  border-radius: 24px;
+  display: flex; justify-content: center; align-items: center;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.2);
 }
-@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
-.popup-item-anim { animation: itemFloat 3s ease-in-out infinite; }
+.success-icon-box svg { width: 40px; height: 40px; fill: var(--green); }
+.success-title { font-size: 28px; font-weight: 900; color: var(--white); margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+.success-subtitle { font-size: 14px; color: var(--gray); font-weight: 600; margin-bottom: 24px; }
+.success-btn {
+  width: 100%; padding: 16px;
+  background: var(--panel-l);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--white); font-size: 14px; font-weight: 900;
+  cursor: pointer; transition: 0.2s;
+  text-transform: uppercase;
+}
+.success-close {
+  position: absolute; top: 16px; right: 16px;
+  background: none; border: none; color: var(--gray);
+  font-size: 24px; cursor: pointer;
+}
+
+@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 /* ПРОФИЛЬ */
 .profile-wrap{padding:16px}
-.profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:16px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+.profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:16px;}
 .profile-header-row{display:flex;align-items:center;gap:12px}
-.profile-avatar-big{width:70px;height:70px;border-radius:16px;overflow:hidden;border:2px solid var(--gold);background:var(--panel-l);display:flex;justify-content:center;align-items:center;font-size:30px;box-shadow:0 0 15px rgba(255,184,0,0.3);}
+.profile-avatar-big{width:70px;height:70px;border-radius:16px;overflow:hidden;border:2px solid var(--gold);background:var(--panel-l);display:flex;justify-content:center;align-items:center;font-size:30px;}
 .profile-avatar-big img{width:100%;height:100%;object-fit:cover}
 .profile-username{font-size:18px;font-weight:900}
 .profile-id-text{font-size:11px;color:var(--gray);font-family:monospace;margin-top:2px}
 .profile-balance-block{background:var(--panel-l);border-radius:14px;padding:14px;margin-top:16px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border)}
-.profile-balance-val{font-size:24px;font-weight:900;color:var(--gold);text-shadow:0 0 15px rgba(255,184,0,0.4);}
+.profile-balance-val{font-size:24px;font-weight:900;color:var(--gold);text-shadow:0 1px 2px rgba(0,0,0,0.8);}
 
 .stats-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
 .stat-block{background:var(--panel);border-radius:12px;padding:12px 10px;text-align:center;border:1px solid var(--border)}
@@ -224,7 +209,7 @@ body::before {
 
 /* ИСТОРИЯ */
 .hist-card-v2{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:12px;}
-.hist-card-v2.win{border-color:rgba(0,230,118,0.3); box-shadow:inset 0 0 15px rgba(0,230,118,0.05);}
+.hist-card-v2.win{border-color:rgba(0,230,118,0.3);}
 .hist-card-v2.lose{border-color:rgba(255,51,51,0.3);}
 .hist-top-row{display:flex; gap:14px; margin-bottom:14px;}
 .hist-img-box{width:70px; height:70px; background:var(--panel-l); border-radius:12px; border:1px solid var(--border); display:flex; justify-content:center; align-items:center; padding:8px; flex-shrink:0;}
@@ -241,7 +226,7 @@ body::before {
 .hist-chance-label{font-size:10px; color:var(--gray); font-weight:800; margin-bottom:4px;}
 .hist-chance-val{font-size:16px; font-weight:900; margin-bottom:6px; color:var(--white);}
 .hist-progress-bar{height:6px; background:var(--panel-l); border-radius:3px; overflow:hidden;}
-.hist-progress-fill{height:100%; background:var(--green); border-radius:3px; box-shadow:0 0 10px rgba(0,230,118,0.6);}
+.hist-progress-fill{height:100%; background:var(--green); border-radius:3px;}
 .hist-status-block{text-align:right;}
 .hist-status-badge{display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px; font-size:10px; font-weight:900; background:rgba(0,230,118,0.1); color:var(--green); border:1px solid rgba(0,230,118,0.3); margin-bottom:6px;}
 .hist-status-badge.lose{background:rgba(255,51,51,0.1); color:var(--red); border-color:rgba(255,51,51,0.3);}
@@ -475,11 +460,11 @@ body::before {
       
       <div style="display:flex; flex-direction:column; gap:14px;">
         <div style="display:flex; align-items:center; gap:12px;">
-          <div style="width:24px; height:24px; border-radius:50%; background:rgba(76,175,80,0.2); border:1px solid var(--green); display:flex; justify-content:center; align-items:center; color:var(--green); font-size:12px; font-weight:900;">✓</div>
+          <div style="width:24px; height:24px; border-radius:50%; background:rgba(0,230,118,0.2); border:1px solid var(--green); display:flex; justify-content:center; align-items:center; color:var(--green); font-size:12px; font-weight:900;">✓</div>
           <div><div style="font-size:13px; font-weight:900; color:var(--white);">Войти на сайт</div><div style="font-size:10px; color:var(--gray);">Без аккаунта награду забрать нельзя</div></div>
         </div>
         <div style="display:flex; align-items:center; gap:12px;">
-          <div style="width:24px; height:24px; border-radius:50%; background:rgba(76,175,80,0.2); border:1px solid var(--green); display:flex; justify-content:center; align-items:center; color:var(--green); font-size:12px; font-weight:900;">✓</div>
+          <div style="width:24px; height:24px; border-radius:50%; background:rgba(0,230,118,0.2); border:1px solid var(--green); display:flex; justify-content:center; align-items:center; color:var(--green); font-size:12px; font-weight:900;">✓</div>
           <div><div style="font-size:13px; font-weight:900; color:var(--white);">Telegram привязан</div><div style="font-size:10px; color:var(--gray);">Один Telegram — один аккаунт</div></div>
         </div>
       </div>
@@ -672,6 +657,7 @@ function checkout(){
   const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
   if(gold<total){toast('❌ Мало G','lose');return;}
   gold-=total;
+  const itemsCount = cart.reduce((s,c)=>s+c.qty,0);
   cart.forEach(c=>{
     const s=allSkins.find(x=>x.name===c.name)||allAgents.find(x=>x.name===c.name);
     for(let k=0;k<c.qty;k++){
@@ -680,7 +666,7 @@ function checkout(){
   });
   cart=[]; updateCartBadge(); closeCart(); updateBal(); rendInv();
   saveGame();
-  toast('✅ Куплено!','win');
+  showSuccessModal(`Успешно куплено ${itemsCount} предметов!`);
 }
 
 // === АПГРЕЙД ===
@@ -786,7 +772,7 @@ function rendMain(){
   if(leftIcons){
     let h='';
     if(selectedItems.length === 0) {
-      h = '<div style="margin:0 auto;width:50px;height:50px;border:2px dashed var(--border);border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:24px;color:var(--gray);">+</div>';
+      h = '<div class="empty-slot-crosshair" style="margin:0 auto;width:50px;height:50px;"><span style="opacity:0.2">+</span></div>';
     } else {
       for(let i=0;i<selectedItems.length;i++){
         const s=selectedItems[i];
@@ -808,7 +794,7 @@ function rendMain(){
       rightIcons.innerHTML=`<div class="slot-cell"><img src="${targetSkin.img}"></div>`;
       document.getElementById('targetCount').innerText=targetSkin.price.toLocaleString('ru-RU')+' G';
     } else {
-      rightIcons.innerHTML='<div style="margin:0 auto;width:50px;height:50px;border:2px dashed var(--border);border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:24px;color:var(--gray);">🎯</div>';
+      rightIcons.innerHTML='<div class="empty-slot-crosshair" style="margin:0 auto;width:50px;height:50px;"><span style="opacity:0.2">🎯</span></div>';
       document.getElementById('targetCount').innerText='НЕ ВЫБРАНА';
     }
   }
@@ -908,38 +894,67 @@ function spinUpgrade(){
   }, duration);
 }
 
-// === ПОПАПЫ ===
-function showWinModal(skin){
-  const m=document.createElement('div');m.id='resultScreen';
-  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;';
-  m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center;background:var(--panel);border-radius:24px;padding:24px;border:1px solid var(--border);">
-    <div style="font-size:12px;font-weight:900;color:var(--green);letter-spacing:4px;margin-bottom:10px;">★ ПОБЕДА ★</div>
-    <div style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px;color:var(--white);">УСПЕХ!</div>
-    <div style="width:200px;height:200px;margin:0 auto 24px;background:var(--panel-l);border:2px solid var(--green);border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;">${skin.img?`<img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain;">`:''}</div>
-    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;">${skin.name}</div>
-    <div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px;">+${skin.price} G</div>
-    <button class="upgrade-btn" style="width:100%;" onclick="closeResult()">🎁 ЗАБРАТЬ</button>
-  </div>`;
+// === КРАСИВЫЙ ПОПАП УСПЕХА (ПОКУПКА) ===
+function showSuccessModal(message) {
+  const m = document.createElement('div');
+  m.className = 'modal-overlay';
+  m.style.display = 'flex';
+  m.style.zIndex = '5000'; 
+  m.innerHTML = `
+    <div class="success-modal-content">
+      <button class="success-close" onclick="this.parentElement.parentElement.remove()">✕</button>
+      <div class="success-icon-box">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <div class="success-title">Успешно</div>
+      <div class="success-subtitle">${message}</div>
+      <button class="success-btn" onclick="this.parentElement.parentElement.remove()">ПОНЯТНО</button>
+    </div>
+  `;
   document.body.appendChild(m);
 }
 
+// === КРАСИВЫЙ ПОПАП ВЫИГРЫША ===
+function showWinModal(skin){
+  const m=document.createElement('div');m.className='modal-overlay';m.style.zIndex='4000';
+  m.innerHTML=`
+    <div class="success-modal-content popup-win-card" style="border-color:rgba(0,230,118,0.3); box-shadow:0 20px 60px rgba(0,230,118,0.2);">
+      <button class="success-close" onclick="closeResult()">✕</button>
+      <div style="font-size:12px;font-weight:900;color:var(--green);letter-spacing:4px;margin-bottom:10px;">★ ПОБЕДА ★</div>
+      <div class="success-icon-box" style="background:rgba(0,230,118,0.1);border-color:rgba(0,230,118,0.3);box-shadow:0 0 30px rgba(0,230,118,0.2);">
+        <img src="${skin.img}" style="max-width:100%; max-height:100%; object-fit:contain; padding:10px;">
+      </div>
+      <div class="success-title" style="font-size:22px;">${skin.name}</div>
+      <div class="success-subtitle" style="color:var(--gold);font-size:18px;font-weight:900;">+${skin.price} G</div>
+      <button class="success-btn" style="background:var(--green);color:#000;font-weight:900;" onclick="closeResult()">🎁 ЗАБРАТЬ</button>
+    </div>
+  `;
+  document.body.appendChild(m);
+}
+
+// === КРАСИВЫЙ ПОПАП ПРОИГРЫША ===
 function showLoseModal(items){
   const lostSkin=items[0]||{name:'—',img:'',price:0};
-  const m=document.createElement('div');m.id='resultScreen';
-  m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;';
-  m.innerHTML=`<div style="max-width:380px;width:100%;text-align:center;background:var(--panel);border-radius:24px;padding:24px;border:1px solid var(--border);">
-    <div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px;">★ ПОРАЖЕНИЕ ★</div>
-    <div style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px;color:var(--white);">НЕУДАЧА</div>
-    <div style="width:200px;height:200px;margin:0 auto 24px;background:var(--panel-l);border:2px solid var(--red);border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;">${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain;">`:''}</div>
-    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;">${lostSkin.name}</div>
-    <div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px;">-${lostSkin.price||0} G</div>
-    <button class="upgrade-btn" style="width:100%;background:var(--red);color:#fff;" onclick="closeResult()">ПОНЯТНО</button>
-  </div>`;
+  const m=document.createElement('div');m.className='modal-overlay';m.style.zIndex='4000';
+  m.innerHTML=`
+    <div class="success-modal-content popup-lose-card" style="border-color:rgba(255,51,51,0.3); box-shadow:0 20px 60px rgba(255,51,51,0.2);">
+      <button class="success-close" onclick="closeResult()">✕</button>
+      <div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px;">★ ПОРАЖЕНИЕ ★</div>
+      <div class="success-icon-box" style="background:rgba(255,51,51,0.1);border-color:rgba(255,51,51,0.3);box-shadow:0 0 30px rgba(255,51,51,0.2);">
+        <img src="${lostSkin.img}" style="max-width:100%; max-height:100%; object-fit:contain; padding:10px;">
+      </div>
+      <div class="success-title" style="font-size:22px;">${lostSkin.name}</div>
+      <div class="success-subtitle" style="color:var(--red);font-size:18px;font-weight:900;">-${lostSkin.price||0} G</div>
+      <button class="success-btn" style="background:var(--red);color:#fff;font-weight:900;" onclick="closeResult()">ПОНЯТНО</button>
+    </div>
+  `;
   document.body.appendChild(m);
 }
 
 function closeResult(){
-  document.getElementById('resultScreen')?.remove();
+  document.querySelectorAll('.modal-overlay').forEach(el => {
+    if(el.querySelector('.popup-win-card') || el.querySelector('.popup-lose-card')) el.remove();
+  });
   selectedItems=[];targetSkin=null;selPct=null;
   rendMain();rendInv();rendTargetList();clearWheelPct();checkUpgradeBtn();saveGame();
 }
@@ -1014,32 +1029,23 @@ function updateDailyUI() {
   const timePassed = now - dailyState.lastClaim;
   
   let canClaim = false;
-  if (timePassed >= cooldown) {
-    canClaim = true;
-  } else if (dailyState.streak === 0) {
-    canClaim = true; 
-  }
+  if (timePassed >= cooldown) canClaim = true;
+  else if (dailyState.streak === 0) canClaim = true; 
 
   if (timePassed > (cooldown * 2) && dailyState.streak > 0 && dailyState.lastClaim !== 0) {
-    dailyState.streak = 0;
-    dailyState.lastClaim = 0;
+    dailyState.streak = 0; dailyState.lastClaim = 0;
     localStorage.setItem('sfap_daily_v2', JSON.stringify(dailyState));
     canClaim = true;
   }
 
   let currentDay = (dailyState.streak % 28) + 1;
-  if(canClaim && dailyState.streak > 0 && timePassed >= cooldown) {
-    currentDay = (dailyState.streak % 28) + 1; 
-  } else if (!canClaim) {
-    currentDay = (dailyState.streak % 28) + 1;
-  }
+  if(canClaim && dailyState.streak > 0 && timePassed >= cooldown) currentDay = (dailyState.streak % 28) + 1; 
+  else if (!canClaim) currentDay = (dailyState.streak % 28) + 1;
   
   document.getElementById('drStreak').innerHTML = `${dailyState.streak} <span style="font-size:12px;color:var(--gray)">дней</span>`;
   document.getElementById('drLeft').innerHTML = `${28 - (dailyState.streak % 28)} <span style="font-size:12px;color:var(--gray)">дней</span>`;
-  
   document.getElementById('drDayLabel').innerText = `${currentDay}-Й ДЕНЬ`;
   document.getElementById('drTomorrowLabel').innerText = `${currentDay === 28 ? 1 : currentDay + 1}-Й ДЕНЬ`;
-  
   document.getElementById('drSkinPrice').innerText = `${currentDay * 2}-${currentDay * 10}`;
   document.getElementById('drSkinPriceSmall').innerText = `${currentDay * 2}-${currentDay * 10}`;
   document.getElementById('drTomorrowPrice').innerText = `${(currentDay+1) * 2}-${(currentDay+1) * 10}`;
@@ -1055,24 +1061,19 @@ function updateDailyUI() {
   const prog = document.getElementById('drDayProgress');
 
   if (canClaim) {
-    btn.disabled = false;
-    btn.style.opacity = 1;
+    btn.disabled = false; btn.style.opacity = 1;
     btn.innerText = 'ЗАБРАТЬ';
     btn.style.background = 'linear-gradient(135deg, var(--gold), #ff8c00)';
-    timer.innerText = 'ДОСТУПНО';
-    timer.style.color = 'var(--green)';
+    timer.innerText = 'ДОСТУПНО'; timer.style.color = 'var(--green)';
     prog.style.width = '100%';
   } else {
-    btn.disabled = true;
-    btn.style.opacity = 0.5;
+    btn.disabled = true; btn.style.opacity = 0.5;
     btn.innerText = 'ПОЛУЧЕНО';
     btn.style.background = 'var(--panel)';
-    
     const leftTime = cooldown - timePassed;
     const h = Math.floor(leftTime / (1000 * 60 * 60));
     const m = Math.floor((leftTime % (1000 * 60 * 60)) / (1000 * 60));
     const s = Math.floor((leftTime % (1000 * 60)) / 1000);
-    
     timer.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
     timer.style.color = 'var(--gold)';
     prog.style.width = `${(timePassed / cooldown) * 100}%`;
@@ -1082,30 +1083,22 @@ function updateDailyUI() {
 function claimDailyReward() {
   const now = Date.now();
   const cooldown = 24 * 60 * 60 * 1000;
-  
   if (dailyState.lastClaim !== 0 && (now - dailyState.lastClaim) < cooldown && dailyState.streak > 0) {
     return toast('⏳ Следующая награда еще не готова', 'lose');
   }
 
   const availSkins = allSkins.filter(s => s.price >= 1 && s.price <= 300);
   let skin = null;
-  if(availSkins.length > 0) {
-    skin = availSkins[Math.floor(Math.random() * availSkins.length)];
-  } else {
-    skin = { name: 'AKR Carbon', price: 56, color: '#4a9eff', img: CDN_BASE+'skins/AKR_CARBON.jpg' };
-  }
+  if(availSkins.length > 0) skin = availSkins[Math.floor(Math.random() * availSkins.length)];
+  else skin = { name: 'AKR Carbon', price: 56, color: '#4a9eff', img: CDN_BASE+'skins/AKR_CARBON.jpg' };
   
   inv.push(skin);
   gold += skin.price;
-  
   dailyState.streak++;
   dailyState.lastClaim = now;
   localStorage.setItem('sfap_daily_v2', JSON.stringify(dailyState));
   
-  updateBal();
-  saveGame();
-  updateDailyUI();
-  
+  updateBal(); saveGame(); updateDailyUI();
   toast(`🎁 ВЫПАЛ СКИН: ${skin.name}`, 'win');
   document.getElementById('drSkinPrice').innerText = `+${skin.price}`;
 }
@@ -1138,7 +1131,6 @@ function closeS(id){document.getElementById(id).style.display='none'}
 
 function switchProfileTab(tab) {
   currentProfileTab = tab;
-  
   document.querySelectorAll('.profile-nav-item').forEach(el => el.classList.remove('active'));
   if(tab === 'inv') document.getElementById('pTabInv').classList.add('active');
   if(tab === 'payments') document.getElementById('pTabPayments').classList.add('active');
@@ -1147,20 +1139,13 @@ function switchProfileTab(tab) {
 
   const filters = document.getElementById('profileFilters');
   const btnSell = document.getElementById('btnSellAll');
-  if(tab === 'inv' || tab === 'history') {
-    filters.style.display = 'flex';
-    btnSell.style.display = 'block';
-  } else {
-    filters.style.display = 'none';
-    btnSell.style.display = 'none';
-  }
+  if(tab === 'inv' || tab === 'history') { filters.style.display = 'flex'; btnSell.style.display = 'block'; }
+  else { filters.style.display = 'none'; btnSell.style.display = 'none'; }
 
   const container = document.getElementById('profileListContainer');
-  
   if(tab === 'inv') {
-    if(inv.length === 0) {
-      container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">Инвентарь пуст</div>';
-    } else {
+    if(inv.length === 0) container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">Инвентарь пуст</div>';
+    else {
       container.innerHTML = `<div class="grid">${inv.map((it,idx)=>`
         <div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:8px;">
           <div class="card-img-wrap"><img src="${it.img}" onerror="this.style.display='none'"></div>
@@ -1176,19 +1161,15 @@ function switchProfileTab(tab) {
     }
   } 
   else if(tab === 'history') {
-    if(upgradeHistory.length === 0) {
-      container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">История пуста</div>';
-    } else {
+    if(upgradeHistory.length === 0) container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">История пуста</div>';
+    else {
       container.innerHTML = upgradeHistory.map(h => {
         const date = new Date(h.ts);
         const dateStr = date.toLocaleDateString('ru-RU', {month: 'short', day: 'numeric'}) + ' · ' + date.toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'});
-        
         return `
         <div class="hist-card-v2 ${h.win ? 'win' : 'lose'}">
           <div class="hist-top-row">
-            <div class="hist-img-box">
-              ${h.targetImg ? `<img src="${h.targetImg}">` : '🎯'}
-            </div>
+            <div class="hist-img-box">${h.targetImg ? `<img src="${h.targetImg}">` : '🎯'}</div>
             <div class="hist-details">
               <div class="hist-label">АПГРЕЙД</div>
               <div class="hist-title">${h.targetName}</div>
@@ -1205,23 +1186,16 @@ function switchProfileTab(tab) {
               </div>
             </div>
             <div class="hist-status-block">
-              <div class="hist-status-badge ${h.win ? '' : 'lose'}">
-                ${h.win ? '✓ ПОБЕДА' : '✕ ПРОИГРЫШ'}
-              </div>
+              <div class="hist-status-badge ${h.win ? '' : 'lose'}">${h.win ? '✓ ПОБЕДА' : '✕ ПРОИГРЫШ'}</div>
               <div class="hist-date">${dateStr}</div>
             </div>
           </div>
-        </div>
-        `;
+        </div>`;
       }).join('');
     }
   }
-  else if(tab === 'payments') {
-    container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">История платежей пуста</div>';
-  }
-  else if(tab === 'games') {
-    container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">Другие игры скоро...</div>';
-  }
+  else if(tab === 'payments') container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">История платежей пуста</div>';
+  else if(tab === 'games') container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray);">Другие игры скоро...</div>';
 }
 
 function rendProfile(){
@@ -1506,4 +1480,4 @@ try{
 }catch(e){}
 </script>
 </body>
-  </html>
+                                                                                                                                                       </html>
