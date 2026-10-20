@@ -11,9 +11,6 @@
 :root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
 body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
 body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:#1a1a2a;--gray2:#666}
-body.bg-stars{background-image:radial-gradient(2px 2px at 20% 30%,white,transparent),radial-gradient(2px 2px at 60% 70%,white,transparent),radial-gradient(1px 1px at 50% 50%,white,transparent),radial-gradient(1px 1px at 80% 10%,white,transparent);background-size:200px 200px}
-body.bg-fire{background-image:radial-gradient(circle at 50% 100%,rgba(255,69,0,.3),transparent 60%),radial-gradient(circle at 20% 80%,rgba(255,140,0,.2),transparent 50%)}
-body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,.3),transparent 60%),radial-gradient(circle at 80% 20%,rgba(155,138,255,.2),transparent 50%)}
 
 /* ТОП ПАНЕЛЬ */
 .top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
@@ -22,6 +19,9 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .rank-badge{display:flex;flex-direction:column;font-size:9px;font-weight:800;color:var(--gray2)}
 .rank-badge .rn{color:var(--gold);font-size:11px}
 .top-right{display:flex;align-items:center;gap:8px}
+.cart-btn{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;cursor:pointer;border:1px solid var(--border);position:relative}
+.cart-btn svg{width:18px;height:18px;fill:var(--white)}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:9px;font-weight:900;border-radius:10px;padding:2px 5px;border:2px solid var(--bg);display:none}
 .bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:6px 12px;border-radius:10px;border:1px solid var(--border);cursor:pointer}
 .bal-plus{width:24px;height:24px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:16px;color:#1a1a1a;font-weight:900}
 .bal-num{font-size:14px;font-weight:900}
@@ -135,8 +135,87 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .cart-qty span {font-size:12px;font-weight:900;min-width:15px;text-align:center}
 
 /* УТЕШИТЕЛЬНЫЙ КЕЙС */
-.case-img {font-size:60px;margin-bottom:10px;animation:itemFloat 2s infinite}
+@keyframes dropCase {
+  0% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+  70% { transform: translateY(10px) scale(1.05); opacity: 1; }
+  85% { transform: translateY(-5px) scale(0.98); }
+  100% { transform: translateY(0) scale(1); }
+}
+.case-drop-anim { animation: dropCase 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
 @keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
+.case-img {font-size:80px; margin-bottom:10px; animation:itemFloat 2s infinite}
+.case-title {font-size:20px;font-weight:900;color:var(--gold);margin-bottom:6px; text-shadow: 0 0 20px rgba(255,184,0,0.8);}
+.case-sub {font-size:12px;color:var(--gray2);margin-bottom:12px}
+
+/* ПРОФИЛЬ */
+.profile-wrap{padding:16px}
+.profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
+.profile-header-row{display:flex;align-items:center;gap:12px}
+.profile-avatar-big{width:70px;height:70px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel-l);display:flex;justify-content:center;align-items:center;font-size:30px}
+.profile-avatar-big img{width:100%;height:100%;object-fit:cover}
+.profile-username{font-size:16px;font-weight:900}
+.profile-id-text{font-size:11px;color:var(--gray2);font-family:monospace}
+.profile-balance-block{background:var(--panel-l);border-radius:12px;padding:12px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}
+.profile-balance-val{font-size:24px;font-weight:900;color:var(--gold)}
+.stats-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.stat-block{background:var(--panel-l);border-radius:8px;padding:10px;text-align:center}
+.stat-block-label{font-size:9px;color:var(--gray2);font-weight:800}
+.stat-block-val{font-size:16px;font-weight:900}
+.chart-wrap{background:var(--panel-l);border-radius:12px;padding:14px;margin-top:8px}
+.chart-bars{display:flex;align-items:flex-end;gap:4px;height:120px}
+.chart-bar{flex:1;background:linear-gradient(180deg,var(--gold),#ff8c00);border-radius:4px 4px 0 0;min-height:4px;position:relative;transition:height .5s}
+.chart-bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--gray2);font-weight:800;white-space:nowrap}
+.best-drop-card{background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;animation:goldPulse 1.8s ease-in-out infinite}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 30px rgba(255,184,0,.4)}50%{box-shadow:0 0 50px rgba(255,184,0,.7)}}
+.best-drop-img{width:70px;height:70px;object-fit:contain;flex-shrink:0}
+.best-drop-info{flex:1}
+.best-drop-label{font-size:10px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.best-drop-name{font-size:14px;font-weight:900;margin-bottom:4px}
+.best-drop-price{font-size:16px;font-weight:900;color:var(--gold)}
+.best-drop-empty{background:var(--panel-l);border:1px dashed var(--border);border-radius:16px;padding:20px;text-align:center;color:var(--gray2);font-size:12px;font-weight:800}
+.vip-profile-block{background:linear-gradient(135deg,#1a1408,#0a0800);border:1px solid var(--gold);border-radius:16px;padding:16px;margin-bottom:12px}
+.vip-profile-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.vip-profile-crown{font-size:28px}
+.vip-profile-title{font-size:14px;font-weight:900;color:var(--gold)}
+.vip-profile-sub{font-size:10px;color:var(--gray2);font-weight:700}
+.vip-profile-feature{font-size:11px;color:#fff;font-weight:700;margin-bottom:4px}
+.vip-profile-btn{width:100%;margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;border:none;cursor:pointer;font-size:12px}
+.hist-item{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--gray2)}
+.hist-item.win{border-left-color:var(--green-l)}
+.hist-item.lose{border-left-color:var(--red)}
+.hist-img{width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:8px;padding:4px;flex-shrink:0}
+.hist-info{flex:1}
+.hist-title{font-size:12px;font-weight:900}
+.hist-sub{font-size:10px;color:var(--gray2);font-weight:800}
+.hist-price{font-size:14px;font-weight:900}
+.hist-price.win{color:var(--green-l)}
+.hist-price.lose{color:var(--red)}
+.legend-frame{position:relative;display:inline-block;border-radius:50%;padding:3px;background:linear-gradient(135deg,#ffd700,#4a9eff,#1e5cb8,#ffd700);background-size:300% 300%;animation:spinFrame 3s linear infinite}
+@keyframes spinFrame{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.legend-frame::after{content:'👑';position:absolute;bottom:-4px;right:-4px;font-size:16px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:50%;width:24px;height:24px;display:flex;justify-content:center;align-items:center;border:2px solid #0a0a0d}
+.vip-frame{position:relative;display:inline-block;border-radius:16px;padding:3px;background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);background-size:300% 300%;animation:spinFrame 3s linear infinite}
+.vip-frame::after{content:'👑';position:absolute;top:-8px;right:-8px;font-size:18px}
+.legend-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:linear-gradient(135deg,rgba(74,158,255,.25),rgba(0,150,255,.08));border:1.5px solid rgba(74,158,255,.7);border-radius:8px;font-size:10px;font-weight:900;color:#4a9eff}
+.achievement-badge{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:10px;background:var(--panel-l);border:1px solid var(--border);border-radius:12px;min-width:80px}
+.achievement-badge.unlocked{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,184,0,.15),rgba(255,140,0,.05));box-shadow:0 0 15px rgba(255,184,0,.3)}
+.achievement-ico{font-size:28px;filter:grayscale(1);opacity:.4}
+.achievement-badge.unlocked .achievement-ico{filter:grayscale(0);opacity:1}
+.achievement-name{font-size:9px;font-weight:900;color:var(--gray2);text-align:center;line-height:1.2}
+.achievement-badge.unlocked .achievement-name{color:var(--gold)}
+.title-badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:9px;font-weight:900;letter-spacing:.5px}
+.title-novice{background:#555;color:#fff}
+.title-pro{background:linear-gradient(135deg,#4a9eff,#2e6db8);color:#fff}
+.title-master{background:linear-gradient(135deg,#9b8aff,#6a4cff);color:#fff}
+.title-legend{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a}
+.title-god{background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;box-shadow:0 0 10px rgba(229,9,20,.6)}
+
+/* КРАСИВЫЕ ПОПАПЫ WIN/LOSE */
+.popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
+.popup-lose-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
+.popup-item{animation:itemFloat 2s ease-in-out infinite}
+@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
+.popup-title-win{background:linear-gradient(135deg,#4CAF50,#8BC34A,#4CAF50);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(76,175,80,.9))}
+.popup-title-lose{background:linear-gradient(135deg,#e50914,#ff6b6b,#e50914);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(229,9,20,.9))}
 
 /* СКРОЛЛБАРЫ */
 ::-webkit-scrollbar {width: 4px;height: 4px;}
@@ -168,6 +247,7 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
     <div class="rank-badge"><div class="rn" id="rankNameTop">НОВИЧОК</div><div id="rankLevelTop">LVL 1</div></div>
   </div>
   <div class="top-right">
+    <div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div>
     <div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
   </div>
 </div>
@@ -263,13 +343,16 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 </div>
 
 <!-- УТЕШИТЕЛЬНЫЙ КЕЙС -->
-<div class="modal-overlay" id="consolationModal" style="display:none">
-  <div class="modal-content" style="text-align:center;border-color:var(--gold);background:linear-gradient(180deg,#1a1a1c,#0a0a0c);">
-    <div class="case-img">📦</div>
-    <div style="font-size:16px;font-weight:900;color:var(--gold);margin-bottom:6px;">StandFliutApap</div>
-    <div style="font-size:12px;color:var(--gray2);margin-bottom:12px;">Утешительный приз</div>
-    <div id="caseResult" style="font-size:24px;font-weight:900;color:var(--green-l);margin:20px 0;display:none;">+0 G</div>
-    <button class="btn-action upg" id="caseBtn" style="width:100%;padding:14px;" onclick="openCase()">ОТКРЫТЬ КЕЙС</button>
+<div class="modal-overlay" id="consolationModal" style="display:none; background:rgba(0,0,0,0.9); backdrop-filter:blur(10px);">
+  <div class="modal-content case-drop-anim" style="text-align:center;border:2px solid var(--gold);background:linear-gradient(180deg,#1a1a1c,#0a0a0c); border-radius:20px; padding:30px; box-shadow:0 0 50px rgba(255,184,0,0.3);">
+    <div class="case-img" id="caseVisual">📦</div>
+    <div class="case-title" id="caseTitle">StandFliutApap</div>
+    <div class="case-sub" id="caseSub">Утешительный приз</div>
+    <div id="caseResult" style="font-size:20px;font-weight:900;color:var(--gold);margin:20px 0;display:none;">
+      <div id="caseSkinImg" style="margin-bottom:10px;"></div>
+      <div id="casePrizeText"></div>
+    </div>
+    <button class="btn-action upg" id="caseBtn" style="width:100%;padding:14px;font-size:14px; display:none;" onclick="openCase()">ОТКРЫТЬ КЕЙС</button>
   </div>
 </div>
 
@@ -321,12 +404,6 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
   </div>
 </div>
 
-<!-- ПЛАВАЮЩАЯ КОРЗИНА -->
-<div id="floatingCart" onclick="openCart()" style="position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:var(--gold);border-radius:50%;display:none;justify-content:center;align-items:center;box-shadow:0 4px 15px rgba(255,184,0,0.5);z-index:99;cursor:pointer;">
-  <span style="font-size:24px;">🛒</span>
-  <div id="cartBadge" style="position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:12px;font-weight:900;border-radius:10px;padding:2px 6px;border:2px solid var(--bg);">0</div>
-</div>
-
 <script>
 const BOT_URL='https://admin-bot-03ly.onrender.com';
 const CDN_BASE='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
@@ -345,6 +422,7 @@ let cart=[], invMode='inv', bigTab='inv', shopTab='skins';
 let currentWheelAngle=0, wheelAnimId=null;
 let lightningOn=false;
 let customPcts=[...DEFAULT_PCTS];
+let gameLoaded = false;
 
 function haptic(t){try{window.Telegram?.WebApp?.HapticFeedback?.impactOccurred(t||'medium')}catch(e){}}
 function toast(m,t){const e=document.getElementById('toast');if(!e)return;e.style.borderColor=t==='win'?'var(--green-l)':(t==='lose'?'var(--red)':'var(--border)');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
@@ -420,7 +498,7 @@ function toggleCardActions(el){
 
 function rendTargetList(){
   const b=document.getElementById('targetList');if(!b)return;
-  let f=allSkins.slice(); // БЕЗ ПОИСКА
+  let f=allSkins.slice();
   f.sort((a,b)=>a.price-b.price);
   b.innerHTML=f.map(s=>{
     const r=getRarity(s.color);
@@ -447,12 +525,11 @@ function toggleCart(name,price,e){
 }
 function updateCartBadge(){
   const b=document.getElementById('cartBadge');
-  const fc=document.getElementById('floatingCart');
   if(cart.length>0){
-    fc.style.display='flex';
+    b.style.display='block';
     const totalQty = cart.reduce((s,c)=>s+c.qty,0);
     b.innerText=totalQty;
-  } else fc.style.display='none';
+  } else b.style.display='none';
 }
 function openCart(){
   if(cart.length===0){toast('🛒 Корзина пуста','lose');return;}
@@ -522,7 +599,7 @@ function clearUpgrade(){
 }
 function sellSkin(idx){
   const it=inv[idx];if(!it)return;
-  if(confirm(`Продать ${it.name} за ${it.price} G?`)){ // 100% ЦЕНЫ!
+  if(confirm(`Продать ${it.name} за ${it.price} G?`)){
     gold+=it.price;
     inv.splice(idx,1);
     selectedItems=selectedItems.filter(i=>i!==it);
@@ -678,7 +755,6 @@ function spinUpgrade(){
   wrap.style.transform=`rotate(${td}deg)`;
 
   setTimeout(()=>{
-    // УДАЛЯЕМ ТОЛЬКО ТО, ЧТО ПОСТАВИЛИ
     selectedItems.forEach(item => {
       const idx = inv.indexOf(item);
       if (idx >= 0) inv.splice(idx, 1);
@@ -692,12 +768,11 @@ function spinUpgrade(){
       inv.push(ws);
       stats.wins++;
       haptic('heavy');
-      toast('🎉 ПОБЕДА! Вы получили '+ws.name, 'win');
+      showWinModal(ws);
     } else {
       stats.loses++;
       haptic('light');
-      toast('😢 Вы проиграли!', 'lose');
-      setTimeout(()=>{ document.getElementById('consolationModal').style.display='flex'; }, 500);
+      showLoseModal(lostItems);
     }
     
     stats.spins++;
@@ -714,34 +789,96 @@ function spinUpgrade(){
   }, duration);
 }
 
+// === КРАСИВЫЙ ПОПАП ВЫИГРЫША ===
+function showWinModal(skin){
+  const m=document.createElement('div');m.id='resultScreen';
+  m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(76,175,80,.45),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
+  m.innerHTML=`<div class="popup-win-card" style="max-width:380px;width:100%;text-align:center">
+    <div style="font-size:12px;font-weight:900;color:var(--green-l);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(76,175,80,.8)">★ ПОБЕДА ★</div>
+    <div class="popup-title-win" style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">УСПЕХ!</div>
+    <div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(76,175,80,.8),inset 0 0 30px rgba(76,175,80,.3)">${skin.img?`<img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))">`:''}</div>
+    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${skin.name}</div>
+    <div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px;text-shadow:0 0 15px rgba(255,184,0,.6)">+${skin.price} G</div>
+    <button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer;box-shadow:0 0 30px rgba(255,215,0,.6),0 8px 20px rgba(0,0,0,.4)" onclick="closeResult()">🎁 ЗАБРАТЬ</button>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+// === КРАСИВЫЙ ПОПАП ПРОИГРЫША ===
+function showLoseModal(items){
+  const lostSkin=items[0]||{name:'—',img:'',price:0};
+  const m=document.createElement('div');m.id='resultScreen';
+  m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.5),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
+  m.innerHTML=`<div class="popup-lose-card" style="max-width:380px;width:100%;text-align:center">
+    <div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(229,9,20,.8)">★ ПОРАЖЕНИЕ ★</div>
+    <div class="popup-title-lose" style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">НЕУДАЧА</div>
+    <div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(229,9,20,.8),inset 0 0 30px rgba(229,9,20,.3)">${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))">`:''}</div>
+    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${lostSkin.name}</div>
+    <div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px;text-shadow:0 0 15px rgba(229,9,20,.6)">-${lostSkin.price||0} G</div>
+    <button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer;box-shadow:0 0 30px rgba(229,9,20,.6),0 8px 20px rgba(0,0,0,.4)" onclick="closeResult()">ПОНЯТНО</button>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+function closeResult(){
+  document.getElementById('resultScreen')?.remove();
+  selectedItems=[];targetSkin=null;selPct=null;
+  rendMain();rendInv();rendTargetList();clearWheelPct();checkUpgradeBtn();saveGame();
+}
+
 // === УТЕШИТЕЛЬНЫЙ КЕЙС ===
 function openCase(){
   document.getElementById('caseBtn').style.display='none';
   const res = document.getElementById('caseResult');
-  res.style.display='block';
-  res.innerText='Открываем...';
+  const skinImgDiv = document.getElementById('caseSkinImg');
+  const prizeText = document.getElementById('casePrizeText');
+  
+  const caseVisual = document.getElementById('caseVisual');
+  caseVisual.innerText = '🎰';
+  caseVisual.style.animation = 'spin 0.5s linear infinite';
   
   setTimeout(()=>{
+    caseVisual.style.animation = 'itemFloat 2s infinite';
+    
     const r = Math.random() * 100;
     let prize = 10;
-    if(r > 40 && r <= 70) prize = 20;
-    else if(r > 70 && r <= 90) prize = 30;
-    else if(r > 90) prize = 50;
+    let skin = null;
+    
+    const availableSkins = allSkins.filter(s => s.price >= 10 && s.price <= 50);
+    if(availableSkins.length > 0) {
+      skin = availableSkins[Math.floor(Math.random() * availableSkins.length)];
+      prize = skin.price;
+    } else {
+      if(r > 40 && r <= 70) prize = 20;
+      else if(r > 70 && r <= 90) prize = 30;
+      else if(r > 90) prize = 50;
+    }
     
     gold += prize;
+    if(skin) inv.push(skin); 
+    
     updateBal(); saveGame();
-    res.innerText = '🎁 +' + prize + ' G';
+    
+    if (skin) {
+       skinImgDiv.innerHTML = `<img src="${skin.img}" style="width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5));">`;
+       prizeText.innerText = `ВЫПАЛ СКИН: ${skin.name}`;
+    } else {
+       skinImgDiv.innerHTML = `🎁`;
+       prizeText.innerText = `+${prize} G`;
+    }
+    
+    res.style.display = 'block';
     haptic('heavy');
     
     setTimeout(()=>{
       document.getElementById('consolationModal').style.display='none';
-      document.getElementById('caseBtn').style.display='block';
       res.style.display='none';
-    }, 2500);
+      rendInv(); 
+    }, 3000);
   }, 1500);
 }
 
-// === LIVE ЛЕНТА (ТВОЯ РОДНАЯ) ===
+// === LIVE ЛЕНТА ===
 async function loadLiveFeed(){
   try{
     const r = await fetch(BOT_URL+'/api/live');
@@ -799,6 +936,12 @@ function rendProfile(){
       <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div>
       <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div>
       <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div>
+    </div>
+    
+    <div class="chart-wrap" style="margin-bottom:12px;">
+      <div class="chart-bars">
+        ${[0,0,0,0,0,0,gold].map((v,i)=>{const max=Math.max(gold,100);const h=Math.max(4,(v/max)*100);return `<div class="chart-bar" style="height:${h}%;position:relative"><span class="chart-bar-label">${['-6','-5','-4','-3','-2','-1','Сейчас'][i]}</span></div>`}).join('')}
+      </div>
     </div>
     
     <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:8px;">ИНВЕНТАРЬ (${inv.length})</div>
@@ -874,7 +1017,7 @@ function openVipModal(){ document.getElementById('vipModal').style.display='flex
 function buyVipGold(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
 function buyVipMoney(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
 
-// === ПРОФИЛЬ ДРУГА (ТВОЙ РОДНОЙ) ===
+// === ПРОФИЛЬ ДРУГА (РОДНОЙ) ===
 async function openFriendProfileFull(fid){
   if(!fid || fid === 'undefined') return;
   try{
@@ -918,7 +1061,7 @@ async function openFriendProfileFull(fid){
   }catch(e){ toast('❌ Ошибка сети','lose'); }
 }
 
-// === СОХРАНЕНИЕ (ТВОЁ РОДНОЕ) ===
+// === СОХРАНЕНИЕ ===
 function saveGame(){
   try{
     const uid = getUserId();
@@ -971,4 +1114,4 @@ try{
 }catch(e){}
 </script>
 </body>
-      </html>
+  </html>
