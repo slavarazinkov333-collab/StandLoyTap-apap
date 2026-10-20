@@ -28,7 +28,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden}
 .av-top img{width:100%;height:100%;object-fit:cover}
 
-/* LIVE */
+/* LIVE (БЕГУЩАЯ СТРОКА) */
 .live-bar{margin:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:60px;overflow:hidden;position:relative;display:flex;align-items:center}
 .live-bar::before{content:'LIVE';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:#fff;background:var(--red);padding:3px 8px;border-radius:4px;z-index:3}
 .live-track{display:flex;gap:12px;white-space:nowrap;animation:scrollLeft 25s linear infinite;padding-left:65px;align-items:center;height:100%}
@@ -136,48 +136,43 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .case-title {font-size:20px;font-weight:900;color:var(--gold);margin-bottom:6px; text-shadow: 0 0 20px rgba(255,184,0,0.8);}
 .case-sub {font-size:12px;color:var(--gray2);margin-bottom:12px}
 
-/* ПРОФИЛЬ */
+/* ПРОФИЛЬ (НОВЫЙ ДИЗАЙН) */
 .profile-wrap{padding:16px}
-.profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
-.profile-header-row{display:flex;align-items:center;gap:12px}
-.profile-avatar-big{width:70px;height:70px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel-l);display:flex;justify-content:center;align-items:center;font-size:30px}
-.profile-avatar-big img{width:100%;height:100%;object-fit:cover}
-.profile-username{font-size:16px;font-weight:900}
-.profile-id-text{font-size:11px;color:var(--gray2);font-family:monospace}
-.profile-balance-block{background:var(--panel-l);border-radius:12px;padding:12px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}
-.profile-balance-val{font-size:24px;font-weight:900;color:var(--gold)}
-.stats-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
-.stat-block{background:var(--panel-l);border-radius:8px;padding:10px;text-align:center}
-.stat-block-label{font-size:9px;color:var(--gray2);font-weight:800}
-.stat-block-val{font-size:16px;font-weight:900}
-.chart-wrap{background:var(--panel-l);border-radius:12px;padding:14px;margin-top:8px}
-.chart-bars{display:flex;align-items:flex-end;gap:4px;height:120px}
-.chart-bar{flex:1;background:linear-gradient(180deg,var(--gold),#ff8c00);border-radius:4px 4px 0 0;min-height:4px;position:relative;transition:height .5s}
-.chart-bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--gray2);font-weight:800;white-space:nowrap}
-.best-drop-card{background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;animation:goldPulse 1.8s ease-in-out infinite}
-@keyframes goldPulse{0%,100%{box-shadow:0 0 30px rgba(255,184,0,.4)}50%{box-shadow:0 0 50px rgba(255,184,0,.7)}}
-.best-drop-img{width:70px;height:70px;object-fit:contain;flex-shrink:0}
-.best-drop-info{flex:1}
-.best-drop-label{font-size:10px;font-weight:900;color:var(--gold);margin-bottom:4px}
-.best-drop-name{font-size:14px;font-weight:900;margin-bottom:4px}
-.best-drop-price{font-size:16px;font-weight:900;color:var(--gold)}
-.hist-item{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--gray2)}
-.hist-item.win{border-left-color:var(--green-l)}
-.hist-item.lose{border-left-color:var(--red)}
-.hist-img{width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:8px;padding:4px;flex-shrink:0}
-.hist-info{flex:1}
-.hist-title{font-size:12px;font-weight:900}
-.hist-sub{font-size:10px;color:var(--gray2);font-weight:800}
-.hist-price{font-size:14px;font-weight:900}
-.hist-price.win{color:var(--green-l)}
-.hist-price.lose{color:var(--red)}
+.profile-nav{display:flex; gap:4px; background:var(--panel); padding:4px; border-radius:12px; margin-bottom:16px; overflow-x:auto; scrollbar-width:none;}
+.profile-nav::-webkit-scrollbar{display:none;}
+.profile-nav-item{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:10px 8px; border-radius:8px; font-size:10px; font-weight:800; color:var(--gray2); cursor:pointer; white-space:nowrap;}
+.profile-nav-item.active{background:var(--gold); color:#1a1a1a;}
+.profile-nav-item svg{width:20px; height:20px; fill:currentColor;}
 
-/* ПОПАПЫ */
-.popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
-.popup-lose-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
-.popup-item{animation:itemFloat 2s ease-in-out infinite}
-.popup-title-win{background:linear-gradient(135deg,#4CAF50,#8BC34A,#4CAF50);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(76,175,80,.9))}
-.popup-title-lose{background:linear-gradient(135deg,#e50914,#ff6b6b,#e50914);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(229,9,20,.9))}
+.profile-filter-row{display:flex; gap:8px; margin-bottom:16px;}
+.filter-btn{flex:1; background:var(--panel); border:1px solid var(--border); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center; color:var(--white); font-size:12px; font-weight:800; cursor:pointer;}
+.profile-btn-sell-all{width:100%; background:var(--gold); color:#1a1a1a; padding:12px; border-radius:12px; font-size:14px; font-weight:900; border:none; margin-bottom:16px; cursor:pointer; text-transform:uppercase;}
+
+/* КАРТОЧКА ИСТОРИИ (КАК НА СКРИНЕ) */
+.hist-card-v2{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:12px;}
+.hist-card-v2.win{border-color:rgba(76,175,80,0.3); box-shadow:0 0 15px rgba(76,175,80,0.1);}
+.hist-card-v2.lose{border-color:rgba(229,9,20,0.3);}
+.hist-top-row{display:flex; gap:12px; margin-bottom:12px;}
+.hist-img-box{width:70px; height:70px; background:var(--bg); border-radius:12px; border:1px solid var(--border); display:flex; justify-content:center; align-items:center; padding:8px; flex-shrink:0;}
+.hist-img-box img{max-width:100%; max-height:100%; object-fit:contain;}
+.hist-details{flex:1; display:flex; flex-direction:column; justify-content:center;}
+.hist-label{font-size:10px; font-weight:900; color:var(--gold); letter-spacing:1px; margin-bottom:2px;}
+.hist-title{font-size:14px; font-weight:900; margin-bottom:2px;}
+.hist-subtitle{font-size:11px; color:var(--gray2); font-weight:800; margin-bottom:4px;}
+.hist-price{font-size:13px; font-weight:900; color:var(--gold);}
+.hist-price::after{content:' G'; font-size:10px;}
+
+.hist-bottom-row{display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid var(--border); padding-top:12px;}
+.hist-chance-block{flex:1; margin-right:16px;}
+.hist-chance-label{font-size:10px; color:var(--gray2); font-weight:800; margin-bottom:4px;}
+.hist-chance-val{font-size:16px; font-weight:900; margin-bottom:6px;}
+.hist-progress-bar{height:6px; background:var(--panel-l); border-radius:3px; overflow:hidden;}
+.hist-progress-fill{height:100%; background:var(--green-l); border-radius:3px;}
+
+.hist-status-block{text-align:right;}
+.hist-status-badge{display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px; font-size:10px; font-weight:900; background:rgba(76,175,80,0.1); color:var(--green-l); border:1px solid rgba(76,175,80,0.3); margin-bottom:4px;}
+.hist-status-badge.lose{background:rgba(229,9,20,0.1); color:var(--red); border-color:rgba(229,9,20,0.3);}
+.hist-date{font-size:10px; color:var(--gray2); font-weight:800;}
 
 /* СТИЛИ ДЛЯ ПОДАРКОВ */
 .dr-day-box { flex: 1; height: 16px; border-radius: 4px; background: #333; }
@@ -217,6 +212,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
   </div>
 </div>
 
+<!-- Live лента (просто бежит, без закрепа) -->
 <div class="live-bar"><div class="live-track" id="liveTrack"><span class="live-empty">Загрузка...</span></div></div>
 
 <div class="main">
@@ -277,11 +273,45 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 
 <div class="toast" id="toast"></div>
 
-<!-- ПРОФИЛЬ МОДАЛКА -->
+<!-- ПРОФИЛЬ МОДАЛКА (ПОЛНОСТЬЮ ПЕРЕДЕЛАНА) -->
 <div class="modal-overlay" id="profileScreen" style="display:none">
-  <div class="modal-content" style="max-width:420px;padding:0;">
-    <button class="modal-close" onclick="closeS('profileScreen')" style="z-index:10;">✕</button>
-    <div id="profileBody"></div>
+  <div class="modal-content" style="max-width:420px;padding:0; background:var(--bg); border:none;">
+    <button class="modal-close" onclick="closeS('profileScreen')" style="z-index:10; top:16px; right:16px; background:var(--panel);">✕</button>
+    
+    <div class="profile-wrap">
+      
+      <!-- Меню профиля (как на скрине 1) -->
+      <div class="profile-nav">
+        <div class="profile-nav-item active" onclick="switchProfileTab('inv')" id="pTabInv">
+          <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+          Инвентарь
+        </div>
+        <div class="profile-nav-item" onclick="switchProfileTab('payments')" id="pTabPayments">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+          Платежи
+        </div>
+        <div class="profile-nav-item" onclick="switchProfileTab('history')" id="pTabHistory">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          Предметы
+        </div>
+        <div class="profile-nav-item" onclick="switchProfileTab('games')" id="pTabGames">
+          <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+          Игры
+        </div>
+      </div>
+
+      <!-- Кнопки фильтров (только для вкладки Инвентарь) -->
+      <div id="profileFilters" class="profile-filter-row">
+        <div class="filter-btn">Сначала новые <span>▼</span></div>
+        <div class="filter-btn" style="flex:0.8;">ПРОДАТЬ <div style="width:30px; height:16px; background:#333; border-radius:10px; position:relative;"><div style="position:absolute; top:2px; right:2px; width:12px; height:12px; background:#fff; border-radius:50%;"></div></div></div>
+      </div>
+      
+      <button id="btnSellAll" class="profile-btn-sell-all" onclick="toast('Все скины проданы!', 'win')">ПРОДАТЬ ВСЕ</button>
+
+      <!-- Список (Инвентарь / История) -->
+      <div id="profileListContainer"></div>
+
+    </div>
   </div>
 </div>
 
@@ -434,6 +464,7 @@ let lightningOn=false;
 let customPcts=[...DEFAULT_PCTS];
 let gameLoaded = false;
 let dailyState = JSON.parse(localStorage.getItem('sfap_daily_v2') || '{"streak":0,"lastClaim":0}');
+let currentProfileTab = 'inv';
 
 function haptic(t){try{window.Telegram?.WebApp?.HapticFeedback?.impactOccurred(t||'medium')}catch(e){}}
 function toast(m,t){const e=document.getElementById('toast');if(!e)return;e.style.borderColor=t==='win'?'var(--green-l)':(t==='lose'?'var(--red)':'var(--border)');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
@@ -797,14 +828,14 @@ function spinUpgrade(){
         bestDrop = {name: ws.name, img: ws.img || '', price: ws.price || 0, ts: Date.now()};
       }
       
-      upgradeHistory.unshift({win:true, targetName: ws.name, targetPrice: ws.price, targetImg: ws.img, ts: Date.now()});
+      upgradeHistory.unshift({win:true, targetName: ws.name, targetPrice: ws.price, targetImg: ws.img, pct: spinPct, ts: Date.now()});
     } else {
       stats.loses++;
       haptic('light');
       showLoseModal(lostItems);
       
       const ls = lostItems[0] || {};
-      upgradeHistory.unshift({win:false, targetName: ls.name||'—', targetPrice: ls.price||0, targetImg: ls.img||'', ts: Date.now()});
+      upgradeHistory.unshift({win:false, targetName: ls.name||'—', targetPrice: ls.price||0, targetImg: ls.img||'', pct: spinPct, ts: Date.now()});
     }
     
     if(upgradeHistory.length > 50) upgradeHistory.pop();
@@ -819,7 +850,7 @@ function spinUpgrade(){
     document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
     document.getElementById('upgradeBtn').disabled=true;
     updateBal(); saveGame(); rendInv(); rendMain();
-    if(document.getElementById('profileScreen').style.display==='flex') openS('profileScreen');
+    if(document.getElementById('profileScreen').style.display==='flex') rendProfile();
   }, duration);
 }
 
@@ -1043,7 +1074,7 @@ async function loadLiveFeed(){
   }
 }
 
-// === ПРОФИЛЬ ===
+// === ПРОФИЛЬ (ПЕРЕДЕЛАННЫЙ) ===
 function openS(id){
   if(id==='profileScreen') rendProfile();
   if(id==='settingsScreen') rendSettings();
@@ -1051,83 +1082,35 @@ function openS(id){
 }
 function closeS(id){document.getElementById(id).style.display='none'}
 
-function rendProfile(){
-  const b=document.getElementById('profileBody');
-  const u=getUser();
-  const name=u?.first_name||'Игрок';
-  const av=u?.photo_url?`<img src="${u.photo_url}" style="width:100%;height:100%;object-fit:cover;">`:'👤';
-  const winRate=stats.spins>0?Math.round((stats.wins/stats.spins)*100):0;
+function switchProfileTab(tab) {
+  currentProfileTab = tab;
   
-  let rankName = 'НОВИЧОК';
-  if(stats.wins >= 10) rankName = 'ПРОФИ';
-  if(stats.wins >= 50) rankName = 'МАСТЕР';
-  if(stats.wins >= 100) rankName = 'ЛЕГЕНДА';
-  
-  let histHtml = '';
-  if(upgradeHistory.length === 0) {
-    histHtml = '<div style="text-align:center;padding:20px;color:var(--gray2);font-size:12px;">Пока нет апгрейдов</div>';
+  // Обновляем активные табы
+  document.querySelectorAll('.profile-nav-item').forEach(el => el.classList.remove('active'));
+  if(tab === 'inv') document.getElementById('pTabInv').classList.add('active');
+  if(tab === 'payments') document.getElementById('pTabPayments').classList.add('active');
+  if(tab === 'history') document.getElementById('pTabHistory').classList.add('active');
+  if(tab === 'games') document.getElementById('pTabGames').classList.add('active');
+
+  // Прячем/показываем фильтры
+  const filters = document.getElementById('profileFilters');
+  const btnSell = document.getElementById('btnSellAll');
+  if(tab === 'inv' || tab === 'history') {
+    filters.style.display = 'flex';
+    btnSell.style.display = 'block';
   } else {
-    histHtml = upgradeHistory.map(h => `
-      <div class="hist-item ${h.win ? 'win' : 'lose'}">
-        ${h.targetImg ? `<img src="${h.targetImg}" class="hist-img">` : '<div class="hist-img" style="display:flex;align-items:center;justify-content:center;font-size:20px;">🎯</div>'}
-        <div class="hist-info">
-          <div class="hist-title">${h.targetName}</div>
-          <div class="hist-sub">${h.win ? 'Победа' : 'Проигрыш'}</div>
-        </div>
-        <div class="hist-price ${h.win ? 'win' : 'lose'}">${h.win ? '+' : '-'}${h.targetPrice} G</div>
-      </div>
-    `).join('');
+    filters.style.display = 'none';
+    btnSell.style.display = 'none';
   }
+
+  // Рисуем контент
+  const container = document.getElementById('profileListContainer');
   
-  b.innerHTML=`<div class="profile-wrap">
-    <div class="profile-main-card">
-      <div class="profile-header-row">
-        <div class="profile-avatar-big">${av}</div>
-        <div>
-          <div class="profile-username">${name}</div>
-          <div class="profile-id-text">ID: #${getUserId().slice(-5)}</div>
-          <div style="font-size:10px;color:var(--gold);font-weight:900;margin-top:4px;">ЗВАНИЕ: ${rankName}</div>
-        </div>
-      </div>
-      <div class="profile-balance-block">
-        <div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div>
-        <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span style="font-size:14px;color:var(--gray2)">G</span></div>
-      </div>
-    </div>
-
-    <div style="display:flex;gap:8px;margin-bottom:12px;">
-      <button class="btn-action upg" style="flex:1;padding:12px;font-size:12px;" onclick="openPromoModal()">🎁 ПРОМОКОД</button>
-      <button class="btn-action upg" style="flex:1;padding:12px;font-size:12px;background:var(--blue);" onclick="openMarket()">💎 БИРЖА</button>
-    </div>
-
-    ${bestDrop && bestDrop.name ? `
-    <div class="best-drop-card" style="margin-bottom:12px;">
-      ${bestDrop.img ? `<img src="${bestDrop.img}" class="best-drop-img">` : ''}
-      <div class="best-drop-info">
-        <div class="best-drop-label">🏆 ЛУЧШИЙ ДРОП</div>
-        <div class="best-drop-name">${bestDrop.name}</div>
-        <div class="best-drop-price">${(bestDrop.price||0).toLocaleString('ru-RU')} G</div>
-      </div>
-    </div>` : ''}
-    
-    <div class="stats-grid-3">
-      <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div>
-      <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div>
-      <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div>
-    </div>
-    
-    <div class="chart-wrap" style="margin-bottom:12px;">
-      <div class="chart-bars">
-        ${[0,0,0,0,0,0,gold].map((v,i)=>{const max=Math.max(gold,100);const h=Math.max(4,(v/max)*100);return `<div class="chart-bar" style="height:${h}%;position:relative"><span class="chart-bar-label">${['-6','-5','-4','-3','-2','-1','Сейчас'][i]}</span></div>`}).join('')}
-      </div>
-    </div>
-
-    <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:8px;">ИСТОРИЯ АПГРЕЙДОВ</div>
-    <div style="margin-bottom:12px;">${histHtml}</div>
-    
-    <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:8px;">ИНВЕНТАРЬ (${inv.length})</div>
-    <div class="grid">
-      ${inv.length===0?'<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2);font-size:12px;">Пусто</div>':inv.map((it,idx)=>`
+  if(tab === 'inv') {
+    if(inv.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray2);">Инвентарь пуст</div>';
+    } else {
+      container.innerHTML = `<div class="grid">${inv.map((it,idx)=>`
         <div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:8px;">
           <div class="card-img-wrap"><img src="${it.img}" onerror="this.style.display='none'"></div>
           <div class="card-info">
@@ -1138,9 +1121,60 @@ function rendProfile(){
             <button class="btn-action upg" style="width:100%;padding:8px;font-size:10px;" onclick="withdrawSkinDirect(${idx})">📤 ВЫВЕСТИ</button>
           </div>
         </div>
-      `).join('')}
-    </div>
-  </div>`;
+      `).join('')}</div>`;
+    }
+  } 
+  else if(tab === 'history') {
+    if(upgradeHistory.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray2);">История пуста</div>';
+    } else {
+      container.innerHTML = upgradeHistory.map(h => {
+        const date = new Date(h.ts);
+        const dateStr = date.toLocaleDateString('ru-RU', {month: 'short', day: 'numeric'}) + ' · ' + date.toLocaleTimeString('ru-RU', {hour: '2-digit', minute: '2-digit'});
+        
+        return `
+        <div class="hist-card-v2 ${h.win ? 'win' : 'lose'}">
+          <div class="hist-top-row">
+            <div class="hist-img-box">
+              ${h.targetImg ? `<img src="${h.targetImg}">` : '🎯'}
+            </div>
+            <div class="hist-details">
+              <div class="hist-label">АПГРЕЙД</div>
+              <div class="hist-title">${h.targetName}</div>
+              <div class="hist-subtitle">${h.win ? 'УСПЕШНО' : 'ПРОВАЛ'}</div>
+              <div class="hist-price">${h.targetPrice}</div>
+            </div>
+          </div>
+          <div class="hist-bottom-row">
+            <div class="hist-chance-block">
+              <div class="hist-chance-label">% ШАНС</div>
+              <div class="hist-chance-val">${h.pct ? Math.round(h.pct) : 0}%</div>
+              <div class="hist-progress-bar">
+                <div class="hist-progress-fill" style="width:${h.pct || 0}%; background: ${h.win ? 'var(--green-l)' : 'var(--red)'}"></div>
+              </div>
+            </div>
+            <div class="hist-status-block">
+              <div class="hist-status-badge ${h.win ? '' : 'lose'}">
+                ${h.win ? '✓ ПОБЕДА' : '✕ ПРОИГРЫШ'}
+              </div>
+              <div class="hist-date">${dateStr}</div>
+            </div>
+          </div>
+        </div>
+        `;
+      }).join('');
+    }
+  }
+  else if(tab === 'payments') {
+    container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray2);">История платежей пуста</div>';
+  }
+  else if(tab === 'games') {
+    container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--gray2);">Другие игры скоро...</div>';
+  }
+}
+
+function rendProfile(){
+  switchProfileTab(currentProfileTab);
 }
 
 function withdrawSkinDirect(idx){
@@ -1172,7 +1206,7 @@ function submitWithdraw(idx){
   if(!pattern){toast('❌ Введи паттерн','lose');return}
   inv.splice(idx,1);
   saveGame();
-  closeS('profileScreen');
+  switchProfileTab('inv');
   if(document.getElementById('wdModal')) document.getElementById('wdModal').remove();
   toast('✅ Заявка создана','win');
 }
@@ -1337,4 +1371,4 @@ try{
 }catch(e){}
 </script>
 </body>
-  </html>
+</html>
