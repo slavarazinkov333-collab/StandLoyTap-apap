@@ -11,6 +11,9 @@
 :root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
 body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
 body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:#1a1a2a;--gray2:#666}
+body.bg-stars{background-image:radial-gradient(2px 2px at 20% 30%,white,transparent),radial-gradient(2px 2px at 60% 70%,white,transparent),radial-gradient(1px 1px at 50% 50%,white,transparent),radial-gradient(1px 1px at 80% 10%,white,transparent);background-size:200px 200px}
+body.bg-fire{background-image:radial-gradient(circle at 50% 100%,rgba(255,69,0,.3),transparent 60%),radial-gradient(circle at 20% 80%,rgba(255,140,0,.2),transparent 50%)}
+body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,.3),transparent 60%),radial-gradient(circle at 80% 20%,rgba(155,138,255,.2),transparent 50%)}
 
 /* ТОП ПАНЕЛЬ */
 .top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
@@ -63,7 +66,7 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.4);transform-origin:center 150px;transform:translateX(-50%) rotate(var(--a));border-radius:1px}
 .tick.major{width:3px;height:14px;background:var(--gold);box-shadow:0 0 8px rgba(255,184,0,.8)}
 .wheel-center{position:relative;z-index:5;text-align:center}
-.pt{font-size:52px;font-weight:900;line-height:1;letter-spacing:-2px;text-shadow:0 0 20px rgba(255,184,0,.4)}
+.pt{font-size:38px;font-weight:900;line-height:1;letter-spacing:-1px;text-shadow:0 0 20px rgba(255,184,0,.4)}
 .pl{font-size:9px;color:var(--gray2);letter-spacing:4px;margin-top:4px;font-weight:700}
 .arrow-wrap{position:absolute;inset:0;pointer-events:none;z-index:25}
 .arrow{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:32px;height:44px;filter:drop-shadow(0 4px 10px rgba(255,184,0,.8))}
@@ -725,7 +728,7 @@ function pickTargetCard(name,price,color){
   rendMain(); rendTargetList(); checkUpgradeBtn();
 }
 
-// === ФИЗИКА СПИНА (10 ОБОРОТОВ) ===
+// === ФИЗИКА СПИНА (10 ОБОРОТОВ, МЕДЛЕННО -> БЫСТРО -> МЕДЛЕННО) ===
 function spinUpgrade(){
   if(selectedItems.length===0||!targetSkin||!selPct||isSpinning)return;
   isSpinning=true;
@@ -1015,7 +1018,7 @@ function rendSettings(){
     </div>`;
 }
 
-// === ЗАГЛУШКИ МЕНЮ ===
+// === ЗАДАНИЯ ===
 function openTasksModal(){
   document.getElementById('tasksModal').style.display='flex';
   document.getElementById('tasksList').innerHTML=`
@@ -1030,6 +1033,7 @@ function openTasksModal(){
       <button class="btn-action upg" style="padding:8px 12px;font-size:10px;opacity:0.5;" disabled>ЖДЕМ</button>
     </div>`;
 }
+
 function openAchievements(){
   document.getElementById('achModal').style.display='flex';
   document.getElementById('achList').innerHTML=`
@@ -1042,6 +1046,7 @@ function openAchievements(){
       <div style="font-size:9px;font-weight:900;color:var(--gray2);margin-top:4px;">Первая победа</div>
     </div>`;
 }
+
 function openVipModal(){ document.getElementById('vipModal').style.display='flex'; }
 function buyVipGold(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
 function buyVipMoney(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
@@ -1085,7 +1090,7 @@ function applyPromo(){
   }
 }
 
-// === ПРОФИЛЬ ДРУГА (РОДНОЙ) ===
+// === ПРОФИЛЬ ДРУГА ===
 async function openFriendProfileFull(fid){
   if(!fid || fid === 'undefined') return;
   try{
@@ -1185,4 +1190,4 @@ try{
 }catch(e){}
 </script>
 </body>
-                                                                        </html>
+  </html>
