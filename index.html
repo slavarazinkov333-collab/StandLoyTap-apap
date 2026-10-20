@@ -10,10 +10,6 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 :root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
 body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
-body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:#1a1a2a;--gray2:#666}
-body.bg-stars{background-image:radial-gradient(2px 2px at 20% 30%,white,transparent),radial-gradient(2px 2px at 60% 70%,white,transparent),radial-gradient(1px 1px at 50% 50%,white,transparent),radial-gradient(1px 1px at 80% 10%,white,transparent);background-size:200px 200px}
-body.bg-fire{background-image:radial-gradient(circle at 50% 100%,rgba(255,69,0,.3),transparent 60%),radial-gradient(circle at 20% 80%,rgba(255,140,0,.2),transparent 50%)}
-body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,.3),transparent 60%),radial-gradient(circle at 80% 20%,rgba(155,138,255,.2),transparent 50%)}
 
 /* ТОП ПАНЕЛЬ */
 .top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
@@ -59,8 +55,7 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
 .wheel-zone{position:absolute;inset:-4px;border-radius:50%;pointer-events:none;z-index:1;overflow:hidden}
 .wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 180deg,var(--gold) 0deg,var(--gold) var(--pct-angle,0deg),#1a1a22 var(--pct-angle,0deg),#1a1a22 360deg);opacity:0;transition:opacity .4s}
-.wheel-zone-fill.visible{opacity:.9;animation:goldPulseWheel 2s infinite alternate}
-@keyframes goldPulseWheel{0%{filter:brightness(1)}100%{filter:brightness(1.2)}}
+.wheel-zone-fill.visible{opacity:.9}
 .wheel::before{content:'';position:absolute;width:75%;height:75%;border-radius:50%;background:var(--bg);border:1px solid var(--border);z-index:2}
 .wheel-ticks{position:absolute;width:100%;height:100%;border-radius:50%;pointer-events:none;z-index:3}
 .tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.4);transform-origin:center 150px;transform:translateX(-50%) rotate(var(--a));border-radius:1px}
@@ -78,10 +73,8 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .action-row{display:flex;gap:8px;margin-top:12px}
 .upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;padding:16px;text-transform:uppercase;transition:all 0.3s}
 .upgrade-btn:disabled{opacity:.5;background:var(--panel)}
-.upgrade-btn:not(:disabled){animation:btnPulse 1.5s infinite}
-@keyframes btnPulse{0%{box-shadow:0 0 0 0 rgba(255,184,0,0.7)}70%{box-shadow:0 0 0 10px rgba(255,184,0,0)}100%{box-shadow:0 0 0 0 rgba(255,184,0,0)}}
 .lightning-btn{width:56px;height:56px;background:var(--panel);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;font-size:20px;color:var(--gray2);transition:0.2s}
-.lightning-btn.on{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,0.4)}
+.lightning-btn.on{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold)}
 
 /* СЛОТЫ */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
@@ -125,11 +118,10 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 
 /* МОДАЛКИ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
-.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto;animation:popupIn 0.3s}
+.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
 .modal-title{font-size:16px;font-weight:900;margin-bottom:16px;text-align:center}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
-.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;animation:popupIn 0.3s}
-@keyframes popupIn{0%{opacity:0;transform:scale(.9) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none}
 
 /* КОРЗИНА */
 .cart-item {display:flex;align-items:center;gap:12px;padding:10px;background:var(--panel-l);border-radius:8px;margin-bottom:8px}
@@ -138,15 +130,8 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .cart-qty span {font-size:12px;font-weight:900;min-width:15px;text-align:center}
 
 /* УТЕШИТЕЛЬНЫЙ КЕЙС */
-@keyframes dropCase {
-  0% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
-  70% { transform: translateY(10px) scale(1.05); opacity: 1; }
-  85% { transform: translateY(-5px) scale(0.98); }
-  100% { transform: translateY(0) scale(1); }
-}
-.case-drop-anim { animation: dropCase 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
-@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
 .case-img {font-size:80px; margin-bottom:10px; animation:itemFloat 2s infinite}
+@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
 .case-title {font-size:20px;font-weight:900;color:var(--gold);margin-bottom:6px; text-shadow: 0 0 20px rgba(255,184,0,0.8);}
 .case-sub {font-size:12px;color:var(--gray2);margin-bottom:12px}
 
@@ -175,14 +160,6 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .best-drop-label{font-size:10px;font-weight:900;color:var(--gold);margin-bottom:4px}
 .best-drop-name{font-size:14px;font-weight:900;margin-bottom:4px}
 .best-drop-price{font-size:16px;font-weight:900;color:var(--gold)}
-.best-drop-empty{background:var(--panel-l);border:1px dashed var(--border);border-radius:16px;padding:20px;text-align:center;color:var(--gray2);font-size:12px;font-weight:800}
-.vip-profile-block{background:linear-gradient(135deg,#1a1408,#0a0800);border:1px solid var(--gold);border-radius:16px;padding:16px;margin-bottom:12px}
-.vip-profile-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.vip-profile-crown{font-size:28px}
-.vip-profile-title{font-size:14px;font-weight:900;color:var(--gold)}
-.vip-profile-sub{font-size:10px;color:var(--gray2);font-weight:700}
-.vip-profile-feature{font-size:11px;color:#fff;font-weight:700;margin-bottom:4px}
-.vip-profile-btn{width:100%;margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;border:none;cursor:pointer;font-size:12px}
 .hist-item{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--gray2)}
 .hist-item.win{border-left-color:var(--green-l)}
 .hist-item.lose{border-left-color:var(--red)}
@@ -193,24 +170,6 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 .hist-price{font-size:14px;font-weight:900}
 .hist-price.win{color:var(--green-l)}
 .hist-price.lose{color:var(--red)}
-.legend-frame{position:relative;display:inline-block;border-radius:50%;padding:3px;background:linear-gradient(135deg,#ffd700,#4a9eff,#1e5cb8,#ffd700);background-size:300% 300%;animation:spinFrame 3s linear infinite}
-@keyframes spinFrame{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-.legend-frame::after{content:'👑';position:absolute;bottom:-4px;right:-4px;font-size:16px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:50%;width:24px;height:24px;display:flex;justify-content:center;align-items:center;border:2px solid #0a0a0d}
-.vip-frame{position:relative;display:inline-block;border-radius:16px;padding:3px;background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);background-size:300% 300%;animation:spinFrame 3s linear infinite}
-.vip-frame::after{content:'👑';position:absolute;top:-8px;right:-8px;font-size:18px}
-.legend-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:linear-gradient(135deg,rgba(74,158,255,.25),rgba(0,150,255,.08));border:1.5px solid rgba(74,158,255,.7);border-radius:8px;font-size:10px;font-weight:900;color:#4a9eff}
-.achievement-badge{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:10px;background:var(--panel-l);border:1px solid var(--border);border-radius:12px;min-width:80px}
-.achievement-badge.unlocked{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,184,0,.15),rgba(255,140,0,.05));box-shadow:0 0 15px rgba(255,184,0,.3)}
-.achievement-ico{font-size:28px;filter:grayscale(1);opacity:.4}
-.achievement-badge.unlocked .achievement-ico{filter:grayscale(0);opacity:1}
-.achievement-name{font-size:9px;font-weight:900;color:var(--gray2);text-align:center;line-height:1.2}
-.achievement-badge.unlocked .achievement-name{color:var(--gold)}
-.title-badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:9px;font-weight:900;letter-spacing:.5px}
-.title-novice{background:#555;color:#fff}
-.title-pro{background:linear-gradient(135deg,#4a9eff,#2e6db8);color:#fff}
-.title-master{background:linear-gradient(135deg,#9b8aff,#6a4cff);color:#fff}
-.title-legend{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a}
-.title-god{background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;box-shadow:0 0 10px rgba(229,9,20,.6)}
 
 /* ПОПАПЫ */
 .popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
@@ -237,9 +196,7 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
     </div>
   </div>
   <div class="sb-item" onclick="toggleSidebar();openS('profileScreen')"><span>👤</span> Мой Профиль</div>
-  <div class="sb-item" onclick="toggleSidebar();openTasksModal()"><span>🎯</span> Задания</div>
-  <div class="sb-item" onclick="toggleSidebar();openAchievements()"><span>🏅</span> Достижения</div>
-  <div class="sb-item" onclick="toggleSidebar();openVipModal()"><span>👑</span> VIP Статус</div>
+  <div class="sb-item" onclick="toggleSidebar();openFriends()"><span>👥</span> Друзья</div>
   <div class="sb-item" onclick="toggleSidebar();openS('settingsScreen')"><span>⚙️</span> Настройки</div>
 </div>
 
@@ -346,7 +303,7 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
 
 <!-- УТЕШИТЕЛЬНЫЙ КЕЙС -->
 <div class="modal-overlay" id="consolationModal" style="display:none; background:rgba(0,0,0,0.9); backdrop-filter:blur(10px);">
-  <div class="modal-content case-drop-anim" style="text-align:center;border:2px solid var(--gold);background:linear-gradient(180deg,#1a1a1c,#0a0a0c); border-radius:20px; padding:30px; box-shadow:0 0 50px rgba(255,184,0,0.3);">
+  <div class="modal-content" style="text-align:center;border:2px solid var(--gold);background:linear-gradient(180deg,#1a1a1c,#0a0a0c); border-radius:20px; padding:30px; box-shadow:0 0 50px rgba(255,184,0,0.3);">
     <div class="case-img" id="caseVisual">📦</div>
     <div class="case-title" id="caseTitle">StandFliutApap</div>
     <div class="case-sub" id="caseSub">Утешительный приз</div>
@@ -355,54 +312,6 @@ body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,
       <div id="casePrizeText"></div>
     </div>
     <button class="btn-action upg" id="caseBtn" style="width:100%;padding:14px;font-size:14px; display:none;" onclick="openCase()">ОТКРЫТЬ КЕЙС</button>
-  </div>
-</div>
-
-<!-- МОДАЛКА ЗАДАНИЙ -->
-<div class="modal-overlay" id="tasksModal" style="display:none">
-  <div class="modal-content" style="max-width:420px">
-    <button class="modal-close" onclick="document.getElementById('tasksModal').style.display='none'">✕</button>
-    <div style="font-size:16px;font-weight:900;margin-bottom:16px;text-align:center;">🎯 ЗАДАНИЯ ДНЯ</div>
-    <div id="tasksList"></div>
-  </div>
-</div>
-
-<!-- МОДАЛКА ДОСТИЖЕНИЙ -->
-<div class="modal-overlay" id="achModal" style="display:none">
-  <div class="modal-content" style="max-width:450px">
-    <button class="modal-close" onclick="document.getElementById('achModal').style.display='none'">✕</button>
-    <div style="font-size:16px;font-weight:900;margin-bottom:16px;text-align:center;">🏅 ДОСТИЖЕНИЯ</div>
-    <div id="achList" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"></div>
-  </div>
-</div>
-
-<!-- МОДАЛКА VIP -->
-<div class="modal-overlay" id="vipModal" style="display:none">
-  <div class="modal-content" style="border-color:var(--gold);background:linear-gradient(165deg,#1a1408,#0a0800);">
-    <button class="modal-close" onclick="document.getElementById('vipModal').style.display='none'">✕</button>
-    <div style="text-align:center;margin-bottom:16px;">
-      <div style="font-size:50px;">👑</div>
-      <div style="font-size:20px;font-weight:900;color:var(--gold);">VIP СТАТУС</div>
-    </div>
-    <div style="background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);border-radius:12px;padding:12px;margin-bottom:16px;">
-      <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:6px;">🎰 +5% к шансу выигрыша</div>
-      <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:6px;">💰 +5% к пополнению</div>
-      <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:6px;">🎁 +20 G каждый день</div>
-      <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:6px;">⚡ Быстрый спин</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0">
-      <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;cursor:pointer;" onclick="buyVipGold()">
-        <div style="font-size:20px">💰</div>
-        <div style="font-size:11px;color:var(--gray2)">ЗА ГОЛДУ</div>
-        <div style="font-size:18px;font-weight:900;color:var(--gold);margin-top:4px;">780 G</div>
-      </div>
-      <div style="background:var(--panel);border:1px solid var(--gold);border-radius:12px;padding:12px;text-align:center;cursor:pointer;" onclick="buyVipMoney()">
-        <div style="font-size:20px">💵</div>
-        <div style="font-size:11px;color:var(--gray2)">ЗА ДЕНЬГИ</div>
-        <div style="font-size:18px;font-weight:900;color:var(--gold);margin-top:4px;">690 ₽</div>
-      </div>
-    </div>
-    <button class="btn-action upg" style="width:100%;padding:14px;" onclick="buyVipGold()">💰 КУПИТЬ ЗА 780 G</button>
   </div>
 </div>
 
@@ -418,7 +327,7 @@ function getRarity(c){c=String(c).toLowerCase();if(c==='#ffd700')return'r-legend
 function getUserId(){const t=window.Telegram?.WebApp?.initDataUnsafe?.user;return t?.id?String(t.id):'guest'}
 function getUser(){return window.Telegram?.WebApp?.initDataUnsafe?.user||null}
 
-let gold=0, inv=[], stats={spins:0,wins:0,loses:0}, bestDrop=null, history=[];
+let gold=0, inv=[], stats={spins:0,wins:0,loses:0}, bestDrop=null, history=[], upgradeHistory=[];
 let selectedItems=[], targetSkin=null, selPct=null, isSpinning=false;
 let cart=[], invMode='inv', bigTab='inv', shopTab='skins';
 let currentWheelAngle=0, wheelAnimId=null;
@@ -728,14 +637,14 @@ function pickTargetCard(name,price,color){
   rendMain(); rendTargetList(); checkUpgradeBtn();
 }
 
-// === ФИЗИКА СПИНА (10 ОБОРОТОВ, МЕДЛЕННО -> БЫСТРО -> МЕДЛЕННО) ===
+// === ФИЗИКА СПИНА (МЕДЛЕННО -> БЫСТРО -> МЕДЛЕННО) ===
 function spinUpgrade(){
   if(selectedItems.length===0||!targetSkin||!selPct||isSpinning)return;
   isSpinning=true;
   document.getElementById('upgradeBtn').disabled=true;
   
   const wrap=document.getElementById('arrowWrap');
-  const duration=lightningOn ? 3000 : 6000; 
+  const duration=lightningOn ? 3500 : 6500; 
   const spinPct=Math.min(90,selPct);
   
   const win = Math.random() * 100 < spinPct;
@@ -764,7 +673,8 @@ function spinUpgrade(){
   wrap.style.transform='rotate(0deg)';
   wrap.offsetHeight;
   
-  wrap.style.transition='transform '+(duration/1000)+'s cubic-bezier(0.2, 0.8, 0.2, 1)';
+  // Кривая ease-in-out: медленный старт, быстрый разгон, плавное торможение
+  wrap.style.transition='transform '+(duration/1000)+'s cubic-bezier(0.4, 0.0, 0.2, 1)';
   wrap.style.transform=`rotate(${td}deg)`;
 
   setTimeout(()=>{
@@ -787,11 +697,17 @@ function spinUpgrade(){
         bestDrop = {name: ws.name, img: ws.img || '', price: ws.price || 0, ts: Date.now()};
       }
       
+      upgradeHistory.unshift({win:true, targetName: ws.name, targetPrice: ws.price, targetImg: ws.img, ts: Date.now()});
     } else {
       stats.loses++;
       haptic('light');
       showLoseModal(lostItems);
+      
+      const ls = lostItems[0] || {};
+      upgradeHistory.unshift({win:false, targetName: ls.name||'—', targetPrice: ls.price||0, targetImg: ls.img||'', ts: Date.now()});
     }
+    
+    if(upgradeHistory.length > 50) upgradeHistory.pop();
     
     stats.spins++;
     isSpinning=false;
@@ -852,10 +768,9 @@ function openCase(){
   
   const caseVisual = document.getElementById('caseVisual');
   caseVisual.innerText = '🎰';
-  caseVisual.style.animation = 'spin 0.5s linear infinite';
   
   setTimeout(()=>{
-    caseVisual.style.animation = 'itemFloat 2s infinite';
+    caseVisual.innerText = '📦';
     
     const r = Math.random() * 100;
     let prize = 10;
@@ -933,6 +848,22 @@ function rendProfile(){
   if(stats.wins >= 50) rankName = 'МАСТЕР';
   if(stats.wins >= 100) rankName = 'ЛЕГЕНДА';
   
+  let histHtml = '';
+  if(upgradeHistory.length === 0) {
+    histHtml = '<div style="text-align:center;padding:20px;color:var(--gray2);font-size:12px;">Пока нет апгрейдов</div>';
+  } else {
+    histHtml = upgradeHistory.map(h => `
+      <div class="hist-item ${h.win ? 'win' : 'lose'}">
+        ${h.targetImg ? `<img src="${h.targetImg}" class="hist-img">` : '<div class="hist-img" style="display:flex;align-items:center;justify-content:center;font-size:20px;">🎯</div>'}
+        <div class="hist-info">
+          <div class="hist-title">${h.targetName}</div>
+          <div class="hist-sub">${h.win ? 'Победа' : 'Проигрыш'}</div>
+        </div>
+        <div class="hist-price ${h.win ? 'win' : 'lose'}">${h.win ? '+' : '-'}${h.targetPrice} G</div>
+      </div>
+    `).join('');
+  }
+  
   b.innerHTML=`<div class="profile-wrap">
     <div class="profile-main-card">
       <div class="profile-header-row">
@@ -975,6 +906,9 @@ function rendProfile(){
         ${[0,0,0,0,0,0,gold].map((v,i)=>{const max=Math.max(gold,100);const h=Math.max(4,(v/max)*100);return `<div class="chart-bar" style="height:${h}%;position:relative"><span class="chart-bar-label">${['-6','-5','-4','-3','-2','-1','Сейчас'][i]}</span></div>`}).join('')}
       </div>
     </div>
+
+    <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:8px;">ИСТОРИЯ АПГРЕЙДОВ</div>
+    <div style="margin-bottom:12px;">${histHtml}</div>
     
     <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:8px;">ИНВЕНТАРЬ (${inv.length})</div>
     <div class="grid">
@@ -997,12 +931,35 @@ function rendProfile(){
 function withdrawSkinDirect(idx){
   const it=inv[idx];
   if(!it) return;
-  if(confirm(`Вывести скин ${it.name}?`)){
-    inv.splice(idx,1);
-    saveGame();
-    rendProfile();
-    toast('✅ Заявка на вывод создана!','win');
-  }
+  
+  const m=document.createElement('div');m.className='modal-overlay';m.id='wdModal';
+  m.innerHTML=`<div class="modal-content" style="max-width:420px">
+    <button class="modal-close" onclick="document.getElementById('wdModal').remove()">✕</button>
+    <div style="text-align:center;font-size:13px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:6px">📤 ЗАЯВКА НА ВЫВОД</div>
+    <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;text-align:center">
+      <div style="font-size:11px;color:var(--white);font-weight:700">Купи GG22 Flock и выстави на площадке</div>
+    </div>
+    <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px">
+      <div style="font-size:10px;color:var(--gray2);font-weight:800;margin-bottom:8px">ВЫВОДИМЫЙ СКИН</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="${it.img}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px">
+        <div><div style="font-size:13px;font-weight:900;color:var(--white)">${it.name}</div><div style="font-size:12px;color:var(--red);font-weight:900">${it.price} G</div></div>
+      </div>
+    </div>
+    <input type="text" id="wdPattern" placeholder="🎯 Введи паттерн скина" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--white);outline:none;margin-bottom:12px">
+    <button class="btn-action upg" style="width:100%;padding:14px;" onclick="submitWithdraw(${idx})">✅ ОТПРАВИТЬ ЗАЯВКУ</button>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+function submitWithdraw(idx){
+  const pattern=document.getElementById('wdPattern').value.trim();
+  if(!pattern){toast('❌ Введи паттерн','lose');return}
+  inv.splice(idx,1);
+  saveGame();
+  closeS('profileScreen');
+  if(document.getElementById('wdModal')) document.getElementById('wdModal').remove();
+  toast('✅ Заявка создана','win');
 }
 
 function rendSettings(){
@@ -1010,46 +967,13 @@ function rendSettings(){
   b.innerHTML=`
     <div style="background:var(--panel-l);border-radius:12px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
       <label>🔊 Звуки</label>
-      <div style="width:50px;height:28px;background:var(--green-l);border-radius:14px;position:relative;cursor:pointer;" onclick="this.style.background=this.style.background==='var(--green-l)'?'var(--border)':'var(--green-l)';this.children[0].style.left=this.children[0].style.left==='25px'?'3px':'25px';"><div style="position:absolute;top:3px;left:25px;width:22px;height:22px;background:#fff;border-radius:50%;transition:0.3s;"></div></div>
+      <div style="width:50px;height:28px;background:var(--green-l);border-radius:14px;position:relative;cursor:pointer;"><div style="position:absolute;top:3px;left:25px;width:22px;height:22px;background:#fff;border-radius:50%;transition:0.3s;"></div></div>
     </div>
     <div style="background:var(--panel-l);border-radius:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;">
       <label>🗑 Сброс</label>
       <button class="btn-action sell" style="padding:8px 14px;font-size:11px;" onclick="if(confirm('Сбросить игру?')){localStorage.clear();location.reload()}">СБРОС</button>
     </div>`;
 }
-
-// === ЗАДАНИЯ ===
-function openTasksModal(){
-  document.getElementById('tasksModal').style.display='flex';
-  document.getElementById('tasksList').innerHTML=`
-    <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px;">
-      <div style="width:40px;height:40px;background:var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:20px;">🎯</div>
-      <div style="flex:1;"><div style="font-size:12px;font-weight:900;">Сделай 5 спинов</div><div style="font-size:10px;color:var(--gray2);">${stats.spins} / 5</div></div>
-      <button class="btn-action upg" style="padding:8px 12px;font-size:10px;" onclick="toast('Задание выполнено!','win')">ЗАБРАТЬ</button>
-    </div>
-    <div style="background:var(--panel-l);border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px;">
-      <div style="width:40px;height:40px;background:var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:20px;">🎯</div>
-      <div style="flex:1;"><div style="font-size:12px;font-weight:900;">Купи 1 скин</div><div style="font-size:10px;color:var(--gray2);">0 / 1</div></div>
-      <button class="btn-action upg" style="padding:8px 12px;font-size:10px;opacity:0.5;" disabled>ЖДЕМ</button>
-    </div>`;
-}
-
-function openAchievements(){
-  document.getElementById('achModal').style.display='flex';
-  document.getElementById('achList').innerHTML=`
-    <div style="background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;opacity:0.5;">
-      <div style="font-size:28px;filter:grayscale(1);">🎰</div>
-      <div style="font-size:9px;font-weight:900;color:var(--gray2);margin-top:4px;">Первый спин</div>
-    </div>
-    <div style="background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;opacity:0.5;">
-      <div style="font-size:28px;filter:grayscale(1);">🏆</div>
-      <div style="font-size:9px;font-weight:900;color:var(--gray2);margin-top:4px;">Первая победа</div>
-    </div>`;
-}
-
-function openVipModal(){ document.getElementById('vipModal').style.display='flex'; }
-function buyVipGold(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
-function buyVipMoney(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
 
 // === БИРЖА ===
 function openMarket(){
@@ -1090,6 +1014,17 @@ function applyPromo(){
   }
 }
 
+// === ДРУЗЬЯ ===
+function openFriends(){
+  const m=document.createElement('div');m.className='modal-overlay';m.id='friendsModal';m.onclick=(e)=>{if(e.target===m)m.remove()};
+  m.innerHTML=`<div class="modal-content">
+    <button class="modal-close" onclick="document.getElementById('friendsModal').remove()">✕</button>
+    <div class="modal-title">👥 ДРУЗЬЯ</div>
+    <div style="text-align:center;padding:20px;color:var(--gray2);font-size:12px;">Загрузка друзей с сервера...</div>
+  </div>`;
+  document.body.appendChild(m);
+}
+
 // === ПРОФИЛЬ ДРУГА ===
 async function openFriendProfileFull(fid){
   if(!fid || fid === 'undefined') return;
@@ -1124,11 +1059,6 @@ async function openFriendProfileFull(fid){
         <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${pStats.wins}</div></div>
         <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${pRate}%</div></div>
       </div>
-      ${p.bestDrop && p.bestDrop.name ? `<div style="margin-top:16px;background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;"><img src="${p.bestDrop.img}" style="width:60px;height:60px;object-fit:contain;"><div><div style="font-size:10px;font-weight:900;color:var(--gold);margin-bottom:4px;">★ РЕКОРД</div><div style="font-size:14px;font-weight:900;">${p.bestDrop.name}</div><div style="font-size:16px;font-weight:900;color:var(--gold);">${p.bestDrop.price} G</div></div></div>` : ''}
-      <div style="margin-top:16px;font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px;">ИНВЕНТАРЬ (${p.invCount||0})</div>
-      <div class="grid" style="grid-template-columns:repeat(2,1fr);">
-        ${p.inv && p.inv.length > 0 ? p.inv.map(it => `<div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:0;"><div class="card-img-wrap"><img src="${it.img}"></div><div class="card-info"><div class="card-name">${it.name}</div></div></div>`).join('') : '<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2);">Инвентарь скрыт</div>'}
-      </div>
     </div>`;
     document.body.appendChild(m);
   }catch(e){ toast('❌ Ошибка сети','lose'); }
@@ -1138,7 +1068,7 @@ async function openFriendProfileFull(fid){
 function saveGame(){
   try{
     const uid = getUserId();
-    const data = { gold, inv, stats, bestDrop, ts: Date.now() };
+    const data = { gold, inv, stats, bestDrop, upgradeHistory, ts: Date.now() };
     localStorage.setItem('sfap_save_'+uid, JSON.stringify(data));
     if(uid !== 'guest'){
       fetch(BOT_URL+'/api/save-merge', {
@@ -1162,6 +1092,7 @@ async function loadGame(){
         if(Array.isArray(d.data.inv)) inv = d.data.inv;
         if(d.data.stats) stats = d.data.stats;
         if(d.data.bestDrop) bestDrop = d.data.bestDrop;
+        if(Array.isArray(d.data.upgradeHistory)) upgradeHistory = d.data.upgradeHistory;
         return;
       }
     }catch(e){}
@@ -1172,6 +1103,7 @@ async function loadGame(){
       if(Array.isArray(d.inv)) inv = d.inv;
       if(d.data) stats = d.data.stats; else if(d.stats) stats = d.stats;
       if(d.bestDrop) bestDrop = d.bestDrop;
+      if(Array.isArray(d.upgradeHistory)) upgradeHistory = d.upgradeHistory;
     }
   }catch(e){}
 }
@@ -1190,4 +1122,4 @@ try{
 }catch(e){}
 </script>
 </body>
-  </html>
+</html>
