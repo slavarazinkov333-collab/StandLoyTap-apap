@@ -55,7 +55,8 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
 .wheel-zone{position:absolute;inset:-4px;border-radius:50%;pointer-events:none;z-index:1;overflow:hidden}
 .wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 180deg,var(--gold) 0deg,var(--gold) var(--pct-angle,0deg),#1a1a22 var(--pct-angle,0deg),#1a1a22 360deg);opacity:0;transition:opacity .4s}
-.wheel-zone-fill.visible{opacity:.9}
+.wheel-zone-fill.visible{opacity:.9;animation:goldPulseWheel 2s infinite alternate}
+@keyframes goldPulseWheel{0%{filter:brightness(1)}100%{filter:brightness(1.2)}}
 .wheel::before{content:'';position:absolute;width:75%;height:75%;border-radius:50%;background:var(--bg);border:1px solid var(--border);z-index:2}
 .wheel-ticks{position:absolute;width:100%;height:100%;border-radius:50%;pointer-events:none;z-index:3}
 .tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.4);transform-origin:center 150px;transform:translateX(-50%) rotate(var(--a));border-radius:1px}
@@ -178,6 +179,10 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
 .popup-title-win{background:linear-gradient(135deg,#4CAF50,#8BC34A,#4CAF50);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(76,175,80,.9))}
 .popup-title-lose{background:linear-gradient(135deg,#e50914,#ff6b6b,#e50914);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 20px rgba(229,9,20,.9))}
 
+/* СТИЛИ ДЛЯ ПОДАРКОВ */
+.dr-day-box { flex: 1; height: 16px; border-radius: 4px; background: #333; }
+.dr-day-box.filled { background: var(--gold); }
+
 /* СКРОЛЛБАРЫ */
 ::-webkit-scrollbar {width: 4px;height: 4px;}
 ::-webkit-scrollbar-track {background: transparent;}
@@ -196,6 +201,7 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
     </div>
   </div>
   <div class="sb-item" onclick="toggleSidebar();openS('profileScreen')"><span>👤</span> Мой Профиль</div>
+  <div class="sb-item" onclick="toggleSidebar();openDailyRewards()"><span>🎁</span> Подарок за вход</div>
   <div class="sb-item" onclick="toggleSidebar();openFriends()"><span>👥</span> Друзья</div>
   <div class="sb-item" onclick="toggleSidebar();openS('settingsScreen')"><span>⚙️</span> Настройки</div>
 </div>
@@ -315,6 +321,99 @@ body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;
   </div>
 </div>
 
+<!-- МОДАЛКА ПОДАРКОВ -->
+<div class="modal-overlay" id="dailyModal" style="display:none; z-index:2500;">
+  <div class="modal-content" style="max-width:420px; padding:0; background:var(--bg); border:1px solid var(--border);">
+    <button class="modal-close" onclick="closeDaily()" style="z-index:10;">✕</button>
+    
+    <div style="padding:20px; border-bottom:1px solid var(--border);">
+      <div style="font-size:10px; font-weight:900; color:var(--gold); letter-spacing:1px; margin-bottom:4px;">28 ДНЕЙ ПОДРЯД</div>
+      <div style="font-size:24px; font-weight:900; margin-bottom:8px;">Адвент-календарь</div>
+      <div style="font-size:12px; color:var(--gray2); line-height:1.4;">
+        Забирай награду каждый день. Отсчёт идёт от твоего первого дня, а не от числа месяца: пропустил день — счёт начинается с первого.
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; padding:16px;">
+      <div style="flex:1; background:var(--panel-l); border-radius:12px; padding:12px; text-align:center;">
+        <div style="font-size:9px; color:var(--gray2); font-weight:800; margin-bottom:4px;">НАГРАД ЗАБРАНО ПОДРЯД</div>
+        <div style="font-size:20px; font-weight:900;" id="drStreak">0 <span style="font-size:12px; color:var(--gray2);">дней</span></div>
+      </div>
+      <div style="flex:1; background:var(--panel-l); border-radius:12px; padding:12px; text-align:center;">
+        <div style="font-size:9px; color:var(--gray2); font-weight:800; margin-bottom:4px;">ДО 28-ГО ДНЯ</div>
+        <div style="font-size:20px; font-weight:900;" id="drLeft">28 <span style="font-size:12px; color:var(--gray2);">дней</span></div>
+      </div>
+    </div>
+
+    <!-- ПРОГРЕСС-БАР -->
+    <div style="padding:0 16px; display:flex; gap:4px; margin-bottom:16px;" id="drProgressBar">
+      <!-- Заполняется через JS -->
+    </div>
+
+    <!-- БОЛЬШАЯ КАРТОЧКА ТЕКУЩЕГО ДНЯ -->
+    <div style="margin:0 16px 16px; background:linear-gradient(180deg, #1a1a1c 0%, #0a0a0c 100%); border:1px solid #2a2a2e; border-radius:20px; padding:20px; text-align:center; position:relative; overflow:hidden;">
+      
+      <div style="width:100%; height:140px; background:linear-gradient(135deg, #222, #111); border-radius:12px; margin-bottom:16px; display:flex; justify-content:center; align-items:center; position:relative;">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/043/404/048/small_2x/gun-logo-icon-and-tactical-design-guns-illustration-free-vector.jpg" style="width:100px; height:100px; object-fit:contain; filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5));">
+        <div style="position:absolute; bottom:0; left:0; width:100%; height:4px; background:#333;">
+            <div id="drDayProgress" style="height:100%; background:var(--blue); width:0%; transition:width 0.3s;"></div>
+        </div>
+      </div>
+
+      <div style="background:var(--gold); color:#1a1a1a; font-size:11px; font-weight:900; padding:4px 12px; border-radius:20px; display:inline-block; margin-bottom:12px;">
+        СЕГОДНЯ • <span id="drDayLabel">1-Й ДЕНЬ</span>
+      </div>
+
+      <div style="font-size:20px; font-weight:900; margin-bottom:4px;">СКИН <span style="color:var(--gold);"><span id="drSkinPrice">3-100</span> G</span></div>
+      <div style="font-size:12px; color:var(--gray2); margin-bottom:16px;">Скин <span id="drSkinPriceSmall">3-100</span> G</div>
+
+      <div style="background:var(--panel-l); border-radius:12px; padding:12px; margin-bottom:16px;">
+        <div style="font-size:10px; color:var(--gray2); font-weight:800; margin-bottom:4px;">ДО СЛЕДУЮЩЕЙ НАГРАДЫ</div>
+        <div style="font-size:20px; font-weight:900; color:var(--gold);" id="drTimer">00:00:00</div>
+      </div>
+
+      <button class="upgrade-btn" id="drClaimBtn" onclick="claimDailyReward()" style="width:100%; padding:14px; font-size:14px;">ЗАБРАТЬ</button>
+    </div>
+
+    <!-- СЛЕДУЮЩИЙ ДЕНЬ -->
+    <div style="margin:0 16px 16px; background:var(--panel-l); border-radius:12px; padding:16px;">
+      <div style="font-size:10px; color:var(--gray2); font-weight:800; margin-bottom:8px;">ЗАВТРА • <span id="drTomorrowLabel">2-Й ДЕНЬ</span></div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/043/404/048/small_2x/gun-logo-icon-and-tactical-design-guns-illustration-free-vector.jpg" style="width:40px; height:40px; object-fit:contain;">
+        <div style="font-size:14px; font-weight:900;">СКИН <span style="color:var(--gold);"><span id="drTomorrowPrice">4-300</span> G</span></div>
+      </div>
+    </div>
+
+    <!-- ЧЕКЛИСТ -->
+    <div style="margin:0 16px 20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div style="font-size:16px; font-weight:900;">Чеклист получения</div>
+        <div style="background:var(--gold); color:#1a1a1a; font-size:11px; font-weight:900; padding:4px 10px; border-radius:8px;">6 ИЗ 6</div>
+      </div>
+      
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:var(--green-l); display:flex; justify-content:center; align-items:center; color:#fff; font-size:12px; font-weight:900;">✓</div>
+          <div><div style="font-size:12px; font-weight:900;">Войти на сайт</div><div style="font-size:10px; color:var(--gray2);">Без аккаунта награду забрать нельзя</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:var(--green-l); display:flex; justify-content:center; align-items:center; color:#fff; font-size:12px; font-weight:900;">✓</div>
+          <div><div style="font-size:12px; font-weight:900;">Telegram привязан</div><div style="font-size:10px; color:var(--gray2);">Один Telegram — один аккаунт</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:var(--green-l); display:flex; justify-content:center; align-items:center; color:#fff; font-size:12px; font-weight:900;">✓</div>
+          <div><div style="font-size:12px; font-weight:900;">Бот открыт (уведомления)</div><div style="font-size:10px; color:var(--gray2);">Нужен Start в боте для уведомлений</div></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:var(--green-l); display:flex; justify-content:center; align-items:center; color:#fff; font-size:12px; font-weight:900;">✓</div>
+          <div><div style="font-size:12px; font-weight:900;">Подписка на канал</div><div style="font-size:10px; color:var(--gray2);">Подписка на официальный канал</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
 const BOT_URL='https://admin-bot-03ly.onrender.com';
 const CDN_BASE='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
@@ -334,6 +433,7 @@ let currentWheelAngle=0, wheelAnimId=null;
 let lightningOn=false;
 let customPcts=[...DEFAULT_PCTS];
 let gameLoaded = false;
+let dailyState = JSON.parse(localStorage.getItem('sfap_daily_v2') || '{"streak":0,"lastClaim":0}');
 
 function haptic(t){try{window.Telegram?.WebApp?.HapticFeedback?.impactOccurred(t||'medium')}catch(e){}}
 function toast(m,t){const e=document.getElementById('toast');if(!e)return;e.style.borderColor=t==='win'?'var(--green-l)':(t==='lose'?'var(--red)':'var(--border)');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',2500)}
@@ -637,7 +737,7 @@ function pickTargetCard(name,price,color){
   rendMain(); rendTargetList(); checkUpgradeBtn();
 }
 
-// === ФИЗИКА СПИНА (МЕДЛЕННО -> БЫСТРО -> МЕДЛЕННО) ===
+// === ФИЗИКА СПИНА (10 ОБОРОТОВ, МЕДЛЕННО -> БЫСТРО -> МЕДЛЕННО) ===
 function spinUpgrade(){
   if(selectedItems.length===0||!targetSkin||!selPct||isSpinning)return;
   isSpinning=true;
@@ -808,6 +908,121 @@ function openCase(){
       rendInv(); 
     }, 3000);
   }, 1500);
+}
+
+// === СИСТЕМА ЕЖЕДНЕВНЫХ ПОДАРКОВ (АДВЕНТ) ===
+function openDailyRewards() {
+  document.getElementById('dailyModal').style.display = 'flex';
+  updateDailyUI();
+  if(window.drTimerInterval) clearInterval(window.drTimerInterval);
+  window.drTimerInterval = setInterval(updateDailyUI, 1000);
+}
+
+function closeDaily() {
+  document.getElementById('dailyModal').style.display = 'none';
+  if(window.drTimerInterval) clearInterval(window.drTimerInterval);
+}
+
+function updateDailyUI() {
+  const now = Date.now();
+  const cooldown = 24 * 60 * 60 * 1000; 
+  const timePassed = now - dailyState.lastClaim;
+  
+  let canClaim = false;
+  if (timePassed >= cooldown) {
+    canClaim = true;
+  } else if (dailyState.streak === 0) {
+    canClaim = true; 
+  }
+
+  if (timePassed > (cooldown * 2) && dailyState.streak > 0 && dailyState.lastClaim !== 0) {
+    dailyState.streak = 0;
+    dailyState.lastClaim = 0;
+    localStorage.setItem('sfap_daily_v2', JSON.stringify(dailyState));
+    canClaim = true;
+  }
+
+  let currentDay = (dailyState.streak % 28) + 1;
+  if(canClaim && dailyState.streak > 0 && timePassed >= cooldown) {
+    currentDay = (dailyState.streak % 28) + 1; 
+  } else if (!canClaim) {
+    currentDay = (dailyState.streak % 28) + 1;
+  }
+  
+  document.getElementById('drStreak').innerHTML = `${dailyState.streak} <span style="font-size:12px;color:var(--gray2)">дней</span>`;
+  document.getElementById('drLeft').innerHTML = `${28 - (dailyState.streak % 28)} <span style="font-size:12px;color:var(--gray2)">дней</span>`;
+  
+  document.getElementById('drDayLabel').innerText = `${currentDay}-Й ДЕНЬ`;
+  document.getElementById('drTomorrowLabel').innerText = `${currentDay === 28 ? 1 : currentDay + 1}-Й ДЕНЬ`;
+  
+  document.getElementById('drSkinPrice').innerText = `${currentDay * 2}-${currentDay * 10}`;
+  document.getElementById('drSkinPriceSmall').innerText = `${currentDay * 2}-${currentDay * 10}`;
+  document.getElementById('drTomorrowPrice').innerText = `${(currentDay+1) * 2}-${(currentDay+1) * 10}`;
+
+  let pbHtml = '';
+  for(let i=0; i<28; i++) {
+    pbHtml += `<div class="dr-day-box ${i < (dailyState.streak % 28) ? 'filled' : ''}"></div>`;
+  }
+  document.getElementById('drProgressBar').innerHTML = pbHtml;
+
+  const btn = document.getElementById('drClaimBtn');
+  const timer = document.getElementById('drTimer');
+  const prog = document.getElementById('drDayProgress');
+
+  if (canClaim) {
+    btn.disabled = false;
+    btn.style.opacity = 1;
+    btn.innerText = 'ЗАБРАТЬ';
+    btn.style.background = 'linear-gradient(135deg, var(--gold), #ff8c00)';
+    timer.innerText = 'ДОСТУПНО';
+    timer.style.color = 'var(--green-l)';
+    prog.style.width = '100%';
+  } else {
+    btn.disabled = true;
+    btn.style.opacity = 0.5;
+    btn.innerText = 'ПОЛУЧЕНО';
+    btn.style.background = 'var(--panel)';
+    
+    const leftTime = cooldown - timePassed;
+    const h = Math.floor(leftTime / (1000 * 60 * 60));
+    const m = Math.floor((leftTime % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((leftTime % (1000 * 60)) / 1000);
+    
+    timer.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    timer.style.color = 'var(--gold)';
+    prog.style.width = `${(timePassed / cooldown) * 100}%`;
+  }
+}
+
+function claimDailyReward() {
+  const now = Date.now();
+  const cooldown = 24 * 60 * 60 * 1000;
+  
+  if (dailyState.lastClaim !== 0 && (now - dailyState.lastClaim) < cooldown && dailyState.streak > 0) {
+    return toast('⏳ Следующая награда еще не готова', 'lose');
+  }
+
+  const availSkins = allSkins.filter(s => s.price >= 1 && s.price <= 300);
+  let skin = null;
+  if(availSkins.length > 0) {
+    skin = availSkins[Math.floor(Math.random() * availSkins.length)];
+  } else {
+    skin = { name: 'AKR Carbon', price: 56, color: '#4a9eff', img: CDN_BASE+'skins/AKR_CARBON.jpg' };
+  }
+  
+  inv.push(skin);
+  gold += skin.price;
+  
+  dailyState.streak++;
+  dailyState.lastClaim = now;
+  localStorage.setItem('sfap_daily_v2', JSON.stringify(dailyState));
+  
+  updateBal();
+  saveGame();
+  updateDailyUI();
+  
+  toast(`🎁 ВЫПАЛ СКИН: ${skin.name}`, 'win');
+  document.getElementById('drSkinPrice').innerText = `+${skin.price}`;
 }
 
 // === LIVE ЛЕНТА ===
@@ -1122,4 +1337,4 @@ try{
 }catch(e){}
 </script>
 </body>
-</html>
+  </html>
