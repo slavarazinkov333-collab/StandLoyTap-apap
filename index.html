@@ -60,6 +60,8 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .upgrade-btn:disabled{opacity:.5;background:var(--panel)}
 .upgrade-btn:not(:disabled){animation:btnPulse 1.5s infinite}
 @keyframes btnPulse{0%{box-shadow:0 0 0 0 rgba(255,184,0,0.7)}70%{box-shadow:0 0 0 10px rgba(255,184,0,0)}100%{box-shadow:0 0 0 0 rgba(255,184,0,0)}}
+.lightning-btn{width:56px;height:56px;background:var(--panel);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;font-size:20px;color:var(--gray2);transition:0.2s}
+.lightning-btn.on{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,0.4)}
 
 /* СЛОТЫ АПГРЕЙДА */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
@@ -79,14 +81,13 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .panel.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 
-/* КАРТОЧКИ СКИНОВ */
+/* КАРТОЧКИ СКИНОВ (Обновленный дизайн) */
 .card{background:var(--panel);border-radius:12px;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);position:relative;transition:0.2s}
 .card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,var(--panel-l) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
 .card-img-wrap img{width:90%;height:90%;object-fit:contain}
-.card-info{padding:10px;display:flex;flex-direction:column;gap:4px;align-items:center}
-.card-name{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
-.card-price{font-size:13px;font-weight:900;color:var(--gold)}
-.card-price::after{content:' G';font-size:10px;color:var(--gray2)}
+.card-info{padding:8px 10px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05)}
+.card-name{font-size:11px;font-weight:800;color:var(--red);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;margin-right:8px}
+.card-price{font-size:12px;font-weight:900;color:var(--gold);white-space:nowrap}
 
 /* Кнопки при тапе на скин */
 .card-actions-overlay {position:absolute;inset:0;background:rgba(10,10,12,0.85);backdrop-filter:blur(2px);display:flex;flex-direction:column;justify-content:center;gap:8px;padding:10px;opacity:0;pointer-events:none;transition:0.2s;z-index:10}
@@ -94,6 +95,7 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .btn-action {padding:10px;border-radius:8px;font-size:11px;font-weight:900;border:none;cursor:pointer;text-align:center;text-transform:uppercase}
 .btn-action.upg {background:var(--gold);color:#1a1a1a}
 .btn-action.sell {background:var(--red);color:#fff}
+.btn-action.wd {background:var(--blue);color:#fff}
 
 /* МАГАЗИН ГАЛОЧКИ */
 .card.selected {border-color:var(--green-l);box-shadow:0 0 15px rgba(76,175,80,0.3)}
@@ -101,12 +103,6 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .card.selected .card-check {background:var(--green-l);border-color:var(--green-l)}
 .card-check::after {content:'✓';color:#fff;font-size:14px;font-weight:900;opacity:0;transition:0.2s}
 .card.selected .card-check::after {opacity:1}
-
-/* КОРЗИНА МОДАЛКА */
-.cart-item {display:flex;align-items:center;gap:12px;padding:10px;background:var(--panel-l);border-radius:8px;margin-bottom:8px}
-.cart-qty {display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:6px;padding:4px}
-.cart-qty button {width:24px;height:24px;border-radius:4px;border:none;background:var(--panel);color:var(--white);font-weight:900;cursor:pointer}
-.cart-qty span {font-size:12px;font-weight:900;min-width:15px;text-align:center}
 
 /* САЙДБАР (ЛЕВОЕ МЕНЮ) */
 .sidebar {position:fixed;top:0;left:-300px;width:280px;height:100%;background:var(--panel);z-index:1000;transition:0.3s;display:flex;flex-direction:column;border-right:1px solid var(--border);box-shadow:5px 0 20px rgba(0,0,0,0.5)}
@@ -118,12 +114,19 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 .sb-item:hover {background:var(--panel-l)}
 .sb-item span {font-size:18px}
 
-/* УТЕШИТЕЛЬНЫЙ КЕЙС */
-.consolation-case {background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:2px solid var(--gold);border-radius:16px;padding:20px;text-align:center;margin-top:16px;animation:popupIn 0.5s;box-shadow:0 0 30px rgba(255,184,0,0.3)}
-.case-img {font-size:60px;margin-bottom:10px;animation:itemFloat 2s infinite}
-.case-title {font-size:16px;font-weight:900;color:var(--gold);margin-bottom:6px}
-.case-sub {font-size:12px;color:var(--gray2);margin-bottom:12px}
-@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
+/* ПРОФИЛЬ */
+.profile-wrap{padding:16px}
+.profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
+.profile-header-row{display:flex;align-items:center;gap:12px}
+.profile-avatar-big{width:70px;height:70px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel-l);display:flex;justify-content:center;align-items:center;font-size:30px}
+.profile-username{font-size:16px;font-weight:900}
+.profile-id-text{font-size:11px;color:var(--gray2);font-family:monospace}
+.profile-balance-block{background:var(--panel-l);border-radius:12px;padding:12px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}
+.profile-balance-val{font-size:24px;font-weight:900;color:var(--gold)}
+.stats-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.stat-block{background:var(--panel-l);border-radius:8px;padding:10px;text-align:center}
+.stat-block-label{font-size:9px;color:var(--gray2);font-weight:800}
+.stat-block-val{font-size:16px;font-weight:900}
 
 /* ОБЩИЕ МОДАЛКИ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
@@ -133,6 +136,16 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 
 /* ТОСТ */
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;animation:popupIn 0.3s}
+
+/* КОРЗИНА МОДАЛКА */
+.cart-item {display:flex;align-items:center;gap:12px;padding:10px;background:var(--panel-l);border-radius:8px;margin-bottom:8px}
+.cart-qty {display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:6px;padding:4px}
+.cart-qty button {width:24px;height:24px;border-radius:4px;border:none;background:var(--panel);color:var(--white);font-weight:900;cursor:pointer}
+.cart-qty span {font-size:12px;font-weight:900;min-width:15px;text-align:center}
+
+/* УТЕШИТЕЛЬНЫЙ КЕЙС */
+.case-img {font-size:60px;margin-bottom:10px;animation:itemFloat 2s infinite}
+@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
 
 /* СКРОЛЛБАРЫ */
 ::-webkit-scrollbar {width: 4px;height: 4px;}
@@ -153,11 +166,11 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
       <div style="font-size:10px;color:var(--gold);font-weight:800;" id="sideId">ID: #00000</div>
     </div>
   </div>
-  <div class="sb-item" onclick="openProfileFromSb()"><span>👤</span> Мой Профиль</div>
-  <div class="sb-item" onclick="openTasks()"><span>🎯</span> Задания</div>
-  <div class="sb-item" onclick="openAchievements()"><span>🏅</span> Достижения</div>
-  <div class="sb-item" onclick="openVip()"><span>👑</span> VIP Статус</div>
-  <div class="sb-item" onclick="openSettings()"><span>⚙️</span> Настройки</div>
+  <div class="sb-item" onclick="toggleSidebar();openProfile()"><span>👤</span> Мой Профиль</div>
+  <div class="sb-item" onclick="toggleSidebar();toast('🎯 Задания скоро будут!','win')"><span>🎯</span> Задания</div>
+  <div class="sb-item" onclick="toggleSidebar();toast('🏅 Достижения скоро будут!','win')"><span>🏅</span> Достижения</div>
+  <div class="sb-item" onclick="toggleSidebar();toast('👑 VIP скоро будет!','win')"><span>👑</span> VIP Статус</div>
+  <div class="sb-item" onclick="toggleSidebar();toast('⚙️ Настройки скоро будут!','win')"><span>⚙️</span> Настройки</div>
 </div>
 
 <div class="top">
@@ -166,7 +179,7 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
     <div class="rank-badge"><div class="rn" id="rankNameTop">НОВИЧОК</div><div id="rankLevelTop">LVL 1</div></div>
   </div>
   <div class="top-right">
-    <div class="bal-pill" onclick="openTopup()"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
+    <div class="bal-pill" onclick="toast('💳 Пополнение скоро!','win')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
   </div>
 </div>
 
@@ -188,6 +201,7 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
   
   <div class="pcnt-row" id="pcntRow"></div>
   <div class="action-row">
+    <button class="lightning-btn" id="lightningBtn" onclick="toggleLightning()">⚡</button>
     <button class="upgrade-btn" id="upgradeBtn" onclick="spinUpgrade()" disabled>UPGRADE</button>
   </div>
 
@@ -235,6 +249,14 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 
 <div class="toast" id="toast"></div>
 
+<!-- ПРОФИЛЬ МОДАЛКА -->
+<div class="modal-overlay" id="profileModal" style="display:none">
+  <div class="modal-content" style="max-width:420px;padding:0;">
+    <button class="modal-close" onclick="document.getElementById('profileModal').style.display='none'" style="z-index:10;">✕</button>
+    <div id="profileBody"></div>
+  </div>
+</div>
+
 <!-- МОДАЛКА КОРЗИНЫ -->
 <div class="modal-overlay" id="cartModal" style="display:none">
   <div class="modal-content">
@@ -252,8 +274,8 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:
 <div class="modal-overlay" id="consolationModal" style="display:none">
   <div class="modal-content" style="text-align:center;border-color:var(--gold);background:linear-gradient(180deg,#1a1a1c,#0a0a0c);">
     <div class="case-img">📦</div>
-    <div class="case-title">StandFliutApap</div>
-    <div class="case-sub">Утешительный приз</div>
+    <div style="font-size:16px;font-weight:900;color:var(--gold);margin-bottom:6px;">StandFliutApap</div>
+    <div style="font-size:12px;color:var(--gray2);margin-bottom:12px;">Утешительный приз</div>
     <div id="caseResult" style="font-size:24px;font-weight:900;color:var(--green-l);margin:20px 0;display:none;">+0 G</div>
     <button class="btn-action upg" id="caseBtn" style="width:100%;padding:14px;" onclick="openCase()">ОТКРЫТЬ КЕЙС</button>
   </div>
@@ -281,6 +303,7 @@ let gold=0, inv=[], stats={spins:0,wins:0,loses:0}, history=[];
 let selectedItems=[], targetSkin=null, selPct=null, isSpinning=false;
 let cart=[], invMode='inv', bigTab='inv', shopTab='skins';
 let currentWheelAngle=0, wheelAnimId=null;
+let lightningOn=false;
 let customPcts=[...DEFAULT_PCTS];
 
 function haptic(t){try{window.Telegram?.WebApp?.HapticFeedback?.impactOccurred(t||'medium')}catch(e){}}
@@ -297,12 +320,67 @@ function toggleSidebar(){
     if(u.photo_url) document.getElementById('sideAvatar').innerHTML=`<img src="${u.photo_url}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">`;
   }
 }
-function openProfileFromSb(){toggleSidebar();toast('👤 Профиль скоро будет!','win');}
-function openTasks(){toggleSidebar();toast('🎯 Задания скоро будут!','win');}
-function openAchievements(){toggleSidebar();toast('🏅 Достижения скоро будут!','win');}
-function openVip(){toggleSidebar();toast('👑 VIP скоро будет!','win');}
-function openSettings(){toggleSidebar();toast('⚙️ Настройки скоро будут!','win');}
-function openTopup(){toast('💳 Пополнение скоро!','win');}
+
+// === ПРОФИЛЬ ===
+function openProfile(){
+  const m=document.getElementById('profileModal');
+  const b=document.getElementById('profileBody');
+  const u=getUser();
+  const name=u?.first_name||'Игрок';
+  const av=u?.photo_url?`<img src="${u.photo_url}" style="width:100%;height:100%;object-fit:cover;">`:'👤';
+  const winRate=stats.spins>0?Math.round((stats.wins/stats.spins)*100):0;
+  
+  b.innerHTML=`<div class="profile-wrap">
+    <div class="profile-main-card">
+      <div class="profile-header-row">
+        <div class="profile-avatar-big">${av}</div>
+        <div>
+          <div class="profile-username">${name}</div>
+          <div class="profile-id-text">ID: #${getUserId().slice(-5)}</div>
+          <div style="font-size:10px;color:var(--gold);font-weight:900;margin-top:4px;">LVL 1 (НОВИЧОК)</div>
+        </div>
+      </div>
+      <div class="profile-balance-block">
+        <div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div>
+        <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span style="font-size:14px;color:var(--gray2)">G</span></div>
+      </div>
+    </div>
+    
+    <div class="stats-grid-3">
+      <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div>
+      <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div>
+      <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div>
+    </div>
+    
+    <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:8px;">ИНВЕНТАРЬ (${inv.length})</div>
+    <div class="grid">
+      ${inv.length===0?'<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2);font-size:12px;">Пусто</div>':inv.map((it,idx)=>`
+        <div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:8px;">
+          <div class="card-img-wrap"><img src="${it.img}" onerror="this.style.display='none'"></div>
+          <div class="card-info">
+            <div class="card-name">${it.name}</div>
+            <div class="card-price">${it.price}</div>
+          </div>
+          <div style="padding:8px;">
+            <button class="btn-action wd" style="width:100%;padding:8px;font-size:10px;" onclick="withdrawSkinDirect(${idx})">📤 ВЫВЕСТИ</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+  m.style.display='flex';
+}
+
+function withdrawSkinDirect(idx){
+  const it=inv[idx];
+  if(!it) return;
+  if(confirm(`Вывести скин ${it.name}?`)){
+    inv.splice(idx,1);
+    saveGame();
+    openProfile();
+    toast('✅ Заявка на вывод создана!','win');
+  }
+}
 
 // === ОТРИСОВКА ===
 function updateBal(){const el=document.getElementById('goldTop');if(el)el.innerText=Math.floor(gold).toLocaleString('ru-RU')}
@@ -341,7 +419,6 @@ function rendInv(){
     let f=inv.filter(it=>it.name.toLowerCase().includes(q));
     if(f.length===0){b.innerHTML='<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--gray2);font-size:13px;font-weight:800">Ничего не найдено</div>';return}
     
-    // Рендер инвентаря (карточки с кнопками при клике)
     b.innerHTML=f.map((it)=>{
       const r=getRarity(it.color||'#888');
       const realIdx=inv.indexOf(it);
@@ -408,7 +485,7 @@ function openCart(){
     const s=allSkins.find(x=>x.name===c.name)||allAgents.find(x=>x.name===c.name);
     return `<div class="cart-item">
       <img src="${s?.img||''}" style="width:40px;height:40px;object-fit:contain;">
-      <div style="flex:1;font-size:12px;font-weight:900;">${c.name}</div>
+      <div style="flex:1;font-size:12px;font-weight:900;color:var(--red);">${c.name}</div>
       <div class="cart-qty">
         <button onclick="changeQty(${i},-1)">-</button>
         <span>${c.qty}</span>
@@ -443,6 +520,12 @@ function checkout(){
 }
 
 // === АПГРЕЙД ===
+function toggleLightning(){
+  if(isSpinning)return;
+  lightningOn=!lightningOn;
+  const btn=document.getElementById('lightningBtn');
+  if(lightningOn)btn.classList.add('on'); else btn.classList.remove('on');
+}
 function addToUpgrade(idx){
   if(isSpinning)return;
   const it=inv[idx];if(!it)return;
@@ -512,7 +595,6 @@ function setPct(p,el){
   const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
   const idealPrice=invSum/(safePct/100);
   
-  // Ищем самый близкий скин
   let closest=allSkins[0], minDiff=Math.abs(allSkins[0].price-idealPrice);
   allSkins.forEach(s=>{
     const d=Math.abs(s.price-idealPrice);
@@ -585,22 +667,19 @@ function spinUpgrade(){
   document.getElementById('upgradeBtn').disabled=true;
   
   const wrap=document.getElementById('arrowWrap');
-  const duration=4000; // 4 секунды красивой анимации
+  const duration=lightningOn ? 1500 : 4000; // Молния ускоряет спин
   const spinPct=Math.min(90,selPct);
   
-  // ЧЕСТНЫЙ РАНДОМ: Генерируем число от 0 до 100. Если меньше шанса - победа.
   const win = Math.random() * 100 < spinPct;
   
   const winDeg=(spinPct/100)*360;
   let targetArrowAngle;
   
   if(win){
-    // Стрелка останавливается в желтой зоне (от 180 до 180+winDeg)
     const mid = 180 + winDeg/2;
-    const jitter = (Math.random() - 0.5) * winDeg * 0.6; // Чтобы не всегда в центр
+    const jitter = (Math.random() - 0.5) * winDeg * 0.6;
     targetArrowAngle = (mid + jitter + 360) % 360;
   } else {
-    // Стрелка останавливается в черной зоне (остальное)
     const grayStart = (180 + winDeg) % 360;
     const grayLen = 360 - winDeg;
     const mid = grayStart + grayLen/2;
@@ -615,14 +694,12 @@ function spinUpgrade(){
 
   wrap.style.transition='none';
   wrap.style.transform='rotate(0deg)';
-  wrap.offsetHeight; // reflow
+  wrap.offsetHeight;
   
-  // Анимация с красивым замедлением (ease-out)
   wrap.style.transition='transform '+(duration/1000)+'s cubic-bezier(0.1, 0.7, 0.1, 1)';
   wrap.style.transform=`rotate(${td}deg)`;
 
   setTimeout(()=>{
-    // ЛОГИКА УДАЛЕНИЯ: Удаляем только ровно столько копий, сколько поставили
     selectedItems.forEach(item => {
       const idx = inv.indexOf(item);
       if (idx >= 0) inv.splice(idx, 1);
@@ -641,7 +718,6 @@ function spinUpgrade(){
       stats.loses++;
       haptic('light');
       toast('😢 Вы проиграли!', 'lose');
-      // Вызов утешительного кейса
       setTimeout(()=>{ document.getElementById('consolationModal').style.display='flex'; }, 500);
     }
     
@@ -655,6 +731,7 @@ function spinUpgrade(){
     document.querySelectorAll('.pb').forEach(b=>b.classList.remove('sel'));
     document.getElementById('upgradeBtn').disabled=true;
     updateBal(); saveGame(); rendInv(); rendMain();
+    if(document.getElementById('profileModal').style.display==='flex') openProfile();
   }, duration);
 }
 
@@ -666,7 +743,6 @@ function openCase(){
   res.innerText='Открываем...';
   
   setTimeout(()=>{
-    // Шансы: 10G (40%), 20G (30%), 30G (20%), 50G (10%)
     const r = Math.random() * 100;
     let prize = 10;
     if(r > 40 && r <= 70) prize = 20;
@@ -686,10 +762,9 @@ function openCase(){
   }, 1500);
 }
 
-// === LIVE ЛЕНТА (ЗАГЛУШКА, ПОКА НЕТ БЭКЕНДА) ===
+// === LIVE ЛЕНТА ===
 function loadLiveFeed(){
   const track = document.getElementById('liveTrack');
-  // Имитация загрузки с сервера, чтобы не было пусто
   setTimeout(() => {
     const fakeDrops = [
       {name:"Player1", pct:"12%", img:allSkins[0].img},
@@ -697,13 +772,17 @@ function loadLiveFeed(){
       {name:"Player3", pct:"80%", img:allSkins[10].img}
     ];
     const items = fakeDrops.map(x=>`<div class="live-item"><div class="live-name">${x.name}</div><div class="live-pct">${x.pct}</div><img src="${x.img}" class="live-skin" onerror="this.style.display='none'"></div>`).join('');
-    track.innerHTML = items + items; // дублируем для анимации
+    track.innerHTML = items + items;
   }, 1000);
 }
 
-// === БАЗОВОЕ СОХРАНЕНИЕ (ЗАГЛУШКА ДЛЯ ТЕСТА) ===
+// === СОХРАНЕНИЕ ===
 function saveGame(){
-  try{ localStorage.setItem('sfap_gold', gold); localStorage.setItem('sfap_inv', JSON.stringify(inv)); }catch(e){}
+  try{ 
+    localStorage.setItem('sfap_gold', gold); 
+    localStorage.setItem('sfap_inv', JSON.stringify(inv)); 
+    localStorage.setItem('sfap_stats', JSON.stringify(stats));
+  }catch(e){}
 }
 function loadGame(){
   try{
@@ -711,6 +790,8 @@ function loadGame(){
     if(s) gold=Number(s);
     const i=localStorage.getItem('sfap_inv');
     if(i) inv=JSON.parse(i);
+    const st=localStorage.getItem('sfap_stats');
+    if(st) stats=JSON.parse(st);
   }catch(e){}
 }
 
@@ -726,4 +807,4 @@ try{
 }catch(e){}
 </script>
 </body>
-</html>
+  </html>
