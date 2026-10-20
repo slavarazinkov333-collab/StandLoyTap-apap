@@ -741,18 +741,22 @@ function openCase(){
   }, 1500);
 }
 
-// === LIVE ЛЕНТА ===
-function loadLiveFeed(){
-  const track = document.getElementById('liveTrack');
-  setTimeout(() => {
-    const fakeDrops = [
-      {name:"Player1", pct:"12%", img:allSkins[0].img},
-      {name:"Player2", pct:"45%", img:allSkins[5].img},
-      {name:"Player3", pct:"80%", img:allSkins[10].img}
-    ];
-    const items = fakeDrops.map(x=>`<div class="live-item"><div class="live-name">${x.name}</div><div class="live-pct">${x.pct}</div><img src="${x.img}" class="live-skin" onerror="this.style.display='none'"></div>`).join('');
-    track.innerHTML = items + items;
-  }, 1000);
+// === LIVE ЛЕНТА (ТВОЯ РОДНАЯ) ===
+async function loadLiveFeed(){
+  try{
+    const r = await fetch(BOT_URL+'/api/live');
+    const d = await r.json();
+    if(!d.ok || !d.list || d.list.length === 0){
+      document.getElementById('liveTrack').innerHTML = '<span class="live-empty">Пока нет рекордов</span>';
+      return;
+    }
+    const items = d.list.slice(0,10).map(x =>
+      `<div class="live-item" onclick="openFriendProfileFull('${x.userId}')"><div class="live-info"><div class="live-name">${x.playerName}</div><div class="live-pct">${x.pct||0}%</div></div><img src="${x.skinImg}" class="live-skin" onerror="this.style.display='none'"></div>`
+    ).join('');
+    document.getElementById('liveTrack').innerHTML = items + items;
+  }catch(e){
+    document.getElementById('liveTrack').innerHTML = '<span class="live-empty">Ошибка загрузки</span>';
+  }
 }
 
 // === ПРОФИЛЬ ===
@@ -870,28 +874,94 @@ function openVipModal(){ document.getElementById('vipModal').style.display='flex
 function buyVipGold(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
 function buyVipMoney(){ toast('👑 VIP куплен!','win'); document.getElementById('vipModal').style.display='none'; }
 
-// === СОХРАНЕНИЕ ===
+// === ПРОФИЛЬ ДРУГА (ТВОЙ РОДНОЙ) ===
+async function openFriendProfileFull(fid){
+  if(!fid || fid === 'undefined') return;
+  try{
+    const r = await fetch(BOT_URL+'/api/friends/profile/'+fid+'/'+getUserId());
+    const d = await r.json();
+    if(!d.ok){ toast('❌ Ошибка профиля','lose'); return; }
+    const p = d.profile;
+    const pStats = p.stats || {spins:0,wins:0,loses:0};
+    const pRate = pStats.spins > 0 ? Math.round((pStats.wins/pStats.spins)*100) : 0;
+    const m = document.createElement('div');
+    m.className = 'modal-overlay';
+    m.id = 'frProfileModal';
+    m.onclick = (e) => { if(e.target === m) m.remove(); };
+    m.innerHTML = `<div class="modal-content" style="max-height:85vh;overflow-y:auto;padding:20px;">
+      <button class="modal-close" onclick="document.getElementById('frProfileModal').remove()">✕</button>
+      <div class="profile-main-card">
+        <div class="profile-header-row">
+          <div class="profile-avatar-big">${p.photoUrl ? `<img src="${p.photoUrl}">` : '👤'}</div>
+          <div>
+            <div class="profile-username">${p.name}</div>
+            <div class="profile-id-text">ID: #${String(fid).slice(-5)}</div>
+          </div>
+        </div>
+        <div class="profile-balance-block">
+          <div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div>
+          <div class="profile-balance-val">${Math.floor(p.gold||0).toLocaleString('ru-RU')} G</div>
+        </div>
+      </div>
+      <div class="stats-grid-3" style="margin-top:12px;">
+        <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${pStats.spins}</div></div>
+        <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${pStats.wins}</div></div>
+        <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${pRate}%</div></div>
+      </div>
+      ${p.bestDrop && p.bestDrop.name ? `<div style="margin-top:16px;background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;"><img src="${p.bestDrop.img}" style="width:60px;height:60px;object-fit:contain;"><div><div style="font-size:10px;font-weight:900;color:var(--gold);margin-bottom:4px;">★ РЕКОРД</div><div style="font-size:14px;font-weight:900;">${p.bestDrop.name}</div><div style="font-size:16px;font-weight:900;color:var(--gold);">${p.bestDrop.price} G</div></div></div>` : ''}
+      <div style="margin-top:16px;font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px;">ИНВЕНТАРЬ (${p.invCount||0})</div>
+      <div class="grid" style="grid-template-columns:repeat(2,1fr);">
+        ${p.inv && p.inv.length > 0 ? p.inv.map(it => `<div class="card ${getRarity(it.color||'#888')}" style="margin-bottom:0;"><div class="card-img-wrap"><img src="${it.img}"></div><div class="card-info"><div class="card-name">${it.name}</div></div></div>`).join('') : '<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2);">Инвентарь скрыт</div>'}
+      </div>
+    </div>`;
+    document.body.appendChild(m);
+  }catch(e){ toast('❌ Ошибка сети','lose'); }
+}
+
+// === СОХРАНЕНИЕ (ТВОЁ РОДНОЕ) ===
 function saveGame(){
-  try{ 
-    localStorage.setItem('sfap_gold', gold); 
-    localStorage.setItem('sfap_inv', JSON.stringify(inv)); 
-    localStorage.setItem('sfap_stats', JSON.stringify(stats));
+  try{
+    const uid = getUserId();
+    const data = { gold, inv, stats, ts: Date.now() };
+    localStorage.setItem('sfap_save_'+uid, JSON.stringify(data));
+    if(uid !== 'guest'){
+      fetch(BOT_URL+'/api/save-merge', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ userId: uid, data })
+      }).catch(()=>{});
+    }
   }catch(e){}
 }
-function loadGame(){
+
+async function loadGame(){
   try{
-    const s=localStorage.getItem('sfap_gold');
-    if(s) gold=Number(s);
-    const i=localStorage.getItem('sfap_inv');
-    if(i) inv=JSON.parse(i);
-    const st=localStorage.getItem('sfap_stats');
-    if(st) stats=JSON.parse(st);
+    const uid = getUserId();
+    if(uid === 'guest'){ return; }
+    try{
+      const r = await fetch(BOT_URL+'/api/load/'+uid);
+      const d = await r.json();
+      if(d.ok && d.data){
+        if(typeof d.data.gold === 'number') gold = d.data.gold;
+        if(Array.isArray(d.data.inv)) inv = d.data.inv;
+        if(d.data.stats) stats = d.data.stats;
+        return;
+      }
+    }catch(e){}
+    const l = localStorage.getItem('sfap_save_'+uid);
+    if(l){
+      const d = JSON.parse(l);
+      if(typeof d.gold === 'number') gold = d.gold;
+      if(Array.isArray(d.inv)) inv = d.inv;
+      if(d.data) stats = d.data.stats; else if(d.stats) stats = d.stats;
+    }
   }catch(e){}
 }
 
 // === ИНИЦИАЛИЗАЦИЯ ===
-loadGame();
-renderPctRow(); updateBal(); rendMain(); rendInv(); rendTargetList(); loadLiveFeed();
+loadGame().then(() => {
+  renderPctRow(); updateBal(); rendMain(); rendInv(); rendTargetList(); loadLiveFeed();
+});
 
 try{
   if(window.Telegram?.WebApp){
@@ -901,4 +971,4 @@ try{
 }catch(e){}
 </script>
 </body>
-</html>
+      </html>
