@@ -1,9 +1,11 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><title>StandFliutApap</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 :root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
-body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
+body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:20px}
 body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:#1a1a2a;--gray2:#666}
 body.modal-open{overflow:hidden}
+
+/* TOP BAR */
 .top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .top-left{display:flex;align-items:center;gap:12px}
 .logo-svg{width:34px;height:34px}
@@ -13,30 +15,46 @@ body.modal-open{overflow:hidden}
 .cart-btn{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;cursor:pointer;border:1px solid var(--border);position:relative}
 .cart-btn svg{width:18px;height:18px;fill:var(--white)}
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:9px;font-weight:900;border-radius:10px;padding:2px 5px;border:2px solid var(--bg);display:none}
-.bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:6px 12px;border-radius:10px;border:1px solid var(--border);cursor:pointer}
+.bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:6px 12px;border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:0.2s}
+.bal-pill:active{transform:scale(0.95)}
 .bal-plus{width:24px;height:24px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:16px;color:#1a1a1a;font-weight:900}
 .bal-num{font-size:14px;font-weight:900}
 .bal-g{font-size:11px;font-weight:900;color:var(--gold)}
-.av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden}
+.av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden;transition:0.2s}
+.av-top:active{transform:scale(0.95)}
 .av-top img{width:100%;height:100%;object-fit:cover}
-.live-bar{margin:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:60px;overflow:hidden;position:relative;display:flex;align-items:center}
-.live-bar::before{content:'LIVE';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:#fff;background:var(--red);padding:3px 8px;border-radius:4px;z-index:3}
-.live-track{display:flex;gap:12px;white-space:nowrap;animation:scrollLeft 25s linear infinite;padding-left:65px;align-items:center;height:100%}
-@keyframes scrollLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.live-item{display:flex;align-items:center;gap:10px;flex-shrink:0;padding:6px 12px;background:var(--panel-l);border-radius:8px;border:1px solid var(--border);border-left:4px solid var(--gold);cursor:pointer}
-.live-name{font-size:12px;font-weight:900}
-.live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 6px;border-radius:4px}
-.live-skin{width:50px;height:30px;object-fit:contain}
-.live-empty{padding-left:65px;font-size:10px;color:var(--gray);font-weight:700}
-.friends-btn-wrap{margin:0 16px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.friends-btn-wrap::-webkit-scrollbar{display:none}
-.friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
-.main{padding:0 16px}
+
+/* TOP ACTIONS */
+.top-actions{display:flex;gap:8px;padding:0 16px;margin-top:12px}
+.action-chip{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:800;color:var(--white);cursor:pointer}
+.vip-chip{border-color:rgba(255,184,0,0.4);background:linear-gradient(135deg,rgba(255,184,0,0.1),transparent);animation:vipPulse 10s infinite}
+@keyframes vipPulse{0%,85%,100%{box-shadow:0 0 0 rgba(255,184,0,0)}90%{box-shadow:0 0 25px rgba(255,184,0,0.8);border-color:var(--gold)}}
+
+/* LIVE SCROLL */
+.live-wrap{margin:16px 0;position:relative}
+.live-title{font-size:11px;font-weight:900;color:var(--gray2);text-transform:uppercase;letter-spacing:1px;padding:0 16px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.live-title::before{content:'';width:8px;height:8px;background:var(--red);border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.live-track{display:flex;gap:12px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}
+.live-track::-webkit-scrollbar{display:none}
+.live-card{flex-shrink:0;width:240px;height:80px;background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:1.5px solid var(--border);border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;cursor:pointer}
+.live-card.top-drop{border-color:var(--gold);box-shadow:0 0 20px rgba(255,184,0,0.4)}
+.live-card.purple-drop{border-color:var(--purple);box-shadow:0 0 15px rgba(155,138,255,0.3)}
+.live-card.red-drop{border-color:var(--red);box-shadow:0 0 15px rgba(229,9,20,0.3)}
+.live-info{display:flex;flex-direction:column;gap:4px;z-index:2}
+.live-name{font-size:12px;font-weight:900;color:var(--white);text-shadow:0 2px 4px rgba(0,0,0,0.8);max-width:130px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 8px;border-radius:6px;width:fit-content}
+.live-skin{width:110px;height:70px;object-fit:contain;position:absolute;right:-10px;bottom:-5px;filter:drop-shadow(0 5px 10px rgba(0,0,0,0.8));z-index:1}
+.live-empty{padding-left:0;font-size:11px;color:var(--gray2);font-weight:700}
+
+/* WHEEL */
+.main{padding:0 16px;margin-top:10px}
 .wheel-wrap{position:relative;width:100%;aspect-ratio:1;max-width:340px;margin:10px auto;display:flex;justify-content:center;align-items:center}
-.wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),0 0 80px rgba(255,184,0,.15),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
+.wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
 .wheel-zone{position:absolute;inset:-4px;border-radius:50%;pointer-events:none;z-index:1;overflow:hidden}
 .wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 180deg,var(--gold) 0deg,var(--gold) var(--pct-angle,0deg),#1a1a22 var(--pct-angle,0deg),#1a1a22 360deg);opacity:0;transition:opacity .4s}
-.wheel-zone-fill.visible{opacity:.9}
+.wheel-zone-fill.visible{opacity:1;animation:glowPulse 2s infinite}
+@keyframes glowPulse{0%,100%{filter:drop-shadow(0 0 5px rgba(255,184,0,0.5))}50%{filter:drop-shadow(0 0 25px var(--gold))}}
 .wheel::before{content:'';position:absolute;width:75%;height:75%;border-radius:50%;background:var(--bg);border:1px solid var(--border);z-index:2}
 .wheel-ticks{position:absolute;width:100%;height:100%;border-radius:50%;pointer-events:none;z-index:3}
 .tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.4);transform-origin:center 150px;transform:translateX(-50%) rotate(var(--a));border-radius:1px}
@@ -54,72 +72,101 @@ body.modal-open{overflow:hidden}
 .lightning-btn.on{border-color:var(--gold);background:rgba(255,184,0,.1)}
 .lightning-btn .ic{font-size:20px;filter:grayscale(1);opacity:.5}
 .lightning-btn.on .ic{filter:grayscale(0);opacity:1}
-.upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer}
-.upgrade-btn:disabled{opacity:.5;background:var(--panel)}
+.upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 4px 15px rgba(255,184,0,0.3)}
+.upgrade-btn:disabled{opacity:.5;background:var(--panel);box-shadow:none}
+
+/* SLOTS */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;position:relative;cursor:pointer}
+.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;position:relative;cursor:pointer;transition:0.2s}
+.slot-prev:active{transform:scale(0.98)}
 .slot-prev-lbl{font-size:11px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;text-align:center}
 .slot-prev-cnt{font-size:13px;font-weight:900;color:#ffb800;margin-bottom:12px;text-align:center}
 .slot-prev-icons{display:flex;flex-direction:column;gap:8px;width:100%;flex:1;justify-content:center;align-items:center;position:relative}
 .slot-cell{width:100%;display:flex;justify-content:center;align-items:center;position:relative}
 .slot-cell img{width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 8px 15px rgba(0,0,0,0.7))}
 .slot-cell .empty-slot{width:70px;height:70px;border:2px dashed #333;border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:24px;color:#444}
-.slot-remove{position:absolute;top:-5px;right:calc(50% - 45px);width:24px;height:24px;background:var(--red);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:14px;font-weight:900;cursor:pointer;border:2px solid #0a0a0c;z-index:5}
+.slot-remove{position:absolute;top:-5px;right:calc(50% - 45px);width:24px;height:24px;background:var(--red);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:14px;font-weight:900;cursor:pointer;border:2px solid #0a0a0c;box-shadow:0 2px 8px rgba(0,0,0,0.5);z-index:5}
 .slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:10px;text-align:center}
-.slot-clear{font-size:11px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:6px 14px;border-radius:8px}
+.slot-clear{font-size:11px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:6px 14px;border-radius:8px;text-transform:uppercase;letter-spacing:0.5px}
+
+/* INVENTORY */
 .big-tabs{display:flex;gap:4px;margin-top:20px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
 .panel{display:none;margin-top:16px}
 .panel.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.card{background:var(--panel);border-radius:12px;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border)}
-.card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,var(--panel-l) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
-.card-img-wrap img{width:90%;height:90%;object-fit:contain}
-.card-info{padding:10px;display:flex;flex-direction:column;gap:4px}
-.card-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card-price{font-size:13px;font-weight:900;color:var(--gold)}
-.card-actions{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border)}
-.card-actions button{padding:10px;border:none;font-size:10px;font-weight:900;cursor:pointer;background:var(--panel-l);color:var(--white)}
-.card-actions button:first-child{border-right:1px solid var(--border)}
-.r-common{border-color:var(--border)}
-.r-uncommon{border-color:#4a9eff}
-.r-rare{border-color:#9b8aff}
-.r-epic{border-color:#ff4444}
-.r-legend{border-color:#ffd700;box-shadow:0 0 15px rgba(255,215,0,.25)}
-.bottom{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(10,10,12,.9);border-top:1px solid var(--border);padding:8px 4px;display:flex;justify-content:space-around}
-.nb{background:none;border:none;color:var(--gray);font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px;font-weight:800}
-.nb svg{width:22px;height:22px;fill:currentColor}
-.nb.active{color:var(--white)}
-.nb.active svg{fill:var(--white)}
-.nb-center{position:relative;top:-15px}
-.nb-center .circle{width:50px;height:50px;background:var(--panel-l);border-radius:16px;display:flex;justify-content:center;align-items:center;border:1px solid var(--border)}
-.nb-center .circle svg{width:24px;height:24px;fill:var(--gold)}
-.scr{position:fixed;inset:0;background:var(--bg);z-index:600;display:none;flex-direction:column}
-.scr.open{display:flex}
-.sh{padding:16px;display:flex;justify-content:space-between;align-items:center;background:var(--panel);border-bottom:1px solid var(--border)}
-.sh h2{font-size:16px;font-weight:900}
-.cb{background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer}
-.sb{flex:1;overflow-y:auto;padding:16px}
-.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+
+/* GLASS CARDS & FLIP/EXPAND EFFECT */
+.card{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,0.1);cursor:pointer;transition:0.3s;position:relative;min-height:180px}
+.card:active{transform:scale(0.98)}
+.card-img-wrap{width:100%;aspect-ratio:1.1;background:radial-gradient(circle at center,rgba(255,255,255,0.05) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px;transition:0.3s}
+.card-img-wrap img{width:90%;height:90%;object-fit:contain;filter:drop-shadow(0 10px 15px rgba(0,0,0,0.6));transition:0.3s}
+.card-info{padding:12px;display:flex;flex-direction:column;gap:4px;background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);position:relative;z-index:2;transition:0.3s}
+.card-name{font-size:13px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--white)}
+.card-price{font-size:14px;font-weight:900;color:var(--gold)}
+
+/* EXPANDED STATE */
+.card.expanded{border-color:var(--gold);box-shadow:0 0 20px rgba(255,184,0,0.4);z-index:10}
+.card.expanded .card-img-wrap{opacity:0.3;filter:blur(4px);transform:scale(1.1)}
+.card.expanded .card-info{opacity:0;pointer-events:none}
+.card-actions-overlay{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;gap:8px;padding:12px;background:rgba(10,10,12,0.4);backdrop-filter:blur(8px);z-index:20}
+.card.expanded .card-actions-overlay{display:flex}
+.btn-act{width:100%;padding:10px;border-radius:10px;border:none;font-weight:900;font-size:11px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:4px;transition:0.2s;color:#fff}
+.btn-act:active{transform:scale(0.95)}
+.btn-act.upg{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-act.sell{background:var(--panel-l);border:1px solid var(--border);color:var(--white)}
+.btn-act.wd{background:var(--red)}
+
+.r-common{border-color:rgba(255,255,255,0.1);box-shadow:0 4px 15px rgba(0,0,0,0.3)}
+.r-uncommon{border-color:rgba(74,158,255,0.5);box-shadow:0 4px 15px rgba(74,158,255,0.15)}
+.r-rare{border-color:rgba(155,138,255,0.6);box-shadow:0 4px 15px rgba(155,138,255,0.2)}
+.r-epic{border-color:rgba(255,68,68,0.7);box-shadow:0 4px 20px rgba(255,68,68,0.3)}
+.r-legend{border-color:rgba(255,215,0,0.8);box-shadow:0 4px 25px rgba(255,215,0,0.4)}
+
+/* SIDE DRAWER */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(5px);z-index:1500;opacity:0;pointer-events:none;transition:0.3s}
+.drawer-overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:85%;max-width:360px;background:var(--panel);z-index:1501;transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;border-left:1px solid var(--border);box-shadow:-10px 0 30px rgba(0,0,0,0.5)}
+.drawer.open{transform:translateX(0)}
+.drawer-header{padding:20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.drawer-title{font-size:18px;font-weight:900}
+.drawer-close{background:var(--panel-l);border:none;color:var(--white);width:32px;height:32px;border-radius:8px;font-size:16px;cursor:pointer}
+.drawer-nav{display:flex;gap:6px;padding:12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border)}
+.drawer-nav::-webkit-scrollbar{display:none}
+.dnav-btn{flex-shrink:0;padding:8px 16px;border-radius:8px;background:var(--panel-l);border:none;color:var(--gray2);font-size:12px;font-weight:800;cursor:pointer}
+.dnav-btn.active{background:var(--white);color:#000}
+.drawer-content{flex:1;overflow-y:auto;padding:20px}
+
+/* UTILS */
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
-.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
-.modal-title{font-size:16px;font-weight:900;margin-bottom:16px;text-align:center}
+.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:18px;font-weight:900;margin-bottom:16px;text-align:center}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
-.filter-bar{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.filter-bar{display:flex;gap:6px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
 .filter-bar::-webkit-scrollbar{display:none}
-.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
+.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
 .filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(255,184,0,.1)}
-@keyframes popupIn{0%{opacity:0;transform:scale(.7) translateY(30px)}60%{transform:scale(1.05) translateY(-5px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.vip-btn{width:100%;padding:14px;border-radius:10px;background:var(--gold);color:#000;font-weight:900;border:none;cursor:pointer;margin-bottom:8px}
+
+/* PROFILE STYLES INSIDE DRAWER */
+.profile-card{background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;margin-bottom:16px}
+.profile-ava{width:80px;height:80px;border-radius:50%;background:var(--panel-l);margin:0 auto 12px;border:2px solid var(--gold);overflow:hidden}
+.profile-ava img{width:100%;height:100%;object-fit:cover}
+.profile-name{font-size:18px;font-weight:900}
+.profile-id{font-size:11px;color:var(--gray2);font-family:monospace;margin-bottom:8px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.stat-box{background:var(--panel-l);border-radius:12px;padding:10px;text-align:center}
+.stat-val{font-size:16px;font-weight:900}
+.stat-lbl{font-size:9px;color:var(--gray2);font-weight:800}
+
+/* ANIMATIONS */
+@keyframes popupIn{0%{opacity:0;transform:scale(.9) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 .popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
 .popup-lose-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
 .popup-item{animation:itemFloat 2s ease-in-out infinite}
 @keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
-.popup-title-win{background:linear-gradient(135deg,#4CAF50,#8BC34A,#4CAF50);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.popup-title-lose{background:linear-gradient(135deg,#e50914,#ff6b6b,#e50914);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.skeleton{background:linear-gradient(90deg,var(--panel-l) 25%,var(--border) 50%,var(--panel-l) 75%);background-size:200% 100%;animation:skel 1.5s infinite;border-radius:8px}
-@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.vip-btn{width:100%;padding:14px;border-radius:10px;background:var(--gold);color:#000;font-weight:900;border:none;cursor:pointer;margin-bottom:8px}
 </style></head><body>
 
 <div class="top">
@@ -129,16 +176,25 @@ body.modal-open{overflow:hidden}
   </div>
   <div class="top-right">
     <div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div>
-    <div class="bal-pill"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
-    <div class="av-top" id="topAv">👤</div>
+    
+    <!-- Кнопка баланса (Пополнение) -->
+    <div class="bal-pill" onclick="showTopup()"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
+    
+    <!-- Квадратная аватарка (открывает шторку профиля) -->
+    <div class="av-top" id="topAv" onclick="openDrawer()">👤</div>
   </div>
 </div>
 
-<div class="live-bar"><div class="live-track" id="liveTrack"><span class="live-empty">Загрузка...</span></div></div>
+<div class="top-actions">
+  <button class="action-chip" onclick="openTasksModal()">🎯 ЗАДАНИЯ</button>
+  <button class="action-chip vip-chip" onclick="openVipModal()" style="color:var(--gold)">👑 VIP</button>
+</div>
 
-<div class="friends-btn-wrap">
-  <button class="friends-btn" onclick="openTasksModal()">🎯 ЗАДАНИЯ</button>
-  <button class="friends-btn" onclick="openVipModal()" style="color:var(--gold)">👑 VIP</button>
+<div class="live-wrap">
+  <div class="live-title">LIVE ДРОПЫ</div>
+  <div class="live-track" id="liveTrack">
+    <div class="live-empty" style="padding-left:0;color:var(--gray2)">Загрузка...</div>
+  </div>
 </div>
 
 <div class="main">
@@ -155,10 +211,12 @@ body.modal-open{overflow:hidden}
     <button class="lightning-btn" id="lightningBtn" onclick="toggleLightning()"><div class="ic">⚡</div></button>
     <button class="upgrade-btn" id="upgradeBtn" onclick="spinUpgrade()" disabled>UPGRADE</button>
   </div>
+  
   <div class="slots-preview">
     <div class="slot-prev" onclick="switchBigTab('inv')"><div class="slot-prev-lbl">ВАШ ИНВЕНТАРЬ</div><div class="slot-prev-icons" id="leftIcons"></div><div class="slot-prev-cnt" id="selCount" style="font-size:9px;color:var(--gray);margin-top:8px;">0 ИЗ 10</div><div class="slot-sum" id="selSum">0 G</div><button class="slot-clear" onclick="clearUpgrade()">✕ ОЧИСТИТЬ</button></div>
     <div class="slot-prev" onclick="switchBigTab('target')"><div class="slot-prev-lbl">ЦЕЛЬ</div><div class="slot-prev-icons" id="rightIcons"></div><div class="slot-prev-cnt" id="targetCount" style="font-size:9px;color:var(--gold);margin-top:8px;">НЕ ВЫБРАНА</div></div>
   </div>
+
   <div class="big-tabs"><button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button><button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ПРОКАЧАТЬ ДО</button></div>
   <div class="panel active" id="panelInv">
     <div style="display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px;">
@@ -175,9 +233,23 @@ body.modal-open{overflow:hidden}
   </div>
 </div>
 
-<div class="bottom">
-  <button class="nb" onclick="scrollToShop()"><span>SHOP</span></button>
-  <button class="nb nb-center active"><div class="circle">👤</div></button>
+<!-- Drawer (Панель профиля) -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-title">Меню</div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-nav" id="drawerNav">
+    <button class="dnav-btn active" onclick="switchDrawerTab('profile', this)">Профиль</button>
+    <button class="dnav-btn" onclick="switchDrawerTab('ach', this)">Достижения</button>
+    <button class="dnav-btn" onclick="switchDrawerTab('vip', this)">VIP</button>
+    <button class="dnav-btn" onclick="switchDrawerTab('friends', this)">Друзья</button>
+    <button class="dnav-btn" onclick="switchDrawerTab('settings', this)">Настройки</button>
+  </div>
+  <div class="drawer-content" id="drawerBody">
+    <!-- Содержимое будет рендериться JS -->
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -191,7 +263,6 @@ const tgUser = tg?.initDataUnsafe?.user;
 const tgInitData = tg?.initData || '';
 const userId = tgUser?.id ? String(tgUser.id) : 'dev_test_user';
 
-// Заголовок авторизации
 function authHeaders(extra){
   return Object.assign({ 'Content-Type': 'application/json', 'X-TG-Init-Data': tgInitData }, extra || {});
 }
@@ -215,8 +286,9 @@ let vipData = { isVip: false, expires: 0 };
 const DEFAULT_PCTS = [90, 67, 55, 44, 33, 22];
 let customPcts = [...DEFAULT_PCTS];
 let gameLoaded = false;
+let currentDrawerTab = 'profile';
 
-// ==================== КАТАЛОГ (только для отображения) ====================
+// ==================== КАТАЛОГ ====================
 const CATALOG_CLIENT = {
   'AKR Carbon': { price: 56, color: '#4a9eff', img: 'https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/skins/AKR_CARBON.jpg' },
   'AKR Evolution': { price: 3, color: '#4a9eff', img: 'https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/skins/AKR_EVOLUTION.jpg' },
@@ -287,6 +359,7 @@ function getRarity(c){
 }
 function updateBal(){ document.getElementById('goldTop').innerText = Math.floor(gold).toLocaleString('ru-RU'); }
 function lockBody(v){ document.body.classList.toggle('modal-open', v); }
+function showTopup(){ toast('💰 Пополнение скоро', 'win'); }
 
 // ==================== API ====================
 async function apiCall(path, opts){
@@ -369,7 +442,7 @@ function clearWheelPct(){
   if(wheelAnimId){ cancelAnimationFrame(wheelAnimId); wheelAnimId = null; }
 }
 
-// ==================== INVENTORY ====================
+// ==================== INVENTORY (С КАРТОЧКАМИ) ====================
 function switchBigTab(m){
   document.getElementById('bigTabInv').classList.toggle('active', m === 'inv');
   document.getElementById('bigTabTarget').classList.toggle('active', m === 'target');
@@ -403,27 +476,70 @@ function rendInv(){
   const b = document.getElementById('invList');
   if(!b) return;
   const q = (document.getElementById('searchInp')?.value || '').toLowerCase();
+  
   if(invMode === 'shop'){
     let f = allSkins.filter(s => s.name.toLowerCase().includes(q));
     f.sort((a, b) => a.price - b.price);
     b.innerHTML = f.map(s => {
       const r = getRarity(s.color);
       const inCart = cart.find(c => c.name === s.name);
-      return '<div class="card ' + r + '"><div class="card-img-wrap"><img src="' + s.img + '" onerror="this.style.display=\'none\'"></div><div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-price">' + s.price.toLocaleString('ru-RU') + '</div></div><div class="card-actions"><button style="background:' + (inCart ? 'var(--red)' : 'var(--panel-l)') + ';color:#fff;grid-column:span 2" onclick="event.stopPropagation();toggleCart(\'' + s.name + '\',' + s.price + ')">' + (inCart ? '✓ В КОРЗИНЕ' : '🛒 В КОРЗИНУ') + '</button></div></div>';
+      return `<div class="card ${r}" onclick="event.stopPropagation();toggleCart('${s.name}',${s.price})">
+        <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
+        <div class="card-info">
+          <div class="card-name">${s.name}</div>
+          <div class="card-price">${s.price.toLocaleString('ru-RU')} G</div>
+        </div>
+        <div style="position:absolute;bottom:10px;right:10px;background:${inCart ? 'var(--red)' : 'var(--panel-l)'};padding:6px 10px;border-radius:8px;font-size:10px;font-weight:900;border:1px solid var(--border);z-index:3">
+          ${inCart ? 'В КОРЗИНЕ' : '🛒 В КОРЗИНУ'}
+        </div>
+      </div>`;
     }).join('');
     return;
   }
+  
   let f = inv.filter(it => it.name.toLowerCase().includes(q));
   if(invFilter !== 'all') f = f.filter(it => getRarity(it.color) === 'r-' + invFilter);
+  
   if(f.length === 0){
     b.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--gray2);font-size:13px;font-weight:800">Ничего не найдено</div>';
     return;
   }
-  b.innerHTML = f.map(it => {
+  
+  b.innerHTML = f.map((it, idx) => {
     const r = getRarity(it.color);
-    return '<div class="card ' + r + '"><div class="card-img-wrap"><img src="' + (it.img || '') + '" onerror="this.style.display=\'none\'"></div><div class="card-info"><div class="card-name">' + it.name + '</div><div class="card-price">' + (it.price || 0).toLocaleString('ru-RU') + '</div></div><div class="card-actions"><button onclick="addToUpgrade(\'' + it.name.replace(/'/g, "\\'") + '\')">⬆ АП</button><button onclick="openWithdrawModal(\'' + it.name.replace(/'/g, "\\'") + '\')">📤 ВЫВОД</button><button style="grid-column:span 2" onclick="sellSkin(\'' + it.name.replace(/'/g, "\\'") + '\')">💸 ПРОДАТЬ (+70%)</button></div></div>';
+    const safeName = it.name.replace(/'/g, "\\'");
+    return `<div class="card ${r}" id="card-${idx}" onclick="expandCard(this, event)">
+      <div class="card-img-wrap"><img src="${it.img || ''}" onerror="this.style.display='none'"></div>
+      <div class="card-info">
+        <div class="card-name">${it.name}</div>
+        <div class="card-price">${(it.price || 0).toLocaleString('ru-RU')} G</div>
+      </div>
+      <div class="card-actions-overlay">
+        <button class="btn-act upg" onclick="event.stopPropagation(); addToUpgrade('${safeName}'); closeAllCards();">⬆ Апгрейд</button>
+        <button class="btn-act sell" onclick="event.stopPropagation(); sellSkin('${safeName}'); closeAllCards();">💸 Продать</button>
+        <button class="btn-act wd" onclick="event.stopPropagation(); openWithdrawModal('${safeName}'); closeAllCards();">📤 Вывести</button>
+      </div>
+    </div>`;
   }).join('');
 }
+
+// Логика раскрытия карточки
+let activeCardId = null;
+function expandCard(el, e){
+  if(e) e.stopPropagation();
+  if(activeCardId === el.id){
+    closeAllCards();
+    return;
+  }
+  closeAllCards();
+  el.classList.add('expanded');
+  activeCardId = el.id;
+}
+function closeAllCards(){
+  document.querySelectorAll('.card.expanded').forEach(c => c.classList.remove('expanded'));
+  activeCardId = null;
+}
+
 function rendTargetList(){
   const b = document.getElementById('targetList');
   if(!b) return;
@@ -433,7 +549,10 @@ function rendTargetList(){
   b.innerHTML = f.map(s => {
     const r = getRarity(s.color);
     const isSel = targetSkin && targetSkin.name === s.name;
-    return '<div class="card ' + r + '" style="border-color:' + (isSel ? 'var(--white)' : 'var(--border)') + '" onclick="pickTarget(\'' + s.name + '\')"><div class="card-img-wrap"><img src="' + s.img + '" onerror="this.style.display=\'none\'"></div><div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-price">' + s.price.toLocaleString('ru-RU') + '</div></div></div>';
+    return `<div class="card ${r}" style="border-color:${isSel ? 'var(--white)' : 'var(--border)'}" onclick="pickTarget('${s.name}')">
+      <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
+      <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')} G</div></div>
+    </div>`;
   }).join('');
 }
 
@@ -509,7 +628,7 @@ function rendMain(){
       left.innerHTML = '<div class="empty-slot" style="margin:0 auto;">+</div>';
     } else {
       left.innerHTML = selectedItems.map(s =>
-        '<div class="slot-cell"><img src="' + (s.img || '') + '"><div class="slot-remove" onclick="event.stopPropagation();removeFromUpgrade(\'' + s.name.replace(/'/g, "\\'") + '\')">✕</div></div>'
+        `<div class="slot-cell"><img src="${s.img || ''}"><div class="slot-remove" onclick="event.stopPropagation();removeFromUpgrade('${s.name.replace(/'/g, "\\'")}')">✕</div></div>`
       ).join('');
     }
   }
@@ -518,7 +637,7 @@ function rendMain(){
   document.getElementById('selSum').innerText = sum.toLocaleString('ru-RU') + ' G';
   const right = document.getElementById('rightIcons');
   if(targetSkin){
-    right.innerHTML = '<div class="slot-cell"><img src="' + targetSkin.img + '"></div>';
+    right.innerHTML = `<div class="slot-cell"><img src="${targetSkin.img}"></div>`;
     document.getElementById('targetCount').innerText = targetSkin.price.toLocaleString('ru-RU') + ' G';
   } else {
     right.innerHTML = '<div class="empty-slot" style="margin:0 auto;">🎯</div>';
@@ -621,7 +740,7 @@ function showWinModal(skin){
   const m = document.createElement('div');
   m.id = 'resultScreen';
   m.style.cssText = 'position:fixed;inset:0;background:radial-gradient(circle at center,rgba(76,175,80,.45),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
-  m.innerHTML = '<div class="popup-win-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--green-l);letter-spacing:4px;margin-bottom:10px">★ ПОБЕДА ★</div><div class="popup-title-win" style="font-size:34px;font-weight:900;margin-bottom:20px">УСПЕХ!</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px"><img src="' + skin.img + '" style="max-width:100%;max-height:100%;object-fit:contain"></div><div style="font-size:22px;font-weight:900;margin-bottom:8px">' + skin.name + '</div><div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px">+' + skin.price + ' G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:16px;cursor:pointer" onclick="closeResult()">🎁 ЗАБРАТЬ</button></div>';
+  m.innerHTML = `<div class="popup-win-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--green-l);letter-spacing:4px;margin-bottom:10px">★ ПОБЕДА ★</div><div class="popup-title-win" style="font-size:34px;font-weight:900;margin-bottom:20px">УСПЕХ!</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px"><img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain"></div><div style="font-size:22px;font-weight:900;margin-bottom:8px">${skin.name}</div><div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px">+${skin.price} G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:16px;cursor:pointer" onclick="closeResult()">🎁 ЗАБРАТЬ</button></div>`;
   document.body.appendChild(m);
   lockBody(true);
 }
@@ -630,7 +749,7 @@ function showLoseModal(items){
   const m = document.createElement('div');
   m.id = 'resultScreen';
   m.style.cssText = 'position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.5),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
-  m.innerHTML = '<div class="popup-lose-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px">★ ПОРАЖЕНИЕ ★</div><div class="popup-title-lose" style="font-size:34px;font-weight:900;margin-bottom:20px">НЕУДАЧА</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px"><img src="' + (lost.img || '') + '" style="max-width:100%;max-height:100%;object-fit:contain"></div><div style="font-size:22px;font-weight:900;margin-bottom:8px">' + lost.name + '</div><div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px">-' + (lost.price || 0) + ' G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:16px;cursor:pointer" onclick="closeResult()">ПОНЯТНО</button></div>';
+  m.innerHTML = `<div class="popup-lose-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px">★ ПОРАЖЕНИЕ ★</div><div class="popup-title-lose" style="font-size:34px;font-weight:900;margin-bottom:20px">НЕУДАЧА</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px"><img src="${lost.img || ''}" style="max-width:100%;max-height:100%;object-fit:contain"></div><div style="font-size:22px;font-weight:900;margin-bottom:8px">${lost.name}</div><div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px">-${lost.price || 0} G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:16px;cursor:pointer" onclick="closeResult()">ПОНЯТНО</button></div>`;
   document.body.appendChild(m);
   lockBody(true);
 }
@@ -648,6 +767,7 @@ function toggleCart(name, price){
   else cart.push({ name, price });
   updateCartBadge();
   rendInv();
+  toast(i >= 0 ? 'Убрано из корзины' : 'Добавлено в корзину', 'win');
 }
 function updateCartBadge(){
   const b = document.getElementById('cartBadge');
@@ -661,9 +781,9 @@ async function openCart(){
   m.id = 'cartModal';
   m.onclick = (e) => { if(e.target === m){ m.remove(); lockBody(false); } };
   const total = cart.reduce((s, c) => s + c.price, 0);
-  m.innerHTML = '<div class="modal-content"><button class="modal-close" onclick="document.getElementById(\'cartModal\').remove();lockBody(false)">✕</button><div class="modal-title">🛒 КОРЗИНА</div><div style="max-height:50vh;overflow-y:auto;margin-bottom:16px">' +
-    cart.map((c, i) => '<div style="background:var(--panel-l);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font-size:12px;font-weight:900">' + c.name + '</div><div style="font-size:13px;color:var(--gold);font-weight:900">' + c.price + ' G</div></div><button onclick="cart.splice(' + i + ',1);document.getElementById(\'cartModal\').remove();lockBody(false);openCart();updateCartBadge();rendInv()" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer">✕</button></div>').join('') +
-    '</div><div style="display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-bottom:16px"><div style="font-size:12px;color:var(--gray2);font-weight:800">ИТОГО:</div><div style="font-size:20px;font-weight:900;color:var(--gold)">' + total + ' G</div></div><button class="vip-btn" onclick="checkout()" id="checkoutBtn">✅ КУПИТЬ</button></div>';
+  m.innerHTML = `<div class="modal-content"><button class="modal-close" onclick="document.getElementById('cartModal').remove();lockBody(false)">✕</button><div class="modal-title">🛒 КОРЗИНА</div><div style="max-height:50vh;overflow-y:auto;margin-bottom:16px">` +
+    cart.map((c, i) => `<div style="background:var(--panel-l);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font-size:12px;font-weight:900">${c.name}</div><div style="font-size:13px;color:var(--gold);font-weight:900">${c.price} G</div></div><button onclick="cart.splice(${i},1);document.getElementById('cartModal').remove();lockBody(false);openCart();updateCartBadge();rendInv()" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer">✕</button></div>`).join('') +
+    `</div><div style="display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-bottom:16px"><div style="font-size:12px;color:var(--gray2);font-weight:800">ИТОГО:</div><div style="font-size:20px;font-weight:900;color:var(--gold)">${total} G</div></div><button class="vip-btn" onclick="checkout()" id="checkoutBtn">✅ КУПИТЬ</button></div>`;
   document.body.appendChild(m);
   lockBody(true);
 }
@@ -722,7 +842,7 @@ function openWithdrawModal(name){
   m.className = 'modal-overlay';
   m.id = 'wdModal';
   m.onclick = (e) => { if(e.target === m){ m.remove(); lockBody(false); } };
-  m.innerHTML = '<div class="modal-content"><button class="modal-close" onclick="document.getElementById(\'wdModal\').remove();lockBody(false)">✕</button><div style="text-align:center;font-size:13px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:12px">📤 ВЫВОД</div><div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;gap:12px"><img src="' + s.img + '" style="width:60px;height:60px;object-fit:contain"><div><div style="font-size:13px;font-weight:900">' + name + '</div><div style="font-size:12px;color:var(--gold)">' + s.price + ' G</div></div></div><input type="text" id="wdPattern" placeholder="🎯 Паттерн (число 0-9999)" maxlength="4" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--white);outline:none;margin-bottom:12px"><button class="vip-btn" onclick="submitWithdraw(\'' + name.replace(/'/g, "\\'") + '\')" id="wdBtn">✅ ОТПРАВИТЬ</button></div>';
+  m.innerHTML = `<div class="modal-content"><button class="modal-close" onclick="document.getElementById('wdModal').remove();lockBody(false)">✕</button><div style="text-align:center;font-size:13px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:12px">📤 ВЫВОД</div><div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;gap:12px"><img src="${s.img}" style="width:60px;height:60px;object-fit:contain"><div><div style="font-size:13px;font-weight:900">${name}</div><div style="font-size:12px;color:var(--gold)">${s.price} G</div></div></div><input type="text" id="wdPattern" placeholder="🎯 Паттерн (число 0-9999)" maxlength="4" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--white);outline:none;margin-bottom:12px"><button class="vip-btn" onclick="submitWithdraw('${name.replace(/'/g, "\\'")}')" id="wdBtn">✅ ОТПРАВИТЬ</button></div>`;
   document.body.appendChild(m);
   lockBody(true);
 }
@@ -755,7 +875,7 @@ function openVipModal(){
   m.id = 'vipModal';
   m.onclick = (e) => { if(e.target === m){ m.remove(); lockBody(false); } };
   const isVip = vipData.isVip && vipData.expires > Date.now();
-  m.innerHTML = '<div class="modal-content"><button class="modal-close" onclick="document.getElementById(\'vipModal\').remove();lockBody(false)">✕</button><div style="text-align:center;font-size:50px">👑</div><div class="modal-title">VIP СТАТУС</div><div style="background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);border-radius:12px;padding:12px;margin-bottom:16px"><div style="font-size:11px;margin-bottom:6px">🎰 +5% к шансу</div><div style="font-size:11px;margin-bottom:6px">💰 +5% к пополнению</div><div style="font-size:11px;margin-bottom:6px">🎁 +20 G каждый день</div><div style="font-size:11px">👑 VIP-значок</div></div>' +
+  m.innerHTML = `<div class="modal-content"><button class="modal-close" onclick="document.getElementById('vipModal').remove();lockBody(false)">✕</button><div style="text-align:center;font-size:50px">👑</div><div class="modal-title">VIP СТАТУС</div><div style="background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);border-radius:12px;padding:12px;margin-bottom:16px"><div style="font-size:11px;margin-bottom:6px">🎰 +5% к шансу</div><div style="font-size:11px;margin-bottom:6px">💰 +5% к пополнению</div><div style="font-size:11px;margin-bottom:6px">🎁 +20 G каждый день</div><div style="font-size:11px">👑 VIP-значок</div></div>` +
     (isVip ? '<div style="text-align:center;color:var(--green-l);font-weight:900;margin-bottom:12px">✅ VIP АКТИВЕН</div>' :
     '<button class="vip-btn" onclick="buyVipGold()">💰 КУПИТЬ ЗА 780 G</button><button class="vip-btn" style="background:var(--panel-l);color:var(--white)" onclick="buyVipMoney()">💵 КУПИТЬ ЗА ДЕНЬГИ (ТЕСТ)</button>') +
     '</div>';
@@ -798,7 +918,7 @@ async function openTasksModal(){
     if(!d.ok) throw new Error('Error');
     document.getElementById('tasksList').innerHTML = d.tasks.map(t => {
       const done = t.progress >= t.need;
-      return '<div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;background:var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:20px">🎯</div><div style="flex:1"><div style="font-size:12px;font-weight:900">' + t.title + '</div><div style="font-size:10px;color:var(--gray2);font-weight:800">' + t.progress + ' / ' + t.need + '</div></div><button ' + (t.claimed || !done ? 'disabled' : '') + ' style="background:' + (t.claimed ? 'var(--border)' : 'var(--green)') + ';color:#fff;border:none;padding:8px 12px;border-radius:8px;font-size:10px;font-weight:900;cursor:pointer" onclick="claimTask(\'' + t.id + '\')">' + (t.claimed ? 'ПОЛУЧЕНО' : done ? 'ЗАБРАТЬ' : 'ЖДЕМ') + '</button></div>';
+      return `<div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;background:var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:20px">🎯</div><div style="flex:1"><div style="font-size:12px;font-weight:900">${t.title}</div><div style="font-size:10px;color:var(--gray2);font-weight:800">${t.progress} / ${t.need}</div></div><button ${t.claimed || !done ? 'disabled' : ''} style="background:${t.claimed ? 'var(--border)' : 'var(--green)'};color:#fff;border:none;padding:8px 12px;border-radius:8px;font-size:10px;font-weight:900;cursor:pointer" onclick="claimTask('${t.id}')">${t.claimed ? 'ПОЛУЧЕНО' : done ? 'ЗАБРАТЬ' : 'ЖДЕМ'}</button></div>`;
     }).join('');
   }catch(e){
     document.getElementById('tasksList').innerHTML = '<div style="color:var(--red);text-align:center;padding:20px">' + e.message + '</div>';
@@ -817,7 +937,6 @@ async function claimTask(taskId){
 }
 
 // ==================== LIVE ====================
-let liveRetries = 0;
 async function loadLiveFeed(){
   const track = document.getElementById('liveTrack');
   if(!track) return;
@@ -829,21 +948,109 @@ async function loadLiveFeed(){
     const d = await r.json();
     const list = d.list || [];
     if(!Array.isArray(list) || list.length === 0){
-      track.innerHTML = '<span class="live-empty">Пока нет рекордов</span>';
+      track.innerHTML = '<div class="live-empty">Пока нет рекордов</div>';
       return;
     }
-    const items = list.slice(0, 20).map(x =>
-      '<div class="live-item"><div><div class="live-name">' + (x.playerName || 'Игрок') + '</div><div class="live-pct">' + (x.pct || 0) + '%</div></div>' + (x.skinImg ? '<img src="' + x.skinImg + '" class="live-skin" onerror="this.style.display=\'none\'">' : '') + '</div>'
-    ).join('');
+    
+    // Сортируем от большего к меньшему (хотя сервер уже сортирует)
+    list.sort((a,b) => b.skinPrice - a.skinPrice);
+
+    const items = list.map((x, i) => {
+      // Первая карточка (топ-дроп) светится золотым, остальные в зависимости от цены
+      let extraClass = '';
+      if(i === 0) extraClass = 'top-drop';
+      else if(x.skinPrice > 1000) extraClass = 'red-drop';
+      else if(x.skinPrice > 100) extraClass = 'purple-drop';
+
+      return `<div class="live-card ${extraClass}">
+        <div class="live-info">
+          <div class="live-name">${x.playerName || 'Игрок'}</div>
+          <div class="live-pct">${x.pct || 0}%</div>
+        </div>
+        ${x.skinImg ? `<img src="${x.skinImg}" class="live-skin" onerror="this.style.display='none'">` : ''}
+      </div>`;
+    }).join('');
+    
+    // Дублируем для бесконечной прокрутки
     track.innerHTML = items + items;
-    liveRetries = 0;
   }catch(e){
     console.error('LIVE', e);
-    liveRetries++;
-    track.innerHTML = '<span class="live-empty">' + (liveRetries >= 3 ? 'Сервер недоступен' : 'Загрузка...') + '</span>';
+    track.innerHTML = '<div class="live-empty">Ошибка загрузки</div>';
   }
 }
 setInterval(loadLiveFeed, 30000);
+
+// ==================== DRAWER (Профиль) ====================
+function openDrawer(){
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  lockBody(true);
+  renderDrawerContent(currentDrawerTab);
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  lockBody(false);
+}
+function switchDrawerTab(tab, btn){
+  currentDrawerTab = tab;
+  document.querySelectorAll('.dnav-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderDrawerContent(tab);
+}
+function renderDrawerContent(tab){
+  const body = document.getElementById('drawerBody');
+  if(!body) return;
+
+  if(tab === 'profile'){
+    const winRate = stats.spins > 0 ? Math.round((stats.wins / stats.spins) * 100) : 0;
+    body.innerHTML = `
+      <div class="profile-card">
+        <div class="profile-ava">${tgUser?.photo_url ? `<img src="${tgUser.photo_url}">` : '👤'}</div>
+        <div class="profile-name">${tgUser?.first_name || 'Игрок'}</div>
+        <div class="profile-id">ID: #${userId.slice(-5)}</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="stat-val">${stats.spins}</div><div class="stat-lbl">СПИНЫ</div></div>
+        <div class="stat-box"><div class="stat-val" style="color:var(--green-l)">${stats.wins}</div><div class="stat-lbl">ПОБЕДЫ</div></div>
+        <div class="stat-box"><div class="stat-val" style="color:var(--gold)">${winRate}%</div><div class="stat-lbl">ВИНРЕЙТ</div></div>
+      </div>
+      <div style="font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px">ИНВЕНТАРЬ (${inv.length})</div>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px">
+        ${inv.slice(0, 15).map(it => `<div class="card ${getRarity(it.color)}" style="padding:4px;min-height:auto"><div class="card-img-wrap" style="padding:4px"><img src="${it.img}" style="height:40px"></div></div>`).join('')}
+      </div>
+    `;
+  }
+  else if(tab === 'ach'){
+    body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray2)">Раздел в разработке...</div>';
+  }
+  else if(tab === 'vip'){
+    const isVip = vipData.isVip && vipData.expires > Date.now();
+    body.innerHTML = `
+      <div style="text-align:center;font-size:50px;margin-bottom:10px">👑</div>
+      <div style="font-size:18px;font-weight:900;text-align:center;margin-bottom:16px">VIP СТАТУС</div>
+      <div style="background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center">
+        <div style="font-size:12px;margin-bottom:8px;color:var(--gold)">${isVip ? '✅ АКТИВЕН' : '❌ НЕ АКТИВЕН'}</div>
+      </div>
+      ${!isVip ? `<button class="vip-btn" onclick="closeDrawer();openVipModal()">КУПИТЬ VIP</button>` : ''}
+    `;
+  }
+  else if(tab === 'friends'){
+    body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray2)">Раздел в разработке...</div>';
+  }
+  else if(tab === 'settings'){
+    body.innerHTML = `
+      <div style="background:var(--panel-l);border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span>🔊 Звуки</span>
+        <input type="checkbox" checked style="transform:scale(1.5)">
+      </div>
+      <div style="background:var(--panel-l);border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+        <span>📳 Вибрация</span>
+        <input type="checkbox" checked style="transform:scale(1.5)">
+      </div>
+    `;
+  }
+}
 
 // ==================== INIT ====================
 (async () => {
@@ -863,5 +1070,12 @@ setInterval(loadLiveFeed, 30000);
   rendInv();
   rendMain();
 })();
+
+// Закрытие раскрытых карточек при клике вне их
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.card')) {
+    closeAllCards();
+  }
+});
 </script>
 </body></html>
