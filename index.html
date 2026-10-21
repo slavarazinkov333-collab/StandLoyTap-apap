@@ -3,9 +3,6 @@
 :root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
 body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
 body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:#1a1a2a;--gray2:#666}
-body.bg-stars{background-image:radial-gradient(2px 2px at 20% 30%,white,transparent),radial-gradient(2px 2px at 60% 70%,white,transparent),radial-gradient(1px 1px at 50% 50%,white,transparent);background-size:200px 200px}
-body.bg-fire{background-image:radial-gradient(circle at 50% 100%,rgba(255,69,0,.3),transparent 60%)}
-body.bg-ice{background-image:radial-gradient(circle at 50% 100%,rgba(74,158,255,.3),transparent 60%)}
 body.modal-open{overflow:hidden}
 .top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .top-left{display:flex;align-items:center;gap:12px}
@@ -34,7 +31,6 @@ body.modal-open{overflow:hidden}
 .friends-btn-wrap{margin:0 16px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
 .friends-btn-wrap::-webkit-scrollbar{display:none}
 .friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
-.gear-btn{width:36px;height:36px;background:var(--panel);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:16px;flex-shrink:0}
 .main{padding:0 16px}
 .wheel-wrap{position:relative;width:100%;aspect-ratio:1;max-width:340px;margin:10px auto;display:flex;justify-content:center;align-items:center}
 .wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),0 0 80px rgba(255,184,0,.15),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
@@ -61,7 +57,7 @@ body.modal-open{overflow:hidden}
 .upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer}
 .upgrade-btn:disabled{opacity:.5;background:var(--panel)}
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;position:relative;cursor:pointer;transition:0.2s}
+.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;position:relative;cursor:pointer}
 .slot-prev-lbl{font-size:11px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;text-align:center}
 .slot-prev-cnt{font-size:13px;font-weight:900;color:#ffb800;margin-bottom:12px;text-align:center}
 .slot-prev-icons{display:flex;flex-direction:column;gap:8px;width:100%;flex:1;justify-content:center;align-items:center;position:relative}
@@ -188,7 +184,7 @@ body.modal-open{overflow:hidden}
 
 <script>
 // ==================== GLOBALS ====================
-const BOT_URL = 'https://admin-bot-03ly.onrender.com'; // поменяй если нужно
+const BOT_URL = 'https://admin-bot-03ly.onrender.com';
 const tg = window.Telegram?.WebApp;
 if(tg){ tg.ready(); tg.expand(); }
 const tgUser = tg?.initDataUnsafe?.user;
@@ -211,7 +207,6 @@ let selPct = null;
 let isSpinning = false;
 let cart = [];
 let invMode = 'inv';
-let bigTab = 'inv';
 let invFilter = 'all';
 let lightningOn = false;
 let currentWheelAngle = 0;
@@ -221,8 +216,7 @@ const DEFAULT_PCTS = [90, 67, 55, 44, 33, 22];
 let customPcts = [...DEFAULT_PCTS];
 let gameLoaded = false;
 
-// ==================== КАТАЛОГ (для отображения цен на клиенте) ====================
-// ⚠️ Только для отображения! Сервер сам проверяет цены.
+// ==================== КАТАЛОГ (только для отображения) ====================
 const CATALOG_CLIENT = {
   'AKR Carbon': { price: 56, color: '#4a9eff', img: 'https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/skins/AKR_CARBON.jpg' },
   'AKR Evolution': { price: 3, color: '#4a9eff', img: 'https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/skins/AKR_EVOLUTION.jpg' },
@@ -270,7 +264,6 @@ const CATALOG_CLIENT = {
   'Agent T Adam': { price: 2680, color: '#ff4444', img: 'https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/agents/AgentT_Adam.jpg' }
 };
 const allSkins = Object.keys(CATALOG_CLIENT).filter(k => !k.startsWith('Agent')).map(k => ({ name: k, ...CATALOG_CLIENT[k] }));
-const allAgents = Object.keys(CATALOG_CLIENT).filter(k => k.startsWith('Agent')).map(k => ({ name: k, ...CATALOG_CLIENT[k] }));
 
 // ==================== UTILS ====================
 function toast(msg, type){
@@ -300,7 +293,13 @@ async function apiCall(path, opts){
   opts = opts || {};
   const headers = authHeaders(opts.headers);
   const res = await fetch(BOT_URL + path, { ...opts, headers });
-  const data = await res.json();
+  const text = await res.text();
+  let data;
+  try{ data = JSON.parse(text); } 
+  catch(e){ 
+    console.error('Non-JSON response:', text.substring(0, 200)); 
+    throw new Error('Сервер вернул ошибку. Попробуй позже.'); 
+  }
   if(!res.ok) throw new Error(data.error || 'HTTP ' + res.status);
   return data;
 }
@@ -315,11 +314,12 @@ async function loadGame(){
       stats = d.data.stats || { spins: 0, wins: 0, loses: 0 };
       bestDrop = d.data.bestDrop || null;
       vipData = { isVip: !!d.data.isVip, expires: Number(d.data.vipExpires || 0) };
+      if(d.data.photoUrl){ document.getElementById('topAv').innerHTML = '<img src="' + d.data.photoUrl + '">'; }
     }
     gameLoaded = true;
   }catch(e){
     console.error('loadGame', e);
-    toast('❌ Ошибка загрузки: ' + e.message, 'lose');
+    toast('❌ ' + e.message, 'lose');
     gameLoaded = true;
   }
 }
@@ -371,7 +371,6 @@ function clearWheelPct(){
 
 // ==================== INVENTORY ====================
 function switchBigTab(m){
-  bigTab = m;
   document.getElementById('bigTabInv').classList.toggle('active', m === 'inv');
   document.getElementById('bigTabTarget').classList.toggle('active', m === 'target');
   document.getElementById('panelInv').classList.toggle('active', m === 'inv');
@@ -565,7 +564,6 @@ async function spinUpgrade(){
     return;
   }
   
-  // Обновляем состояние
   gold = result.newGold;
   inv = result.newInv;
   stats.spins++;
@@ -573,7 +571,6 @@ async function spinUpgrade(){
   else stats.loses++;
   updateBal();
   
-  // Анимация
   const duration = (lightningOn || vipData.isVip) ? 2000 : 10000;
   const durSec = duration / 1000;
   const spinPct = result.pct;
