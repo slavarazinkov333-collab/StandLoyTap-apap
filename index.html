@@ -8,8 +8,6 @@ body.modal-open{overflow:hidden}
 .top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .top-left{display:flex;align-items:center;gap:12px}
 .logo-svg{width:34px;height:34px}
-.rank-badge{display:flex;flex-direction:column;font-size:9px;font-weight:800;color:var(--gray2)}
-.rank-badge .rn{color:var(--gold);font-size:11px}
 .top-right{display:flex;align-items:center;gap:8px}
 .cart-btn{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;cursor:pointer;border:1px solid var(--border);position:relative}
 .cart-btn svg{width:18px;height:18px;fill:var(--white)}
@@ -26,27 +24,21 @@ body.modal-open{overflow:hidden}
 .action-chip{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:800;color:var(--white);cursor:pointer}
 .vip-chip{border-color:rgba(255,184,0,0.4);background:linear-gradient(135deg,rgba(255,184,0,0.1),transparent);animation:vipPulse 10s infinite}
 @keyframes vipPulse{0%,85%,100%{box-shadow:0 0 0 rgba(255,184,0,0)}90%{box-shadow:0 0 25px rgba(255,184,0,0.8);border-color:var(--gold)}}
-.bonus-chip{border-color:rgba(76,175,80,0.4);background:linear-gradient(135deg,rgba(76,175,80,0.1),transparent);animation:bonusPulse 3s infinite}
-@keyframes bonusPulse{0%,100%{box-shadow:0 0 0 rgba(76,175,80,0)}50%{box-shadow:0 0 15px rgba(76,175,80,0.5);border-color:var(--green-l)}}
 
-/* LIVE SCROLL - ИСПРАВЛЕНО */
+/* LIVE SCROLL */
 .live-wrap{margin:16px 0;position:relative;overflow:hidden}
 .live-title{font-size:11px;font-weight:900;color:var(--gray2);text-transform:uppercase;letter-spacing:1px;padding:0 16px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .live-title::before{content:'';width:8px;height:8px;background:var(--red);border-radius:50%;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 .live-track-wrap{overflow:hidden;width:100%}
-.live-track{display:flex;gap:12px;padding:0 16px 10px;width:max-content;animation:scrollLive 20s linear infinite}
-.live-track:hover{animation-play-state:paused} /* Останавливается при наведении (для ПК) */
+.live-track{display:flex;gap:12px;padding:0 16px 10px;width:max-content;animation:scrollLive 25s linear infinite}
 @keyframes scrollLive{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-.live-card{flex-shrink:0;width:220px;height:70px;background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:1.5px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;cursor:pointer}
+.live-card{flex-shrink:0;width:220px;height:80px;background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:1.5px solid var(--border);border-radius:14px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
 .live-card.top-drop{border-color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,0.3)}
-.live-card.purple-drop{border-color:var(--purple);box-shadow:0 0 10px rgba(155,138,255,0.3)}
-.live-card.red-drop{border-color:var(--red);box-shadow:0 0 10px rgba(229,9,20,0.3)}
 .live-info{display:flex;flex-direction:column;gap:4px;z-index:2}
-.live-name{font-size:11px;font-weight:900;color:var(--white);text-shadow:0 2px 4px rgba(0,0,0,0.8);max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.live-pct{font-size:9px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:1px 6px;border-radius:4px;width:fit-content}
-.live-skin{width:90px;height:55px;object-fit:contain;position:absolute;right:-5px;bottom:-5px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.8));z-index:1;pointer-events:none}
+.live-name{font-size:12px;font-weight:900;color:var(--white);text-shadow:0 2px 4px rgba(0,0,0,0.8);max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 6px;border-radius:4px;width:fit-content}
+.live-skin{width:90px;height:65px;object-fit:contain;position:absolute;right:0;bottom:0;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.8));z-index:1}
 
 /* WHEEL */
 .main{padding:0 16px;margin-top:10px}
@@ -76,7 +68,7 @@ body.modal-open{overflow:hidden}
 .upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 4px 15px rgba(255,184,0,0.3)}
 .upgrade-btn:disabled{opacity:.5;background:var(--panel);box-shadow:none}
 
-/* SLOTS & INVENTORY */
+/* SLOTS */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 .slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;position:relative;cursor:pointer}
 .slot-prev-lbl{font-size:11px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;text-align:center}
@@ -89,6 +81,7 @@ body.modal-open{overflow:hidden}
 .slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:10px;text-align:center}
 .slot-clear{font-size:11px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:6px 14px;border-radius:8px}
 
+/* INVENTORY */
 .big-tabs{display:flex;gap:4px;margin-top:20px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
@@ -174,8 +167,6 @@ body.modal-open{overflow:hidden}
 @keyframes popupIn{0%{opacity:0;transform:scale(.9) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 .popup-win-card{animation:popupIn .5s}
 .popup-lose-card{animation:popupIn .5s}
-.popup-item{animation:itemFloat 2s ease-in-out infinite}
-@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
 </style></head><body>
 
 <div class="top">
@@ -191,7 +182,6 @@ body.modal-open{overflow:hidden}
 </div>
 
 <div class="top-actions">
-  <button class="action-chip bonus-chip" onclick="showTopup()">🎁 БОНУС</button>
   <button class="action-chip vip-chip" onclick="openVipModal()" style="color:var(--gold)">👑 VIP</button>
 </div>
 
@@ -224,7 +214,12 @@ body.modal-open{overflow:hidden}
     <div class="slot-prev" onclick="switchBigTab('target')"><div class="slot-prev-lbl">ЦЕЛЬ</div><div class="slot-prev-icons" id="rightIcons"></div><div class="slot-prev-cnt" id="targetCount" style="font-size:9px;color:var(--gold);margin-top:8px;">НЕ ВЫБРАНА</div></div>
   </div>
 
-  <div class="big-tabs"><button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button><button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ПРОКАЧАТЬ ДО</button></div>
+  <div class="big-tabs">
+    <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button>
+    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ЦЕЛЬ</button>
+    <button class="big-tab" id="bigTabHist" onclick="switchBigTab('hist')">ИСТОРИЯ</button>
+  </div>
+  
   <div class="panel active" id="panelInv">
     <div style="display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px;">
       <button id="subInv" onclick="switchSub('inv')" style="flex:1;background:var(--panel-l);border:none;color:var(--white);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МОИ СКИНЫ</button>
@@ -234,9 +229,14 @@ body.modal-open{overflow:hidden}
     <div class="filter-bar" id="filterBar"></div>
     <div class="grid" id="invList"></div>
   </div>
+  
   <div class="panel" id="panelTarget">
     <div style="margin-top:12px;"><input type="text" id="targetSearchInp" placeholder="Поиск цели..." oninput="rendTargetList()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
     <div class="grid" id="targetList"></div>
+  </div>
+
+  <div class="panel" id="panelHist">
+    <div style="margin-top:16px;" id="historyList"></div>
   </div>
 </div>
 
@@ -249,7 +249,6 @@ body.modal-open{overflow:hidden}
   </div>
   <div class="drawer-nav" id="drawerNav">
     <button class="dnav-btn active" onclick="switchDrawerTab('profile', this)">Профиль</button>
-    <button class="dnav-btn" onclick="switchDrawerTab('ach', this)">Достижения</button>
     <button class="dnav-btn" onclick="switchDrawerTab('friends', this)">Друзья</button>
     <button class="dnav-btn" onclick="switchDrawerTab('settings', this)">Настройки</button>
   </div>
@@ -420,9 +419,26 @@ function clearWheelPct(){
 function switchBigTab(m){
   document.getElementById('bigTabInv').classList.toggle('active', m === 'inv');
   document.getElementById('bigTabTarget').classList.toggle('active', m === 'target');
+  document.getElementById('bigTabHist').classList.toggle('active', m === 'hist');
   document.getElementById('panelInv').classList.toggle('active', m === 'inv');
   document.getElementById('panelTarget').classList.toggle('active', m === 'target');
+  document.getElementById('panelHist').classList.toggle('active', m === 'hist');
+  
   if(m === 'target') rendTargetList();
+  if(m === 'hist') rendHistory();
+}
+function rendHistory(){
+  const b = document.getElementById('historyList');
+  b.innerHTML = historyData.map(h => `
+    <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+      <img src="${h.targetImg}" style="width:50px;height:50px;object-fit:contain">
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:900">${h.targetName}</div>
+        <div style="font-size:10px;color:var(--gray2)">Шанс: ${h.pct.toFixed(1)}%</div>
+      </div>
+      <div style="font-size:14px;font-weight:900;color:${h.win ? 'var(--green-l)' : 'var(--red)'}">${h.win ? 'WIN' : 'LOSE'}</div>
+    </div>
+  `).join('') || '<div style="text-align:center;padding:20px;color:var(--gray2)">История пуста</div>';
 }
 function switchSub(m){
   invMode = m;
@@ -582,7 +598,7 @@ async function spinUpgrade(){
       isSpinning = false; wrap.style.transition = 'none'; wrap.style.transform = 'rotate(0deg)';
       selectedItems = []; targetSkin = null; selPct = null;
       clearWheelPct(); document.getElementById('upgradeBtn').innerText = 'UPGRADE';
-      rendMain(); rendInv(); rendTargetList();
+      rendMain(); rendInv(); rendTargetList(); loadHistory();
     }, duration);
   }catch(e){
     toast('❌ ' + e.message, 'lose'); isSpinning = false;
@@ -651,7 +667,7 @@ function switchDrawerTab(tab, btn){
 async function renderDrawerContent(tab){
   const body = document.getElementById('drawerBody');
   if(tab === 'profile'){
-    await loadRefData(); await loadHistory();
+    await loadRefData();
     body.innerHTML = `
       <div class="profile-card">
         <div class="profile-ava">${tgUser?.photo_url ? `<img src="${tgUser.photo_url}">` : '👤'}</div>
@@ -663,28 +679,14 @@ async function renderDrawerContent(tab){
         <div class="stat-box"><div class="stat-val" style="color:var(--green-l)">${stats.wins}</div><div class="stat-lbl">ПОБЕДЫ</div></div>
         <div class="stat-box"><div class="stat-val" style="color:var(--gold)">${stats.spins>0?Math.round(stats.wins/stats.spins*100):0}%</div><div class="stat-lbl">ВИНРЕЙТ</div></div>
       </div>
-      ${bestDrop ? `<div style="background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:16px"><img src="${bestDrop.img}" style="width:60px"><div><div style="color:var(--gold);font-size:10px;font-weight:900">🏆 ЛУЧШИЙ ДРОП</div><div style="font-size:14px;font-weight:900">${bestDrop.name}</div></div></div>` : ''}
-      
-      <div style="font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px">ИНВЕНТАРЬ (${inv.length})</div>
-      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
-        ${inv.slice(0, 6).map(it => `<div class="card ${getRarity(it.color)}" style="padding:4px;min-height:auto"><div class="card-img-wrap" style="padding:4px"><img src="${it.img}" style="height:40px"></div></div>`).join('')}
-      </div>
-
-      <div style="font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px">ИСТОРИЯ ИГР</div>
-      ${historyData.slice(0, 5).map(h => `<div class="hist-item"><img src="${h.targetImg}" class="hist-img"><div class="hist-name">${h.targetName}</div><div class="${h.win ? 'hist-win' : 'hist-lose'}">${h.win ? 'WIN' : 'LOSE'}</div></div>`).join('')}
-
       <div style="font-size:12px;font-weight:900;color:var(--gray2);margin:16px 0 8px">ПРОМОКОД</div>
       <div style="display:flex;gap:6px;margin-bottom:16px"><input type="text" id="promoInp" placeholder="Введи код" style="flex:1;background:var(--panel-l);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--white);outline:none"><button onclick="applyPromo()" style="background:var(--purple);color:#fff;border:none;border-radius:8px;padding:0 16px;font-weight:900;cursor:pointer">OK</button></div>
-
       <div style="font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px">РЕФЕРАЛЬНЫЙ КОД</div>
       <div style="background:var(--panel-l);padding:12px;border-radius:8px;text-align:center;font-weight:900;color:var(--gold);font-size:16px;margin-bottom:16px">${refData.code}</div>
     `;
   }
-  else if(tab === 'ach'){
-    body.innerHTML = `<div class="ach-item unlocked"><div class="ach-ico">🏆</div><div class="ach-info"><div class="ach-name">Первый спин</div><div class="ach-desc">Сделай 1 апгрейд</div></div><div class="ach-reward">+10 G</div></div>`;
-  }
   else if(tab === 'friends'){
-    body.innerHTML = `<div style="text-align:center;padding:40px;color:var(--gray2)">Друзья скоро вернутся...</div>`;
+    body.innerHTML = `<div style="display:flex;gap:6px;margin-bottom:16px"><input type="text" id="friendInp" placeholder="ID друга" style="flex:1;background:var(--panel-l);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--white);outline:none"><button onclick="addFriend()" style="background:var(--green);color:#fff;border:none;border-radius:8px;padding:0 16px;font-weight:900;cursor:pointer">ДОБАВИТЬ</button></div><div style="text-align:center;padding:40px;color:var(--gray2)">Список друзей загружается...</div>`;
   }
   else if(tab === 'settings'){
     body.innerHTML = `<div style="text-align:center;padding:40px;color:var(--gray2)">Настройки в разработке...</div>`;
@@ -698,11 +700,16 @@ async function applyPromo(){
     gold += d.amount; updateBal(); toast('🎁 +' + d.amount + ' G', 'win');
   }catch(e){ toast('❌ ' + e.message, 'lose'); }
 }
+async function addFriend(){
+  const fid = document.getElementById('friendInp')?.value;
+  if(!fid) return toast('Введи ID', 'lose');
+  toast('Заявка отправлена (тест)', 'win');
+}
 
 // ==================== INIT ====================
 (async () => {
   drawTicks(); renderPctRow(); updateBal(); rendMain(); renderFilters(); rendInv(); rendTargetList();
-  loadLiveFeed();
+  loadLiveFeed(); loadHistory();
   if(tgUser?.photo_url) document.getElementById('topAv').innerHTML = `<img src="${tgUser.photo_url}">`;
   await loadGame();
   updateBal(); rendInv(); rendMain();
