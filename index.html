@@ -2,7 +2,6 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 :root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
 body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:20px}
-body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#e8e8f0;--border:#d0d0dd;--white:#1a1a2a;--gray2:#666}
 body.modal-open{overflow:hidden}
 
 /* TOP BAR */
@@ -15,13 +14,11 @@ body.modal-open{overflow:hidden}
 .cart-btn{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;cursor:pointer;border:1px solid var(--border);position:relative}
 .cart-btn svg{width:18px;height:18px;fill:var(--white)}
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:9px;font-weight:900;border-radius:10px;padding:2px 5px;border:2px solid var(--bg);display:none}
-.bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:6px 12px;border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:0.2s}
-.bal-pill:active{transform:scale(0.95)}
+.bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:6px 12px;border-radius:10px;border:1px solid var(--border);cursor:pointer}
 .bal-plus{width:24px;height:24px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:16px;color:#1a1a1a;font-weight:900}
 .bal-num{font-size:14px;font-weight:900}
 .bal-g{font-size:11px;font-weight:900;color:var(--gold)}
-.av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden;transition:0.2s}
-.av-top:active{transform:scale(0.95)}
+.av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden}
 .av-top img{width:100%;height:100%;object-fit:cover}
 
 /* TOP ACTIONS */
@@ -29,23 +26,27 @@ body.modal-open{overflow:hidden}
 .action-chip{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:800;color:var(--white);cursor:pointer}
 .vip-chip{border-color:rgba(255,184,0,0.4);background:linear-gradient(135deg,rgba(255,184,0,0.1),transparent);animation:vipPulse 10s infinite}
 @keyframes vipPulse{0%,85%,100%{box-shadow:0 0 0 rgba(255,184,0,0)}90%{box-shadow:0 0 25px rgba(255,184,0,0.8);border-color:var(--gold)}}
+.bonus-chip{border-color:rgba(76,175,80,0.4);background:linear-gradient(135deg,rgba(76,175,80,0.1),transparent);animation:bonusPulse 3s infinite}
+@keyframes bonusPulse{0%,100%{box-shadow:0 0 0 rgba(76,175,80,0)}50%{box-shadow:0 0 15px rgba(76,175,80,0.5);border-color:var(--green-l)}}
 
-/* LIVE SCROLL */
-.live-wrap{margin:16px 0;position:relative}
+/* LIVE SCROLL - ИСПРАВЛЕНО */
+.live-wrap{margin:16px 0;position:relative;overflow:hidden}
 .live-title{font-size:11px;font-weight:900;color:var(--gray2);text-transform:uppercase;letter-spacing:1px;padding:0 16px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .live-title::before{content:'';width:8px;height:8px;background:var(--red);border-radius:50%;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.live-track{display:flex;gap:12px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}
-.live-track::-webkit-scrollbar{display:none}
-.live-card{flex-shrink:0;width:240px;height:80px;background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:1.5px solid var(--border);border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;cursor:pointer}
-.live-card.top-drop{border-color:var(--gold);box-shadow:0 0 20px rgba(255,184,0,0.4)}
-.live-card.purple-drop{border-color:var(--purple);box-shadow:0 0 15px rgba(155,138,255,0.3)}
-.live-card.red-drop{border-color:var(--red);box-shadow:0 0 15px rgba(229,9,20,0.3)}
+.live-track-wrap{overflow:hidden;width:100%}
+.live-track{display:flex;gap:12px;padding:0 16px 10px;width:max-content;animation:scrollLive 20s linear infinite}
+.live-track:hover{animation-play-state:paused} /* Останавливается при наведении (для ПК) */
+@keyframes scrollLive{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.live-card{flex-shrink:0;width:220px;height:70px;background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:1.5px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;cursor:pointer}
+.live-card.top-drop{border-color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,0.3)}
+.live-card.purple-drop{border-color:var(--purple);box-shadow:0 0 10px rgba(155,138,255,0.3)}
+.live-card.red-drop{border-color:var(--red);box-shadow:0 0 10px rgba(229,9,20,0.3)}
 .live-info{display:flex;flex-direction:column;gap:4px;z-index:2}
-.live-name{font-size:12px;font-weight:900;color:var(--white);text-shadow:0 2px 4px rgba(0,0,0,0.8);max-width:130px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 8px;border-radius:6px;width:fit-content}
-.live-skin{width:110px;height:70px;object-fit:contain;position:absolute;right:-10px;bottom:-5px;filter:drop-shadow(0 5px 10px rgba(0,0,0,0.8));z-index:1}
-.live-empty{padding-left:0;font-size:11px;color:var(--gray2);font-weight:700}
+.live-name{font-size:11px;font-weight:900;color:var(--white);text-shadow:0 2px 4px rgba(0,0,0,0.8);max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.live-pct{font-size:9px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:1px 6px;border-radius:4px;width:fit-content}
+.live-skin{width:90px;height:55px;object-fit:contain;position:absolute;right:-5px;bottom:-5px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.8));z-index:1;pointer-events:none}
 
 /* WHEEL */
 .main{padding:0 16px;margin-top:10px}
@@ -75,21 +76,19 @@ body.modal-open{overflow:hidden}
 .upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 4px 15px rgba(255,184,0,0.3)}
 .upgrade-btn:disabled{opacity:.5;background:var(--panel);box-shadow:none}
 
-/* SLOTS */
+/* SLOTS & INVENTORY */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;position:relative;cursor:pointer;transition:0.2s}
-.slot-prev:active{transform:scale(0.98)}
+.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;position:relative;cursor:pointer}
 .slot-prev-lbl{font-size:11px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;text-align:center}
 .slot-prev-cnt{font-size:13px;font-weight:900;color:#ffb800;margin-bottom:12px;text-align:center}
 .slot-prev-icons{display:flex;flex-direction:column;gap:8px;width:100%;flex:1;justify-content:center;align-items:center;position:relative}
 .slot-cell{width:100%;display:flex;justify-content:center;align-items:center;position:relative}
 .slot-cell img{width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 8px 15px rgba(0,0,0,0.7))}
 .slot-cell .empty-slot{width:70px;height:70px;border:2px dashed #333;border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:24px;color:#444}
-.slot-remove{position:absolute;top:-5px;right:calc(50% - 45px);width:24px;height:24px;background:var(--red);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:14px;font-weight:900;cursor:pointer;border:2px solid #0a0a0c;box-shadow:0 2px 8px rgba(0,0,0,0.5);z-index:5}
+.slot-remove{position:absolute;top:-5px;right:calc(50% - 45px);width:24px;height:24px;background:var(--red);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:14px;font-weight:900;cursor:pointer;border:2px solid #0a0a0c;z-index:5}
 .slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:10px;text-align:center}
-.slot-clear{font-size:11px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:6px 14px;border-radius:8px;text-transform:uppercase;letter-spacing:0.5px}
+.slot-clear{font-size:11px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:6px 14px;border-radius:8px}
 
-/* INVENTORY */
 .big-tabs{display:flex;gap:4px;margin-top:20px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
@@ -97,7 +96,7 @@ body.modal-open{overflow:hidden}
 .panel.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 
-/* GLASS CARDS & FLIP/EXPAND EFFECT */
+/* GLASS CARDS */
 .card{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,0.1);cursor:pointer;transition:0.3s;position:relative;min-height:180px}
 .card:active{transform:scale(0.98)}
 .card-img-wrap{width:100%;aspect-ratio:1.1;background:radial-gradient(circle at center,rgba(255,255,255,0.05) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px;transition:0.3s}
@@ -106,7 +105,6 @@ body.modal-open{overflow:hidden}
 .card-name{font-size:13px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--white)}
 .card-price{font-size:14px;font-weight:900;color:var(--gold)}
 
-/* EXPANDED STATE */
 .card.expanded{border-color:var(--gold);box-shadow:0 0 20px rgba(255,184,0,0.4);z-index:10}
 .card.expanded .card-img-wrap{opacity:0.3;filter:blur(4px);transform:scale(1.1)}
 .card.expanded .card-info{opacity:0;pointer-events:none}
@@ -124,13 +122,12 @@ body.modal-open{overflow:hidden}
 .r-epic{border-color:rgba(255,68,68,0.7);box-shadow:0 4px 20px rgba(255,68,68,0.3)}
 .r-legend{border-color:rgba(255,215,0,0.8);box-shadow:0 4px 25px rgba(255,215,0,0.4)}
 
-/* SIDE DRAWER */
+/* DRAWER */
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(5px);z-index:1500;opacity:0;pointer-events:none;transition:0.3s}
 .drawer-overlay.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:85%;max-width:360px;background:var(--panel);z-index:1501;transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;border-left:1px solid var(--border);box-shadow:-10px 0 30px rgba(0,0,0,0.5)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:85%;max-width:360px;background:var(--panel);z-index:1501;transform:translateX(100%);transition:transform 0.3s;display:flex;flex-direction:column;border-left:1px solid var(--border)}
 .drawer.open{transform:translateX(0)}
 .drawer-header{padding:20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
-.drawer-title{font-size:18px;font-weight:900}
 .drawer-close{background:var(--panel-l);border:none;color:var(--white);width:32px;height:32px;border-radius:8px;font-size:16px;cursor:pointer}
 .drawer-nav{display:flex;gap:6px;padding:12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border)}
 .drawer-nav::-webkit-scrollbar{display:none}
@@ -138,33 +135,45 @@ body.modal-open{overflow:hidden}
 .dnav-btn.active{background:var(--white);color:#000}
 .drawer-content{flex:1;overflow-y:auto;padding:20px}
 
-/* UTILS */
-.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
-.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
-.modal-title{font-size:18px;font-weight:900;margin-bottom:16px;text-align:center}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
-.filter-bar{display:flex;gap:6px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.filter-bar::-webkit-scrollbar{display:none}
-.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
-.filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(255,184,0,.1)}
-.vip-btn{width:100%;padding:14px;border-radius:10px;background:var(--gold);color:#000;font-weight:900;border:none;cursor:pointer;margin-bottom:8px}
-
-/* PROFILE STYLES INSIDE DRAWER */
+/* PROFILE CONTENT */
 .profile-card{background:linear-gradient(135deg,#1a1a1c,#0a0a0c);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;margin-bottom:16px}
 .profile-ava{width:80px;height:80px;border-radius:50%;background:var(--panel-l);margin:0 auto 12px;border:2px solid var(--gold);overflow:hidden}
 .profile-ava img{width:100%;height:100%;object-fit:cover}
 .profile-name{font-size:18px;font-weight:900}
-.profile-id{font-size:11px;color:var(--gray2);font-family:monospace;margin-bottom:8px}
+.profile-id{font-size:11px;color:var(--gray2);font-family:monospace}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
 .stat-box{background:var(--panel-l);border-radius:12px;padding:10px;text-align:center}
 .stat-val{font-size:16px;font-weight:900}
 .stat-lbl{font-size:9px;color:var(--gray2);font-weight:800}
 
-/* ANIMATIONS */
+/* ACH & HISTORY */
+.ach-item{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ach-ico{width:40px;height:40px;background:var(--panel);border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px}
+.ach-info{flex:1}
+.ach-name{font-size:13px;font-weight:900}
+.ach-desc{font-size:10px;color:var(--gray2);font-weight:600}
+.ach-reward{font-size:12px;font-weight:900;color:var(--gold)}
+
+.hist-item{display:flex;align-items:center;gap:12px;background:var(--panel-l);border-radius:8px;padding:8px;margin-bottom:8px}
+.hist-img{width:40px;height:40px;object-fit:contain}
+.hist-name{flex:1;font-size:12px;font-weight:900}
+.hist-win{color:var(--green-l);font-weight:900;font-size:12px}
+.hist-lose{color:var(--red);font-weight:900;font-size:12px}
+
+/* UTILS */
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:flex;justify-content:center;align-items:center;padding:16px}
+.modal-content{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:18px;font-weight:900;margin-bottom:16px;text-align:center}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px}
+.filter-bar{display:flex;gap:6px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
+.filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(255,184,0,.1)}
+
 @keyframes popupIn{0%{opacity:0;transform:scale(.9) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-.popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
-.popup-lose-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
+.popup-win-card{animation:popupIn .5s}
+.popup-lose-card{animation:popupIn .5s}
 .popup-item{animation:itemFloat 2s ease-in-out infinite}
 @keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
 </style></head><body>
@@ -176,24 +185,22 @@ body.modal-open{overflow:hidden}
   </div>
   <div class="top-right">
     <div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div>
-    
-    <!-- Кнопка баланса (Пополнение) -->
     <div class="bal-pill" onclick="showTopup()"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
-    
-    <!-- Квадратная аватарка (открывает шторку профиля) -->
     <div class="av-top" id="topAv" onclick="openDrawer()">👤</div>
   </div>
 </div>
 
 <div class="top-actions">
-  <button class="action-chip" onclick="openTasksModal()">🎯 ЗАДАНИЯ</button>
+  <button class="action-chip bonus-chip" onclick="showTopup()">🎁 БОНУС</button>
   <button class="action-chip vip-chip" onclick="openVipModal()" style="color:var(--gold)">👑 VIP</button>
 </div>
 
 <div class="live-wrap">
   <div class="live-title">LIVE ДРОПЫ</div>
-  <div class="live-track" id="liveTrack">
-    <div class="live-empty" style="padding-left:0;color:var(--gray2)">Загрузка...</div>
+  <div class="live-track-wrap">
+    <div class="live-track" id="liveTrack">
+      <div class="live-card"><div class="live-info"><div class="live-name">Загрузка...</div></div></div>
+    </div>
   </div>
 </div>
 
@@ -237,19 +244,16 @@ body.modal-open{overflow:hidden}
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
   <div class="drawer-header">
-    <div class="drawer-title">Меню</div>
+    <div class="drawer-title">Профиль</div>
     <button class="drawer-close" onclick="closeDrawer()">✕</button>
   </div>
   <div class="drawer-nav" id="drawerNav">
     <button class="dnav-btn active" onclick="switchDrawerTab('profile', this)">Профиль</button>
     <button class="dnav-btn" onclick="switchDrawerTab('ach', this)">Достижения</button>
-    <button class="dnav-btn" onclick="switchDrawerTab('vip', this)">VIP</button>
     <button class="dnav-btn" onclick="switchDrawerTab('friends', this)">Друзья</button>
     <button class="dnav-btn" onclick="switchDrawerTab('settings', this)">Настройки</button>
   </div>
-  <div class="drawer-content" id="drawerBody">
-    <!-- Содержимое будет рендериться JS -->
-  </div>
+  <div class="drawer-content" id="drawerBody"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -268,25 +272,14 @@ function authHeaders(extra){
 }
 
 // ==================== STATE ====================
-let gold = 0;
-let inv = [];
-let stats = { spins: 0, wins: 0, loses: 0 };
-let bestDrop = null;
-let selectedItems = [];
-let targetSkin = null;
-let selPct = null;
-let isSpinning = false;
-let cart = [];
-let invMode = 'inv';
-let invFilter = 'all';
-let lightningOn = false;
-let currentWheelAngle = 0;
-let wheelAnimId = null;
-let vipData = { isVip: false, expires: 0 };
+let gold = 0, inv = [], stats = { spins: 0, wins: 0, loses: 0 }, bestDrop = null;
+let selectedItems = [], targetSkin = null, selPct = null, isSpinning = false;
+let cart = [], invMode = 'inv', invFilter = 'all', lightningOn = false;
+let currentWheelAngle = 0, wheelAnimId = null, vipData = { isVip: false, expires: 0 };
 const DEFAULT_PCTS = [90, 67, 55, 44, 33, 22];
 let customPcts = [...DEFAULT_PCTS];
-let gameLoaded = false;
-let currentDrawerTab = 'profile';
+let gameLoaded = false, currentDrawerTab = 'profile';
+let refData = { code: '', invited: 0 }, historyData = [];
 
 // ==================== КАТАЛОГ ====================
 const CATALOG_CLIENT = {
@@ -344,11 +337,7 @@ function toast(msg, type){
   e.innerText = msg;
   setTimeout(() => e.style.display = 'none', 2500);
 }
-function formatPct(p){
-  if(p >= 0.1) return p.toFixed(1) + '%';
-  if(p >= 0.01) return p.toFixed(2) + '%';
-  return p.toFixed(3) + '%';
-}
+function formatPct(p){ return p >= 0.1 ? p.toFixed(1) + '%' : p.toFixed(2) + '%'; }
 function getRarity(c){
   c = String(c || '#888').toLowerCase();
   if(c === '#ffd700') return 'r-legend';
@@ -369,10 +358,7 @@ async function apiCall(path, opts){
   const text = await res.text();
   let data;
   try{ data = JSON.parse(text); } 
-  catch(e){ 
-    console.error('Non-JSON response:', text.substring(0, 200)); 
-    throw new Error('Сервер вернул ошибку. Попробуй позже.'); 
-  }
+  catch(e){ throw new Error('Сервер вернул ошибку'); }
   if(!res.ok) throw new Error(data.error || 'HTTP ' + res.status);
   return data;
 }
@@ -391,58 +377,46 @@ async function loadGame(){
     }
     gameLoaded = true;
   }catch(e){
-    console.error('loadGame', e);
     toast('❌ ' + e.message, 'lose');
     gameLoaded = true;
   }
+}
+async function loadRefData(){
+  try{
+    const d = await apiCall('/api/ref/my/' + userId);
+    if(d.ok){ refData = { code: d.code, invited: d.invited }; }
+  }catch(e){}
+}
+async function loadHistory(){
+  try{
+    const d = await apiCall('/api/history/user/' + userId);
+    if(d.ok){ historyData = d.list || []; }
+  }catch(e){}
 }
 
 // ==================== WHEEL ====================
 function drawTicks(){
   const t = document.getElementById('wheelTicks');
-  if(!t) return;
   let h = '';
-  for(let i = 0; i < 36; i++){
-    const a = i * (360/36);
-    h += '<div class="tick' + (i % 3 === 0 ? ' major' : '') + '" style="--a:' + a + 'deg"></div>';
-  }
+  for(let i = 0; i < 36; i++){ h += `<div class="tick${i%3===0?' major':''}" style="--a:${i*10}deg"></div>`; }
   t.innerHTML = h;
 }
 function renderPctRow(){
-  const b = document.getElementById('pcntRow');
-  if(!b) return;
-  b.innerHTML = customPcts.map(p => '<button class="pb" onclick="setPct(' + p + ',this)">' + p + '%</button>').join('');
+  document.getElementById('pcntRow').innerHTML = customPcts.map(p => `<button class="pb" onclick="setPct(${p},this)">${p}%</button>`).join('');
 }
 function updateWheelPct(pct){
-  const ptEl = document.getElementById('pt');
-  if(ptEl) ptEl.innerText = formatPct(pct);
+  document.getElementById('pt').innerText = formatPct(pct);
   const fill = document.getElementById('wheelZoneFill');
-  if(!fill) return;
   const targetAngle = (pct/100) * 360;
   fill.classList.add('visible');
-  const startAngle = currentWheelAngle;
-  const startTime = performance.now();
-  const duration = 600;
-  if(wheelAnimId) cancelAnimationFrame(wheelAnimId);
-  function anim(now){
-    const t = Math.min(1, (now - startTime) / duration);
-    const eased = 1 - Math.pow(1 - t, 3);
-    currentWheelAngle = startAngle + (targetAngle - startAngle) * eased;
-    fill.style.setProperty('--pct-angle', currentWheelAngle + 'deg');
-    if(t < 1) wheelAnimId = requestAnimationFrame(anim);
-    else wheelAnimId = null;
-  }
-  wheelAnimId = requestAnimationFrame(anim);
+  fill.style.setProperty('--pct-angle', targetAngle + 'deg');
 }
 function clearWheelPct(){
   document.getElementById('pt').innerText = '?%';
-  const fill = document.getElementById('wheelZoneFill');
-  if(fill) fill.classList.remove('visible');
-  currentWheelAngle = 0;
-  if(wheelAnimId){ cancelAnimationFrame(wheelAnimId); wheelAnimId = null; }
+  document.getElementById('wheelZoneFill').classList.remove('visible');
 }
 
-// ==================== INVENTORY (С КАРТОЧКАМИ) ====================
+// ==================== INVENTORY ====================
 function switchBigTab(m){
   document.getElementById('bigTabInv').classList.toggle('active', m === 'inv');
   document.getElementById('bigTabTarget').classList.toggle('active', m === 'target');
@@ -458,40 +432,26 @@ function switchSub(m){
   document.getElementById('subShop').style.color = m === 'shop' ? 'var(--white)' : 'var(--gray2)';
   document.getElementById('searchInp').value = '';
   invFilter = 'all';
-  renderFilters();
-  rendInv();
+  renderFilters(); rendInv();
 }
 function renderFilters(){
   const fb = document.getElementById('filterBar');
-  if(!fb) return;
-  const filters = [
-    { k: 'all', l: 'ВСЕ' }, { k: 'legend', l: '🟡 LEGEND' }, { k: 'epic', l: '🔴 EPIC' },
-    { k: 'rare', l: '🟣 RARE' }, { k: 'uncommon', l: '🔵 UNCOMMON' }, { k: 'common', l: '⚪ COMMON' }
-  ];
-  fb.innerHTML = filters.map(f =>
-    '<div class="filter-chip ' + (invFilter === f.k ? 'active' : '') + '" onclick="invFilter=\'' + f.k + '\';renderFilters();rendInv()">' + f.l + '</div>'
-  ).join('');
+  const filters = [{k:'all',l:'ВСЕ'},{k:'legend',l:'🟡 LEGEND'},{k:'epic',l:'🔴 EPIC'},{k:'rare',l:'🟣 RARE'},{k:'uncommon',l:'🔵 UNCOMMON'},{k:'common',l:'⚪ COMMON'}];
+  fb.innerHTML = filters.map(f => `<div class="filter-chip ${invFilter===f.k?'active':''}" onclick="invFilter='${f.k}';renderFilters();rendInv()">${f.l}</div>`).join('');
 }
 function rendInv(){
   const b = document.getElementById('invList');
-  if(!b) return;
   const q = (document.getElementById('searchInp')?.value || '').toLowerCase();
   
   if(invMode === 'shop'){
-    let f = allSkins.filter(s => s.name.toLowerCase().includes(q));
-    f.sort((a, b) => a.price - b.price);
+    let f = allSkins.filter(s => s.name.toLowerCase().includes(q)).sort((a,b)=>a.price-b.price);
     b.innerHTML = f.map(s => {
       const r = getRarity(s.color);
       const inCart = cart.find(c => c.name === s.name);
-      return `<div class="card ${r}" onclick="event.stopPropagation();toggleCart('${s.name}',${s.price})">
-        <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
-        <div class="card-info">
-          <div class="card-name">${s.name}</div>
-          <div class="card-price">${s.price.toLocaleString('ru-RU')} G</div>
-        </div>
-        <div style="position:absolute;bottom:10px;right:10px;background:${inCart ? 'var(--red)' : 'var(--panel-l)'};padding:6px 10px;border-radius:8px;font-size:10px;font-weight:900;border:1px solid var(--border);z-index:3">
-          ${inCart ? 'В КОРЗИНЕ' : '🛒 В КОРЗИНУ'}
-        </div>
+      return `<div class="card ${r}" onclick="toggleCart('${s.name}',${s.price})">
+        <div class="card-img-wrap"><img src="${s.img}"></div>
+        <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')} G</div></div>
+        <div style="position:absolute;bottom:10px;right:10px;background:${inCart?'var(--red)':'var(--panel-l)'};padding:6px 10px;border-radius:8px;font-size:10px;font-weight:900;border:1px solid var(--border);z-index:3">${inCart?'В КОРЗИНЕ':'🛒'}</div>
       </div>`;
     }).join('');
     return;
@@ -499,58 +459,39 @@ function rendInv(){
   
   let f = inv.filter(it => it.name.toLowerCase().includes(q));
   if(invFilter !== 'all') f = f.filter(it => getRarity(it.color) === 'r-' + invFilter);
-  
-  if(f.length === 0){
-    b.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--gray2);font-size:13px;font-weight:800">Ничего не найдено</div>';
-    return;
-  }
+  if(f.length === 0){ b.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--gray2)">Ничего не найдено</div>'; return; }
   
   b.innerHTML = f.map((it, idx) => {
     const r = getRarity(it.color);
-    const safeName = it.name.replace(/'/g, "\\'");
-    return `<div class="card ${r}" id="card-${idx}" onclick="expandCard(this, event)">
-      <div class="card-img-wrap"><img src="${it.img || ''}" onerror="this.style.display='none'"></div>
-      <div class="card-info">
-        <div class="card-name">${it.name}</div>
-        <div class="card-price">${(it.price || 0).toLocaleString('ru-RU')} G</div>
-      </div>
+    return `<div class="card ${r}" id="card-${idx}" onclick="expandCard(this)">
+      <div class="card-img-wrap"><img src="${it.img}"></div>
+      <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${it.price} G</div></div>
       <div class="card-actions-overlay">
-        <button class="btn-act upg" onclick="event.stopPropagation(); addToUpgrade('${safeName}'); closeAllCards();">⬆ Апгрейд</button>
-        <button class="btn-act sell" onclick="event.stopPropagation(); sellSkin('${safeName}'); closeAllCards();">💸 Продать</button>
-        <button class="btn-act wd" onclick="event.stopPropagation(); openWithdrawModal('${safeName}'); closeAllCards();">📤 Вывести</button>
+        <button class="btn-act upg" onclick="event.stopPropagation(); addToUpgrade('${it.name}'); closeAllCards();">⬆ Апгрейд</button>
+        <button class="btn-act sell" onclick="event.stopPropagation(); sellSkin('${it.name}'); closeAllCards();">💸 Продать</button>
+        <button class="btn-act wd" onclick="event.stopPropagation(); openWithdrawModal('${it.name}'); closeAllCards();">📤 Вывести</button>
       </div>
     </div>`;
   }).join('');
 }
-
-// Логика раскрытия карточки
 let activeCardId = null;
-function expandCard(el, e){
-  if(e) e.stopPropagation();
-  if(activeCardId === el.id){
-    closeAllCards();
-    return;
-  }
-  closeAllCards();
-  el.classList.add('expanded');
-  activeCardId = el.id;
+function expandCard(el){
+  if(activeCardId === el.id){ closeAllCards(); return; }
+  closeAllCards(); el.classList.add('expanded'); activeCardId = el.id;
 }
 function closeAllCards(){
   document.querySelectorAll('.card.expanded').forEach(c => c.classList.remove('expanded'));
   activeCardId = null;
 }
-
 function rendTargetList(){
   const b = document.getElementById('targetList');
-  if(!b) return;
   const q = (document.getElementById('targetSearchInp')?.value || '').toLowerCase();
-  let f = allSkins.filter(s => s.name.toLowerCase().includes(q));
-  f.sort((a, b) => a.price - b.price);
+  let f = allSkins.filter(s => s.name.toLowerCase().includes(q)).sort((a,b)=>a.price-b.price);
   b.innerHTML = f.map(s => {
     const r = getRarity(s.color);
     const isSel = targetSkin && targetSkin.name === s.name;
-    return `<div class="card ${r}" style="border-color:${isSel ? 'var(--white)' : 'var(--border)'}" onclick="pickTarget('${s.name}')">
-      <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
+    return `<div class="card ${r}" style="border-color:${isSel?'var(--white)':'var(--border)'}" onclick="pickTarget('${s.name}')">
+      <div class="card-img-wrap"><img src="${s.img}"></div>
       <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')} G</div></div>
     </div>`;
   }).join('');
@@ -558,425 +499,136 @@ function rendTargetList(){
 
 // ==================== UPGRADE ====================
 function addToUpgrade(name){
-  if(isSpinning) return toast('⏳ Подожди спин', 'lose');
-  if(selectedItems.length >= 10) return toast('❌ Макс 10', 'lose');
+  if(isSpinning) return toast('⏳ Подожди', 'lose');
   if(selectedItems.find(x => x.name === name)) return toast('⚠️ Уже добавлен', 'lose');
   const it = inv.find(x => x.name === name);
   if(!it) return toast('❌ Нет скина', 'lose');
-  selectedItems.push(it);
-  recomputePct();
-  rendMain();
-  toast('⬆️ Добавлен', 'win');
+  selectedItems.push(it); recomputePct(); rendMain();
 }
 function removeFromUpgrade(name){
-  if(isSpinning) return;
   selectedItems = selectedItems.filter(x => x.name !== name);
-  recomputePct();
-  rendMain();
+  recomputePct(); rendMain();
 }
 function clearUpgrade(){
-  if(isSpinning) return;
-  selectedItems = [];
-  targetSkin = null;
-  selPct = null;
-  clearWheelPct();
-  rendMain();
-  toast('✕ Очищено', 'win');
+  selectedItems = []; targetSkin = null; selPct = null;
+  clearWheelPct(); rendMain();
 }
 function pickTarget(name){
-  if(isSpinning) return;
   const s = CATALOG_CLIENT[name];
-  if(!s) return;
   targetSkin = { name, price: s.price, color: s.color, img: s.img };
-  recomputePct();
-  rendMain();
-  rendTargetList();
-  switchBigTab('inv');
+  recomputePct(); rendMain(); rendTargetList(); switchBigTab('inv');
 }
 function recomputePct(){
   if(selectedItems.length === 0 || !targetSkin){ selPct = null; checkUpgradeBtn(); return; }
-  const invSum = selectedItems.reduce((s, it) => s + (it.price || 0), 0);
-  let pct = Math.min(90, Math.max(0.01, (invSum / targetSkin.price) * 100));
-  selPct = pct;
-  updateWheelPct(pct);
-  checkUpgradeBtn();
+  const sum = selectedItems.reduce((s, it) => s + (it.price || 0), 0);
+  selPct = Math.min(90, Math.max(0.01, (sum / targetSkin.price) * 100));
+  updateWheelPct(selPct); checkUpgradeBtn();
 }
-function setPct(p, el){
-  if(isSpinning) return;
+function setPct(p){
   if(selectedItems.length === 0) return toast('❌ Выбери скины', 'lose');
-  const safePct = Math.min(90, Math.max(1, p));
-  const invSum = selectedItems.reduce((s, it) => s + (it.price || 0), 0);
-  const idealPrice = invSum / (safePct / 100);
-  let closest = allSkins[0], minDiff = Math.abs(allSkins[0].price - idealPrice);
-  allSkins.forEach(s => { const d = Math.abs(s.price - idealPrice); if(d < minDiff){ minDiff = d; closest = s; } });
+  const sum = selectedItems.reduce((s, it) => s + (it.price || 0), 0);
+  const ideal = sum / (p / 100);
+  let closest = allSkins[0], minDiff = Infinity;
+  allSkins.forEach(s => { const d = Math.abs(s.price - ideal); if(d < minDiff){ minDiff = d; closest = s; } });
   targetSkin = { name: closest.name, price: closest.price, color: closest.color, img: closest.img };
-  recomputePct();
-  document.querySelectorAll('.pb').forEach(b => b.classList.remove('sel'));
-  if(el) el.classList.add('sel');
-  rendMain();
-  rendTargetList();
+  recomputePct(); rendMain(); rendTargetList();
 }
 function checkUpgradeBtn(){
-  const btn = document.getElementById('upgradeBtn');
-  if(!btn) return;
-  btn.disabled = !(selectedItems.length > 0 && targetSkin && selPct && !isSpinning);
+  document.getElementById('upgradeBtn').disabled = !(selectedItems.length > 0 && targetSkin && !isSpinning);
 }
 function rendMain(){
   const left = document.getElementById('leftIcons');
-  if(left){
-    if(selectedItems.length === 0){
-      left.innerHTML = '<div class="empty-slot" style="margin:0 auto;">+</div>';
-    } else {
-      left.innerHTML = selectedItems.map(s =>
-        `<div class="slot-cell"><img src="${s.img || ''}"><div class="slot-remove" onclick="event.stopPropagation();removeFromUpgrade('${s.name.replace(/'/g, "\\'")}')">✕</div></div>`
-      ).join('');
-    }
-  }
+  left.innerHTML = selectedItems.length === 0 ? '<div class="empty-slot">+</div>' :
+    selectedItems.map(s => `<div class="slot-cell"><img src="${s.img}"><div class="slot-remove" onclick="removeFromUpgrade('${s.name}')">✕</div></div>`).join('');
   document.getElementById('selCount').innerText = selectedItems.length + ' ИЗ 10';
-  const sum = selectedItems.reduce((s, it) => s + (it.price || 0), 0);
-  document.getElementById('selSum').innerText = sum.toLocaleString('ru-RU') + ' G';
+  document.getElementById('selSum').innerText = selectedItems.reduce((s, it) => s + (it.price || 0), 0).toLocaleString() + ' G';
+  
   const right = document.getElementById('rightIcons');
   if(targetSkin){
     right.innerHTML = `<div class="slot-cell"><img src="${targetSkin.img}"></div>`;
-    document.getElementById('targetCount').innerText = targetSkin.price.toLocaleString('ru-RU') + ' G';
+    document.getElementById('targetCount').innerText = targetSkin.price.toLocaleString() + ' G';
   } else {
-    right.innerHTML = '<div class="empty-slot" style="margin:0 auto;">🎯</div>';
+    right.innerHTML = '<div class="empty-slot">🎯</div>';
     document.getElementById('targetCount').innerText = 'НЕ ВЫБРАНА';
   }
   checkUpgradeBtn();
 }
-function toggleLightning(){
-  if(isSpinning) return;
-  lightningOn = !lightningOn;
-  document.getElementById('lightningBtn').classList.toggle('on', lightningOn);
-}
+function toggleLightning(){ lightningOn = !lightningOn; document.getElementById('lightningBtn').classList.toggle('on', lightningOn); }
 
 // ==================== SPIN ====================
 async function spinUpgrade(){
-  if(selectedItems.length === 0 || !targetSkin || !selPct || isSpinning) return;
-  if(!gameLoaded) return toast('⏳ Загрузка...', 'lose');
-  
-  isSpinning = true;
-  document.getElementById('upgradeBtn').disabled = true;
+  if(selectedItems.length === 0 || !targetSkin || isSpinning) return;
+  isSpinning = true; checkUpgradeBtn();
   document.getElementById('upgradeBtn').innerText = '⏳...';
   
-  const selectedNames = selectedItems.map(x => x.name);
-  let result;
   try{
-    result = await apiCall('/api/spin/commit', {
+    const result = await apiCall('/api/spin/commit', {
       method: 'POST',
-      body: JSON.stringify({ userId, targetName: targetSkin.name, selectedNames })
+      body: JSON.stringify({ userId, targetName: targetSkin.name, selectedNames: selectedItems.map(x=>x.name) })
     });
+    
+    gold = result.newGold; inv = result.newInv; stats.spins++;
+    if(result.win){ stats.wins++; if(!bestDrop || result.target.price > bestDrop.price) bestDrop = result.target; }
+    else stats.loses++;
+    updateBal();
+    
+    const duration = lightningOn ? 2000 : 10000;
+    const wrap = document.getElementById('arrowWrap');
+    wrap.style.transition = 'transform ' + (duration/1000) + 's cubic-bezier(.15,.6,.2,1)';
+    wrap.style.transform = `rotate(${-(5*360 + Math.random()*360)}deg)`;
+    
+    setTimeout(() => {
+      if(result.win) showWinModal(result.target); else showLoseModal(selectedItems);
+      isSpinning = false; wrap.style.transition = 'none'; wrap.style.transform = 'rotate(0deg)';
+      selectedItems = []; targetSkin = null; selPct = null;
+      clearWheelPct(); document.getElementById('upgradeBtn').innerText = 'UPGRADE';
+      rendMain(); rendInv(); rendTargetList();
+    }, duration);
   }catch(e){
-    toast('❌ ' + e.message, 'lose');
-    isSpinning = false;
-    document.getElementById('upgradeBtn').innerText = 'UPGRADE';
-    checkUpgradeBtn();
-    return;
+    toast('❌ ' + e.message, 'lose'); isSpinning = false;
+    document.getElementById('upgradeBtn').innerText = 'UPGRADE'; checkUpgradeBtn();
   }
-  
-  if(!result.ok){
-    toast('❌ ' + (result.error || 'Ошибка'), 'lose');
-    isSpinning = false;
-    document.getElementById('upgradeBtn').innerText = 'UPGRADE';
-    checkUpgradeBtn();
-    return;
-  }
-  
-  gold = result.newGold;
-  inv = result.newInv;
-  stats.spins++;
-  if(result.win){ stats.wins++; if(!bestDrop || result.target.price > (bestDrop.price || 0)) bestDrop = result.target; }
-  else stats.loses++;
-  updateBal();
-  
-  const duration = (lightningOn || vipData.isVip) ? 2000 : 10000;
-  const durSec = duration / 1000;
-  const spinPct = result.pct;
-  const winDeg = (spinPct/100) * 360;
-  let targetAngle;
-  if(result.win){
-    const mid = 180 + winDeg/2;
-    const jitter = (Math.random() - 0.5) * winDeg * 0.6;
-    targetAngle = (mid + jitter + 360) % 360;
-  } else {
-    const grayStart = (180 + winDeg) % 360;
-    const grayLen = 360 - winDeg;
-    const mid = grayStart + grayLen/2;
-    const jitter = (Math.random() - 0.5) * grayLen * 0.6;
-    targetAngle = (mid + jitter + 360) % 360;
-  }
-  const targetMod = (360 - targetAngle) % 360;
-  const totalRotation = 5 * 360 + targetMod;
-  const wrap = document.getElementById('arrowWrap');
-  wrap.style.transition = 'none';
-  wrap.style.transform = 'rotate(0deg)';
-  wrap.offsetHeight;
-  wrap.style.transition = 'transform ' + durSec + 's cubic-bezier(.15,.6,.2,1)';
-  wrap.style.transform = 'rotate(' + (-totalRotation) + 'deg)';
-  
-  setTimeout(() => {
-    if(result.win){
-      showWinModal(result.target);
-    } else {
-      showLoseModal(selectedItems);
-    }
-    isSpinning = false;
-    wrap.style.transition = 'none';
-    wrap.style.transform = 'rotate(0deg)';
-    selectedItems = [];
-    targetSkin = null;
-    selPct = null;
-    clearWheelPct();
-    document.getElementById('upgradeBtn').innerText = 'UPGRADE';
-    rendMain();
-    rendInv();
-    rendTargetList();
-    checkUpgradeBtn();
-  }, duration);
-}
-
-function showWinModal(skin){
-  const m = document.createElement('div');
-  m.id = 'resultScreen';
-  m.style.cssText = 'position:fixed;inset:0;background:radial-gradient(circle at center,rgba(76,175,80,.45),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
-  m.innerHTML = `<div class="popup-win-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--green-l);letter-spacing:4px;margin-bottom:10px">★ ПОБЕДА ★</div><div class="popup-title-win" style="font-size:34px;font-weight:900;margin-bottom:20px">УСПЕХ!</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px"><img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain"></div><div style="font-size:22px;font-weight:900;margin-bottom:8px">${skin.name}</div><div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px">+${skin.price} G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:16px;cursor:pointer" onclick="closeResult()">🎁 ЗАБРАТЬ</button></div>`;
-  document.body.appendChild(m);
-  lockBody(true);
-}
-function showLoseModal(items){
-  const lost = items[0] || { name: '—', img: '', price: 0 };
-  const m = document.createElement('div');
-  m.id = 'resultScreen';
-  m.style.cssText = 'position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.5),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
-  m.innerHTML = `<div class="popup-lose-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px">★ ПОРАЖЕНИЕ ★</div><div class="popup-title-lose" style="font-size:34px;font-weight:900;margin-bottom:20px">НЕУДАЧА</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px"><img src="${lost.img || ''}" style="max-width:100%;max-height:100%;object-fit:contain"></div><div style="font-size:22px;font-weight:900;margin-bottom:8px">${lost.name}</div><div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px">-${lost.price || 0} G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:16px;cursor:pointer" onclick="closeResult()">ПОНЯТНО</button></div>`;
-  document.body.appendChild(m);
-  lockBody(true);
-}
-function closeResult(){
-  const el = document.getElementById('resultScreen');
-  if(el) el.remove();
-  lockBody(false);
 }
 
 // ==================== CART ====================
 function toggleCart(name, price){
-  if(isSpinning) return;
   const i = cart.findIndex(c => c.name === name);
-  if(i >= 0) cart.splice(i, 1);
-  else cart.push({ name, price });
-  updateCartBadge();
+  if(i >= 0) cart.splice(i, 1); else cart.push({ name, price });
+  document.getElementById('cartBadge').style.display = cart.length > 0 ? 'block' : 'none';
+  document.getElementById('cartBadge').innerText = cart.length;
   rendInv();
-  toast(i >= 0 ? 'Убрано из корзины' : 'Добавлено в корзину', 'win');
-}
-function updateCartBadge(){
-  const b = document.getElementById('cartBadge');
-  if(cart.length > 0){ b.style.display = 'block'; b.innerText = cart.length; }
-  else b.style.display = 'none';
-}
-async function openCart(){
-  if(cart.length === 0) return toast('🛒 Корзина пуста', 'lose');
-  const m = document.createElement('div');
-  m.className = 'modal-overlay';
-  m.id = 'cartModal';
-  m.onclick = (e) => { if(e.target === m){ m.remove(); lockBody(false); } };
-  const total = cart.reduce((s, c) => s + c.price, 0);
-  m.innerHTML = `<div class="modal-content"><button class="modal-close" onclick="document.getElementById('cartModal').remove();lockBody(false)">✕</button><div class="modal-title">🛒 КОРЗИНА</div><div style="max-height:50vh;overflow-y:auto;margin-bottom:16px">` +
-    cart.map((c, i) => `<div style="background:var(--panel-l);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px"><div style="flex:1"><div style="font-size:12px;font-weight:900">${c.name}</div><div style="font-size:13px;color:var(--gold);font-weight:900">${c.price} G</div></div><button onclick="cart.splice(${i},1);document.getElementById('cartModal').remove();lockBody(false);openCart();updateCartBadge();rendInv()" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer">✕</button></div>`).join('') +
-    `</div><div style="display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-bottom:16px"><div style="font-size:12px;color:var(--gray2);font-weight:800">ИТОГО:</div><div style="font-size:20px;font-weight:900;color:var(--gold)">${total} G</div></div><button class="vip-btn" onclick="checkout()" id="checkoutBtn">✅ КУПИТЬ</button></div>`;
-  document.body.appendChild(m);
-  lockBody(true);
 }
 async function checkout(){
-  const btn = document.getElementById('checkoutBtn');
-  if(btn){ btn.disabled = true; btn.innerText = '⏳...'; }
-  const items = cart.map(c => ({ name: c.name }));
   try{
-    const d = await apiCall('/api/buy', {
-      method: 'POST',
-      body: JSON.stringify({ userId, items })
-    });
-    if(!d.ok) throw new Error(d.error || 'Error');
-    gold = d.newGold;
-    inv = d.newInv;
-    cart = [];
-    updateBal();
-    updateCartBadge();
-    document.getElementById('cartModal').remove();
-    lockBody(false);
-    rendInv();
-    toast('✅ Куплено!', 'win');
-  }catch(e){
-    toast('❌ ' + e.message, 'lose');
-    if(btn){ btn.disabled = false; btn.innerText = '✅ КУПИТЬ'; }
-  }
+    const d = await apiCall('/api/buy', { method: 'POST', body: JSON.stringify({ userId, items: cart.map(c=>({name:c.name})) }) });
+    gold = d.newGold; inv = d.newInv; cart = [];
+    document.getElementById('cartBadge').style.display = 'none';
+    updateBal(); rendInv(); toast('✅ Куплено!', 'win');
+  }catch(e){ toast('❌ ' + e.message, 'lose'); }
 }
-
-// ==================== SELL ====================
 async function sellSkin(name){
-  if(isSpinning) return toast('⏳ Подожди спин', 'lose');
-  const s = CATALOG_CLIENT[name];
-  if(!s) return;
-  const sp = Math.floor(s.price * 0.7);
-  if(!confirm('Продать ' + name + ' за ' + sp + ' G?')) return;
+  if(!confirm('Продать ' + name + '?')) return;
   try{
-    const d = await apiCall('/api/sell', {
-      method: 'POST',
-      body: JSON.stringify({ userId, skinName: name })
-    });
-    gold = d.newGold;
-    inv = d.newInv;
-    selectedItems = selectedItems.filter(x => x.name !== name);
-    updateBal();
-    rendInv();
-    rendMain();
-    toast('💸 +' + d.earned + ' G', 'win');
-  }catch(e){ toast('❌ ' + e.message, 'lose'); }
-}
-
-// ==================== WITHDRAW ====================
-function openWithdrawModal(name){
-  const s = CATALOG_CLIENT[name];
-  if(!s) return;
-  const m = document.createElement('div');
-  m.className = 'modal-overlay';
-  m.id = 'wdModal';
-  m.onclick = (e) => { if(e.target === m){ m.remove(); lockBody(false); } };
-  m.innerHTML = `<div class="modal-content"><button class="modal-close" onclick="document.getElementById('wdModal').remove();lockBody(false)">✕</button><div style="text-align:center;font-size:13px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:12px">📤 ВЫВОД</div><div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;display:flex;align-items:center;gap:12px"><img src="${s.img}" style="width:60px;height:60px;object-fit:contain"><div><div style="font-size:13px;font-weight:900">${name}</div><div style="font-size:12px;color:var(--gold)">${s.price} G</div></div></div><input type="text" id="wdPattern" placeholder="🎯 Паттерн (число 0-9999)" maxlength="4" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--white);outline:none;margin-bottom:12px"><button class="vip-btn" onclick="submitWithdraw('${name.replace(/'/g, "\\'")}')" id="wdBtn">✅ ОТПРАВИТЬ</button></div>`;
-  document.body.appendChild(m);
-  lockBody(true);
-}
-async function submitWithdraw(name){
-  const pattern = document.getElementById('wdPattern')?.value.trim();
-  if(!/^\d{1,4}$/.test(pattern || '')) return toast('❌ Паттерн: число 0-9999', 'lose');
-  const btn = document.getElementById('wdBtn');
-  if(btn){ btn.disabled = true; btn.innerText = '⏳...'; }
-  try{
-    const d = await apiCall('/api/withdraw', {
-      method: 'POST',
-      body: JSON.stringify({ userId, skinName: name, pattern })
-    });
-    if(!d.ok) throw new Error(d.error || 'Error');
-    inv = inv.filter(it => it.name !== name);
-    document.getElementById('wdModal').remove();
-    lockBody(false);
-    rendInv();
-    toast('✅ Заявка создана', 'win');
-  }catch(e){
-    toast('❌ ' + e.message, 'lose');
-    if(btn){ btn.disabled = false; btn.innerText = '✅ ОТПРАВИТЬ'; }
-  }
-}
-
-// ==================== VIP ====================
-function openVipModal(){
-  const m = document.createElement('div');
-  m.className = 'modal-overlay';
-  m.id = 'vipModal';
-  m.onclick = (e) => { if(e.target === m){ m.remove(); lockBody(false); } };
-  const isVip = vipData.isVip && vipData.expires > Date.now();
-  m.innerHTML = `<div class="modal-content"><button class="modal-close" onclick="document.getElementById('vipModal').remove();lockBody(false)">✕</button><div style="text-align:center;font-size:50px">👑</div><div class="modal-title">VIP СТАТУС</div><div style="background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);border-radius:12px;padding:12px;margin-bottom:16px"><div style="font-size:11px;margin-bottom:6px">🎰 +5% к шансу</div><div style="font-size:11px;margin-bottom:6px">💰 +5% к пополнению</div><div style="font-size:11px;margin-bottom:6px">🎁 +20 G каждый день</div><div style="font-size:11px">👑 VIP-значок</div></div>` +
-    (isVip ? '<div style="text-align:center;color:var(--green-l);font-weight:900;margin-bottom:12px">✅ VIP АКТИВЕН</div>' :
-    '<button class="vip-btn" onclick="buyVipGold()">💰 КУПИТЬ ЗА 780 G</button><button class="vip-btn" style="background:var(--panel-l);color:var(--white)" onclick="buyVipMoney()">💵 КУПИТЬ ЗА ДЕНЬГИ (ТЕСТ)</button>') +
-    '</div>';
-  document.body.appendChild(m);
-  lockBody(true);
-}
-async function buyVipGold(){
-  try{
-    const d = await apiCall('/api/vip/buy-gold', { method: 'POST', body: JSON.stringify({ userId }) });
-    gold = d.newGold;
-    vipData = { isVip: true, expires: d.vipExpires };
-    updateBal();
-    document.getElementById('vipModal').remove();
-    lockBody(false);
-    toast('👑 VIP АКТИВИРОВАН', 'win');
-  }catch(e){ toast('❌ ' + e.message, 'lose'); }
-}
-async function buyVipMoney(){
-  if(!confirm('⚠️ ТЕСТ-РЕЖИМ: VIP будет выдан БЕСПЛАТНО. Продолжить?')) return;
-  try{
-    const d = await apiCall('/api/vip/buy-money', { method: 'POST', body: JSON.stringify({ userId }) });
-    vipData = { isVip: true, expires: d.vipExpires };
-    document.getElementById('vipModal').remove();
-    lockBody(false);
-    toast('👑 VIP АКТИВИРОВАН (ТЕСТ)', 'win');
-  }catch(e){ toast('❌ ' + e.message, 'lose'); }
-}
-
-// ==================== TASKS ====================
-async function openTasksModal(){
-  const m = document.createElement('div');
-  m.className = 'modal-overlay';
-  m.id = 'tasksModal';
-  m.onclick = (e) => { if(e.target === m){ m.remove(); lockBody(false); } };
-  m.innerHTML = '<div class="modal-content"><button class="modal-close" onclick="document.getElementById(\'tasksModal\').remove();lockBody(false)">✕</button><div class="modal-title">🎯 ЗАДАНИЯ ДНЯ</div><div id="tasksList"><div class="skeleton" style="height:60px;margin-bottom:8px"></div></div></div>';
-  document.body.appendChild(m);
-  lockBody(true);
-  try{
-    const d = await apiCall('/api/tasks/status/' + userId);
-    if(!d.ok) throw new Error('Error');
-    document.getElementById('tasksList').innerHTML = d.tasks.map(t => {
-      const done = t.progress >= t.need;
-      return `<div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;background:var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;font-size:20px">🎯</div><div style="flex:1"><div style="font-size:12px;font-weight:900">${t.title}</div><div style="font-size:10px;color:var(--gray2);font-weight:800">${t.progress} / ${t.need}</div></div><button ${t.claimed || !done ? 'disabled' : ''} style="background:${t.claimed ? 'var(--border)' : 'var(--green)'};color:#fff;border:none;padding:8px 12px;border-radius:8px;font-size:10px;font-weight:900;cursor:pointer" onclick="claimTask('${t.id}')">${t.claimed ? 'ПОЛУЧЕНО' : done ? 'ЗАБРАТЬ' : 'ЖДЕМ'}</button></div>`;
-    }).join('');
-  }catch(e){
-    document.getElementById('tasksList').innerHTML = '<div style="color:var(--red);text-align:center;padding:20px">' + e.message + '</div>';
-  }
-}
-async function claimTask(taskId){
-  try{
-    const d = await apiCall('/api/tasks/claim', { method: 'POST', body: JSON.stringify({ userId, taskId }) });
-    if(!d.ok) throw new Error(d.error || 'Error');
-    inv.push(d.skin);
-    document.getElementById('tasksModal').remove();
-    lockBody(false);
-    rendInv();
-    toast('🎁 Получен скин!', 'win');
+    const d = await apiCall('/api/sell', { method: 'POST', body: JSON.stringify({ userId, skinName: name }) });
+    gold = d.newGold; inv = d.newInv; updateBal(); rendInv(); toast('💸 +' + d.earned + ' G', 'win');
   }catch(e){ toast('❌ ' + e.message, 'lose'); }
 }
 
 // ==================== LIVE ====================
 async function loadLiveFeed(){
   const track = document.getElementById('liveTrack');
-  if(!track) return;
   try{
-    const ctrl = new AbortController();
-    const to = setTimeout(() => ctrl.abort(), 8000);
-    const r = await fetch(BOT_URL + '/api/live', { signal: ctrl.signal });
-    clearTimeout(to);
-    const d = await r.json();
-    const list = d.list || [];
-    if(!Array.isArray(list) || list.length === 0){
-      track.innerHTML = '<div class="live-empty">Пока нет рекордов</div>';
-      return;
-    }
-    
-    // Сортируем от большего к меньшему (хотя сервер уже сортирует)
-    list.sort((a,b) => b.skinPrice - a.skinPrice);
-
-    const items = list.map((x, i) => {
-      // Первая карточка (топ-дроп) светится золотым, остальные в зависимости от цены
-      let extraClass = '';
-      if(i === 0) extraClass = 'top-drop';
-      else if(x.skinPrice > 1000) extraClass = 'red-drop';
-      else if(x.skinPrice > 100) extraClass = 'purple-drop';
-
-      return `<div class="live-card ${extraClass}">
-        <div class="live-info">
-          <div class="live-name">${x.playerName || 'Игрок'}</div>
-          <div class="live-pct">${x.pct || 0}%</div>
-        </div>
-        ${x.skinImg ? `<img src="${x.skinImg}" class="live-skin" onerror="this.style.display='none'">` : ''}
+    const d = await apiCall('/api/live');
+    if(!d.list || d.list.length === 0){ track.innerHTML = '<div class="live-card"><div class="live-info"><div class="live-name">Нет рекордов</div></div></div>'; return; }
+    const items = d.list.map((x, i) => {
+      let cls = i === 0 ? 'top-drop' : x.skinPrice > 1000 ? 'red-drop' : x.skinPrice > 100 ? 'purple-drop' : '';
+      return `<div class="live-card ${cls}">
+        <div class="live-info"><div class="live-name">${x.playerName || 'Игрок'}</div><div class="live-pct">${x.pct}%</div></div>
+        <img src="${x.skinImg}" class="live-skin" onerror="this.style.display='none'">
       </div>`;
     }).join('');
-    
-    // Дублируем для бесконечной прокрутки
     track.innerHTML = items + items;
-  }catch(e){
-    console.error('LIVE', e);
-    track.innerHTML = '<div class="live-empty">Ошибка загрузки</div>';
-  }
+  }catch(e){ track.innerHTML = '<div class="live-card"><div class="live-info"><div class="live-name">Ошибка загрузки</div></div></div>'; }
 }
 setInterval(loadLiveFeed, 30000);
 
@@ -984,8 +636,7 @@ setInterval(loadLiveFeed, 30000);
 function openDrawer(){
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawerOverlay').classList.add('open');
-  lockBody(true);
-  renderDrawerContent(currentDrawerTab);
+  lockBody(true); renderDrawerContent(currentDrawerTab);
 }
 function closeDrawer(){
   document.getElementById('drawer').classList.remove('open');
@@ -995,15 +646,12 @@ function closeDrawer(){
 function switchDrawerTab(tab, btn){
   currentDrawerTab = tab;
   document.querySelectorAll('.dnav-btn').forEach(b => b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  renderDrawerContent(tab);
+  btn.classList.add('active'); renderDrawerContent(tab);
 }
-function renderDrawerContent(tab){
+async function renderDrawerContent(tab){
   const body = document.getElementById('drawerBody');
-  if(!body) return;
-
   if(tab === 'profile'){
-    const winRate = stats.spins > 0 ? Math.round((stats.wins / stats.spins) * 100) : 0;
+    await loadRefData(); await loadHistory();
     body.innerHTML = `
       <div class="profile-card">
         <div class="profile-ava">${tgUser?.photo_url ? `<img src="${tgUser.photo_url}">` : '👤'}</div>
@@ -1013,69 +661,52 @@ function renderDrawerContent(tab){
       <div class="stats-grid">
         <div class="stat-box"><div class="stat-val">${stats.spins}</div><div class="stat-lbl">СПИНЫ</div></div>
         <div class="stat-box"><div class="stat-val" style="color:var(--green-l)">${stats.wins}</div><div class="stat-lbl">ПОБЕДЫ</div></div>
-        <div class="stat-box"><div class="stat-val" style="color:var(--gold)">${winRate}%</div><div class="stat-lbl">ВИНРЕЙТ</div></div>
+        <div class="stat-box"><div class="stat-val" style="color:var(--gold)">${stats.spins>0?Math.round(stats.wins/stats.spins*100):0}%</div><div class="stat-lbl">ВИНРЕЙТ</div></div>
       </div>
+      ${bestDrop ? `<div style="background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:16px"><img src="${bestDrop.img}" style="width:60px"><div><div style="color:var(--gold);font-size:10px;font-weight:900">🏆 ЛУЧШИЙ ДРОП</div><div style="font-size:14px;font-weight:900">${bestDrop.name}</div></div></div>` : ''}
+      
       <div style="font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px">ИНВЕНТАРЬ (${inv.length})</div>
-      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px">
-        ${inv.slice(0, 15).map(it => `<div class="card ${getRarity(it.color)}" style="padding:4px;min-height:auto"><div class="card-img-wrap" style="padding:4px"><img src="${it.img}" style="height:40px"></div></div>`).join('')}
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
+        ${inv.slice(0, 6).map(it => `<div class="card ${getRarity(it.color)}" style="padding:4px;min-height:auto"><div class="card-img-wrap" style="padding:4px"><img src="${it.img}" style="height:40px"></div></div>`).join('')}
       </div>
+
+      <div style="font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px">ИСТОРИЯ ИГР</div>
+      ${historyData.slice(0, 5).map(h => `<div class="hist-item"><img src="${h.targetImg}" class="hist-img"><div class="hist-name">${h.targetName}</div><div class="${h.win ? 'hist-win' : 'hist-lose'}">${h.win ? 'WIN' : 'LOSE'}</div></div>`).join('')}
+
+      <div style="font-size:12px;font-weight:900;color:var(--gray2);margin:16px 0 8px">ПРОМОКОД</div>
+      <div style="display:flex;gap:6px;margin-bottom:16px"><input type="text" id="promoInp" placeholder="Введи код" style="flex:1;background:var(--panel-l);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--white);outline:none"><button onclick="applyPromo()" style="background:var(--purple);color:#fff;border:none;border-radius:8px;padding:0 16px;font-weight:900;cursor:pointer">OK</button></div>
+
+      <div style="font-size:12px;font-weight:900;color:var(--gray2);margin-bottom:8px">РЕФЕРАЛЬНЫЙ КОД</div>
+      <div style="background:var(--panel-l);padding:12px;border-radius:8px;text-align:center;font-weight:900;color:var(--gold);font-size:16px;margin-bottom:16px">${refData.code}</div>
     `;
   }
   else if(tab === 'ach'){
-    body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray2)">Раздел в разработке...</div>';
-  }
-  else if(tab === 'vip'){
-    const isVip = vipData.isVip && vipData.expires > Date.now();
-    body.innerHTML = `
-      <div style="text-align:center;font-size:50px;margin-bottom:10px">👑</div>
-      <div style="font-size:18px;font-weight:900;text-align:center;margin-bottom:16px">VIP СТАТУС</div>
-      <div style="background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.25);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center">
-        <div style="font-size:12px;margin-bottom:8px;color:var(--gold)">${isVip ? '✅ АКТИВЕН' : '❌ НЕ АКТИВЕН'}</div>
-      </div>
-      ${!isVip ? `<button class="vip-btn" onclick="closeDrawer();openVipModal()">КУПИТЬ VIP</button>` : ''}
-    `;
+    body.innerHTML = `<div class="ach-item unlocked"><div class="ach-ico">🏆</div><div class="ach-info"><div class="ach-name">Первый спин</div><div class="ach-desc">Сделай 1 апгрейд</div></div><div class="ach-reward">+10 G</div></div>`;
   }
   else if(tab === 'friends'){
-    body.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray2)">Раздел в разработке...</div>';
+    body.innerHTML = `<div style="text-align:center;padding:40px;color:var(--gray2)">Друзья скоро вернутся...</div>`;
   }
   else if(tab === 'settings'){
-    body.innerHTML = `
-      <div style="background:var(--panel-l);border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <span>🔊 Звуки</span>
-        <input type="checkbox" checked style="transform:scale(1.5)">
-      </div>
-      <div style="background:var(--panel-l);border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center">
-        <span>📳 Вибрация</span>
-        <input type="checkbox" checked style="transform:scale(1.5)">
-      </div>
-    `;
+    body.innerHTML = `<div style="text-align:center;padding:40px;color:var(--gray2)">Настройки в разработке...</div>`;
   }
+}
+async function applyPromo(){
+  const code = document.getElementById('promoInp')?.value;
+  if(!code) return;
+  try{
+    const d = await apiCall('/api/promo/apply', { method: 'POST', body: JSON.stringify({ userId, code }) });
+    gold += d.amount; updateBal(); toast('🎁 +' + d.amount + ' G', 'win');
+  }catch(e){ toast('❌ ' + e.message, 'lose'); }
 }
 
 // ==================== INIT ====================
 (async () => {
-  drawTicks();
-  renderPctRow();
-  updateBal();
-  rendMain();
-  renderFilters();
-  rendInv();
-  rendTargetList();
+  drawTicks(); renderPctRow(); updateBal(); rendMain(); renderFilters(); rendInv(); rendTargetList();
   loadLiveFeed();
-  if(tgUser && tgUser.photo_url){
-    document.getElementById('topAv').innerHTML = '<img src="' + tgUser.photo_url + '">';
-  }
+  if(tgUser?.photo_url) document.getElementById('topAv').innerHTML = `<img src="${tgUser.photo_url}">`;
   await loadGame();
-  updateBal();
-  rendInv();
-  rendMain();
+  updateBal(); rendInv(); rendMain();
 })();
-
-// Закрытие раскрытых карточек при клике вне их
-document.addEventListener('click', (e) => {
-  if(!e.target.closest('.card')) {
-    closeAllCards();
-  }
-});
+document.addEventListener('click', (e) => { if(!e.target.closest('.card')) closeAllCards(); });
 </script>
 </body></html>
