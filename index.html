@@ -2,53 +2,58 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
 <title>StandFliutApap</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#2e7d32;--green-l:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff;--purple:#9b8aff}
-body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:20px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;user-select:none}
+:root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff}
+body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:80px}
 body.modal-open{overflow:hidden}
-.top{position:sticky;top:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.top-left{display:flex;align-items:center;gap:12px}
-.logo-svg{width:34px;height:34px}
+.top{position:fixed;top:0;left:0;right:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.top-left{display:flex;align-items:center;gap:10px}
+.logo-svg{width:32px;height:32px}
 .rank-badge{display:flex;flex-direction:column;font-size:9px;font-weight:800;color:var(--gray2)}
 .rank-badge .rn{color:var(--gold);font-size:11px}
 .top-right{display:flex;align-items:center;gap:8px}
-.cart-btn{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;cursor:pointer;border:1px solid var(--border);position:relative}
-.cart-btn svg{width:18px;height:18px;fill:var(--white)}
+.cart-btn{width:36px;height:36px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;cursor:pointer;border:1px solid var(--border);position:relative}
+.cart-btn svg{width:16px;height:16px;fill:var(--white)}
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:9px;font-weight:900;border-radius:10px;padding:2px 5px;border:2px solid var(--bg);display:none}
-.bal-pill{display:flex;align-items:center;gap:8px;background:var(--panel);padding:6px 12px;border-radius:10px;border:1px solid var(--border);cursor:pointer}
-.bal-plus{width:24px;height:24px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:6px;display:flex;justify-content:center;align-items:center;font-size:16px;color:#1a1a1a;font-weight:900}
+.bal-pill{display:flex;align-items:center;gap:6px;background:var(--panel);padding:6px 10px;border-radius:10px;border:1px solid var(--border);cursor:pointer}
 .bal-num{font-size:14px;font-weight:900}
 .bal-g{font-size:11px;font-weight:900;color:var(--gold)}
-.av-top{width:38px;height:38px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden}
+.av-top{width:36px;height:36px;border-radius:10px;background:var(--panel);display:flex;justify-content:center;align-items:center;font-size:16px;cursor:pointer;border:1px solid var(--border);overflow:hidden}
 .av-top img{width:100%;height:100%;object-fit:cover}
 
 /* LIVE */
-.live-bar{margin:12px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:60px;overflow:hidden;position:relative;display:flex;align-items:center}
-.live-bar::before{content:'LIVE';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:#fff;background:var(--red);padding:3px 8px;border-radius:4px;z-index:3}
+.live-bar{margin:70px 16px 12px;background:var(--panel);border:1px solid var(--border);border-radius:12px;height:50px;overflow:hidden;position:relative;display:flex;align-items:center}
+.live-bar::before{content:'LIVE';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:900;color:#fff;background:var(--red);padding:2px 6px;border-radius:4px;z-index:3}
 .live-track-wrap{overflow:hidden;width:100%}
-.live-track{display:flex;gap:12px;white-space:nowrap;animation:scrollLeft 25s linear infinite;padding-left:65px;align-items:center;height:100%}
+.live-track{display:flex;gap:12px;white-space:nowrap;animation:scrollLeft 25s linear infinite;padding-left:60px;align-items:center;height:100%}
 @keyframes scrollLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.live-item{display:flex;align-items:center;gap:10px;flex-shrink:0;padding:6px 12px;background:var(--panel-l);border-radius:8px;border:1px solid var(--border);border-left:4px solid var(--gold);cursor:pointer}
-.live-name{font-size:12px;font-weight:900}
-.live-pct{font-size:10px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 6px;border-radius:4px}
-.live-skin{width:50px;height:30px;object-fit:contain}
-.live-empty{padding-left:65px;font-size:10px;color:var(--gray);font-weight:700}
+.live-item{display:flex;align-items:center;gap:8px;flex-shrink:0;padding:4px 10px;background:var(--panel-l);border-radius:8px;border:1px solid var(--border);border-left:3px solid var(--gold);cursor:pointer}
+.live-name{font-size:11px;font-weight:900}
+.live-pct{font-size:9px;font-weight:900;color:#1a1a1a;background:var(--gold);padding:2px 4px;border-radius:4px}
+.live-skin{width:40px;height:25px;object-fit:contain}
+.live-empty{padding-left:60px;font-size:10px;color:var(--gray);font-weight:700}
 
-/* КНОПКИ МЕНЮ */
-.friends-btn-wrap{margin:0 16px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.friends-btn-wrap::-webkit-scrollbar{display:none}
-.friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
-.gear-btn{width:36px;height:36px;background:var(--panel);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:16px;flex-shrink:0}
+/* НИЖНЕЕ МЕНЮ */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:70px;background:rgba(15,15,20,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-around;align-items:center;z-index:500;padding:0 10px}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--gray2);cursor:pointer;width:60px;transition:0.2s}
+.nav-item.active{color:var(--white)}
+.nav-icon{font-size:20px;transition:0.2s}
+.nav-text{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px}
+.nav-item.active .nav-icon{transform:translateY(-2px);filter:drop-shadow(0 0 8px rgba(255,184,0,.5))}
+.nav-item.active .nav-text{color:var(--gold)}
+.nav-plus{width:50px;height:50px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:26px;color:#1a1a1a;font-weight:900;cursor:pointer;box-shadow:0 4px 15px rgba(255,184,0,.4);margin-top:-20px;transition:0.2s}
+.nav-plus:active{transform:scale(0.95)}
 
 /* КОЛЕСО */
-.main{padding:0 16px}
-.wheel-wrap{position:relative;width:100%;aspect-ratio:1;max-width:340px;margin:10px auto;display:flex;justify-content:center;align-items:center}
-.wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),0 0 80px rgba(255,184,0,.15),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
+.main{padding:0 16px;display:none}
+.main.active{display:block}
+.wheel-wrap{position:relative;width:100%;aspect-ratio:1;max-width:340px;margin:0 auto;display:flex;justify-content:center;align-items:center}
+.wheel{width:90%;height:90%;border-radius:50%;background:radial-gradient(circle at center,var(--panel-l) 0%,var(--panel) 60%,#0a0a0c 100%);position:relative;display:flex;justify-content:center;align-items:center;box-shadow:0 0 60px rgba(0,0,0,.9),0 0 80px rgba(255,184,0,.1),inset 0 0 40px rgba(0,0,0,.6);border:4px solid #1a1a22}
 .wheel-zone{position:absolute;inset:-4px;border-radius:50%;pointer-events:none;z-index:1;overflow:hidden}
 .wheel-zone-fill{position:absolute;top:0;left:0;width:100%;height:100%;background:conic-gradient(from 180deg,var(--gold) 0deg,var(--gold) var(--pct-angle,0deg),#1a1a22 var(--pct-angle,0deg),#1a1a22 360deg);opacity:0;transition:opacity .4s}
 .wheel-zone-fill.visible{opacity:.9}
@@ -57,14 +62,12 @@ body.modal-open{overflow:hidden}
 .tick{position:absolute;top:0;left:50%;width:2px;height:8px;background:rgba(255,184,0,.4);transform-origin:center 150px;transform:translateX(-50%) rotate(var(--a));border-radius:1px}
 .tick.major{width:3px;height:14px;background:var(--gold);box-shadow:0 0 8px rgba(255,184,0,.8)}
 .wheel-center{position:relative;z-index:5;text-align:center}
-.pt{font-size:52px;font-weight:900;line-height:1;letter-spacing:-2px;text-shadow:0 0 20px rgba(255,184,0,.4)}
-.pl{font-size:9px;color:var(--gray2);letter-spacing:4px;margin-top:4px;font-weight:700}
-
-/* СТРЕЛКА */
+.pt{font-size:48px;font-weight:900;line-height:1;letter-spacing:-2px;text-shadow:0 0 20px rgba(255,184,0,.4)}
+.pl{font-size:9px;color:var(--gray2);letter-spacing:4px;margin-top:2px;font-weight:700}
 .arrow-wrap{position:absolute;inset:0;pointer-events:none;z-index:25;transform-origin:center center}
-.arrow{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:32px;height:44px;filter:drop-shadow(0 4px 10px rgba(255,184,0,.8))}
+.arrow{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:28px;height:40px;filter:drop-shadow(0 4px 10px rgba(255,184,0,.8))}
 
-.pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:20px}
+.pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:16px}
 .pb{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 4px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
 .pb.sel{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold)}
 .action-row{display:flex;gap:8px;margin-top:12px}
@@ -77,44 +80,61 @@ body.modal-open{overflow:hidden}
 
 /* СЛОТЫ */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;min-height:190px;max-height:280px;position:relative;cursor:pointer}
-.slot-prev-lbl{font-size:11px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;text-align:center}
-.slot-prev-cnt{font-size:13px;font-weight:900;color:#ffb800;margin-bottom:12px;text-align:center}
-.slot-prev-icons{display:flex;flex-direction:column;gap:8px;width:100%;flex:1;justify-content:center;align-items:center;position:relative;overflow-y:auto;max-height:160px;scrollbar-width:none}
-.slot-prev-icons::-webkit-scrollbar{display:none}
-.slot-cell{width:100%;display:flex;justify-content:center;align-items:center;position:relative}
-.slot-cell img{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 8px 15px rgba(0,0,0,0.7))}
+.slot-prev{background:linear-gradient(180deg,#1a1a1c 0%,#0f0f11 100%);border:1.5px solid #2a2a2e;border-radius:18px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;min-height:180px;position:relative;cursor:pointer}
+.slot-prev-lbl{font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;margin-bottom:6px}
+.slot-prev-icons{display:flex;flex-direction:column;gap:8px;width:100%;flex:1;justify-content:center;align-items:center;overflow-y:auto;max-height:160px}
+.slot-cell img{width:60px;height:60px;object-fit:contain}
 .slot-cell .empty-slot{width:60px;height:60px;border:2px dashed #333;border-radius:16px;display:flex;justify-content:center;align-items:center;font-size:24px;color:#444}
 .slot-remove{position:absolute;top:-5px;right:calc(50% - 35px);width:22px;height:22px;background:var(--red);border-radius:50%;display:flex;justify-content:center;align-items:center;color:#fff;font-size:12px;font-weight:900;cursor:pointer;border:2px solid #0a0a0c;z-index:5}
-.slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:10px;text-align:center}
-.slot-clear{font-size:11px;font-weight:900;color:var(--red);margin-top:8px;cursor:pointer;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:6px 14px;border-radius:8px}
+.slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:8px}
+.slot-clear{font-size:10px;font-weight:900;color:var(--red);margin-top:6px;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:4px 10px;border-radius:6px}
 
 /* ИНВЕНТАРЬ */
-.big-tabs{display:flex;gap:4px;margin-top:20px;background:var(--panel);padding:4px;border-radius:12px}
+.big-tabs{display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
 .panel{display:none;margin-top:16px}
 .panel.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 
+/* КАРТОЧКИ СКИНОВ */
 .card{background:var(--panel);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);position:relative;cursor:pointer;transition:0.3s;min-height:170px}
-.card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,var(--panel-l) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px;transition:0.3s}
-.card-img-wrap img{width:90%;height:90%;object-fit:contain;transition:0.3s}
-.card-info{padding:10px;display:flex;flex-direction:column;gap:4px;position:relative;z-index:2;transition:0.3s}
+.card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,var(--panel-l) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
+.card-img-wrap img{width:90%;height:90%;object-fit:contain}
+.card-info{padding:10px;display:flex;flex-direction:column;gap:4px}
 .card-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card-price{font-size:13px;font-weight:900;color:var(--gold)}
-.card.expanded{border-color:var(--gold);box-shadow:0 0 20px rgba(255,184,0,0.4);z-index:10}
-.card.expanded .card-img-wrap{opacity:0.3;filter:blur(4px);transform:scale(1.1)}
-.card.expanded .card-info{opacity:0;pointer-events:none}
-.card-actions-overlay{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:12px;background:rgba(10,10,12,0.4);backdrop-filter:blur(8px);z-index:20}
-.card.expanded .card-actions-overlay{display:flex}
-.card-actions{display:flex;gap:6px;padding:0 10px 10px}
-.btn-act{width:100%;padding:8px;border-radius:8px;border:none;font-weight:900;font-size:10px;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:4px;color:#fff}
+.btn-act{width:100%;padding:8px;border-radius:8px;border:none;font-weight:900;font-size:10px;cursor:pointer;color:#fff}
 .btn-act.upg{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
 .btn-act.sell{background:var(--panel-l);border:1px solid var(--border)}
 .btn-act.wd{background:var(--red)}
+.card-actions-overlay{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:12px;background:rgba(10,10,12,0.6);backdrop-filter:blur(4px);z-index:20}
+.card.expanded .card-actions-overlay{display:flex}
 
 .r-common{border-color:var(--border)}.r-uncommon{border-color:#4a9eff}.r-rare{border-color:#9b8aff}.r-epic{border-color:#ff4444}.r-legend{border-color:#ffd700;box-shadow:0 0 15px rgba(255,215,0,.25)}
+
+/* ПАНЕЛЬ ПРОФИЛЯ */
+.side-panel{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--panel);border-left:1px solid var(--border);z-index:2000;transition:right 0.3s cubic-bezier(0.4, 0, 0.2, 1);padding:20px;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,0.5)}
+.side-panel.open{right:0}
+.side-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1999;display:none}
+.side-overlay.open{display:block}
+.side-user{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.side-avatar{width:60px;height:60px;border-radius:12px;background:var(--panel-l);overflow:hidden;border:1px solid var(--border)}
+.side-avatar img{width:100%;height:100%;object-fit:cover}
+.side-name{font-size:16px;font-weight:900}
+.side-id{font-size:11px;color:var(--gray2);font-family:monospace}
+.side-menu{display:flex;flex-direction:column;gap:8px}
+.side-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--panel-l);border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;transition:0.2s}
+.side-item:active{background:var(--border)}
+.side-item .ico{font-size:18px}
+
+/* ЭКРАНЫ (ПОЛНОЭКРАННЫЕ) */
+.scr{position:fixed;inset:0;background:var(--bg);z-index:600;display:none;flex-direction:column}
+.scr.open{display:flex}
+.sh{padding:16px;display:flex;justify-content:space-between;align-items:center;background:var(--panel);border-bottom:1px solid var(--border)}
+.sh h2{font-size:16px;font-weight:900}
+.cb{background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer}
+.sb{flex:1;overflow-y:auto;padding:16px}
 
 /* МОДАЛКИ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;display:none;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
@@ -123,133 +143,7 @@ body.modal-open{overflow:hidden}
 .modal-title{font-size:16px;font-weight:900;margin-bottom:16px;text-align:center}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
 
-/* ЭКРАНЫ */
-.scr{position:fixed;inset:0;background:var(--bg);z-index:600;display:none;flex-direction:column}
-.scr.open{display:flex}
-.sh{padding:16px;display:flex;justify-content:space-between;align-items:center;background:var(--panel);border-bottom:1px solid var(--border)}
-.sh h2{font-size:16px;font-weight:900}
-.cb{background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer}
-.sb{flex:1;overflow-y:auto;padding:16px}
-
-/* ПРОФИЛЬ */
-.profile-wrap{padding:16px}
-.profile-main-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
-.profile-header-row{display:flex;align-items:center;gap:12px}
-.profile-avatar-big{width:70px;height:70px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel-l);display:flex;justify-content:center;align-items:center}
-.profile-avatar-big img{width:100%;height:100%;object-fit:cover}
-.profile-username{font-size:16px;font-weight:900}
-.profile-id-text{font-size:11px;color:var(--gray2);font-family:monospace}
-.profile-balance-block{background:var(--panel-l);border-radius:12px;padding:12px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}
-.profile-balance-val{font-size:24px;font-weight:900;color:var(--gold)}
-.profile-section{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
-.profile-section-title h2{font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:12px}
-.stats-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.stat-block{background:var(--panel-l);border-radius:8px;padding:10px;text-align:center}
-.stat-block-label{font-size:9px;color:var(--gray2);font-weight:800}
-.stat-block-val{font-size:16px;font-weight:900}
-.best-drop-card{background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px}
-.best-drop-img{width:70px;height:70px;object-fit:contain}
-.best-drop-name{font-size:14px;font-weight:900}
-.best-drop-price{font-size:16px;font-weight:900;color:var(--gold)}
-
-/* ИСТОРИЯ */
-.hist-item{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
-.hist-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gray2)}
-.hist-item.win{border-color:rgba(76,175,80,.3)}
-.hist-item.win::before{background:var(--green-l)}
-.hist-item.lose{border-color:rgba(229,9,20,.3)}
-.hist-item.lose::before{background:var(--red)}
-
-.hist-top{display:flex;justify-content:space-between;align-items:flex-start}
-.hist-skins-wrap{display:flex;align-items:center;gap:12px;position:relative}
-.hist-target-img{width:72px;height:72px;object-fit:contain;background:var(--bg);border-radius:12px;border:1px solid var(--border);padding:6px}
-
-.hist-details{flex:1;margin-left:8px}
-.hist-label{font-size:10px;color:var(--gray2);font-weight:900;text-transform:uppercase;letter-spacing:1px}
-.hist-title{font-size:14px;font-weight:900;color:var(--white);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
-.hist-price{font-size:14px;font-weight:900;color:var(--gold);margin-top:2px}
-
-.hist-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:12px;margin-top:4px}
-.hist-chance{display:flex;flex-direction:column;gap:6px;flex:1}
-.hist-chance-lbl{font-size:10px;color:var(--gray2);font-weight:900}
-.hist-chance-val{font-size:16px;font-weight:900;color:var(--white)}
-.hist-bar{width:100%;height:6px;background:var(--panel-l);border-radius:3px;overflow:hidden;margin-top:2px;max-width:140px}
-.hist-bar-fill{height:100%;border-radius:3px}
-.win .hist-bar-fill{background:var(--green-l);box-shadow:0 0 10px rgba(76,175,80,.5)}
-.lose .hist-bar-fill{background:var(--red);box-shadow:0 0 10px rgba(229,9,20,.5)}
-
-.hist-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-.hist-badge{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:900;border:1px solid}
-.win .hist-badge{color:var(--green-l);background:rgba(76,175,80,.1);border-color:rgba(76,175,80,.3)}
-.lose .hist-badge{color:var(--red);background:rgba(229,9,20,.1);border-color:rgba(229,9,20,.3)}
-.hist-date{font-size:10px;color:var(--gray2);font-weight:700}
-
-/* ТИТУЛЫ / РАМКИ */
-.title-badge{font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;background:var(--panel-l);border:1px solid var(--border)}
-.title-novice{color:#999}
-.title-pro{color:#4a9eff;border-color:#4a9eff}
-.title-master{color:#9b8aff;border-color:#9b8aff}
-.title-legend{color:#ffd700;border-color:#ffd700}
-.title-god{color:#ff4444;border-color:#ff4444}
-.legend-badge{display:inline-block;font-size:9px;font-weight:900;padding:3px 8px;border-radius:6px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a}
-.vip-frame{padding:3px;border-radius:14px;background:linear-gradient(135deg,#ffd700,#ff8c00);box-shadow:0 0 15px rgba(255,184,0,.5)}
-.legend-frame{padding:3px;border-radius:14px;background:linear-gradient(135deg,#e50914,#8b0000);box-shadow:0 0 15px rgba(229,9,20,.5)}
-
-/* УТИЛИТЫ */
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
-.filter-bar{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
-.filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(255,184,0,.1)}
-.sort-bar{display:flex;gap:6px;margin-top:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.sort-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
-.sort-chip.active{border-color:var(--blue);color:var(--blue);background:rgba(74,158,255,.1)}
-@keyframes popupIn{0%{opacity:0;transform:scale(.7) translateY(30px)}60%{transform:scale(1.05) translateY(-5px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-.popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
-.popup-lose-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
-.popup-item{animation:itemFloat 2s ease-in-out infinite}
-@keyframes itemFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
-
-/* НАСТРОЙКИ */
-.settings-item{display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800}
-.toggle{width:44px;height:24px;border-radius:12px;background:var(--panel-l);position:relative;cursor:pointer;transition:.2s;border:1px solid var(--border)}
-.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--gray2);transition:.2s}
-.toggle.on{background:rgba(255,184,0,.2);border-color:var(--gold)}
-.toggle.on::after{left:22px;background:var(--gold)}
-.settings-btn{padding:8px 14px;border-radius:8px;border:none;font-weight:900;font-size:11px;cursor:pointer;color:#fff;background:var(--panel-l)}
-
-/* VIP */
-.vip-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;justify-content:center;align-items:center;padding:16px}
-.vip-modal{background:linear-gradient(180deg,#1a1408,#0a0a0c);border:1px solid var(--gold);border-radius:20px;padding:20px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;position:relative}
-.vip-modal-head{text-align:center;margin-bottom:16px}
-.vip-crown-big{font-size:48px;margin-bottom:8px}
-.vip-modal-title{font-size:18px;font-weight:900;color:var(--gold);letter-spacing:2px}
-.vip-features{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.vip-feature{background:var(--panel-l);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:10px}
-.vip-feature b{color:var(--gold)}
-.vip-price-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.vip-price-card{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:.2s}
-.vip-price-card.recommended{border-color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,.3)}
-.vip-price-value{font-size:18px;font-weight:900;color:var(--gold);margin-top:4px}
-.vip-buy-btn{width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;cursor:pointer;margin-bottom:8px}
-.vip-close-btn{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--panel-l);color:var(--gray2);font-weight:900;font-size:12px;cursor:pointer}
-
-/* GEAR */
-.gear-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;justify-content:center;align-items:center;padding:16px}
-.gear-modal{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:360px}
-.gear-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.gear-item{background:var(--panel-l);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer}
-.gear-item-val{font-size:16px;font-weight:900;color:var(--gold)}
-
-/* ЗАДАНИЯ */
-.task-item{display:flex;align-items:center;gap:12px;background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px}
-.task-ico{font-size:22px}
-.task-info{flex:1;min-width:0}
-.task-title{font-size:12px;font-weight:900;color:var(--white)}
-.task-progress{font-size:10px;color:var(--gray2);font-weight:800;margin-top:2px}
-.task-claim{padding:8px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:10px;cursor:pointer;white-space:nowrap}
-.task-claim:disabled{background:var(--panel);color:var(--gray2);cursor:not-allowed}
-
-/* ДОСТИЖЕНИЯ */
 .ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .ach-card{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden;transition:.2s}
 .ach-card.unlocked{background:linear-gradient(135deg,rgba(255,184,0,.1),rgba(255,140,0,.05));border-color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,.15)}
@@ -259,12 +153,11 @@ body.modal-open{overflow:hidden}
 .ach-card.unlocked .ach-name{color:var(--white)}
 .ach-reward{font-size:10px;font-weight:900;color:var(--gold);opacity:0.5}
 .ach-card.unlocked .ach-reward{opacity:1}
-
-body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#f5f5fa;--border:#ddd;--white:#111;--gray2:#666}
 </style>
 </head>
 <body>
 
+<!-- ВЕРХНЯЯ ПАНЕЛЬ -->
 <div class="top">
   <div class="top-left">
     <svg class="logo-svg" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e50914"/><stop offset="1" stop-color="#8b0000"/></linearGradient></defs><path fill="url(#lg)" d="M20 2L4 20h8v16h16V20h8L20 2zm0 6l8 10h-4v10h-8V18h-4l8-10z"/></svg>
@@ -272,32 +165,23 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#f5f5fa;--border:#ddd;--white:#11
   </div>
   <div class="top-right">
     <div class="cart-btn" onclick="openCart()"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg><div class="cart-badge" id="cartBadge">0</div></div>
-    <div class="bal-pill" onclick="openS('topupScreen')"><div class="bal-plus">+</div><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
-    <div class="av-top" id="topAv" onclick="openS('profileScreen')">👤</div>
+    <div class="bal-pill" onclick="openTopup()"><div class="bal-num" id="goldTop">0</div><div class="bal-g">G</div></div>
+    <div class="av-top" id="topAv" onclick="toggleSidePanel()">👤</div>
   </div>
 </div>
 
+<!-- LIVE -->
 <div class="live-bar"><div class="live-track-wrap"><div class="live-track" id="liveTrack"><span class="live-empty">Загрузка...</span></div></div></div>
 
-<div class="friends-btn-wrap">
-  <button class="friends-btn" onclick="openTasksModal()">🎯 ЗАДАНИЯ</button>
-  <button class="friends-btn" onclick="openAchievements()">🏅 ДОСТИЖЕНИЯ</button>
-  <button class="friends-btn" onclick="openVipModal()" style="color:var(--gold)">👑 VIP</button>
-  <div class="gear-btn" onclick="openGearModal()">⚙️</div>
-</div>
-
-<div class="main">
+<!-- ЭКРАН 1: АПГРЕЙДЕР -->
+<div class="main active" id="screen-upgrader">
   <div class="wheel-wrap">
     <div class="wheel" id="wheel">
       <div class="wheel-zone"><div class="wheel-zone-fill" id="wheelZoneFill"></div></div>
       <div class="wheel-ticks" id="wheelTicks"></div>
       <div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">CHANCE</div></div>
     </div>
-    <div class="arrow-wrap" id="arrowWrap">
-      <div class="arrow">
-        <svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg>
-      </div>
-    </div>
+    <div class="arrow-wrap" id="arrowWrap"><div class="arrow"><svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg></div></div>
   </div>
   <div class="pcnt-row" id="pcntRow"></div>
   <div class="action-row">
@@ -320,76 +204,87 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#f5f5fa;--border:#ddd;--white:#11
   </div>
   <div class="big-tabs">
     <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button>
-    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ПРОКАЧАТЬ ДО</button>
+    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ЦЕЛЬ</button>
   </div>
   <div class="panel active" id="panelInv">
-    <div style="display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px;">
-      <button id="subInv" onclick="switchSub('inv')" style="flex:1;background:var(--panel-l);border:none;color:var(--white);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МОИ СКИНЫ</button>
-      <button id="subShop" onclick="switchSub('shop')" style="flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МАГАЗИН</button>
-    </div>
     <div style="margin-top:12px;"><input type="text" id="searchInp" placeholder="Поиск..." oninput="rendInv()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
-    <div class="filter-bar" id="filterBar"></div>
-    <div class="sort-bar" id="sortBar"></div>
-    <div class="grid" id="invList"></div>
+    <div class="grid" id="invList" style="margin-top:12px"></div>
   </div>
   <div class="panel" id="panelTarget">
-    <div style="margin-top:12px;"><input type="text" id="targetSearchInp" placeholder="Поиск цели..." oninput="rendTargetList()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
-    <div class="grid" id="targetList"></div>
+    <div class="grid" id="targetList" style="margin-top:12px"></div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
-
-<!-- ЭКРАНЫ -->
-<div class="scr" id="topupScreen">
-  <div class="sh"><h2>ПОПОЛНЕНИЕ</h2><button class="cb" onclick="closeS('topupScreen')">✕</button></div>
-  <div class="sb"><div style="text-align:center;padding:40px;color:var(--gray2)">Скоро...</div></div>
-</div>
-<div class="scr" id="profileScreen">
-  <div class="sh"><h2>ПРОФИЛЬ</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div>
-  <div class="sb" id="profileBody" style="padding:0"></div>
-</div>
-<div class="scr" id="settingsScreen">
-  <div class="sh"><h2>МЕНЮ</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div>
-  <div class="sb" id="settingsBody"></div>
-</div>
-
-<!-- МОДАЛКИ -->
-<div class="modal-overlay" id="tasksModal" style="display:none">
-  <div class="modal-content" style="max-width:420px">
-    <button class="modal-close" onclick="document.getElementById('tasksModal').style.display='none'">✕</button>
-    <div class="modal-title">🎯 ЗАДАНИЯ ДНЯ</div>
+<!-- ЭКРАН 2: ЗАДАНИЯ -->
+<div class="main" id="screen-tasks">
+  <div style="padding:16px;">
+    <h2 style="font-size:18px;margin-bottom:12px">🎯 Ежедневные задания</h2>
     <div id="tasksList"></div>
   </div>
 </div>
-<div class="vip-modal-overlay" id="vipModal" style="display:none">
-  <div class="vip-modal">
-    <button class="modal-close" onclick="closeVipModal()">✕</button>
-    <div class="vip-modal-head"><div class="vip-crown-big">👑</div><div class="vip-modal-title">VIP СТАТУС</div></div>
-    <div class="vip-features">
-      <div class="vip-feature"><span>🎰</span> <b>+5%</b> к шансу выигрыша</div>
-      <div class="vip-feature"><span>💰</span> <b>+5%</b> к пополнению</div>
-      <div class="vip-feature"><span>🎁</span> <b>+20 G</b> каждый день</div>
-      <div class="vip-feature"><span>👑</span> VIP-значок и золотая рамка</div>
-      <div class="vip-feature"><span>⚡</span> Быстрый спин</div>
-      <div class="vip-feature"><span>📈</span> x1.5 к рефералам</div>
-      <div class="vip-feature"><span>💸</span> <b>-5%</b> комиссия при выводе</div>
-    </div>
-    <div class="vip-price-row">
-      <div class="vip-price-card" onclick="buyVipGold()"><div style="font-size:20px">💰</div><div style="font-size:11px;color:var(--gray2)">ЗА ГОЛДУ</div><div class="vip-price-value">780 G</div></div>
-      <div class="vip-price-card recommended" onclick="buyVipMoney()"><div style="font-size:20px">💵</div><div style="font-size:11px;color:var(--gray2)">ЗА ДЕНЬГИ</div><div class="vip-price-value">690 ₽</div></div>
-    </div>
-    <button class="vip-buy-btn" onclick="buyVipGold()">💰 КУПИТЬ ЗА 780 G</button>
-    <button class="vip-close-btn" onclick="closeVipModal()">ЗАКРЫТЬ</button>
+
+<!-- ЭКРАН 3: ЛИДЕРБОРД -->
+<div class="main" id="screen-leaderboard">
+  <div style="padding:16px;">
+    <h2 style="font-size:18px;margin-bottom:12px">🏆 Топ игроков</h2>
+    <div style="text-align:center;padding:40px;color:var(--gray2);font-weight:700">Скоро здесь будет топ...</div>
   </div>
 </div>
-<div class="gear-modal-overlay" id="gearModal" style="display:none">
-  <div class="gear-modal">
-    <div style="font-size:14px;font-weight:900;margin-bottom:12px">⚙️ НАСТРОЙКА %</div>
-    <div class="gear-list" id="gearList"></div>
-    <button class="vip-close-btn" onclick="document.getElementById('gearModal').style.display='none'">ГОТОВО</button>
+
+<!-- НИЖНЕЕ МЕНЮ -->
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="switchTab('upgrader')">
+    <div class="nav-icon">🎰</div>
+    <div class="nav-text">Апгрейд</div>
+  </div>
+  <div class="nav-item" onclick="switchTab('tasks')">
+    <div class="nav-icon">📋</div>
+    <div class="nav-text">Задания</div>
+  </div>
+  <div class="nav-plus" onclick="openTopup()">+</div>
+  <div class="nav-item" onclick="switchTab('leaderboard')">
+    <div class="nav-icon">👑</div>
+    <div class="nav-text">Топ</div>
+  </div>
+  <div class="nav-item" onclick="toggleSidePanel()">
+    <div class="nav-icon">👤</div>
+    <div class="nav-text">Профиль</div>
   </div>
 </div>
+
+<!-- ПАНЕЛЬ ПРОФИЛЯ -->
+<div class="side-overlay" id="sideOverlay" onclick="toggleSidePanel()"></div>
+<div class="side-panel" id="sidePanel">
+  <div class="side-user">
+    <div class="side-avatar" id="sideAvatar">👤</div>
+    <div>
+      <div class="side-name" id="sideName">Игрок</div>
+      <div class="side-id" id="sideId">ID: #00000</div>
+    </div>
+  </div>
+  <div class="side-menu">
+    <div class="side-item" onclick="closeSidePanel(); openS('profileScreen')"><span class="ico">👤</span> Мой профиль</div>
+    <div class="side-item" onclick="closeSidePanel(); openS('adventScreen')"><span class="ico">📅</span> Адвент-календарь</div>
+    <div class="side-item" onclick="closeSidePanel(); openS('settingsScreen')"><span class="ico">⚙️</span> Настройки</div>
+    <div class="side-item" style="color:var(--red)" onclick="closeSidePanel(); if(confirm('Выйти из игры?')) location.reload()"><span class="ico">🚪</span> Выйти</div>
+  </div>
+</div>
+
+<!-- ЭКРАНЫ -->
+<div class="scr" id="profileScreen">
+  <div class="sh"><h2>ПРОФИЛЬ</h2><button class="cb" onclick="closeS('profileScreen')">✕</button></div>
+  <div class="sb" id="profileBody"></div>
+</div>
+<div class="scr" id="settingsScreen">
+  <div class="sh"><h2>НАСТРОЙКИ</h2><button class="cb" onclick="closeS('settingsScreen')">✕</button></div>
+  <div class="sb" id="settingsBody"></div>
+</div>
+<div class="scr" id="adventScreen">
+  <div class="sh"><h2>АДВЕНТ-КАЛЕНДАРЬ</h2><button class="cb" onclick="closeS('adventScreen')">✕</button></div>
+  <div class="sb"><div style="text-align:center;padding:40px;color:var(--gray2)">🎄 Скоро (24 дня подарков)</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 // ==================== КОНСТАНТЫ ====================
@@ -438,11 +333,7 @@ const allSkins = [
   {name:'USP Pisces',price:20,color:'#9b8aff',img:CDN_BASE+'skins/Usp_Pisces.jpg'},
   {name:'USP Suture',price:14,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Suture.jpg'}
 ];
-const allAgents = [
-  {name:'Agent CT Lincoln',price:1678,color:'#ff4444',img:CDN_BASE+'agents/AgentCt_Lincoln.jpg',bonus:2},
-  {name:'Agent CT Warden',price:5108,color:'#ff4444',img:CDN_BASE+'agents/AgentCt_Warden.jpg',bonus:3},
-  {name:'Agent T Adam',price:2680,color:'#ff4444',img:CDN_BASE+'agents/AgentT_Adam.jpg',bonus:2}
-];
+
 const DEFAULT_PCTS = [90,67,55,44,33,22];
 const MAX_UPGRADE = 10;
 const RANKS = [
@@ -453,25 +344,6 @@ const RANKS = [
   {name:'ЭЛИТА',need:100,title:'legend'},
   {name:'ЛЕГЕНДА',need:250,title:'legend'},
   {name:'БОГ',need:500,title:'god'}
-];
-const ACHIEVEMENTS = [
-  {id:'first_spin',name:'Первый спин',ico:'🎰',cond:s=>s.spins>=1,reward:10},
-  {id:'first_win',name:'Первая победа',ico:'🏆',cond:s=>s.wins>=1,reward:10},
-  {id:'wins10',name:'10 побед',ico:'💪',cond:s=>s.wins>=10,reward:50},
-  {id:'wins50',name:'50 побед',ico:'🔥',cond:s=>s.wins>=50,reward:200},
-  {id:'wins100',name:'100 побед',ico:'💎',cond:s=>s.wins>=100,reward:500},
-  {id:'spins50',name:'50 спинов',ico:'🎯',cond:s=>s.spins>=50,reward:100},
-  {id:'spins200',name:'200 спинов',ico:'🚀',cond:s=>s.spins>=200,reward:500}
-];
-const AVATARS = [
-  {id:'emoji1',v:'👤'},{id:'emoji2',v:'😎'},{id:'emoji3',v:'🐺'},
-  {id:'emoji4',v:'🦁'},{id:'emoji5',v:'🐉'},{id:'emoji6',v:'👻'},
-  {id:'emoji7',v:'💀'},{id:'emoji8',v:'🤖'}
-];
-const FRAMES = [
-  {id:'none',name:'Без рамки',price:0,cls:''},
-  {id:'gold',name:'Золотая',price:500,cls:'vip-frame'},
-  {id:'legend',name:'Легенда',price:2000,cls:'legend-frame'}
 ];
 
 function getRarity(c){
@@ -579,6 +451,42 @@ function checkHappyHour(){
   }
 }
 
+// ==================== НАВИГАЦИЯ ====================
+function switchTab(tabName){
+  document.querySelectorAll('.main').forEach(el => el.classList.remove('active'));
+  document.getElementById('screen-' + tabName).classList.add('active');
+  
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => el.getAttribute('onclick').includes(tabName));
+  if(btn) btn.classList.add('active');
+
+  if(tabName === 'tasks') loadTasks();
+}
+
+function toggleSidePanel(){
+  const panel = document.getElementById('sidePanel');
+  const overlay = document.getElementById('sideOverlay');
+  panel.classList.toggle('open');
+  overlay.classList.toggle('open');
+  
+  if(panel.classList.contains('open')) {
+    const u = getUser();
+    document.getElementById('sideName').innerText = (u && u.first_name) ? u.first_name : 'Игрок';
+    document.getElementById('sideId').innerText = 'ID: #' + getUserId().slice(-5);
+    const av = document.getElementById('topAv');
+    document.getElementById('sideAvatar').innerHTML = av.innerHTML;
+  }
+}
+function closeSidePanel(){
+  document.getElementById('sidePanel').classList.remove('open');
+  document.getElementById('sideOverlay').classList.remove('open');
+}
+
+function openTopup(){
+  toast('💳 Пополнение скоро будет доступно!', 'win');
+}
+
+// ==================== ЭКРАНЫ ====================
 function openS(id){
   const el=document.getElementById(id); if(!el)return;
   el.classList.add('open'); document.body.classList.add('modal-open');
@@ -611,60 +519,17 @@ function switchBigTab(m){
   document.getElementById('panelTarget').classList.toggle('active',m==='target');
   if(m==='target')rendTargetList();
 }
-function switchSub(m){
-  invMode=m;
-  document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none';
-  document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)';
-  document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none';
-  document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)';
-  document.getElementById('searchInp').value='';
-  invFilter='all';
-  renderFilters();
-  rendInv();
-}
-
-function renderFilters(){
-  const fb=document.getElementById('filterBar'), sb=document.getElementById('sortBar');
-  if(!fb||!sb)return;
-  const filters=[
-    {k:'all',l:'ВСЕ'},{k:'legend',l:'🟡 LEGEND'},{k:'epic',l:'🔴 EPIC'},
-    {k:'rare',l:'🟣 RARE'},{k:'uncommon',l:'🔵 UNCOMMON'},{k:'common',l:'⚪ COMMON'}
-  ];
-  fb.innerHTML=filters.map(f=>`<div class="filter-chip ${invFilter===f.k?'active':''}" onclick="invFilter='${f.k}';renderFilters();rendInv()">${f.l}</div>`).join('');
-  const sorts=[{k:'price-asc',l:'↑ ЦЕНА'},{k:'price-desc',l:'↓ ЦЕНА'},{k:'name',l:'A-Z'},{k:'rarity',l:'РЕДКОСТЬ'}];
-  sb.innerHTML=sorts.map(s=>`<div class="sort-chip ${invSort===s.k?'active':''}" onclick="invSort='${s.k}';renderFilters();rendInv()">${s.l}</div>`).join('');
-}
 
 function rendInv(){
   const b=document.getElementById('invList'); if(!b)return;
   const q=((document.getElementById('searchInp')||{}).value||'').toLowerCase();
 
-  if(invMode==='shop'){
-    let list = shopTab==='skins' ? allSkins : allAgents;
-    let f=list.filter(s=>s.name.toLowerCase().includes(q));
-    f.sort((a,b)=>a.price-b.price);
-    b.innerHTML=f.map(s=>{
-      const r=getRarity(s.color);
-      const inCart=cart.find(c=>c.name===s.name);
-      return `<div class="card ${r}" style="min-height:160px">
-        <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
-        <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
-        <div class="card-actions-overlay" style="display:flex;background:none;backdrop-filter:none">
-          <button class="btn-act ${inCart?'sell':'upg'}" onclick="toggleCart('${s.name}',${s.price})">${inCart?'✓ В КОРЗИНЕ':'🛒 В КОРЗИНУ'}</button>
-        </div>
-      </div>`;
-    }).join('');
-    return;
-  }
-
   let f=inv.filter(it=>it.name.toLowerCase().includes(q));
-  if(invFilter!=='all') f=f.filter(it=>getRarity(it.color||'#888')==='r-'+invFilter);
   if(invSort==='price-asc') f.sort((a,b)=>(a.price||0)-(b.price||0));
   else if(invSort==='price-desc') f.sort((a,b)=>(b.price||0)-(a.price||0));
-  else if(invSort==='name') f.sort((a,b)=>a.name.localeCompare(b.name));
 
   if(f.length===0){
-    b.innerHTML='<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--gray2);font-size:13px;font-weight:800">Ничего не найдено</div>';
+    b.innerHTML='<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--gray2);font-size:13px;font-weight:800">Инвентарь пуст</div>';
     return;
   }
 
@@ -675,7 +540,7 @@ function rendInv(){
       <div class="card-img-wrap"><img src="${it.img}" onerror="this.style.display='none'"></div>
       <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${(it.price||0).toLocaleString('ru-RU')}</div></div>
       <div class="card-actions-overlay">
-        <button class="btn-act upg" onclick="event.stopPropagation(); addToUpgrade(${realIdx}); closeAllCards();">⬆ Апгрейд</button>
+        <button class="btn-act upg" onclick="event.stopPropagation(); addToUpgrade(${realIdx}); closeAllCards();">⬆ В Апгрейд</button>
         <button class="btn-act wd" onclick="event.stopPropagation(); withdrawSkinDirect(${realIdx}); closeAllCards();">📤 Вывести</button>
         <button class="btn-act sell" onclick="event.stopPropagation(); sellSkin(${realIdx}); closeAllCards();">💸 Продать</button>
       </div>
@@ -710,48 +575,11 @@ function rendTargetList(){
   }).join('');
 }
 
-function toggleCart(name,price){
-  if(isSpinning)return;
-  const i=cart.findIndex(c=>c.name===name);
-  if(i>=0) cart.splice(i,1);
-  else{
-    if(gold<price){toast('❌ Мало G','lose');return}
-    cart.push({name,price, qty: 1});
-  }
-  updateCartBadge();
-  rendInv();
-}
-function changeCartQty(index, delta){
-  if(!cart[index]) return;
-  cart[index].qty += delta;
-  if(cart[index].qty < 1) cart[index].qty = 1;
-  if(cart[index].qty > 99) cart[index].qty = 99;
-  document.getElementById('cartModal').remove();
-  openCart();
-  updateCartBadge();
-}
-function removeFromCart(index){
-  cart.splice(index, 1);
-  document.getElementById('cartModal').remove();
-  openCart();
-  updateCartBadge();
-  rendInv();
-}
-function updateCartBadge(){
-  const b=document.getElementById('cartBadge'); if(!b)return;
-  if(cart.length>0){b.style.display='block';b.innerText=cart.length}
-  else b.style.display='none';
-}
-
 function addToUpgrade(idx){
   if(isSpinning)return;
   const it=inv[idx]; if(!it)return;
-  if(selectedItems.find(x=>x.name===it.name)){
-    toast('⚠️ Уже добавлен','lose'); return;
-  }
-  if(selectedItems.length>=MAX_UPGRADE){
-    toast('❌ Макс '+MAX_UPGRADE,'lose'); return;
-  }
+  if(selectedItems.find(x=>x.name===it.name)){ toast('⚠️ Уже добавлен','lose'); return; }
+  if(selectedItems.length>=MAX_UPGRADE){ toast('❌ Макс '+MAX_UPGRADE,'lose'); return; }
   selectedItems.push(it);
   rendMain();
   recomputePct();
@@ -1058,13 +886,9 @@ function showLoseModal(items){
   document.body.appendChild(m);
 }
 
-function trackTask(type,amount){
-  fetch(BOT_URL+'/api/tasks/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),type,amount})}).catch(()=>{});
-}
 function saveHistory(e){
   history.unshift({...e,ts:Date.now()});
   if(history.length>100)history.pop();
-  fetch(BOT_URL+'/api/history/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),targetName:e.targetName,targetPrice:e.targetPrice,pct:e.pct,win:e.win})}).catch(()=>{});
 }
 function consumeBoost(){
   if(refBoost.spinsLeft>0)refBoost.spinsLeft--;
@@ -1080,10 +904,6 @@ function saveGame(){
     const data={gold,inv,stats,bestDrop,history,upgradeHistory,isLegend:refData.isLegend||false,isVip:vipData.isVip||false,vipExpires:vipData.expires||0,customPcts,currentAvatar,currentFrame,ts:Date.now()};
     localStorage.setItem('sfap_save_'+uid,JSON.stringify(data));
     fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,data})}).catch(()=>{});
-    
-    // ДОБАВЬ ЭТУ СТРОКУ:
-    fetch(BOT_URL+'/api/achievements/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,achievements:unlockedAch})}).catch(()=>{});
-    
   }catch(e){}
 }
 async function loadGame(){
@@ -1138,95 +958,30 @@ function checkAchievements(){
     saveGame();
   }
 }
-function openAchievements(){
-  const m=document.createElement('div');
-  m.className='modal-overlay'; m.id='achModal'; m.style.display='flex';
-  m.onclick=(e)=>{if(e.target===m)m.remove()};
-  m.innerHTML=`<div class="modal-content" style="max-width:450px">
-    <button class="modal-close" onclick="document.getElementById('achModal').remove()">✕</button>
-    <div class="modal-title">🏅 ДОСТИЖЕНИЯ (${unlockedAch.length}/${ACHIEVEMENTS.length})</div>
-    <div class="ach-grid">
-      ${ACHIEVEMENTS.map(a=>{
-        const un=unlockedAch.includes(a.id);
-        return `<div class="ach-card ${un?'unlocked':''}">
-          <div class="ach-ico">${a.ico}</div>
-          <div class="ach-name">${a.name}</div>
-          <div class="ach-reward">+${a.reward} G</div>
-        </div>`;
-      }).join('')}
-    </div>
-  </div>`;
-  document.body.appendChild(m);
-}
 
-// ========== КОРЗИНА ==========
-async function openCart(){
-  if(cart.length===0){toast('🛒 Корзина пуста','lose');return}
-  const m=document.createElement('div');
-  m.className='modal-overlay'; m.id='cartModal'; m.style.display='flex';
-  m.onclick=(e)=>{if(e.target===m)m.remove()};
-  const total=cart.reduce((s,c)=>s+(c.price*c.qty),0);
-  
-  m.innerHTML=`<div class="modal-content" style="max-width:450px">
-    <button class="modal-close" onclick="document.getElementById('cartModal').remove()">✕</button>
-    <div class="modal-title">🛒 КОРЗИНА</div>
-    <div style="max-height:50vh;overflow-y:auto;margin-bottom:16px">
-      ${cart.map((c,i)=>{
-        const s=allSkins.find(x=>x.name===c.name)||allAgents.find(x=>x.name===c.name);
-        const img=s && s.img ? s.img : '';
-        return `<div style="background:var(--panel-l);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
-          <img src="${img}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px" onerror="this.style.display='none'">
-          <div style="flex:1">
-            <div style="font-size:12px;font-weight:900;color:var(--white)">${c.name}</div>
-            <div style="font-size:13px;color:var(--gold);font-weight:900">${c.price} G</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;background:var(--bg);padding:4px 8px;border-radius:6px;">
-            <button onclick="changeCartQty(${i}, -1)" style="background:none;border:none;color:var(--white);font-size:18px;cursor:pointer;font-weight:900">−</button>
-            <div style="font-size:14px;font-weight:900;color:var(--white);min-width:20px;text-align:center">${c.qty}</div>
-            <button onclick="changeCartQty(${i}, 1)" style="background:none;border:none;color:var(--gold);font-size:18px;cursor:pointer;font-weight:900">+</button>
-          </div>
-          <button onclick="removeFromCart(${i})" style="background:none;border:none;color:var(--red);font-size:16px;font-weight:900;cursor:pointer;margin-left:4px">✕</button>
-        </div>`;
-      }).join('')}
-    </div>
-    <div style="display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);margin-bottom:16px">
-      <div style="font-size:12px;color:var(--gray2);font-weight:800">ИТОГО:</div>
-      <div style="font-size:20px;font-weight:900;color:var(--gold)">${total} G</div>
-    </div>
-    <button class="vip-buy-btn" onclick="checkout()">✅ КУПИТЬ</button>
-  </div>`;
-  document.body.appendChild(m);
-}
-async function checkout(){
-  const total=cart.reduce((s,c)=>s+(c.price*c.qty),0);
-  if(gold<total){toast('❌ Недостаточно G','lose');return}
-  
-  let totalBought = 0;
-  
-  cart.forEach(c=>{
-    gold -= c.price * c.qty;
-    const s=allSkins.find(x=>x.name===c.name)||allAgents.find(x=>x.name===c.name);
-    for(let i=0; i<c.qty; i++){
-      inv.push({name:c.name, price:c.price, img:s&&s.img?s.img:null, color:s&&s.color?s.color:'#888'});
-      totalBought++;
-    }
-  });
-  
-  cart=[];
-  updateCartBadge();
-  const cm=document.getElementById('cartModal'); if(cm)cm.remove();
-  updateBal(); rendInv();
-  saveGame();
-  confetti();
-  
-  const t=document.getElementById('toast');
-  t.innerHTML = `<div style="font-size:24px;margin-bottom:5px">🎉</div><div style="color:var(--green-l);font-size:14px;font-weight:900">УСПЕШНО!</div><div style="font-size:12px;color:var(--white);margin-top:4px">Куплено скинов: ${totalBought}</div>`;
-  t.style.display='block';
-  t.style.borderColor='var(--green-l)';
-  clearTimeout(toast._t);
-  toast._t=setTimeout(()=>t.style.display='none',3000);
-  
-  trackTask('buy',totalBought);
+// ========== ЗАДАНИЯ ==========
+async function loadTasks(){
+  const list = document.getElementById('tasksList');
+  list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray2)">Загрузка...</div>';
+  try {
+    const r = await fetch(BOT_URL + '/api/tasks/status/' + getUserId());
+    const d = await r.json();
+    if(!d.ok || !d.tasks) throw new Error();
+    list.innerHTML = d.tasks.map(t => {
+      const done = t.progress >= t.need;
+      return `<div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:13px;font-weight:900;color:var(--white)">${t.title}</div>
+          <div style="font-size:11px;color:var(--gray2);font-weight:800;margin-top:4px">${t.progress} / ${t.need}</div>
+        </div>
+        <button style="padding:8px 12px;border-radius:8px;border:none;background:${done?'linear-gradient(135deg,#ffd700,#ff8c00)':'var(--panel-l)'};color:${done?'#1a1a1a':'var(--gray2)'};font-weight:900;font-size:11px;cursor:pointer" ${!done?'disabled':''}>
+          ${done ? 'ЗАБРАТЬ' : 'В ПРОЦЕССЕ'}
+        </button>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red)">Ошибка загрузки</div>';
+  }
 }
 
 // ========== ВЫВОД ==========
@@ -1269,112 +1024,24 @@ async function submitWithdraw(idx){
   if(!pattern){toast('❌ Введи паттерн','lose');return}
   const it=inv[idx];
   if(!it){toast('❌ Скин не найден','lose');return}
-  inv.splice(idx,1);
-  selectedItems=selectedItems.filter(x=>x!==it);
-  const wm=document.getElementById('wdModal'); if(wm)wm.remove();
-  rendInv(); rendMain(); saveGame();
-  toast('✅ Заявка создана','win');
-  trackTask('withdraw',1);
-}
-
-// ========== ЗАДАНИЯ ==========
-async function openTasksModal(){
-  document.getElementById('tasksModal').style.display='flex';
-  const list=document.getElementById('tasksList');
-  list.innerHTML='<div class="skeleton" style="height:60px;margin-bottom:8px"></div><div class="skeleton" style="height:60px"></div>';
-  try{
-    const r=await fetch(BOT_URL+'/api/tasks/status/'+getUserId());
-    const d=await r.json();
-    if(!d.ok)throw new Error();
-    list.innerHTML=d.tasks.map(t=>{
-      const done=t.progress>=t.need;
-      return `<div class="task-item">
-        <div class="task-ico">🎯</div>
-        <div class="task-info"><div class="task-title">${t.title}</div><div class="task-progress">${t.progress} / ${t.need}</div></div>
-        <button class="task-claim" ${t.claimed||!done?'disabled':''} onclick="claimTask('${t.id}')">${t.claimed?'ПОЛУЧЕНО':(done?'ЗАБРАТЬ':'ЖДЕМ')}</button>
-      </div>`;
-    }).join('');
-  }catch(e){ list.innerHTML='<div style="color:var(--red);text-align:center;font-weight:900;font-size:12px">Сервер не отвечает</div>'; }
-}
-async function claimTask(id){
-  try{
-    const r=await fetch(BOT_URL+'/api/tasks/claim',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId(),taskId:id})});
-    const d=await r.json();
-    if(d.ok && d.skin){
-      inv.push(d.skin); saveGame(); rendInv();
-      toast('🎁 Получен скин!','win');
-      document.getElementById('tasksModal').style.display='none';
-    }else toast('❌ Ошибка','lose');
-  }catch(e){ toast('❌ Ошибка','lose'); }
-}
-
-// ========== VIP ==========
-function openVipModal(){ document.getElementById('vipModal').style.display='flex'; }
-function closeVipModal(){ document.getElementById('vipModal').style.display='none'; }
-async function buyVipGold(){
-  if(gold<780){toast('❌ Мало G','lose');return}
-  try{
-    const r=await fetch(BOT_URL+'/api/vip/buy-gold',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId()})});
-    const d=await r.json();
-    if(d.ok){
-      gold=d.newGold;
-      vipData.isVip=true;
-      updateBal(); saveGame();
-      toast('👑 VIP АКТИВИРОВАН','win');
-      closeVipModal(); confetti();
-    }else toast('❌ Ошибка','lose');
-  }catch(e){ toast('❌ Ошибка','lose'); }
-}
-async function buyVipMoney(){
-  try{
-    const r=await fetch(BOT_URL+'/api/vip/buy-money',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:getUserId()})});
-    const d=await r.json();
-    if(d.ok){
-      vipData.isVip=true;
-      saveGame();
-      toast('👑 VIP АКТИВИРОВАН','win');
-      closeVipModal(); confetti();
-    }else toast('❌ Ошибка','lose');
-  }catch(e){ toast('❌ Ошибка','lose'); }
-}
-
-// ========== НАСТРОЙКА % ==========
-function openGearModal(){
-  document.getElementById('gearModal').style.display='flex';
-  document.getElementById('gearList').innerHTML=customPcts.map((p,i)=>`<div class="gear-item" onclick="editPct(${i})"><div class="gear-item-val">${p}%</div></div>`).join('');
-}
-function editPct(i){
-  const v=prompt('Введите %:',customPcts[i]);
-  if(v===null)return;
-  const n=parseInt(v);
-  if(!isNaN(n) && n>=1 && n<=90){
-    customPcts[i]=n;
-    localStorage.setItem('sfap_pcts',JSON.stringify(customPcts));
-    renderPctRow();
-    openGearModal();
-    saveGame();
+  try {
+    const r = await fetch(BOT_URL + '/api/withdraw', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ userId: getUserId(), skin: it, pattern })
+    });
+    const d = await r.json();
+    if (!d.ok) throw new Error('Ошибка сервера');
+    
+    inv.splice(idx,1);
+    selectedItems=selectedItems.filter(x=>x!==it);
+    const wm=document.getElementById('wdModal'); if(wm)wm.remove();
+    rendInv(); rendMain(); saveGame();
+    toast('✅ Заявка создана! Ждите выдачи.','win');
+  } catch(e) {
+    toast('❌ Ошибка сети, попробуйте позже','lose');
   }
 }
-
-// ========== LIVE ==========
-async function loadLiveFeed(){
-  try{
-    const r=await fetch(BOT_URL+'/api/live');
-    const d=await r.json();
-    const track=document.getElementById('liveTrack');
-    if(!track)return;
-    if(!d.ok || !d.list || d.list.length===0){
-      track.innerHTML='<span class="live-empty">Пока нет рекордов</span>';
-      return;
-    }
-    const items=d.list.slice(0,5).map(x=>`<div class="live-item" onclick="openFriendProfileFull('${x.userId}')">
-      <div class="live-info"><div class="live-name">${x.playerName}</div><div class="live-pct">${x.pct||0}%</div></div>
-      <img src="${x.skinImg}" class="live-skin" onerror="this.style.display='none'">
-    </div>`).join('');
-    track.innerHTML=items+items;
-  }catch(e){}
-}
-setInterval(loadLiveFeed,30000);
 
 // ========== ПРОФИЛЬ ==========
 async function rendProfile(){
@@ -1388,139 +1055,87 @@ async function rendProfile(){
     const avDisplay=currentAvatar && currentAvatar!=='emoji1'
       ? getAvatarDisplay()
       : (photo?`<img src="${photo}">`:'<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:30px">👤</div>');
-    const baseAvatar=`<div class="profile-avatar-big">${avDisplay}</div>`;
+    const baseAvatar=`<div style="width:70px;height:70px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel-l);display:flex;justify-content:center;align-items:center">${avDisplay}</div>`;
     const frameCls=(FRAMES.find(f=>f.id===currentFrame)||{}).cls||'';
     const myAvatarHtml=frameCls?`<div class="${frameCls}">${baseAvatar}</div>`:baseAvatar;
-    const legendBadge=refData.isLegend?`<div style="margin-top:4px"><span class="legend-badge">👑 ЛЕГЕНДА</span></div>`:'';
+    const legendBadge=refData.isLegend?`<div style="margin-top:4px"><span style="display:inline-block;font-size:9px;font-weight:900;padding:3px 8px;border-radius:6px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a">👑 ЛЕГЕНДА</span></div>`:'';
     const titleCls='title-'+currentTitle;
     const winRate=stats.spins>0?Math.round((stats.wins/stats.spins)*100):0;
     const gToRub=(gold*0.1).toFixed(0);
 
     let bestDropBlock='';
     if(bestDrop && bestDrop.name){
-      bestDropBlock=`<div class="profile-section">
-        <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
-        <div class="best-drop-card">
-          ${bestDrop.img?`<img src="${bestDrop.img}" class="best-drop-img" onerror="this.style.display='none'">`:''}
-          <div class="best-drop-info">
+      bestDropBlock=`<div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:12px">🏆 ЛУЧШИЙ ДРОП</div>
+        <div style="background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px">
+          ${bestDrop.img?`<img src="${bestDrop.img}" style="width:70px;height:70px;object-fit:contain" onerror="this.style.display='none'">`:''}
+          <div>
             <div style="font-size:10px;color:var(--gray2);font-weight:900">★ РЕКОРД</div>
-            <div class="best-drop-name">${bestDrop.name}</div>
-            <div class="best-drop-price">${(bestDrop.price||0).toLocaleString('ru-RU')} G</div>
+            <div style="font-size:14px;font-weight:900">${bestDrop.name}</div>
+            <div style="font-size:16px;font-weight:900;color:var(--gold)">${(bestDrop.price||0).toLocaleString('ru-RU')} G</div>
           </div>
         </div>
       </div>`;
     }else{
-      bestDropBlock=`<div class="profile-section">
-        <div class="profile-section-title"><h2>🏆 ЛУЧШИЙ ДРОП</h2></div>
+      bestDropBlock=`<div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:12px">🏆 ЛУЧШИЙ ДРОП</div>
         <div style="background:var(--panel-l);border:1px dashed var(--border);border-radius:16px;padding:20px;text-align:center;color:var(--gray2);font-size:12px;font-weight:800">Пока нет дропа</div>
       </div>`;
     }
 
-    const achBlock=`<div class="profile-section">
-      <div class="profile-section-title"><h2>🏅 ДОСТИЖЕНИЯ (${unlockedAch.length}/${ACHIEVEMENTS.length})</h2></div>
-      <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
-        ${ACHIEVEMENTS.map(a=>{
-          const un=unlockedAch.includes(a.id);
-          return `<div class="achievement-badge ${un?'unlocked':''}"><div class="achievement-ico">${a.ico}</div><div class="achievement-name">${a.name}</div></div>`;
-        }).join('')}
-      </div>
-    </div>`;
-
-    const histFiltered=historyFilter==='all'?upgradeHistory:upgradeHistory.filter(h=>historyFilter==='win'?h.win:!h.win);
-
-    b.innerHTML=`<div class="profile-wrap">
-      <div class="profile-main-card">
-        <div class="profile-header-row">
+    b.innerHTML=`<div style="padding:16px">
+      <div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:12px">
           ${myAvatarHtml}
-          <div class="profile-user-info">
-            <div class="profile-username">${name}</div>
-            <div class="profile-id-text">ID: #${getUserId().slice(-5)}</div>
+          <div>
+            <div style="font-size:16px;font-weight:900">${name}</div>
+            <div style="font-size:11px;color:var(--gray2);font-family:monospace">ID: #${getUserId().slice(-5)}</div>
             <div style="display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap">
-              <span class="title-badge ${titleCls}">${getRankName()}</span>
+              <span style="font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;background:var(--panel-l);border:1px solid var(--border)">${getRankName()}</span>
               <span style="font-size:10px;color:var(--gold);font-weight:900">LVL ${RANKS.indexOf(rank)+1}</span>
             </div>
             ${legendBadge}
           </div>
         </div>
-        <div class="profile-balance-block">
+        <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-top:16px;display:flex;justify-content:space-between;align-items:center">
           <div style="font-size:11px;color:var(--gray2);font-weight:800">БАЛАНС</div>
-          <div class="profile-balance-val">${Math.floor(gold).toLocaleString('ru-RU')} <span>G</span></div>
+          <div style="font-size:24px;font-weight:900;color:var(--gold)">${Math.floor(gold).toLocaleString('ru-RU')} <span style="font-size:14px">G</span></div>
         </div>
         <div style="font-size:10px;color:var(--gray2);text-align:right;margin-top:4px">≈ ${gToRub} ₽</div>
       </div>
 
-      <div class="profile-section">
-        <div class="profile-section-title"><h2>📊 СТАТИСТИКА</h2></div>
-        <div class="stats-grid-3">
-          <div class="stat-block"><div class="stat-block-label">СПИНЫ</div><div class="stat-block-val">${stats.spins}</div></div>
-          <div class="stat-block"><div class="stat-block-label">ПОБЕДЫ</div><div class="stat-block-val" style="color:var(--green-l)">${stats.wins}</div></div>
-          <div class="stat-block"><div class="stat-block-label">ВИНРЕЙТ</div><div class="stat-block-val" style="color:var(--gold)">${winRate}%</div></div>
+      <div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:12px">📊 СТАТИСТИКА</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="background:var(--panel-l);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:9px;color:var(--gray2);font-weight:800">СПИНЫ</div>
+            <div style="font-size:16px;font-weight:900">${stats.spins}</div>
+          </div>
+          <div style="background:var(--panel-l);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:9px;color:var(--gray2);font-weight:800">ПОБЕДЫ</div>
+            <div style="font-size:16px;font-weight:900;color:var(--green-l)">${stats.wins}</div>
+          </div>
+          <div style="background:var(--panel-l);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:9px;color:var(--gray2);font-weight:800">ВИНРЕЙТ</div>
+            <div style="font-size:16px;font-weight:900;color:var(--gold)">${winRate}%</div>
+          </div>
         </div>
       </div>
 
       ${bestDropBlock}
-      ${achBlock}
 
-      <div style="display:flex;gap:4px;margin-bottom:12px">
-        <button class="big-tab ${profileTab==='inv'?'active':''}" onclick="profileTab='inv';rendProfile()">ИНВЕНТАРЬ</button>
-        <button class="big-tab ${profileTab==='hist'?'active':''}" onclick="profileTab='hist';rendProfile()">ИСТОРИЯ</button>
+      <div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px">
+        <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:12px">🏅 ДОСТИЖЕНИЯ (${unlockedAch.length}/7)</div>
+        <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
+          ${ACHIEVEMENTS.map(a=>{
+            const un=unlockedAch.includes(a.id);
+            return `<div style="flex-shrink:0;display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:10px;background:var(--panel-l);border:1px solid ${un?'var(--gold)':'var(--border)'};border-radius:12px;min-width:80px">
+              <div style="font-size:28px;filter:${un?'grayscale(0)':'grayscale(1)'};opacity:${un?'1':'0.4'}">${a.ico}</div>
+              <div style="font-size:9px;font-weight:900;color:${un?'var(--gold)':'var(--gray2)'};text-align:center">${a.name}</div>
+            </div>`;
+          }).join('')}
+        </div>
       </div>
-
-      ${profileTab==='inv'
-        ? `<div class="profile-section">
-            <div class="profile-section-title"><h2>ИНВЕНТАРЬ (${inv.length})</h2></div>
-            <div class="grid">
-              ${inv.length===0
-                ? '<div style="grid-column:span 2;text-align:center;padding:20px;color:var(--gray2)">Пусто</div>'
-                : inv.map((it,idx)=>`<div class="card ${getRarity(it.color||'#888')}">
-                    <div class="card-img-wrap"><img src="${it.img||''}" onerror="this.style.display='none'"></div>
-                    <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${it.price}</div></div>
-                    <div class="card-actions">
-                      <button class="btn-act upg" onclick="addToUpgrade(${idx});closeS('profileScreen')">⬆ АП</button>
-                      <button class="btn-act wd" onclick="withdrawSkinDirect(${idx})">📤</button>
-                    </div>
-                  </div>`).join('')}
-            </div>
-          </div>`
-        : `<div class="profile-section">
-            <div class="profile-section-title"><h2>ИСТОРИЯ АПГРЕЙДОВ (${histFiltered.length})</h2></div>
-            <div class="filter-bar" style="margin-bottom:12px">
-              <div class="filter-chip ${historyFilter==='all'?'active':''}" onclick="historyFilter='all';rendProfile()">ВСЕ</div>
-              <div class="filter-chip ${historyFilter==='win'?'active':''}" onclick="historyFilter='win';rendProfile()">✅ ПОБЕДЫ</div>
-              <div class="filter-chip ${historyFilter==='lose'?'active':''}" onclick="historyFilter='lose';rendProfile()">❌ ПОРАЖЕНИЯ</div>
-            </div>
-            ${histFiltered.length===0
-              ? '<div style="text-align:center;padding:20px;color:var(--gray2)">Пусто</div>'
-              : histFiltered.map(h=>`
-                  <div class="hist-item ${h.win?'win':'lose'}">
-                    <div class="hist-top">
-                      <div class="hist-skins-wrap">
-                        <img src="${h.targetImg||''}" class="hist-target-img" onerror="this.style.display='none'">
-                        <div class="hist-details">
-                          <div class="hist-label">АПГРЕЙД</div>
-                          <div class="hist-title">${h.targetName}</div>
-                          <div class="hist-price">${h.targetPrice} G</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="hist-bottom">
-                      <div class="hist-chance">
-                        <div class="hist-chance-lbl">% ШАНС</div>
-                        <div class="hist-chance-val">${h.pct}%</div>
-                        <div class="hist-bar">
-                          <div class="hist-bar-fill" style="width:${h.pct}%"></div>
-                        </div>
-                      </div>
-                      <div class="hist-status">
-                        <div class="hist-badge">
-                          ${h.win?'✓ ПОБЕДА':'✕ ПРОВАЛ'}
-                        </div>
-                        <div class="hist-date">${new Date(h.ts||Date.now()).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
-                      </div>
-                    </div>
-                  </div>
-                `).join('')}
-          </div>`}
     </div>`;
   }catch(err){ console.error('rendProfile error:',err); }
 }
@@ -1547,15 +1162,26 @@ function updateTopAvatar(){
 function rendSettings(){
   const b=document.getElementById('settingsBody');
   b.innerHTML=`
-    <div class="settings-item"><label>🔊 Звуки</label><div class="toggle ${soundEnabled?'on':''}" onclick="toggleSound()"></div></div>
-    <div class="settings-item"><label>📳 Вибрация</label><div class="toggle ${hapticEnabled?'on':''}" onclick="toggleHaptic()"></div></div>
-    <div class="settings-item"><label>🎨 Тема</label><button class="settings-btn" style="background:var(--blue)" onclick="toggleTheme();rendSettings()">${lightTheme?'СВЕТЛАЯ':'ТЁМНАЯ'}</button></div>
-    <div class="settings-item"><label>🗑 Сброс</label><button class="settings-btn" onclick="if(confirm('Сбросить игру?')){localStorage.clear();location.reload()}">СБРОС</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800">
+      <label>🔊 Звуки</label>
+      <div class="toggle ${soundEnabled?'on':''}" onclick="toggleSound()" style="width:44px;height:24px;border-radius:12px;background:${soundEnabled?'rgba(255,184,0,.2)':'var(--panel-l)'};position:relative;cursor:pointer;border:1px solid ${soundEnabled?'var(--gold)':'var(--border)'}">
+        <div style="position:absolute;top:2px;left:${soundEnabled?'22px':'2px'};width:18px;height:18px;border-radius:50%;background:${soundEnabled?'var(--gold)':'var(--gray2)'};transition:.2s"></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800">
+      <label>📳 Вибрация</label>
+      <div class="toggle ${hapticEnabled?'on':''}" onclick="toggleHaptic()" style="width:44px;height:24px;border-radius:12px;background:${hapticEnabled?'rgba(255,184,0,.2)':'var(--panel-l)'};position:relative;cursor:pointer;border:1px solid ${hapticEnabled?'var(--gold)':'var(--border)'}">
+        <div style="position:absolute;top:2px;left:${hapticEnabled?'22px':'2px'};width:18px;height:18px;border-radius:50%;background:${hapticEnabled?'var(--gold)':'var(--gray2)'};transition:.2s"></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800">
+      <label>🗑 Сброс</label>
+      <button onclick="if(confirm('Сбросить игру?')){localStorage.clear();location.reload()}" style="padding:8px 14px;border-radius:8px;border:none;font-weight:900;font-size:11px;cursor:pointer;color:#fff;background:var(--red)">СБРОС</button>
+    </div>
   `;
 }
 function toggleSound(){ soundEnabled=!soundEnabled; localStorage.setItem('sfap_sound',soundEnabled?'1':'0'); rendSettings(); }
 function toggleHaptic(){ hapticEnabled=!hapticEnabled; localStorage.setItem('sfap_haptic',hapticEnabled?'1':'0'); rendSettings(); }
-function toggleTheme(){ lightTheme=!lightTheme; document.body.classList.toggle('light',lightTheme); localStorage.setItem('sfap_theme',lightTheme?'light':'dark'); }
 
 // ========== РАНГИ ==========
 function getRank(){
@@ -1579,10 +1205,8 @@ function updateRankUI(){
     renderPctRow();
     updateBal();
     rendMain();
-    renderFilters();
     rendInv();
     rendTargetList();
-    loadLiveFeed();
     updateRankUI();
     updateTopAvatar();
     checkHappyHour();
@@ -1596,10 +1220,8 @@ function updateRankUI(){
     }catch(e){}
   }catch(err){
     console.error('INIT ERROR:',err);
-    const lt=document.getElementById('liveTrack');
-    if(lt)lt.innerHTML='<span class="live-empty">Ошибка загрузки. Очисти кэш ТГ.</span>';
   }
 })();
 </script>
 </body>
-  </html>
+</html>
