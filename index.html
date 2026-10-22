@@ -89,56 +89,38 @@ body.modal-open{overflow:hidden}
 .slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:8px}
 .slot-clear{font-size:10px;font-weight:900;color:var(--red);margin-top:6px;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:4px 10px;border-radius:6px}
 
-/* ИНВЕНТАРЬ И СТЕКЛЯННЫЕ КАРТОЧКИ */
+/* ИНВЕНТАРЬ */
 .big-tabs{display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
 .panel{display:none;margin-top:16px}
 .panel.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 
-.card{
-  background: rgba(25, 25, 30, 0.6); /* Стеклянный эффект */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius:16px;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
-  position:relative;
-  cursor:pointer;
-  transition:0.3s;
-  min-height:170px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-.card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+/* СТЕКЛЯННЫЕ КАРТОЧКИ (GLASSMORPHISM) */
+.card{background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border-radius:18px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,0.08);position:relative;cursor:pointer;transition:all 0.3s;min-height:170px;box-shadow:0 4px 15px rgba(0,0,0,0.2)}
+.card:active{transform:scale(0.97)}
 .card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,rgba(255,255,255,0.05) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
-.card-img-wrap img{width:90%;height:90%;object-fit:contain;filter: drop-shadow(0 0 15px rgba(255,255,255,0.1))}
-.card-info{padding:10px;display:flex;flex-direction:column;gap:4px;background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);}
-.card-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow: 0 1px 3px rgba(0,0,0,0.8);}
-.card-price{font-size:13px;font-weight:900;color:var(--gold);text-shadow: 0 0 10px rgba(255,184,0,0.5);}
+.card-img-wrap img{width:90%;height:90%;object-fit:contain;filter:drop-shadow(0 10px 15px rgba(0,0,0,0.5))}
+.card-info{padding:10px;display:flex;flex-direction:column;gap:4px}
+.card-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
+.card-price{font-size:13px;font-weight:900;color:var(--gold)}
 .btn-act{width:100%;padding:8px;border-radius:8px;border:none;font-weight:900;font-size:10px;cursor:pointer;color:#fff}
 .btn-act.upg{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
-.btn-act.sell{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff}
+.btn-act.sell{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2)}
 .btn-act.wd{background:var(--red)}
-.card-actions-overlay{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:12px;background:rgba(10,10,12,0.7);backdrop-filter:blur(8px);z-index:20}
+.card-actions-overlay{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:12px;background:rgba(10,10,12,0.8);backdrop-filter:blur(8px);z-index:20}
 .card.expanded .card-actions-overlay{display:flex}
 
-/* РЕДКОСТИ */
-.r-common{border-color:rgba(255,255,255,0.1)}
-.r-uncommon{border-color:rgba(74,158,255,0.5); box-shadow: 0 0 15px rgba(74,158,255,0.2);}
-.r-rare{border-color:rgba(155,138,255,0.5); box-shadow: 0 0 15px rgba(155,138,255,0.2);}
-.r-epic{border-color:rgba(255,68,68,0.5); box-shadow: 0 0 15px rgba(255,68,68,0.2);}
-.r-legend{border-color:rgba(255,215,0,0.6); box-shadow: 0 0 20px rgba(255,215,0,0.3);}
+.r-common{border-color:rgba(255,255,255,0.1)}.r-uncommon{border-color:rgba(74,158,255,0.5);box-shadow:0 0 15px rgba(74,158,255,0.1)}.r-rare{border-color:rgba(155,138,255,0.5);box-shadow:0 0 15px rgba(155,138,255,0.1)}.r-epic{border-color:rgba(255,68,68,0.6);box-shadow:0 0 20px rgba(255,68,68,0.2)}.r-legend{border-color:rgba(255,215,0,0.8);box-shadow:0 0 25px rgba(255,215,0,0.3)}
 
-/* ПАНЕЛЬ ПРОФИЛЯ */
+/* ПАНЕЛЬ ПРОФИЛЯ (ВЫЕЗЖАЕТ СПРАВА) */
 .side-panel{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--panel);border-left:1px solid var(--border);z-index:2000;transition:right 0.3s cubic-bezier(0.4, 0, 0.2, 1);padding:20px;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,0.5)}
 .side-panel.open{right:0}
 .side-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1999;display:none}
 .side-overlay.open{display:block}
 .side-user{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.side-avatar{width:60px;height:60px;border-radius:12px;background:var(--panel-l);overflow:hidden;border:1px solid var(--border)}
+.side-avatar{width:60px;height:60px;border-radius:12px;background:var(--panel-l);overflow:hidden;border:1px solid var(--border);display:flex;justify-content:center;align-items:center;font-size:24px}
 .side-avatar img{width:100%;height:100%;object-fit:cover}
 .side-name{font-size:16px;font-weight:900}
 .side-id{font-size:11px;color:var(--gray2);font-family:monospace}
@@ -147,7 +129,7 @@ body.modal-open{overflow:hidden}
 .side-item:active{background:var(--border)}
 .side-item .ico{font-size:18px}
 
-/* ЭКРАНЫ */
+/* ЭКРАНЫ (ПОЛНОЭКРАННЫЕ) */
 .scr{position:fixed;inset:0;background:var(--bg);z-index:600;display:none;flex-direction:column}
 .scr.open{display:flex}
 .sh{padding:16px;display:flex;justify-content:space-between;align-items:center;background:var(--panel);border-bottom:1px solid var(--border)}
@@ -212,10 +194,19 @@ body.modal-open{overflow:hidden}
       <div class="slot-prev-cnt" id="targetCount" style="font-size:9px;color:var(--gold);margin-top:8px;">НЕ ВЫБРАНА</div>
     </div>
   </div>
+  
+  <!-- ПЕРЕКЛЮЧАТЕЛЬ ИНВЕНТАРЬ / МАГАЗИН -->
   <div class="big-tabs">
-    <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">МОИ СКИНЫ</button>
-    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('shop')">МАГАЗИН</button>
+    <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button>
+    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ЦЕЛЬ</button>
   </div>
+  
+  <!-- ПОДМЕНЮ ДЛЯ ИНВЕНТАРЯ / МАГАЗИНА -->
+  <div style="display:flex;gap:4px;margin-top:8px;background:var(--panel);padding:4px;border-radius:12px;">
+    <button id="subInv" onclick="switchSub('inv')" style="flex:1;background:var(--panel-l);border:none;color:var(--white);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МОИ СКИНЫ</button>
+    <button id="subShop" onclick="switchSub('shop')" style="flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МАГАЗИН</button>
+  </div>
+
   <div class="panel active" id="panelInv">
     <div style="margin-top:12px;"><input type="text" id="searchInp" placeholder="Поиск..." oninput="rendInv()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
     <div class="grid" id="invList" style="margin-top:12px"></div>
@@ -300,49 +291,8 @@ body.modal-open{overflow:hidden}
 // ==================== КОНСТАНТЫ ====================
 const BOT_URL = 'https://admin-bot-03ly.onrender.com';
 const CDN_BASE = 'https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
-const allSkins = [
-  {name:'AKR Carbon',price:56,color:'#4a9eff',img:CDN_BASE+'skins/AKR_CARBON.jpg'},
-  {name:'AKR Evolution',price:3,color:'#4a9eff',img:CDN_BASE+'skins/AKR_EVOLUTION.jpg'},
-  {name:'AKR Nano',price:23,color:'#4a9eff',img:CDN_BASE+'skins/AKR_NANO.jpg'},
-  {name:'AKR 12 Carbon',price:10,color:'#4a9eff',img:CDN_BASE+'skins/AKR12_CARBON.jpg'},
-  {name:'AKR 12 Hanami',price:220,color:'#ff4444',img:CDN_BASE+'skins/AKR12_HANAMI.jpg'},
-  {name:'AKR 12 Railgun',price:1100,color:'#ff69b4',img:CDN_BASE+'skins/AKR12_RAILGUN.jpg'},
-  {name:'AWM Sport V2',price:74250,color:'#ffd700',img:CDN_BASE+'skins/AWM_SPORTV2.jpg'},
-  {name:'AWM Treasure Hunter',price:104200,color:'#ffd700',img:CDN_BASE+'skins/AWM_TREASUREHUNTER.jpg'},
-  {name:'Butterfly Dragon Glass',price:2250,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_DragonGlass.jpg'},
-  {name:'Butterfly Starfall',price:1407,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_Starfall.jpg'},
-  {name:'Butterfly Twilight',price:1000000,color:'#ffd700',img:CDN_BASE+'skins/Butterfly_Twilight.jpg'},
-  {name:'M4 Ironclad',price:34,color:'#9b8aff',img:CDN_BASE+'skins/M4_IRONCLAD.jpg'},
-  {name:'M4 Necromancer',price:880,color:'#ff69b4',img:CDN_BASE+'skins/M4_NECROMANCER.jpg'},
-  {name:'M4 Pixel Storm',price:766,color:'#ff4444',img:CDN_BASE+'skins/M4_PiXELSTORM.jpg'},
-  {name:'M4 Samurai',price:500,color:'#ff4444',img:CDN_BASE+'skins/M4_SAMURAI.jpg'},
-  {name:'M4A1 Bubblegum',price:225,color:'#ff4444',img:CDN_BASE+'skins/M4A1_Bublgam.jpg'},
-  {name:'M4A1 Kitsune',price:2,color:'#4a9eff',img:CDN_BASE+'skins/M4A1_KITSUNE.jpg'},
-  {name:'M4A1 Sour',price:24,color:'#9b8aff',img:CDN_BASE+'skins/M4A1_SOUR.jpg'},
-  {name:'M4A1 Sparkling Gaze',price:95,color:'#ff4444',img:CDN_BASE+'skins/M4a1_SparkingGaze.jpg'},
-  {name:'M9 Bayonet Amber Koi',price:3700,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_AmberKOI.jpg'},
-  {name:'M9 Bayonet Dragon Glass',price:34000,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_DragonGlass.jpg'},
-  {name:'Tanto Dojo',price:990,color:'#ff4444',img:CDN_BASE+'skins/Tanto_Dojo.jpg'},
-  {name:'G22 Monster',price:670,color:'#9b8aff',img:CDN_BASE+'skins/G22_Monster.jpg'},
-  {name:'G22 Nest',price:540,color:'#ff4444',img:CDN_BASE+'skins/G22_Nest.jpg'},
-  {name:'G22 Relic',price:11780,color:'#ffd700',img:CDN_BASE+'skins/G22_Relic.jpg'},
-  {name:'G22 Twilight (ST)',price:1951,color:'#ff4444',img:CDN_BASE+'skins/G22_Twilight.jpg'},
-  {name:'M4A1 Demon',price:5,color:'#4a9eff',img:CDN_BASE+'skins/M4a1_Demon.jpg'},
-  {name:'P90 Burning King',price:710,color:'#ff4444',img:CDN_BASE+'skins/P90_BurnngKing.jpg'},
-  {name:'P90 Iron Will',price:45,color:'#9b8aff',img:CDN_BASE+'skins/P90_IronWill.jpg'},
-  {name:'P90 Opps',price:50,color:'#ff69b4',img:CDN_BASE+'skins/P90_Opps.jpg'},
-  {name:'P350 Forest Spirit',price:890,color:'#ff4444',img:CDN_BASE+'skins/P350_ForestSpirit.jpg'},
-  {name:'P350 Oni',price:1,color:'#4a9eff',img:CDN_BASE+'skins/P350_Oni.jpg'},
-  {name:'P350 Raider',price:31,color:'#9b8aff',img:CDN_BASE+'skins/P350_Raider.jpg'},
-  {name:'P350 Tag King',price:20,color:'#ff69b4',img:CDN_BASE+'skins/P350_TagKing.jpg'},
-  {name:'USP 2 Years',price:400,color:'#4a9eff',img:CDN_BASE+'skins/Usp_2Yers.jpg'},
-  {name:'USP 2 Years Red',price:1020,color:'#9b8aff',img:CDN_BASE+'skins/Usp_2YersRed.jpg'},
-  {name:'USP Genesis',price:23000,color:'#ffd700',img:CDN_BASE+'skins/Usp_Genesis.jpg'},
-  {name:'USP Ignite',price:7,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Lgnite.jpg'},
-  {name:'USP Mirage Menace',price:2940,color:'#ff4444',img:CDN_BASE+'skins/Usp_MirageMenace.jpg'},
-  {name:'USP Pisces',price:20,color:'#9b8aff',img:CDN_BASE+'skins/Usp_Pisces.jpg'},
-  {name:'USP Suture',price:14,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Suture.jpg'}
-];
+// ... ВСТАВЬ СЮДА МАССИВ allSkins (он длинный, я его не менял) ...
+
 const DEFAULT_PCTS = [90,67,55,44,33,22];
 const MAX_UPGRADE = 10;
 const RANKS = [
@@ -523,22 +473,41 @@ function renderPctRow(){
 function switchBigTab(m){
   bigTab=m;
   document.getElementById('bigTabInv').classList.toggle('active',m==='inv');
-  document.getElementById('bigTabTarget').classList.toggle('active',m==='shop'); // Используем 'shop' как вторую вкладку
+  document.getElementById('bigTabTarget').classList.toggle('active',m==='target');
   document.getElementById('panelInv').classList.toggle('active',m==='inv');
-  document.getElementById('panelTarget').classList.toggle('active',m==='shop');
-  
-  if(m==='shop'){
-    invMode = 'shop'; // Включаем режим магазина
-    rendTargetList(); // Тянем список скинов для магазина
-  } else {
-    invMode = 'inv';
-    rendInv();
-  }
+  document.getElementById('panelTarget').classList.toggle('active',m==='target');
+  if(m==='target')rendTargetList();
+}
+function switchSub(m){
+  invMode=m;
+  document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none';
+  document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)';
+  document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none';
+  document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)';
+  document.getElementById('searchInp').value='';
+  rendInv();
 }
 
 function rendInv(){
   const b=document.getElementById('invList'); if(!b)return;
   const q=((document.getElementById('searchInp')||{}).value||'').toLowerCase();
+
+  if(invMode==='shop'){
+    let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));
+    f.sort((a,b)=>a.price-b.price);
+    b.innerHTML=f.map(s=>{
+      const r=getRarity(s.color);
+      const inCart=cart.find(c=>c.name===s.name);
+      return `<div class="card ${r}" style="min-height:160px">
+        <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
+        <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
+        <div class="card-actions-overlay" style="display:flex;background:none;backdrop-filter:none">
+          <button class="btn-act ${inCart?'sell':'upg'}" onclick="toggleCart('${s.name}',${s.price})">${inCart?'✓ В КОРЗИНЕ':'🛒 КУПИТЬ'}</button>
+        </div>
+      </div>`;
+    }).join('');
+    return;
+  }
 
   let f=inv.filter(it=>it.name.toLowerCase().includes(q));
   if(invSort==='price-asc') f.sort((a,b)=>(a.price||0)-(b.price||0));
@@ -564,24 +533,6 @@ function rendInv(){
   }).join('');
 }
 
-// МАГАЗИН
-function rendTargetList(){
-  const b=document.getElementById('targetList'); if(!b)return;
-  const q=((document.getElementById('targetSearchInp')||{}).value||'').toLowerCase();
-  let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));
-  f.sort((a,b)=>a.price-b.price);
-  
-  b.innerHTML=f.map(s=>{
-    const r=getRarity(s.color);
-    const inCart=cart.find(c=>c.name===s.name);
-    return `<div class="card ${r}" style="border-color:${inCart?'var(--gold)':'var(--border)'}" onclick="pickTargetCard('${s.name.replace(/'/g,"\\'")}',${s.price},'${s.color}')">
-      <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
-      <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
-      <div style="padding:0 10px 10px"><button class="btn-act ${inCart?'sell':'upg'}" style="width:100%" onclick="event.stopPropagation(); toggleCart('${s.name}',${s.price})">${inCart?'✓ В КОРЗИНЕ':'🛒 КУПИТЬ'}</button></div>
-    </div>`;
-  }).join('');
-}
-
 let activeCardId=null;
 function expandCard(el){
   if(activeCardId===el.id){closeAllCards();return}
@@ -592,6 +543,38 @@ function expandCard(el){
 function closeAllCards(){
   document.querySelectorAll('.card.expanded').forEach(c=>c.classList.remove('expanded'));
   activeCardId=null;
+}
+
+function rendTargetList(){
+  const b=document.getElementById('targetList'); if(!b)return;
+  const q=((document.getElementById('targetSearchInp')||{}).value||'').toLowerCase();
+  let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));
+  f.sort((a,b)=>a.price-b.price);
+  b.innerHTML=f.map(s=>{
+    const r=getRarity(s.color);
+    const isSel=targetSkin && targetSkin.name===s.name;
+    return `<div class="card ${r}" style="border-color:${isSel?'var(--white)':'var(--border)'}" onclick="pickTargetCard('${s.name.replace(/'/g,"\\'")}',${s.price},'${s.color}')">
+      <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
+      <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCart(name,price){
+  if(isSpinning)return;
+  const i=cart.findIndex(c=>c.name===name);
+  if(i>=0) cart.splice(i,1);
+  else{
+    if(gold<price){toast('❌ Мало G','lose');return}
+    cart.push({name,price, qty: 1});
+  }
+  updateCartBadge();
+  rendInv();
+}
+function updateCartBadge(){
+  const b=document.getElementById('cartBadge'); if(!b)return;
+  if(cart.length>0){b.style.display='block';b.innerText=cart.length}
+  else b.style.display='none';
 }
 
 function addToUpgrade(idx){
@@ -788,10 +771,8 @@ async function spinUpgrade(){
   let targetArrowAngle;
   
   if(win){
-    // ИСПРАВЛЕНО: Стрелка всегда падает в желтую зону
     targetArrowAngle = Math.random() * winDeg * 0.8 + (winDeg * 0.1); 
   } else {
-    // ИСПРАВЛЕНО: Стрелка всегда падает в серую зону (после желтой)
     const grayLen = 360 - winDeg;
     targetArrowAngle = winDeg + (Math.random() * grayLen * 0.8) + (grayLen * 0.1);
   }
@@ -1228,7 +1209,6 @@ function updateRankUI(){
     rendMain();
     rendInv();
     rendTargetList();
-    loadLiveFeed(); // Запускаем LIVE ленту
     updateRankUI();
     updateTopAvatar();
     checkHappyHour();
