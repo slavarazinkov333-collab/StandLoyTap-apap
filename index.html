@@ -343,6 +343,17 @@ const RANKS = [
   {name:'ЛЕГЕНДА',need:250,title:'legend'},
   {name:'БОГ',need:500,title:'god'}
 ];
+const ACHIEVEMENTS = [
+  {id:'first_spin',name:'Первый спин',ico:'🎰',cond:s=>s.spins>=1,reward:10},
+  {id:'first_win',name:'Первая победа',ico:'🏆',cond:s=>s.wins>=1,reward:10},
+  {id:'wins10',name:'10 побед',ico:'💪',cond:s=>s.wins>=10,reward:50},
+  {id:'wins50',name:'50 побед',ico:'🔥',cond:s=>s.wins>=50,reward:200},
+  {id:'wins100',name:'100 побед',ico:'💎',cond:s=>s.wins>=100,reward:500},
+  {id:'spins50',name:'50 спинов',ico:'🎯',cond:s=>s.spins>=50,reward:100},
+  {id:'spins200',name:'200 спинов',ico:'🚀',cond:s=>s.spins>=200,reward:500}
+];
+const AVATARS = [{id:'emoji1',v:'👤'},{id:'emoji2',v:'😎'}];
+const FRAMES = [{id:'none',name:'Без рамки',price:0,cls:''}];
 
 function getRarity(c){
   c=String(c||'').toLowerCase();
@@ -1265,4 +1276,4 @@ function updateRankUI(){
 })();
 </script>
 </body>
-                               </html>
+  </html>
