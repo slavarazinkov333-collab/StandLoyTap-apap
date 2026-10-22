@@ -213,6 +213,9 @@ async function api(path,opts){
     opts.headers={'Content-Type':'application/json'};
     opts.body=JSON.stringify(opts.body);
   }
+  const r = await fetch(BOT_URL + path, opts);
+  return await r.json(); // <-- Возвращает ошибку сервера как есть, без скрытия
+}
   try {
     const r=await fetch(BOT_URL+path,opts);
     const text = await r.text();
