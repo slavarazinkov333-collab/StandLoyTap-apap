@@ -1080,6 +1080,10 @@ function saveGame(){
     const data={gold,inv,stats,bestDrop,history,upgradeHistory,isLegend:refData.isLegend||false,isVip:vipData.isVip||false,vipExpires:vipData.expires||0,customPcts,currentAvatar,currentFrame,ts:Date.now()};
     localStorage.setItem('sfap_save_'+uid,JSON.stringify(data));
     fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,data})}).catch(()=>{});
+    
+    // ДОБАВЬ ЭТУ СТРОКУ:
+    fetch(BOT_URL+'/api/achievements/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,achievements:unlockedAch})}).catch(()=>{});
+    
   }catch(e){}
 }
 async function loadGame(){
