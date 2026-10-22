@@ -89,7 +89,7 @@ body.modal-open{overflow:hidden}
 .slot-sum{font-size:16px;font-weight:900;color:#ffb800;margin-top:8px}
 .slot-clear{font-size:10px;font-weight:900;color:var(--red);margin-top:6px;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.3);padding:4px 10px;border-radius:6px}
 
-/* ИНВЕНТАРЬ */
+/* ИНВЕНТАРЬ И СТЕКЛЯННЫЕ КАРТОЧКИ */
 .big-tabs{display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px}
 .big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
@@ -97,21 +97,40 @@ body.modal-open{overflow:hidden}
 .panel.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 
-/* КАРТОЧКИ СКИНОВ */
-.card{background:var(--panel);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);position:relative;cursor:pointer;transition:0.3s;min-height:170px}
-.card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,var(--panel-l) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
-.card-img-wrap img{width:90%;height:90%;object-fit:contain}
-.card-info{padding:10px;display:flex;flex-direction:column;gap:4px}
-.card-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card-price{font-size:13px;font-weight:900;color:var(--gold)}
+.card{
+  background: rgba(25, 25, 30, 0.6); /* Стеклянный эффект */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+  position:relative;
+  cursor:pointer;
+  transition:0.3s;
+  min-height:170px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+.card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+.card-img-wrap{width:100%;aspect-ratio:1.2;background:radial-gradient(circle at center,rgba(255,255,255,0.05) 0%,transparent 70%);display:flex;justify-content:center;align-items:center;padding:10px}
+.card-img-wrap img{width:90%;height:90%;object-fit:contain;filter: drop-shadow(0 0 15px rgba(255,255,255,0.1))}
+.card-info{padding:10px;display:flex;flex-direction:column;gap:4px;background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);}
+.card-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow: 0 1px 3px rgba(0,0,0,0.8);}
+.card-price{font-size:13px;font-weight:900;color:var(--gold);text-shadow: 0 0 10px rgba(255,184,0,0.5);}
 .btn-act{width:100%;padding:8px;border-radius:8px;border:none;font-weight:900;font-size:10px;cursor:pointer;color:#fff}
 .btn-act.upg{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
-.btn-act.sell{background:var(--panel-l);border:1px solid var(--border)}
+.btn-act.sell{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff}
 .btn-act.wd{background:var(--red)}
-.card-actions-overlay{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:12px;background:rgba(10,10,12,0.6);backdrop-filter:blur(4px);z-index:20}
+.card-actions-overlay{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:12px;background:rgba(10,10,12,0.7);backdrop-filter:blur(8px);z-index:20}
 .card.expanded .card-actions-overlay{display:flex}
 
-.r-common{border-color:var(--border)}.r-uncommon{border-color:#4a9eff}.r-rare{border-color:#9b8aff}.r-epic{border-color:#ff4444}.r-legend{border-color:#ffd700;box-shadow:0 0 15px rgba(255,215,0,.25)}
+/* РЕДКОСТИ */
+.r-common{border-color:rgba(255,255,255,0.1)}
+.r-uncommon{border-color:rgba(74,158,255,0.5); box-shadow: 0 0 15px rgba(74,158,255,0.2);}
+.r-rare{border-color:rgba(155,138,255,0.5); box-shadow: 0 0 15px rgba(155,138,255,0.2);}
+.r-epic{border-color:rgba(255,68,68,0.5); box-shadow: 0 0 15px rgba(255,68,68,0.2);}
+.r-legend{border-color:rgba(255,215,0,0.6); box-shadow: 0 0 20px rgba(255,215,0,0.3);}
 
 /* ПАНЕЛЬ ПРОФИЛЯ */
 .side-panel{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--panel);border-left:1px solid var(--border);z-index:2000;transition:right 0.3s cubic-bezier(0.4, 0, 0.2, 1);padding:20px;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,0.5)}
@@ -128,7 +147,7 @@ body.modal-open{overflow:hidden}
 .side-item:active{background:var(--border)}
 .side-item .ico{font-size:18px}
 
-/* ЭКРАНЫ (ПОЛНОЭКРАННЫЕ) */
+/* ЭКРАНЫ */
 .scr{position:fixed;inset:0;background:var(--bg);z-index:600;display:none;flex-direction:column}
 .scr.open{display:flex}
 .sh{padding:16px;display:flex;justify-content:space-between;align-items:center;background:var(--panel);border-bottom:1px solid var(--border)}
@@ -144,15 +163,6 @@ body.modal-open{overflow:hidden}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
 
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
-.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.ach-card{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden;transition:.2s}
-.ach-card.unlocked{background:linear-gradient(135deg,rgba(255,184,0,.1),rgba(255,140,0,.05));border-color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,.15)}
-.ach-ico{font-size:32px;filter:grayscale(1);opacity:.3;margin-bottom:8px;transition:.3s}
-.ach-card.unlocked .ach-ico{filter:grayscale(0);opacity:1;transform:scale(1.1);text-shadow:0 0 10px rgba(255,184,0,.5)}
-.ach-name{font-size:11px;font-weight:900;color:var(--gray2);margin-bottom:4px}
-.ach-card.unlocked .ach-name{color:var(--white)}
-.ach-reward{font-size:10px;font-weight:900;color:var(--gold);opacity:0.5}
-.ach-card.unlocked .ach-reward{opacity:1}
 </style>
 </head>
 <body>
@@ -203,8 +213,8 @@ body.modal-open{overflow:hidden}
     </div>
   </div>
   <div class="big-tabs">
-    <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">ИНВЕНТАРЬ</button>
-    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('target')">ЦЕЛЬ</button>
+    <button class="big-tab active" id="bigTabInv" onclick="switchBigTab('inv')">МОИ СКИНЫ</button>
+    <button class="big-tab" id="bigTabTarget" onclick="switchBigTab('shop')">МАГАЗИН</button>
   </div>
   <div class="panel active" id="panelInv">
     <div style="margin-top:12px;"><input type="text" id="searchInp" placeholder="Поиск..." oninput="rendInv()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
@@ -333,7 +343,6 @@ const allSkins = [
   {name:'USP Pisces',price:20,color:'#9b8aff',img:CDN_BASE+'skins/Usp_Pisces.jpg'},
   {name:'USP Suture',price:14,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Suture.jpg'}
 ];
-
 const DEFAULT_PCTS = [90,67,55,44,33,22];
 const MAX_UPGRADE = 10;
 const RANKS = [
@@ -514,10 +523,17 @@ function renderPctRow(){
 function switchBigTab(m){
   bigTab=m;
   document.getElementById('bigTabInv').classList.toggle('active',m==='inv');
-  document.getElementById('bigTabTarget').classList.toggle('active',m==='target');
+  document.getElementById('bigTabTarget').classList.toggle('active',m==='shop'); // Используем 'shop' как вторую вкладку
   document.getElementById('panelInv').classList.toggle('active',m==='inv');
-  document.getElementById('panelTarget').classList.toggle('active',m==='target');
-  if(m==='target')rendTargetList();
+  document.getElementById('panelTarget').classList.toggle('active',m==='shop');
+  
+  if(m==='shop'){
+    invMode = 'shop'; // Включаем режим магазина
+    rendTargetList(); // Тянем список скинов для магазина
+  } else {
+    invMode = 'inv';
+    rendInv();
+  }
 }
 
 function rendInv(){
@@ -548,6 +564,24 @@ function rendInv(){
   }).join('');
 }
 
+// МАГАЗИН
+function rendTargetList(){
+  const b=document.getElementById('targetList'); if(!b)return;
+  const q=((document.getElementById('targetSearchInp')||{}).value||'').toLowerCase();
+  let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));
+  f.sort((a,b)=>a.price-b.price);
+  
+  b.innerHTML=f.map(s=>{
+    const r=getRarity(s.color);
+    const inCart=cart.find(c=>c.name===s.name);
+    return `<div class="card ${r}" style="border-color:${inCart?'var(--gold)':'var(--border)'}" onclick="pickTargetCard('${s.name.replace(/'/g,"\\'")}',${s.price},'${s.color}')">
+      <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
+      <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
+      <div style="padding:0 10px 10px"><button class="btn-act ${inCart?'sell':'upg'}" style="width:100%" onclick="event.stopPropagation(); toggleCart('${s.name}',${s.price})">${inCart?'✓ В КОРЗИНЕ':'🛒 КУПИТЬ'}</button></div>
+    </div>`;
+  }).join('');
+}
+
 let activeCardId=null;
 function expandCard(el){
   if(activeCardId===el.id){closeAllCards();return}
@@ -558,21 +592,6 @@ function expandCard(el){
 function closeAllCards(){
   document.querySelectorAll('.card.expanded').forEach(c=>c.classList.remove('expanded'));
   activeCardId=null;
-}
-
-function rendTargetList(){
-  const b=document.getElementById('targetList'); if(!b)return;
-  const q=((document.getElementById('targetSearchInp')||{}).value||'').toLowerCase();
-  let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));
-  f.sort((a,b)=>a.price-b.price);
-  b.innerHTML=f.map(s=>{
-    const r=getRarity(s.color);
-    const isSel=targetSkin && targetSkin.name===s.name;
-    return `<div class="card ${r}" style="border-color:${isSel?'var(--white)':'var(--border)'}" onclick="pickTargetCard('${s.name.replace(/'/g,"\\'")}',${s.price},'${s.color}')">
-      <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
-      <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
-    </div>`;
-  }).join('');
 }
 
 function addToUpgrade(idx){
@@ -769,8 +788,10 @@ async function spinUpgrade(){
   let targetArrowAngle;
   
   if(win){
+    // ИСПРАВЛЕНО: Стрелка всегда падает в желтую зону
     targetArrowAngle = Math.random() * winDeg * 0.8 + (winDeg * 0.1); 
   } else {
+    // ИСПРАВЛЕНО: Стрелка всегда падает в серую зону (после желтой)
     const grayLen = 360 - winDeg;
     targetArrowAngle = winDeg + (Math.random() * grayLen * 0.8) + (grayLen * 0.1);
   }
@@ -1207,6 +1228,7 @@ function updateRankUI(){
     rendMain();
     rendInv();
     rendTargetList();
+    loadLiveFeed(); // Запускаем LIVE ленту
     updateRankUI();
     updateTopAvatar();
     checkHappyHour();
@@ -1224,4 +1246,4 @@ function updateRankUI(){
 })();
 </script>
 </body>
-</html>
+  </html>
