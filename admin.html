@@ -192,8 +192,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 const BOT_URL='https://admin-bot-03ly.onrender.com';
 const ADMIN_ID='8683946808';
 const CDN_BASE='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
-const allSkins=[{name:'AKR Carbon',price:56,color:'#4a9eff',img:CDN_BASE+'skins/AKR_CARBON.jpg'},{name:'AKR Evolution',price:3,color:'#4a9eff',img:CDN_BASE+'skins/AKR_EVOLUTION.jpg'},{name:'AKR Nano',price:23,color:'#4a9eff',img:CDN_BASE+'skins/AKR_NANO.jpg'},{name:'AKR 12 Carbon',price:10,color:'#4a9eff',img:CDN_BASE+'skins/AKR12_CARBON.jpg'},{name:'AKR 12 Hanami',price:220,color:'#ff4444',img:CDN_BASE+'skins/AKR12_HANAMI.jpg'},{name:'AKR 12 Railgun',price:1100,color:'#ff69b4',img:CDN_BASE+'skins/AKR12_RAILGUN.jpg'},{name:'AWM Sport V2',price:74250,color:'#ffd700',img:CDN_BASE+'skins/AWM_SPORTV2.jpg'},{name:'AWM Treasure Hunter',price:104200,color:'#ffd700',img:CDN_BASE+'skins/AWM_TREASUREHUNTER.jpg'},{name:'Butterfly Dragon Glass',price:2250,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_DragonGlass.jpg'},{name:'Butterfly Starfall',price:1407,color:'#ff4444',img:CDN_BASE+'skins/Butterfly_Starfall.jpg'},{name:'Butterfly Twilight',price:1000000,color:'#ffd700',img:CDN_BASE+'skins/Butterfly_Twilight.jpg'},{name:'M4 Ironclad',price:34,color:'#9b8aff',img:CDN_BASE+'skins/M4_IRONCLAD.jpg'},{name:'M4 Necromancer',price:880,color:'#ff69b4',img:CDN_BASE+'skins/M4_NECROMANCER.jpg'},{name:'M4 Pixel Storm',price:766,color:'#ff4444',img:CDN_BASE+'skins/M4_PiXELSTORM.jpg'},{name:'M4 Samurai',price:500,color:'#ff4444',img:CDN_BASE+'skins/M4_SAMURAI.jpg'},{name:'M4A1 Bubblegum',price:225,color:'#ff4444',img:CDN_BASE+'skins/M4A1_Bublgam.jpg'},{name:'M4A1 Kitsune',price:2,color:'#4a9eff',img:CDN_BASE+'skins/M4A1_KITSUNE.jpg'},{name:'M4A1 Sour',price:24,color:'#9b8aff',img:CDN_BASE+'skins/M4A1_SOUR.jpg'},{name:'M4A1 Sparkling Gaze',price:95,color:'#ff4444',img:CDN_BASE+'skins/M4a1_SparkingGaze.jpg'},{name:'M9 Bayonet Amber Koi',price:3700,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_AmberKOI.jpg'},{name:'M9 Bayonet Dragon Glass',price:34000,color:'#ff4444',img:CDN_BASE+'skins/M9BAYONET_DragonGlass.jpg'},{name:'Tanto Dojo',price:990,color:'#ff4444',img:CDN_BASE+'skins/Tanto_Dojo.jpg'},{name:'G22 Monster',price:670,color:'#9b8aff',img:CDN_BASE+'skins/G22_Monster.jpg'},{name:'G22 Nest',price:540,color:'#ff4444',img:CDN_BASE+'skins/G22_Nest.jpg'},{name:'G22 Relic',price:11780,color:'#ffd700',img:CDN_BASE+'skins/G22_Relic.jpg'},{name:'G22 Twilight (ST)',price:1951,color:'#ff4444',img:CDN_BASE+'skins/G22_Twilight.jpg'},{name:'M4A1 Demon',price:5,color:'#4a9eff',img:CDN_BASE+'skins/M4a1_Demon.jpg'},{name:'P90 Burning King',price:710,color:'#ff4444',img:CDN_BASE+'skins/P90_BurnngKing.jpg'},{name:'P90 Iron Will',price:45,color:'#9b8aff',img:CDN_BASE+'skins/P90_IronWill.jpg'},{name:'P90 Opps',price:50,color:'#ff69b4',img:CDN_BASE+'skins/P90_Opps.jpg'},{name:'P350 Forest Spirit',price:890,color:'#ff4444',img:CDN_BASE+'skins/P350_ForestSpirit.jpg'},{name:'P350 Oni',price:1,color:'#4a9eff',img:CDN_BASE+'skins/P350_Oni.jpg'},{name:'P350 Raider',price:31,color:'#9b8aff',img:CDN_BASE+'skins/P350_Raider.jpg'},{name:'P350 Tag King',price:20,color:'#ff69b4',img:CDN_BASE+'skins/P350_TagKing.jpg'},{name:'USP 2 Years',price:400,color:'#4a9eff',img:CDN_BASE+'skins/Usp_2Yers.jpg'},{name:'USP 2 Years Red',price:1020,color:'#9b8aff',img:CDN_BASE+'skins/Usp_2YersRed.jpg'},{name:'USP Genesis',price:23000,color:'#ffd700',img:CDN_BASE+'skins/Usp_Genesis.jpg'},{name:'USP Ignite',price:7,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Lgnite.jpg'},{name:'USP Mirage Menace',price:2940,color:'#ff4444',img:CDN_BASE+'skins/Usp_MirageMenace.jpg'},{name:'USP Pisces',price:20,color:'#9b8aff',img:CDN_BASE+'skins/Usp_Pisces.jpg'},{name:'USP Suture',price:14,color:'#4a9eff',img:CDN_BASE+'skins/Usp_Suture.jpg'}];
-
+const allSkins=[/* ВСТАВЬ СЮДА МАССИВ СКИНОВ ИЗ index.html */];
 let adminUid='';
 let playersData=[];
 let withdrawsData=[];
@@ -203,7 +202,7 @@ let bansData={};
 let currentTab='players';
 let selectedSkinForGive=null;
 
-function getTgUser(){try{return window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user || null}catch(e){return null}}
+function getTgUser(){try{return window.Telegram?.WebApp?.initDataUnsafe?.user||null}catch(e){return null}}
 function toast(msg,type){const t=document.getElementById('toast');t.className='toast '+(type||'')+' show';t.innerText=msg;setTimeout(()=>t.classList.remove('show'),2500)}
 function fmt(n){return Math.floor(n||0).toLocaleString('ru-RU')}
 
@@ -214,19 +213,18 @@ async function api(path,opts){
     opts.headers={'Content-Type':'application/json'};
     opts.body=JSON.stringify(opts.body);
   }
-  const r=await fetch(BOT_URL+path,opts);
-  const text = await r.text();
-  
   try {
-    // Пробуем распарсить как JSON
-    return JSON.parse(text);
-  } catch(e) {
-    // Если пришел HTML (сервер Render спит или упал)
-    console.error('Server returned non-JSON:', text.substring(0, 100));
-    if (text.includes('<!DOCTYPE') || text.includes('<html')) {
-      throw new Error('Сервер просыпается. Подождите 10-15 сек и нажмите 🔄 Обновить.');
+    const r=await fetch(BOT_URL+path,opts);
+    const text = await r.text();
+    try {
+      return JSON.parse(text);
+    } catch(e) {
+      console.error('Server returned HTML instead of JSON');
+      return { ok: false, error: 'Ошибка сервера' };
     }
-    throw new Error('Сервер вернул ошибку');
+  } catch(e) {
+    console.error('Network error:', e);
+    return { ok: false, error: 'Сеть недоступна' };
   }
 }
 
@@ -234,15 +232,14 @@ function initLock(){const u=getTgUser();const idEl=document.getElementById('lock
 function switchTab(t){currentTab=t;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));const p=document.getElementById('panel-'+t);if(p)p.classList.add('active');if(t==='players')loadPlayers();if(t==='withdraws')loadWithdraws();if(t==='promos')loadPromos();if(t==='stats')loadStats();if(t==='bans')loadBans();if(t==='logs')loadLogs()}
 
 async function loadPlayers(){const list=document.getElementById('playersList');list.innerHTML='<div class="loading"><div class="spinner"></div>Загрузка...</div>';try{const d=await api('/api/admin/players?uid='+adminUid);if(!d.ok)throw new Error(d.error||'err');playersData=d.players||[];renderPlayers()}catch(e){list.innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Ошибка</div><div class="empty-sub">'+e.message+'</div></div>'}}
-
 function renderPlayers(){const list=document.getElementById('playersList');const q=(document.getElementById('searchPlayers')?.value||'').toLowerCase();let f=playersData.filter(p=>p.id.toLowerCase().includes(q));if(f.length===0){list.innerHTML='<div class="empty"><div class="empty-icon">👥</div><div class="empty-title">Игроков нет</div></div>';return}list.innerHTML=f.map(p=>{const date=p.ts?new Date(p.ts).toLocaleString('ru-RU'):'—';const banned=bansData[p.id]?'🚫':'';return '<div class="player-card"><div class="player-top"><div style="flex:1;min-width:0"><div class="player-id">'+p.id+' '+banned+'</div><div class="player-date">📅 '+date+'</div></div><div class="player-bal">'+fmt(p.gold)+' G</div></div><div class="player-stats"><span>🎰 <b>'+(p.stats.spins||0)+'</b></span><span>🏆 <b>'+(p.stats.wins||0)+'</b></span><span>💀 <b>'+(p.stats.loses||0)+'</b></span><span>🎒 <b>'+(p.inv.length||0)+'</b></span></div><div class="player-actions"><button class="p-btn give" onclick="openGive(\''+p.id+'\')">➕</button><button class="p-btn take" onclick="openTake(\''+p.id+'\')">➖</button><button class="p-btn skin" onclick="openGiveSkin(\''+p.id+'\')">🎁</button></div><div class="spin-ctrl-row"><button class="spin-ctrl-btn win" id="sctrl-'+p.id+'-win" onclick="setSpinCtrl(\''+p.id+'\',\'win\')">✅ ПОБЕДА</button><button class="spin-ctrl-btn lose" id="sctrl-'+p.id+'-lose" onclick="setSpinCtrl(\''+p.id+'\',\'lose\')">❌ ПРОИГРЫШ</button><button class="spin-ctrl-btn off" id="sctrl-'+p.id+'-off" onclick="setSpinCtrl(\''+p.id+'\',\'off\')">🚫 ВЫКЛ</button></div><div class="player-actions" style="grid-template-columns:1fr 1fr 1fr;margin-top:6px"><button class="p-btn" style="background:linear-gradient(135deg,#9b8aff,#6a4cff);color:#fff" onclick="openAddFriends(\''+p.id+'\')">👥 +ДРУЗЬЯ</button><button class="p-btn" style="background:linear-gradient(135deg,#ffd700,#ffb800);color:#1a1a1a" onclick="toggleLegend(\''+p.id+'\')">👑 ЛЕГЕНДА</button><button class="p-btn" style="background:var(--dark3);color:var(--gray2)" onclick="copyId(\''+p.id+'\')">📋 ID</button></div><div class="player-actions" style="grid-template-columns:1fr 1fr;margin-top:6px">'+(bansData[p.id]?'<button class="p-btn unban" onclick="unbanPlayer(\''+p.id+'\')">✅ РАЗБАН</button>':'<button class="p-btn ban" onclick="openBan(\''+p.id+'\')">🚫 БАН</button>')+'<button class="p-btn" style="background:var(--dark3);color:var(--gray2)" onclick="openSpinProfile(\''+p.id+'\')">👤 ПРОФИЛЬ</button></div></div>'}).join('');playersData.forEach(p=>{api('/api/spinControl/'+p.id).then(d=>{if(d&&d.result&&d.result!=='off'){const el=document.getElementById('sctrl-'+p.id+'-'+d.result);if(el)el.classList.add('active')}})})}
 function copyId(id){navigator.clipboard.writeText(id).then(()=>toast('✅ ID скопирован','win')).catch(()=>toast('❌ Ошибка','lose'))}
 function openModal(html){const m=document.createElement('div');m.className='modal';m.id='modal';m.innerHTML='<div class="modal-inner">'+html+'</div>';document.body.appendChild(m)}
 function closeModal(){const m=document.getElementById('modal');if(m)m.remove()}
 function openGive(id){openModal('<div class="modal-title">➕ ВЫДАТЬ G</div><div class="modal-sub">Игроку <b style="color:var(--yellow);font-family:monospace">'+id+'</b></div><div class="form-group"><div class="form-label">Сумма (G)</div><input class="form-input" id="giveAmt" type="number" placeholder="1000" autofocus></div><div class="modal-btns"><button class="modal-btn green" onclick="doGive(\''+id+'\')">✅ ВЫДАТЬ</button><button class="modal-btn secondary" onclick="closeModal()">❌ ОТМЕНА</button></div>')}
-async function doGive(id){const amt=Number(document.getElementById('giveAmt').value);if(!amt||amt<=0){toast('❌ Неверная сумма','lose');return}try{const d=await api('/api/admin/give',{method:'POST',body:{uid:adminUid,targetId:id,amount:amt}});if(d.ok){toast('✅ Выдано '+fmt(amt)+' G','win');closeModal();loadPlayers()}else toast('❌ '+(d.error||'err'),'lose')}catch(e){toast('❌ '+e.message,'lose')}}
+async function doGive(id){const amt=Number(document.getElementById('giveAmt').value);if(!amt||amt<=0){toast('❌ Неверная сумма','lose');return}try{const d=await api('/api/admin/giveG',{method:'POST',body:{uid:adminUid,targetId:id,amount:amt}});if(d.ok){toast('✅ Выдано '+fmt(amt)+' G','win');closeModal();loadPlayers()}else toast('❌ '+(d.error||'err'),'lose')}catch(e){toast('❌ '+e.message,'lose')}}
 function openTake(id){openModal('<div class="modal-title">➖ ЗАБРАТЬ G</div><div class="modal-sub">У игрока <b style="color:var(--yellow);font-family:monospace">'+id+'</b></div><div class="form-group"><div class="form-label">Сумма (G)</div><input class="form-input" id="takeAmt" type="number" placeholder="1000" autofocus></div><div class="modal-btns"><button class="modal-btn primary" onclick="doTake(\''+id+'\')">✅ ЗАБРАТЬ</button><button class="modal-btn secondary" onclick="closeModal()">❌ ОТМЕНА</button></div>')}
-async function doTake(id){const amt=Number(document.getElementById('takeAmt').value);if(!amt||amt<=0){toast('❌ Неверная сумма','lose');return}try{const d=await api('/api/admin/take',{method:'POST',body:{uid:adminUid,targetId:id,amount:amt}});if(d.ok){toast('✅ Забрано '+fmt(amt)+' G','win');closeModal();loadPlayers()}else toast('❌ '+(d.error||'err'),'lose')}catch(e){toast('❌ '+e.message,'lose')}}
+async function doTake(id){const amt=Number(document.getElementById('takeAmt').value);if(!amt||amt<=0){toast('❌ Неверная сумма','lose');return}try{const d=await api('/api/admin/giveG',{method:'POST',body:{uid:adminUid,targetId:id,amount:-amt}});if(d.ok){toast('✅ Забрано '+fmt(amt)+' G','win');closeModal();loadPlayers()}else toast('❌ '+(d.error||'err'),'lose')}catch(e){toast('❌ '+e.message,'lose')}}
 function openGiveSkin(id){selectedSkinForGive=null;const html='<div class="modal-title">🎁 ВЫДАТЬ СКИН</div><div class="modal-sub">Игроку <b style="color:var(--yellow);font-family:monospace">'+id+'</b></div><div class="search-box" style="margin-bottom:8px"><span>🔍</span><input type="text" id="skinSearch" placeholder="Поиск скина..." oninput="filterSkinList()"></div><div class="skins-grid" id="skinsGrid">'+allSkins.map(s=>'<div class="skin-item" data-name="'+s.name.toLowerCase()+'" onclick="selectSkin(\''+s.name.replace(/'/g,"\\'")+'\','+s.price+',\''+s.img+'\',\''+s.color+'\')"><img src="'+s.img+'" onerror="this.style.display=\'none\'"><div class="skin-info"><div class="skin-name">'+s.name+'</div><div class="skin-price">'+fmt(s.price)+' G</div></div></div>').join('')+'</div><div class="modal-btns"><button class="modal-btn green" onclick="doGiveSkin(\''+id+'\')">✅ ВЫДАТЬ</button><button class="modal-btn secondary" onclick="closeModal()">❌ ОТМЕНА</button></div>';openModal(html)}
 function filterSkinList(){const q=(document.getElementById('skinSearch').value||'').toLowerCase();document.querySelectorAll('.skin-item').forEach(el=>{el.style.display=el.dataset.name.includes(q)?'flex':'none'})}
 function selectSkin(name,price,img,color){selectedSkinForGive={name,price,img,color};document.querySelectorAll('.skin-item').forEach(el=>el.classList.remove('sel'));event.currentTarget.classList.add('sel')}
@@ -268,7 +265,7 @@ async function loadBans(){const list=document.getElementById('bansList');list.in
 
 async function loadLogs(){const list=document.getElementById('logsList');list.innerHTML='<div class="loading"><div class="spinner"></div>Загрузка...</div>';try{const d=await api('/api/admin/logs?uid='+adminUid);if(!d.ok)throw new Error(d.error||'err');const logs=d.logs||[];if(logs.length===0){list.innerHTML='<div class="empty"><div class="empty-icon">📜</div><div class="empty-title">Логов нет</div></div>';return}list.innerHTML=logs.map(l=>'<div class="log-card"><div class="log-top"><div class="log-action">'+l.action+'</div><div class="log-time">'+(l.time||'')+'</div></div><div class="log-details">'+JSON.stringify(l.details||{})+'</div></div>').join('')}catch(e){list.innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Ошибка</div></div>'}}
 
-// ========== SPIN CONTROL (подкрутка) ==========
+// ========== SPIN CONTROL ==========
 async function setSpinCtrl(id, result){
   try{
     const d = await api('/api/admin/setSpinResult',{
@@ -287,7 +284,7 @@ async function setSpinCtrl(id, result){
   }catch(e){toast('❌ '+e.message,'lose')}
 }
 
-// ========== ADD FRIENDS (+ДРУЗЬЯ) ==========
+// ========== ADD FRIENDS ==========
 function openAddFriends(id){
   openModal(
     '<div class="modal-title">👥 ДОБАВИТЬ ДРУЗЕЙ</div>'+
@@ -317,7 +314,7 @@ async function doAddFriends(id){
   }catch(e){toast('❌ '+e.message,'lose')}
 }
 
-// ========== LEGEND (легенда) ==========
+// ========== LEGEND ==========
 async function toggleLegend(id){
   try{
     const d = await api('/api/admin/setLegend',{
@@ -329,7 +326,7 @@ async function toggleLegend(id){
   }catch(e){toast('❌ '+e.message,'lose')}
 }
 
-// ========== SPIN PROFILE (заглушка) ==========
+// ========== SPIN PROFILE ==========
 function openSpinProfile(id){
   toast('👤 Профиль: '+id,'win');
 }
