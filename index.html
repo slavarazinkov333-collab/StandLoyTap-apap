@@ -42,10 +42,8 @@ body.modal-open{overflow:hidden}
 /* КНОПКИ МЕНЮ */
 .friends-btn-wrap{margin:0 16px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
 .friends-btn-wrap::-webkit-scrollbar{display:none}
-.friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer;transition:.2s}
-.friends-btn:hover{background:var(--panel-l);color:var(--white)}
-.gear-btn{width:36px;height:36px;background:var(--panel);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:.2s}
-.gear-btn:hover{background:var(--panel-l)}
+.friends-btn{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
+.gear-btn{width:36px;height:36px;background:var(--panel);border:1px solid var(--border);border-radius:8px;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:16px;flex-shrink:0}
 
 /* КОЛЕСО */
 .main{padding:0 16px}
@@ -62,21 +60,20 @@ body.modal-open{overflow:hidden}
 .pt{font-size:52px;font-weight:900;line-height:1;letter-spacing:-2px;text-shadow:0 0 20px rgba(255,184,0,.4)}
 .pl{font-size:9px;color:var(--gray2);letter-spacing:4px;margin-top:4px;font-weight:700}
 
-/* НОВАЯ ТОНКАЯ СТРЕЛКА */
+/* СТРЕЛКА */
 .arrow-wrap{position:absolute;inset:0;pointer-events:none;z-index:25;transform-origin:center center}
-.arrow{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:14px;height:54px;filter:drop-shadow(0 6px 12px rgba(255,184,0,.9))}
-.arrow svg{width:100%;height:100%}
+.arrow{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:32px;height:44px;filter:drop-shadow(0 4px 10px rgba(255,184,0,.8))}
 
 .pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:20px}
-.pb{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 4px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer;transition:.2s}
+.pb{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 4px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
 .pb.sel{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold)}
 .action-row{display:flex;gap:8px;margin-top:12px}
-.lightning-btn{width:56px;height:56px;background:var(--panel);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;transition:.2s}
+.lightning-btn{width:56px;height:56px;background:var(--panel);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center}
 .lightning-btn.on{border-color:var(--gold);background:rgba(255,184,0,.1)}
-.lightning-btn .ic{font-size:20px;filter:grayscale(1);opacity:.5;transition:.2s}
+.lightning-btn .ic{font-size:20px;filter:grayscale(1);opacity:.5}
 .lightning-btn.on .ic{filter:grayscale(0);opacity:1}
-.upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;transition:.2s}
-.upgrade-btn:disabled{opacity:.5;background:var(--panel);cursor:not-allowed}
+.upgrade-btn{flex:1;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer}
+.upgrade-btn:disabled{opacity:.5;background:var(--panel)}
 
 /* СЛОТЫ */
 .slots-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
@@ -94,7 +91,7 @@ body.modal-open{overflow:hidden}
 
 /* ИНВЕНТАРЬ */
 .big-tabs{display:flex;gap:4px;margin-top:20px;background:var(--panel);padding:4px;border-radius:12px}
-.big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;transition:.2s}
+.big-tab{flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer}
 .big-tab.active{background:var(--panel-l);color:var(--white)}
 .panel{display:none;margin-top:16px}
 .panel.active{display:block}
@@ -124,16 +121,14 @@ body.modal-open{overflow:hidden}
 .modal-overlay.open{display:flex}
 .modal-content{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:400px;position:relative;max-height:90vh;overflow-y:auto}
 .modal-title{font-size:16px;font-weight:900;margin-bottom:16px;text-align:center}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10;transition:.2s}
-.modal-close:hover{background:var(--red);color:#fff}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
 
 /* ЭКРАНЫ */
 .scr{position:fixed;inset:0;background:var(--bg);z-index:600;display:none;flex-direction:column}
 .scr.open{display:flex}
 .sh{padding:16px;display:flex;justify-content:space-between;align-items:center;background:var(--panel);border-bottom:1px solid var(--border)}
 .sh h2{font-size:16px;font-weight:900}
-.cb{background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;transition:.2s}
-.cb:hover{background:var(--red);color:#fff}
+.cb{background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer}
 .sb{flex:1;overflow-y:auto;padding:16px}
 
 /* ПРОФИЛЬ */
@@ -157,7 +152,7 @@ body.modal-open{overflow:hidden}
 .best-drop-name{font-size:14px;font-weight:900}
 .best-drop-price{font-size:16px;font-weight:900;color:var(--gold)}
 
-/* НОВАЯ ИСТОРИЯ ИГР (как на скрине) */
+/* ИСТОРИЯ */
 .hist-item{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
 .hist-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gray2)}
 .hist-item.win{border-color:rgba(76,175,80,.3)}
@@ -203,10 +198,10 @@ body.modal-open{overflow:hidden}
 /* УТИЛИТЫ */
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
 .filter-bar{display:flex;gap:6px;margin-top:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer;transition:.2s}
+.filter-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
 .filter-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(255,184,0,.1)}
 .sort-bar{display:flex;gap:6px;margin-top:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.sort-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer;transition:.2s}
+.sort-chip{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--gray2);font-size:10px;font-weight:800;cursor:pointer}
 .sort-chip.active{border-color:var(--blue);color:var(--blue);background:rgba(74,158,255,.1)}
 @keyframes popupIn{0%{opacity:0;transform:scale(.7) translateY(30px)}60%{transform:scale(1.05) translateY(-5px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 .popup-win-card{animation:popupIn .5s cubic-bezier(.34,1.56,.64,1)}
@@ -220,38 +215,33 @@ body.modal-open{overflow:hidden}
 .toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--gray2);transition:.2s}
 .toggle.on{background:rgba(255,184,0,.2);border-color:var(--gold)}
 .toggle.on::after{left:22px;background:var(--gold)}
-.settings-btn{padding:8px 14px;border-radius:8px;border:none;font-weight:900;font-size:11px;cursor:pointer;color:#fff;background:var(--panel-l);transition:.2s}
-.settings-btn:hover{background:var(--border)}
+.settings-btn{padding:8px 14px;border-radius:8px;border:none;font-weight:900;font-size:11px;cursor:pointer;color:#fff;background:var(--panel-l)}
 
 /* ДРУЗЬЯ */
 .friends-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;justify-content:center;align-items:center;padding:16px}
 .friends-modal{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;position:relative}
 .friends-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .friends-head h2{font-size:16px;font-weight:900}
-.friends-close{background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;transition:.2s}
-.friends-close:hover{background:var(--red);color:#fff}
+.friends-close{background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px}
 .friends-search-block{display:flex;gap:8px;margin-bottom:16px}
 .friends-search-block input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--white);outline:none;font-size:12px}
-.friends-search-add{width:40px;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:8px;font-size:18px;font-weight:900;color:#1a1a1a;cursor:pointer;transition:.2s}
-.friends-search-add:hover{opacity:.8}
+.friends-search-add{width:40px;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:8px;font-size:18px;font-weight:900;color:#1a1a1a;cursor:pointer}
 .friends-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
 .friends-scroll::-webkit-scrollbar{display:none}
-.fr-item{background:var(--panel-l);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.2s}
-.fr-item:hover{background:var(--border)}
+.fr-item{background:var(--panel-l);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .fr-item-ava{width:36px;height:36px;border-radius:8px;overflow:hidden;background:var(--bg);flex-shrink:0}
 .fr-item-ava img{width:100%;height:100%;object-fit:cover}
 .fr-item-info{flex:1;min-width:0}
 .fr-item-name{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fr-item-id{font-size:9px;color:var(--gray2);font-family:monospace}
-.fr-act-btn{width:30px;height:30px;border-radius:8px;border:none;font-size:14px;cursor:pointer;background:var(--panel);transition:.2s}
+.fr-act-btn{width:30px;height:30px;border-radius:8px;border:none;font-size:14px;cursor:pointer;background:var(--panel)}
 .fr-act-btn.accept{background:rgba(76,175,80,.2);color:var(--green-l)}
 .fr-act-btn.decline{background:rgba(229,9,20,.2);color:var(--red)}
 .fr-rec-card{flex-shrink:0;background:var(--panel-l);border:1px solid var(--border);border-radius:10px;padding:10px;width:100px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .fr-rec-ava{width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--bg)}
 .fr-rec-ava img{width:100%;height:100%;object-fit:cover}
 .fr-rec-name{font-size:10px;font-weight:900;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-.fr-rec-add{width:100%;padding:6px;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:6px;font-size:14px;font-weight:900;color:#1a1a1a;cursor:pointer;transition:.2s}
-.fr-rec-add:hover{opacity:.8}
+.fr-rec-add{width:100%;padding:6px;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:6px;font-size:14px;font-weight:900;color:#1a1a1a;cursor:pointer}
 
 /* VIP */
 .vip-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;justify-content:center;align-items:center;padding:16px}
@@ -264,20 +254,16 @@ body.modal-open{overflow:hidden}
 .vip-feature b{color:var(--gold)}
 .vip-price-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
 .vip-price-card{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:.2s}
-.vip-price-card:hover{background:var(--border)}
 .vip-price-card.recommended{border-color:var(--gold);box-shadow:0 0 15px rgba(255,184,0,.3)}
 .vip-price-value{font-size:18px;font-weight:900;color:var(--gold);margin-top:4px}
-.vip-buy-btn{width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;cursor:pointer;margin-bottom:8px;transition:.2s}
-.vip-buy-btn:hover{opacity:.9}
-.vip-close-btn{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--panel-l);color:var(--gray2);font-weight:900;font-size:12px;cursor:pointer;transition:.2s}
-.vip-close-btn:hover{background:var(--border)}
+.vip-buy-btn{width:100%;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;cursor:pointer;margin-bottom:8px}
+.vip-close-btn{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--panel-l);color:var(--gray2);font-weight:900;font-size:12px;cursor:pointer}
 
 /* GEAR */
 .gear-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;justify-content:center;align-items:center;padding:16px}
 .gear-modal{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:360px}
 .gear-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.gear-item{background:var(--panel-l);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:.2s}
-.gear-item:hover{background:var(--border)}
+.gear-item{background:var(--panel-l);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;cursor:pointer}
 .gear-item-val{font-size:16px;font-weight:900;color:var(--gold)}
 
 /* ЗАДАНИЯ */
@@ -286,8 +272,7 @@ body.modal-open{overflow:hidden}
 .task-info{flex:1;min-width:0}
 .task-title{font-size:12px;font-weight:900;color:var(--white)}
 .task-progress{font-size:10px;color:var(--gray2);font-weight:800;margin-top:2px}
-.task-claim{padding:8px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:10px;cursor:pointer;white-space:nowrap;transition:.2s}
-.task-claim:hover{opacity:.8}
+.task-claim{padding:8px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:10px;cursor:pointer;white-space:nowrap}
 .task-claim:disabled{background:var(--panel);color:var(--gray2);cursor:not-allowed}
 
 /* SKELETON */
@@ -331,15 +316,7 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#f5f5fa;--border:#ddd;--white:#11
     </div>
     <div class="arrow-wrap" id="arrowWrap">
       <div class="arrow">
-        <svg viewBox="0 0 14 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="ag" x1="7" y1="0" x2="7" y2="54" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#ffd700"/>
-              <stop offset="1" stop-color="#ff8c00"/>
-            </linearGradient>
-          </defs>
-          <path d="M7 54L1 40H5V0H9V40H13L7 54Z" fill="url(#ag)"/>
-        </svg>
+        <svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg>
       </div>
     </div>
   </div>
@@ -368,8 +345,8 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#f5f5fa;--border:#ddd;--white:#11
   </div>
   <div class="panel active" id="panelInv">
     <div style="display:flex;gap:4px;margin-top:16px;background:var(--panel);padding:4px;border-radius:12px;">
-      <button id="subInv" onclick="switchSub('inv')" style="flex:1;background:var(--panel-l);border:none;color:var(--white);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;transition:.2s">МОИ СКИНЫ</button>
-      <button id="subShop" onclick="switchSub('shop')" style="flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;transition:.2s">МАГАЗИН</button>
+      <button id="subInv" onclick="switchSub('inv')" style="flex:1;background:var(--panel-l);border:none;color:var(--white);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МОИ СКИНЫ</button>
+      <button id="subShop" onclick="switchSub('shop')" style="flex:1;background:none;border:none;color:var(--gray2);font-size:11px;font-weight:800;padding:10px;border-radius:8px;cursor:pointer;">МАГАЗИН</button>
     </div>
     <div style="margin-top:12px;"><input type="text" id="searchInp" placeholder="Поиск..." oninput="rendInv()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
     <div class="filter-bar" id="filterBar"></div>
@@ -969,8 +946,7 @@ async function spinUpgrade(){
   isSpinning=true; lockUI(true); rendInv(); rendTargetList();
   const wrap=document.getElementById('arrowWrap');
   
-  // Время анимации (7.5 секунд)
-  const duration = (lightningOn||vipData.isVip) ? 2000 : 7500; 
+  const duration = (lightningOn||vipData.isVip) ? 2000 : 6000; 
   const durSec=duration/1000;
   const spinPct=Math.min(90,selPct);
 
@@ -1005,7 +981,7 @@ async function spinUpgrade(){
   }
 
   const targetMod=(360-targetArrowAngle)%360;
-  const fullTurns=10; // 10 полных кругов
+  const fullTurns=10;
   const totalRotation=fullTurns*360+targetMod;
   const td=-totalRotation;
 
@@ -1014,85 +990,57 @@ async function spinUpgrade(){
     const tickI=setInterval(()=>{ sTick(); tc++; if(tc>=40)clearInterval(tickI); },durSec*1000/40);
   }
   
-  // КАСТОМНАЯ АНИМАЦИЯ: Медленный старт -> Ускорение -> Плавное торможение
-  // Мы используем JS requestAnimationFrame для контроля скорости вместо CSS easing
-  let start = null;
-  const startRot = 0;
-  const endRot = td;
-
-  function animateSpin(timestamp) {
-    if (!start) start = timestamp;
-    const progress = timestamp - start;
-    const percent = Math.min(progress / duration, 1);
-    
-    // Формула easing: медленный старт, быстрый разгон, плавное затухание
-    // Используем кубическую функцию для эффекта "рывка" и "замедления"
-    let eased;
-    if(percent < 0.1) {
-       // Первые 10% времени - очень медленный старт (рывок)
-       eased = (percent / 0.1) * 0.05; 
-    } else {
-       // Остальное время - ускорение и плавное торможение
-       const p = (percent - 0.1) / 0.9;
-       // Кривая Bezier для ускорения и замедления
-       eased = 0.05 + (1 - Math.pow(1 - p, 3)) * 0.95; 
-    }
-    
-    const currentRot = startRot + (endRot - startRot) * eased;
-    wrap.style.transform = `rotate(${currentRot}deg)`;
-
-    if (percent < 1) {
-      requestAnimationFrame(animateSpin);
-    } else {
-      // Анимация завершена - обрабатываем результат
-      setTimeout(() => {
-        const lostItems=[...selectedItems];
-        
-        lostItems.forEach(lostItem => {
-          const idx = inv.indexOf(lostItem);
-          if (idx > -1) inv.splice(idx, 1);
-        });
-        
-        selectedItems=[];
-
-        if(win){
-          const ws={...targetSkin};
-          inv.push(ws);
-          stats.wins++;
-          haptic('heavy');
-          showWinModal(ws);
-          sWin(); confetti();
-          if(!bestDrop||(ws.price||0)>(bestDrop.price||0))
-            bestDrop={name:ws.name,img:ws.img||'',price:ws.price||0,ts:Date.now()};
-          upgradeHistory.unshift({win:true,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||'',ts:Date.now()});
-          saveHistory({win:true,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||''});
-        }else{
-          stats.loses++;
-          haptic('light');
-          showLoseModal(lostItems);
-          sLose();
-          upgradeHistory.unshift({win:false,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||'',ts:Date.now()});
-          saveHistory({win:false,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||''});
-        }
-        if(upgradeHistory.length>100)upgradeHistory.pop();
-        if(hasBoost)consumeBoost();
-        stats.spins++;
-        checkAchievements();
-
-        isSpinning=false;
-        wrap.style.transition='none';
-        wrap.style.transform='rotate(0deg)';
-        clearWheelPct();
-        clearPctSelection();
-        lockUI(false);
-        updateRankUI();
-        saveGame();
-      }, 500); // Небольшая пауза перед показом результата
-    }
-  }
+  // Плавная анимация (стандартный easing, как в рулетках)
+  wrap.style.transition='none';
+  wrap.style.transform='rotate(0deg)';
+  wrap.offsetHeight; 
   
-  // Запускаем анимацию
-  requestAnimationFrame(animateSpin);
+  wrap.style.transition=`transform ${durSec}s cubic-bezier(0.2, 0.8, 0.2, 1)`;
+  wrap.style.transform=`rotate(${td}deg)`;
+
+  setTimeout(()=>{
+    const lostItems=[...selectedItems];
+    
+    lostItems.forEach(lostItem => {
+      const idx = inv.indexOf(lostItem);
+      if (idx > -1) inv.splice(idx, 1);
+    });
+    
+    selectedItems=[];
+
+    if(win){
+      const ws={...targetSkin};
+      inv.push(ws);
+      stats.wins++;
+      haptic('heavy');
+      showWinModal(ws);
+      sWin(); confetti();
+      if(!bestDrop||(ws.price||0)>(bestDrop.price||0))
+        bestDrop={name:ws.name,img:ws.img||'',price:ws.price||0,ts:Date.now()};
+      upgradeHistory.unshift({win:true,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||'',ts:Date.now()});
+      saveHistory({win:true,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||''});
+    }else{
+      stats.loses++;
+      haptic('light');
+      showLoseModal(lostItems);
+      sLose();
+      upgradeHistory.unshift({win:false,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||'',ts:Date.now()});
+      saveHistory({win:false,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:spinPct,targetImg:targetSkin.img||''});
+    }
+    if(upgradeHistory.length>100)upgradeHistory.pop();
+    if(hasBoost)consumeBoost();
+    stats.spins++;
+    checkAchievements();
+
+    isSpinning=false;
+    wrap.style.transition='none';
+    wrap.style.transform='rotate(0deg)';
+    clearWheelPct();
+    clearPctSelection();
+    lockUI(false);
+    updateRankUI();
+    saveGame();
+  },duration);
 }
 
 function closeResult(){
@@ -1807,4 +1755,4 @@ function updateRankUI(){
 })();
 </script>
 </body>
-  </html>
+    </html>
