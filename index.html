@@ -59,8 +59,12 @@ body.modal-open{overflow:hidden}
 .wheel-center{position:relative;z-index:5;text-align:center}
 .pt{font-size:52px;font-weight:900;line-height:1;letter-spacing:-2px;text-shadow:0 0 20px rgba(255,184,0,.4)}
 .pl{font-size:9px;color:var(--gray2);letter-spacing:4px;margin-top:4px;font-weight:700}
+
+/* НОВАЯ ТОНКАЯ СТРЕЛКА */
 .arrow-wrap{position:absolute;inset:0;pointer-events:none;z-index:25;transform-origin:center center}
-.arrow{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:32px;height:44px;filter:drop-shadow(0 4px 10px rgba(255,184,0,.8))}
+.arrow{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:14px;height:54px;filter:drop-shadow(0 6px 12px rgba(255,184,0,.9))}
+.arrow svg{width:100%;height:100%}
+
 .pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:20px}
 .pb{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 4px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
 .pb.sel{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold)}
@@ -148,22 +152,40 @@ body.modal-open{overflow:hidden}
 .best-drop-img{width:70px;height:70px;object-fit:contain}
 .best-drop-name{font-size:14px;font-weight:900}
 .best-drop-price{font-size:16px;font-weight:900;color:var(--gold)}
-.hist-item{background:var(--panel-l);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;border-left:3px solid var(--gray2)}
-.hist-item.win{border-left-color:var(--green-l)}
-.hist-item.lose{border-left-color:var(--red)}
-.hist-img{width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:8px;padding:4px}
-.hist-info{flex:1}
-.hist-title{font-size:12px;font-weight:900}
-.hist-sub{font-size:10px;color:var(--gray2);font-weight:800}
-.hist-price{font-size:14px;font-weight:900}
-.hist-price.win{color:var(--green-l)}
-.hist-price.lose{color:var(--red)}
-.achievement-badge{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:10px;background:var(--panel-l);border:1px solid var(--border);border-radius:12px;min-width:80px}
-.achievement-badge.unlocked{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,184,0,.15),rgba(255,140,0,.05))}
-.achievement-ico{font-size:28px;filter:grayscale(1);opacity:.4}
-.achievement-badge.unlocked .achievement-ico{filter:grayscale(0);opacity:1}
-.achievement-name{font-size:9px;font-weight:900;color:var(--gray2);text-align:center}
-.achievement-badge.unlocked .achievement-name{color:var(--gold)}
+
+/* НОВАЯ ИСТОРИЯ ИГР */
+.hist-item{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.hist-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gray2)}
+.hist-item.win{border-color:rgba(76,175,80,.3)}
+.hist-item.win::before{background:var(--green-l)}
+.hist-item.lose{border-color:rgba(229,9,20,.3)}
+.hist-item.lose::before{background:var(--red)}
+
+.hist-top{display:flex;justify-content:space-between;align-items:flex-start}
+.hist-skins-wrap{display:flex;align-items:center;gap:12px;position:relative}
+.hist-skin-img{width:64px;height:64px;object-fit:contain;background:var(--bg);border-radius:12px;border:1px solid var(--border);padding:6px}
+.hist-arrow{color:var(--gray2);font-size:16px;font-weight:900}
+.hist-target-img{width:72px;height:72px;object-fit:contain;background:var(--bg);border-radius:12px;border:1px solid var(--border);padding:6px}
+
+.hist-details{flex:1;margin-left:8px}
+.hist-label{font-size:10px;color:var(--gray2);font-weight:900;text-transform:uppercase;letter-spacing:1px}
+.hist-title{font-size:14px;font-weight:900;color:var(--white);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.hist-price{font-size:14px;font-weight:900;color:var(--gold);margin-top:2px}
+
+.hist-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:12px;margin-top:4px}
+.hist-chance{display:flex;flex-direction:column;gap:6px;flex:1}
+.hist-chance-lbl{font-size:10px;color:var(--gray2);font-weight:900}
+.hist-chance-val{font-size:16px;font-weight:900;color:var(--white)}
+.hist-bar{width:100%;height:6px;background:var(--panel-l);border-radius:3px;overflow:hidden;margin-top:2px;max-width:140px}
+.hist-bar-fill{height:100%;border-radius:3px}
+.win .hist-bar-fill{background:var(--green-l);box-shadow:0 0 10px rgba(76,175,80,.5)}
+.lose .hist-bar-fill{background:var(--red);box-shadow:0 0 10px rgba(229,9,20,.5)}
+
+.hist-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.hist-badge{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:900;border:1px solid}
+.win .hist-badge{color:var(--green-l);background:rgba(76,175,80,.1);border-color:rgba(76,175,80,.3)}
+.lose .hist-badge{color:var(--red);background:rgba(229,9,20,.1);border-color:rgba(229,9,20,.3)}
+.hist-date{font-size:10px;color:var(--gray2);font-weight:700}
 
 /* ТИТУЛЫ / РАМКИ */
 .title-badge{font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;background:var(--panel-l);border:1px solid var(--border)}
@@ -295,7 +317,19 @@ body.light{--bg:#f0f0f5;--panel:#fff;--panel-l:#f5f5fa;--border:#ddd;--white:#11
       <div class="wheel-ticks" id="wheelTicks"></div>
       <div class="wheel-center"><div class="pt" id="pt">?%</div><div class="pl">CHANCE</div></div>
     </div>
-    <div class="arrow-wrap" id="arrowWrap"><div class="arrow"><svg viewBox="0 0 40 52"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb800"/><stop offset="1" stop-color="#ff8c00"/></linearGradient></defs><path fill="url(#ag)" d="M20 52L8 32h7V8h10v24h7L20 52z"/></svg></div></div>
+    <div class="arrow-wrap" id="arrowWrap">
+      <div class="arrow">
+        <svg viewBox="0 0 14 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ag" x1="7" y1="0" x2="7" y2="54" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffd700"/>
+              <stop offset="1" stop-color="#ff8c00"/>
+            </linearGradient>
+          </defs>
+          <path d="M7 54L1 40H5V0H9V40H13L7 54Z" fill="url(#ag)"/>
+        </svg>
+      </div>
+    </div>
   </div>
   <div class="pcnt-row" id="pcntRow"></div>
   <div class="action-row">
@@ -922,7 +956,9 @@ async function spinUpgrade(){
   if(selectedItems.length===0 || !targetSkin || !selPct || isSpinning)return;
   isSpinning=true; lockUI(true); rendInv(); rendTargetList();
   const wrap=document.getElementById('arrowWrap');
-  const duration=(lightningOn||vipData.isVip)?2000:6000;
+  
+  // Длительность спина (от 6 до 8 секунд для красоты)
+  const duration = (lightningOn||vipData.isVip) ? 2000 : 7500; 
   const durSec=duration/1000;
   const spinPct=Math.min(90,selPct);
 
@@ -937,9 +973,13 @@ async function spinUpgrade(){
   let win;
   try{
     const sc=await fetch(BOT_URL+'/api/spinControl/'+getUserId());
-    const scd=await sc.json();
-    if(scd.result==='win')win=true;
-    else if(scd.result==='lose')win=false;
+    // Защита от HTML-ответа
+    const text = await sc.text();
+    let scd;
+    try { scd = JSON.parse(text); } catch(e) { scd = null; }
+    
+    if(scd && scd.result==='win') win=true;
+    else if(scd && scd.result==='lose') win=false;
     else win=Math.random()<0.4;
   }catch(e){ win=Math.random()<0.4; }
 
@@ -954,19 +994,23 @@ async function spinUpgrade(){
   }
 
   const targetMod=(360-targetArrowAngle)%360;
-  const fullTurns=8;
+  const fullTurns=10; // 10 полных кругов
   const totalRotation=fullTurns*360+targetMod;
   const td=-totalRotation;
 
   if(soundEnabled){
     let tc=0;
-    const tickI=setInterval(()=>{ sTick(); tc++; if(tc>=30)clearInterval(tickI); },durSec*1000/30);
+    const tickI=setInterval(()=>{ sTick(); tc++; if(tc>=40)clearInterval(tickI); },durSec*1000/40);
   }
   
+  // Анимация с рывком в начале и плавным замедлением
+  // cubic-bezier(0.1, 0.8, 0.1, 1) дает эффект: медленный старт (рывок), затем быстрое ускорение и плавное затухание
   wrap.style.transition='none';
   wrap.style.transform='rotate(0deg)';
-  wrap.offsetHeight;
-  wrap.style.transition=`transform ${durSec}s cubic-bezier(0.2, 0.8, 0.3, 1.05)`;
+  wrap.offsetHeight; // Форсируем рефлоу
+  
+  // Запускаем анимацию
+  wrap.style.transition=`transform ${durSec}s cubic-bezier(0.2, 0.9, 0.1, 1)`;
   wrap.style.transform=`rotate(${td}deg)`;
 
   setTimeout(()=>{
@@ -1288,7 +1332,10 @@ async function openTasksModal(){
   list.innerHTML='<div class="skeleton" style="height:60px;margin-bottom:8px"></div><div class="skeleton" style="height:60px"></div>';
   try{
     const r=await fetch(BOT_URL+'/api/tasks/status/'+getUserId());
-    const d=await r.json();
+    const text = await r.text();
+    let d;
+    try { d = JSON.parse(text); } catch(e) { throw new Error('Server error'); }
+    
     if(!d.ok)throw new Error();
     list.innerHTML=d.tasks.map(t=>{
       const done=t.progress>=t.need;
@@ -1298,7 +1345,7 @@ async function openTasksModal(){
         <button class="task-claim" ${t.claimed||!done?'disabled':''} onclick="claimTask('${t.id}')">${t.claimed?'ПОЛУЧЕНО':(done?'ЗАБРАТЬ':'ЖДЕМ')}</button>
       </div>`;
     }).join('');
-  }catch(e){ list.innerHTML='<div style="color:var(--red)">Ошибка</div>'; }
+  }catch(e){ list.innerHTML='<div style="color:var(--red);text-align:center;font-weight:900;font-size:12px">Сервер просыпается, обновите позже...</div>'; }
 }
 async function claimTask(id){
   try{
@@ -1611,14 +1658,36 @@ async function rendProfile(){
             </div>
             ${histFiltered.length===0
               ? '<div style="text-align:center;padding:20px;color:var(--gray2)">Пусто</div>'
-              : histFiltered.map(h=>`<div class="hist-item ${h.win?'win':'lose'}">
-                  <img src="${h.targetImg||''}" class="hist-img" onerror="this.style.display='none'">
-                  <div class="hist-info">
-                    <div class="hist-title">${h.targetName}</div>
-                    <div class="hist-sub">${h.pct}% шанс</div>
+              : histFiltered.map(h=>`
+                  <div class="hist-item ${h.win?'win':'lose'}">
+                    <div class="hist-top">
+                      <div class="hist-skins-wrap">
+                        <!-- Тут можно вывести скин который ставили, но в истории хранится только цель, поэтому выводим цель -->
+                        <img src="${h.targetImg||''}" class="hist-target-img" onerror="this.style.display='none'">
+                        <div class="hist-details">
+                          <div class="hist-label">АПГРЕЙД</div>
+                          <div class="hist-title">${h.targetName}</div>
+                          <div class="hist-price">${h.targetPrice} G</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hist-bottom">
+                      <div class="hist-chance">
+                        <div class="hist-chance-lbl">% ШАНС</div>
+                        <div class="hist-chance-val">${h.pct}%</div>
+                        <div class="hist-bar">
+                          <div class="hist-bar-fill" style="width:${h.pct}%"></div>
+                        </div>
+                      </div>
+                      <div class="hist-status">
+                        <div class="hist-badge">
+                          ${h.win?'✓ ПОБЕДА':'✕ ПРОВАЛ'}
+                        </div>
+                        <div class="hist-date">${new Date(h.ts||Date.now()).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="hist-price ${h.win?'win':'lose'}">${h.win?'+':'-'}${h.targetPrice} G</div>
-                </div>`).join('')}
+                `).join('')}
           </div>`}
     </div>`;
   }catch(err){ console.error('rendProfile error:',err); }
