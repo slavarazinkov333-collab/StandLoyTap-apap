@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1,viewport-fit=cover">
 <title>StandFliutApap</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;user-select:none}
-:root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#4CAF50;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff}
+:root{--bg:#0a0a0c;--panel:#121216;--panel-l:#1a1a22;--border:#272730;--gold:#ffb800;--red:#e50914;--green:#4CAF50;--green-l:#66bb6a;--gray:#666;--gray2:#999;--white:#fff;--blue:#4a9eff}
 body{background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;padding-bottom:80px}
 body.modal-open{overflow:hidden}
 .top{position:fixed;top:0;left:0;right:0;z-index:100;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,12,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
@@ -69,6 +69,7 @@ body.modal-open{overflow:hidden}
 .pcnt-row{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:16px}
 .pb{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 4px;color:var(--gray2);font-size:11px;font-weight:800;cursor:pointer}
 .pb.sel{border-color:var(--gold);background:rgba(255,184,0,.1);color:var(--gold)}
+.pb:disabled{opacity:.5;cursor:not-allowed}
 .action-row{display:flex;gap:8px;margin-top:12px}
 .lightning-btn{width:56px;height:56px;background:var(--panel);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;justify-content:center;align-items:center}
 .lightning-btn.on{border-color:var(--gold);background:rgba(255,184,0,.1)}
@@ -143,7 +144,16 @@ body.modal-open{overflow:hidden}
 .modal-title{font-size:16px;font-weight:900;margin-bottom:16px;text-align:center}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
 
+/* Доп. элементы */
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.toggle{width:44px;height:24px;border-radius:12px;background:var(--panel-l);position:relative;cursor:pointer;border:1px solid var(--border);transition:.2s}
+.toggle.on{background:rgba(255,184,0,.2);border-color:var(--gold)}
+.toggle div{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--gray2);transition:.2s}
+.toggle.on div{left:22px;background:var(--gold)}
+.vip-buy-btn{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--gold),#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;cursor:pointer}
+.popup-win-card,.popup-lose-card{animation:popIn .4s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes popIn{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+.title-novice,.title-pro,.title-master,.title-legend,.title-god{display:inline-block;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;background:var(--panel-l);border:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -209,6 +219,7 @@ body.modal-open{overflow:hidden}
     <div class="grid" id="invList" style="margin-top:12px"></div>
   </div>
   <div class="panel" id="panelTarget">
+    <div style="margin-top:12px;"><input type="text" id="targetSearchInp" placeholder="Поиск цели..." oninput="rendTargetList()" style="width:100%;background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--white);outline:none;font-size:12px;"></div>
     <div class="grid" id="targetList" style="margin-top:12px"></div>
   </div>
 </div>
@@ -370,6 +381,16 @@ function getUserId(){
 function getUser(){
   return (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) || null;
 }
+function getTgInitData(){
+  try{return window.Telegram.WebApp.initData||'';}catch(e){return'';}
+}
+
+// ==================== БЕЗОПАСНОСТЬ ====================
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function apiHeaders(){
+  return {'Content-Type':'application/json','X-TG-Init-Data':getTgInitData()};
+}
 
 // ==================== СОСТОЯНИЕ ====================
 let gold=0, inv=[], stats={spins:0,wins:0,loses:0}, bestDrop=null, history=[], upgradeHistory=[];
@@ -403,13 +424,21 @@ let dailyData={lastClaim:0,lastFortune:0,lastLottery:0};
 try{ dailyData=JSON.parse(localStorage.getItem('sfap_daily')||'{"lastClaim":0,"lastFortune":0,"lastLottery":0}'); }catch(e){}
 let lightTheme=localStorage.getItem('sfap_theme')==='light';
 let happyHourEnd=Number(localStorage.getItem('sfap_happy')||0);
+let modalOpenCount=0;
 
 // ==================== УТИЛИТЫ ====================
 function haptic(t){ if(!hapticEnabled)return; try{ window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback && window.Telegram.WebApp.HapticFeedback.impactOccurred(t||'medium'); }catch(e){} }
+
+let audioCtx=null;
+function getAudioCtx(){
+  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended'){ audioCtx.resume().catch(()=>{}); }
+  return audioCtx;
+}
 function beep(f,t,d,v){
   if(!soundEnabled)return;
   try{
-    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const ctx=getAudioCtx();
     const o=ctx.createOscillator(), g=ctx.createGain();
     o.connect(g); g.connect(ctx.destination);
     o.frequency.value=f; o.type=t||'sine';
@@ -460,28 +489,33 @@ function checkHappyHour(){
   }
 }
 
+function setBodyLock(lock){
+  modalOpenCount += lock ? 1 : -1;
+  if(modalOpenCount<0) modalOpenCount=0;
+  document.body.classList.toggle('modal-open', modalOpenCount>0);
+}
+
 // ==================== НАВИГАЦИЯ ====================
 function switchTab(tabName){
   document.querySelectorAll('.main').forEach(el => el.classList.remove('active'));
   document.getElementById('screen-' + tabName).classList.add('active');
-  
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => el.getAttribute('onclick').includes(tabName));
   if(btn) btn.classList.add('active');
-
   if(tabName === 'tasks') loadTasks();
+  if(tabName === 'leaderboard') loadLeaderboard();
 }
 
 function toggleSidePanel(){
   const panel = document.getElementById('sidePanel');
   const overlay = document.getElementById('sideOverlay');
+  const willOpen = !panel.classList.contains('open');
   panel.classList.toggle('open');
   overlay.classList.toggle('open');
-  
-  if(panel.classList.contains('open')) {
+  if(willOpen) {
     const u = getUser();
-    document.getElementById('sideName').innerText = (u && u.first_name) ? u.first_name : 'Игрок';
-    document.getElementById('sideId').innerText = 'ID: #' + getUserId().slice(-5);
+    document.getElementById('sideName').innerText = esc((u && u.first_name) ? u.first_name : 'Игрок');
+    document.getElementById('sideId').innerText = 'ID: #' + esc(getUserId().slice(-5));
     const av = document.getElementById('topAv');
     document.getElementById('sideAvatar').innerHTML = av.innerHTML;
   }
@@ -498,27 +532,29 @@ function openTopup(){
 // ==================== ЭКРАНЫ ====================
 function openS(id){
   const el=document.getElementById(id); if(!el)return;
-  el.classList.add('open'); document.body.classList.add('modal-open');
+  el.classList.add('open'); setBodyLock(true);
   if(id==='profileScreen')rendProfile();
   if(id==='settingsScreen')rendSettings();
 }
 function closeS(id){
   const el=document.getElementById(id); if(!el)return;
-  el.classList.remove('open'); document.body.classList.remove('modal-open');
+  el.classList.remove('open'); setBodyLock(false);
 }
 
 function drawTicks(){
   const t=document.getElementById('wheelTicks'); if(!t)return;
+  const size=t.offsetWidth||300;
+  const origin=size/2;
   let h='';
   for(let i=0;i<36;i++){
     const a=i*(360/36), maj=i%3===0;
-    h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg"></div>`;
+    h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg;transform-origin:center ${origin}px"></div>`;
   }
   t.innerHTML=h;
 }
 function renderPctRow(){
   const b=document.getElementById('pcntRow'); if(!b)return;
-  b.innerHTML=customPcts.map(p=>`<button class="pb" data-pct="${p}" onclick="setPct(${p},this)">${p}%</button>`).join('');
+  b.innerHTML=customPcts.map((p,idx)=>`<button class="pb" data-pct="${p}" onclick="setPct(${p},this)">${p}%</button>`).join('');
 }
 function switchBigTab(m){
   bigTab=m;
@@ -545,14 +581,14 @@ function rendInv(){
   if(invMode==='shop'){
     let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));
     f.sort((a,b)=>a.price-b.price);
-    b.innerHTML=f.map(s=>{
+    b.innerHTML=f.map((s,idx)=>{
       const r=getRarity(s.color);
       const inCart=cart.find(c=>c.name===s.name);
       return `<div class="card ${r}" style="min-height:160px">
-        <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
-        <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
+        <div class="card-img-wrap"><img src="${esc(s.img)}" onerror="this.style.display='none'"></div>
+        <div class="card-info"><div class="card-name">${esc(s.name)}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
         <div class="card-actions-overlay" style="display:flex;background:none;backdrop-filter:none">
-          <button class="btn-act ${inCart?'sell':'upg'}" onclick="toggleCart('${s.name}',${s.price})">${inCart?'✓ В КОРЗИНЕ':'🛒 КУПИТЬ'}</button>
+          <button class="btn-act ${inCart?'sell':'upg'}" onclick="event.stopPropagation(); toggleCartByName('${esc(s.name)}', ${s.price})">${inCart?'✓ В КОРЗИНЕ':'🛒 КУПИТЬ'}</button>
         </div>
       </div>`;
     }).join('');
@@ -572,8 +608,8 @@ function rendInv(){
     const r=getRarity(it.color||'#888');
     const realIdx=inv.indexOf(it);
     return `<div class="card ${r}" id="inv-card-${realIdx}" onclick="expandCard(this)">
-      <div class="card-img-wrap"><img src="${it.img}" onerror="this.style.display='none'"></div>
-      <div class="card-info"><div class="card-name">${it.name}</div><div class="card-price">${(it.price||0).toLocaleString('ru-RU')}</div></div>
+      <div class="card-img-wrap"><img src="${esc(it.img)}" onerror="this.style.display='none'"></div>
+      <div class="card-info"><div class="card-name">${esc(it.name)}</div><div class="card-price">${(it.price||0).toLocaleString('ru-RU')}</div></div>
       <div class="card-actions-overlay">
         <button class="btn-act upg" onclick="event.stopPropagation(); addToUpgrade(${realIdx}); closeAllCards();">⬆ В Апгрейд</button>
         <button class="btn-act wd" onclick="event.stopPropagation(); withdrawSkinDirect(${realIdx}); closeAllCards();">📤 Вывести</button>
@@ -600,23 +636,23 @@ function rendTargetList(){
   const q=((document.getElementById('targetSearchInp')||{}).value||'').toLowerCase();
   let f=allSkins.filter(s=>s.name.toLowerCase().includes(q));
   f.sort((a,b)=>a.price-b.price);
-  b.innerHTML=f.map(s=>{
+  b.innerHTML=f.map((s,idx)=>{
     const r=getRarity(s.color);
     const isSel=targetSkin && targetSkin.name===s.name;
-    return `<div class="card ${r}" style="border-color:${isSel?'var(--white)':'var(--border)'}" onclick="pickTargetCard('${s.name.replace(/'/g,"\\'")}',${s.price},'${s.color}')">
-      <div class="card-img-wrap"><img src="${s.img}" onerror="this.style.display='none'"></div>
-      <div class="card-info"><div class="card-name">${s.name}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
+    return `<div class="card ${r}" style="border-color:${isSel?'var(--white)':'var(--border)'}" onclick="pickTargetByName('${esc(s.name)}', ${s.price}, '${s.color}')">
+      <div class="card-img-wrap"><img src="${esc(s.img)}" onerror="this.style.display='none'"></div>
+      <div class="card-info"><div class="card-name">${esc(s.name)}</div><div class="card-price">${s.price.toLocaleString('ru-RU')}</div></div>
     </div>`;
   }).join('');
 }
 
-function toggleCart(name,price){
+function toggleCartByName(name, price){
   if(isSpinning)return;
   const i=cart.findIndex(c=>c.name===name);
   if(i>=0) cart.splice(i,1);
   else{
     if(gold<price){toast('❌ Мало G','lose');return}
-    cart.push({name,price, qty: 1});
+    cart.push({name,price,qty:1});
   }
   updateCartBadge();
   rendInv();
@@ -630,7 +666,7 @@ function updateCartBadge(){
 function addToUpgrade(idx){
   if(isSpinning)return;
   const it=inv[idx]; if(!it)return;
-  if(selectedItems.find(x=>x.name===it.name)){ toast('⚠️ Уже добавлен','lose'); return; }
+  if(selectedItems.find(x=>x.name===it.name && x.price===it.price && x.img===it.img)){ toast('⚠️ Уже добавлен','lose'); return; }
   if(selectedItems.length>=MAX_UPGRADE){ toast('❌ Макс '+MAX_UPGRADE,'lose'); return; }
   selectedItems.push(it);
   rendMain();
@@ -639,7 +675,7 @@ function addToUpgrade(idx){
 }
 function removeFromUpgradeItem(item){
   if(isSpinning)return;
-  const i=selectedItems.indexOf(item);
+  const i=selectedItems.findIndex(x=>x===item);
   if(i<0)return;
   selectedItems.splice(i,1);
   recomputePct();
@@ -661,7 +697,7 @@ function clearPctSelection(){
 function sellSkin(idx){
   const it=inv[idx]; if(!it)return;
   const sp=Math.round((it.price||50)*0.7);
-  if(confirm(`Продать ${it.name} за ${sp} G?`)){
+  if(confirm(`Продать ${esc(it.name)} за ${sp} G?`)){
     gold+=sp;
     inv.splice(idx,1);
     selectedItems=selectedItems.filter(i=>i!==it);
@@ -741,7 +777,7 @@ function rendMain(){
     else{
       for(let i=0;i<selectedItems.length;i++){
         const s=selectedItems[i];
-        h+=`<div class="slot-cell">${s.img?`<img src="${s.img}" onerror="this.style.display='none'">`:'📦'}<div class="slot-remove" onclick="event.stopPropagation();removeFromUpgradeItem(selectedItems[${i}])">✕</div></div>`;
+        h+=`<div class="slot-cell">${s.img?`<img src="${esc(s.img)}" onerror="this.style.display='none'">`:'📦'}<div class="slot-remove" onclick="event.stopPropagation();removeFromUpgradeItem(selectedItems[${i}])">✕</div></div>`;
       }
     }
     leftIcons.innerHTML=h;
@@ -753,7 +789,7 @@ function rendMain(){
   const rightIcons=document.getElementById('rightIcons');
   if(rightIcons){
     if(targetSkin){
-      rightIcons.innerHTML=`<div class="slot-cell"><img src="${targetSkin.img||''}" onerror="this.style.display='none'"></div>`;
+      rightIcons.innerHTML=`<div class="slot-cell"><img src="${esc(targetSkin.img||'')}" onerror="this.style.display='none'"></div>`;
       const tc=document.getElementById('targetCount'); if(tc) tc.innerText=targetSkin.price.toLocaleString('ru-RU')+' G';
     }else{
       rightIcons.innerHTML='<div class="empty-slot" style="margin:0 auto;">🎯</div>';
@@ -763,10 +799,11 @@ function rendMain(){
   checkUpgradeBtn();
 }
 
-function pickTargetCard(name,price,color){
+function pickTargetByName(name, price, color){
   if(isSpinning)return;
   const skin=allSkins.find(s=>s.name===name);
-  targetSkin={name,price,color,img:skin?skin.img:null};
+  if(!skin)return;
+  targetSkin={name:skin.name,price:skin.price,color:skin.color,img:skin.img};
   const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
   if(invSum>0){
     let autoPct=Math.min(90,(invSum/targetSkin.price)*100);
@@ -788,6 +825,8 @@ function lockUI(lock){
   document.querySelectorAll('.pb').forEach(b=>b.disabled=lock);
 }
 
+let arrowAccumAngle=0;
+
 async function spinUpgrade(){
   if(selectedItems.length===0 || !targetSkin || !selPct || isSpinning)return;
   isSpinning=true; lockUI(true); rendInv(); rendTargetList();
@@ -807,7 +846,7 @@ async function spinUpgrade(){
 
   let win;
   try{
-    const sc=await fetch(BOT_URL+'/api/spinControl/'+getUserId());
+    const sc=await fetch(BOT_URL+'/api/spinControl/'+encodeURIComponent(getUserId()), {headers:apiHeaders()});
     const text = await sc.text();
     let scd;
     try { scd = JSON.parse(text); } catch(e) { scd = null; }
@@ -827,10 +866,11 @@ async function spinUpgrade(){
     targetArrowAngle = winDeg + (Math.random() * grayLen * 0.8) + (grayLen * 0.1);
   }
 
-  const targetMod=(360-targetArrowAngle)%360;
+  const targetMod=targetArrowAngle % 360;
   const fullTurns=10;
   const totalRotation=fullTurns*360+targetMod;
-  const td=-totalRotation;
+  arrowAccumAngle += totalRotation;
+  const td=-arrowAccumAngle;
 
   if(soundEnabled){
     let tc=0;
@@ -838,7 +878,7 @@ async function spinUpgrade(){
   }
   
   wrap.style.transition='none';
-  wrap.style.transform='rotate(0deg)';
+  wrap.style.transform=`rotate(${-arrowAccumAngle+totalRotation}deg)`;
   wrap.offsetHeight; 
   
   wrap.style.transition=`transform ${durSec}s cubic-bezier(0.2, 0.8, 0.2, 1)`;
@@ -848,7 +888,7 @@ async function spinUpgrade(){
     const lostItems=[...selectedItems];
     
     lostItems.forEach(lostItem => {
-      const idx = inv.indexOf(lostItem);
+      const idx = inv.findIndex(x => x===lostItem);
       if (idx > -1) inv.splice(idx, 1);
     });
     
@@ -879,10 +919,6 @@ async function spinUpgrade(){
     checkAchievements();
 
     isSpinning=false;
-    wrap.style.transition='none';
-    wrap.style.transform='rotate(0deg)';
-    clearWheelPct();
-    clearPctSelection();
     lockUI(false);
     updateRankUI();
     saveGame();
@@ -912,10 +948,10 @@ function showWinModal(skin){
     <div style="font-size:12px;font-weight:900;color:var(--green-l);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(76,175,80,.8)">★ ПОБЕДА ★</div>
     <div style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">УСПЕХ!</div>
     <div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(76,175,80,.8),inset 0 0 30px rgba(76,175,80,.3)">
-      ${skin.img?`<img src="${skin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))" onerror="this.style.display='none'">`:''}
+      ${skin.img?`<img src="${esc(skin.img)}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))" onerror="this.style.display='none'">`:''}
     </div>
-    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${skin.name}</div>
-    <div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px;text-shadow:0 0 15px rgba(255,184,0,.6)">+${skin.price} G</div>
+    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${esc(skin.name)}</div>
+    <div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px;text-shadow:0 0 15px rgba(255,184,0,.6)">+${(skin.price||0).toLocaleString('ru-RU')} G</div>
     <button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer" onclick="closeResult()">🎁 ЗАБРАТЬ</button>
   </div>`;
   document.body.appendChild(m);
@@ -929,10 +965,10 @@ function showLoseModal(items){
     <div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(229,9,20,.8)">★ ПОРАЖЕНИЕ ★</div>
     <div style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">НЕУДАЧА</div>
     <div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(229,9,20,.8),inset 0 0 30px rgba(229,9,20,.3)">
-      ${lostSkin.img?`<img src="${lostSkin.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))" onerror="this.style.display='none'">`:''}
+      ${lostSkin.img?`<img src="${esc(lostSkin.img)}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))" onerror="this.style.display='none'">`:''}
     </div>
-    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${lostSkin.name}</div>
-    <div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px;text-shadow:0 0 15px rgba(229,9,20,.6)">-${lostSkin.price||0} G</div>
+    <div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${esc(lostSkin.name)}</div>
+    <div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px;text-shadow:0 0 15px rgba(229,9,20,.6)">-${(lostSkin.price||0).toLocaleString('ru-RU')} G</div>
     <button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer" onclick="closeResult()">ПОНЯТНО</button>
   </div>`;
   document.body.appendChild(m);
@@ -953,9 +989,9 @@ function saveGame(){
     const uid=getUserId();
     if(uid==='guest')return;
     if(!gameLoaded)return;
-    const data={gold,inv,stats,bestDrop,history,upgradeHistory,isLegend:refData.isLegend||false,isVip:vipData.isVip||false,vipExpires:vipData.expires||0,customPcts,currentAvatar,currentFrame,ts:Date.now()};
+    const data={gold,inv,stats,bestDrop,history,upgradeHistory,isLegend:refData.isLegend||false,isVip:vipData.isVip||false,vipExpires:vipData.expires||0,customPcts,currentAvatar,currentFrame,currentTitle,ts:Date.now()};
     localStorage.setItem('sfap_save_'+uid,JSON.stringify(data));
-    fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:uid,data})}).catch(()=>{});
+    fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:apiHeaders(),body:JSON.stringify({userId:uid,data})}).catch(()=>{});
   }catch(e){}
 }
 async function loadGame(){
@@ -963,7 +999,7 @@ async function loadGame(){
     const uid=getUserId();
     if(uid==='guest'){gameLoaded=true;return}
     try{
-      const r=await fetch(BOT_URL+'/api/load/'+uid);
+      const r=await fetch(BOT_URL+'/api/load/'+encodeURIComponent(uid),{headers:apiHeaders()});
       const d=await r.json();
       if(d.ok && d.data){
         applySaveData(d.data);
@@ -991,8 +1027,9 @@ function applySaveData(d){
   if(Array.isArray(d.customPcts)&&d.customPcts.length===6)customPcts=d.customPcts;
   if(d.currentAvatar)currentAvatar=d.currentAvatar;
   if(d.currentFrame)currentFrame=d.currentFrame;
+  if(d.currentTitle){currentTitle=d.currentTitle; localStorage.setItem('sfap_title',currentTitle);}
 }
-setInterval(saveGame,5000);
+setInterval(()=>{ if(!document.hidden) saveGame(); },5000);
 
 // ========== ДОСТИЖЕНИЯ ==========
 function checkAchievements(){
@@ -1005,7 +1042,7 @@ function checkAchievements(){
   });
   if(newUnlocked.length>0){
     localStorage.setItem('sfap_ach',JSON.stringify(unlockedAch));
-    newUnlocked.forEach(a=>{ gold+=a.reward||0; toast('🏅 '+a.ico+' '+a.name+' +'+a.reward+'G','win'); });
+    newUnlocked.forEach(a=>{ gold+=a.reward||0; toast('🏅 '+a.ico+' '+esc(a.name)+' +'+a.reward+'G','win'); });
     updateBal();
     saveGame();
   }
@@ -1016,17 +1053,17 @@ async function loadTasks(){
   const list = document.getElementById('tasksList');
   list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray2)">Загрузка...</div>';
   try {
-    const r = await fetch(BOT_URL + '/api/tasks/status/' + getUserId());
+    const r = await fetch(BOT_URL + '/api/tasks/status/' + encodeURIComponent(getUserId()), {headers:apiHeaders()});
     const d = await r.json();
     if(!d.ok || !d.tasks) throw new Error();
     list.innerHTML = d.tasks.map(t => {
       const done = t.progress >= t.need;
       return `<div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
         <div>
-          <div style="font-size:13px;font-weight:900;color:var(--white)">${t.title}</div>
+          <div style="font-size:13px;font-weight:900;color:var(--white)">${esc(t.title)}</div>
           <div style="font-size:11px;color:var(--gray2);font-weight:800;margin-top:4px">${t.progress} / ${t.need}</div>
         </div>
-        <button style="padding:8px 12px;border-radius:8px;border:none;background:${done?'linear-gradient(135deg,#ffd700,#ff8c00)':'var(--panel-l)'};color:${done?'#1a1a1a':'var(--gray2)'};font-weight:900;font-size:11px;cursor:pointer" ${!done?'disabled':''}>
+        <button onclick="claimTask('${esc(t.id)}')" style="padding:8px 12px;border-radius:8px;border:none;background:${done?'linear-gradient(135deg,#ffd700,#ff8c00)':'var(--panel-l)'};color:${done?'#1a1a1a':'var(--gray2)'};font-weight:900;font-size:11px;cursor:pointer" ${!done?'disabled':''}>
           ${done ? 'ЗАБРАТЬ' : 'В ПРОЦЕССЕ'}
         </button>
       </div>`;
@@ -1034,6 +1071,19 @@ async function loadTasks(){
   } catch(e) {
     list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red)">Ошибка загрузки</div>';
   }
+}
+async function claimTask(id){
+  try{
+    const r = await fetch(BOT_URL+'/api/tasks/claim',{method:'POST',headers:apiHeaders(),body:JSON.stringify({userId:getUserId(),taskId:id})});
+    const d = await r.json();
+    if(d.ok){
+      if(d.skin){ inv.push(d.skin); }
+      if(d.gold){ gold += d.gold; }
+      toast('🎁 Награда получена!', 'win');
+      loadTasks();
+      rendInv(); updateBal(); saveGame();
+    } else toast('❌ Ошибка', 'lose');
+  }catch(e){ toast('❌ Ошибка', 'lose'); }
 }
 
 // ========== ВЫВОД ==========
@@ -1043,32 +1093,33 @@ function withdrawSkinDirect(idx){
   const u=getUser();
   const listPrice=Math.ceil((it.price||22)/0.8);
   const gg22Img=CDN_BASE+'skins/G22_flock.jpg';
-  const avImg='https://avatars.mds.yandex.net/i?id=e2dbf0eea03d887a95a6b2a5b1cfe7a35112f997-5243585-images-thumbs&n=13';
+  const avImg=(u&&u.photo_url)?u.photo_url:'';
   const m=document.createElement('div');
   m.className='modal-overlay'; m.id='wdModal'; m.style.display='flex';
   m.innerHTML=`<div class="modal-content" style="max-width:420px">
-    <button class="modal-close" onclick="document.getElementById('wdModal').remove()">✕</button>
+    <button class="modal-close" onclick="document.getElementById('wdModal').remove(); setBodyLock(false);">✕</button>
     <div style="text-align:center;font-size:13px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:6px">📤 ВЫВОД</div>
     <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;text-align:center">
-      <img src="${avImg}" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);margin-bottom:8px;object-fit:cover" onerror="this.style.display='none'">
-      <div style="font-size:11px;color:var(--white);font-weight:700">Поставь эту аву и добавь<br><b style="color:var(--blue)">@${u&&u.username?u.username:'username'}</b></div>
+      ${avImg?`<img src="${esc(avImg)}" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);margin-bottom:8px;object-fit:cover" onerror="this.style.display='none'">`:''}
+      <div style="font-size:11px;color:var(--white);font-weight:700">Поставь эту аву и добавь<br><b style="color:var(--blue)">@${u&&u.username?esc(u.username):'username'}</b></div>
     </div>
     <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;text-align:center">
       <div style="font-size:11px;color:var(--white);font-weight:700;margin-bottom:8px">Купи <b style="color:var(--green)">GG22 Flock</b> за</div>
-      <div style="font-size:20px;font-weight:900;color:var(--gold);margin-bottom:8px">${listPrice} G</div>
-      <img src="${gg22Img}" style="width:120px;height:80px;object-fit:contain" onerror="this.style.display='none'">
+      <div style="font-size:20px;font-weight:900;color:var(--gold);margin-bottom:8px">${listPrice.toLocaleString('ru-RU')} G</div>
+      <img src="${esc(gg22Img)}" style="width:120px;height:80px;object-fit:contain" onerror="this.style.display='none'">
     </div>
     <div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px">
       <div style="font-size:10px;color:var(--gray2);font-weight:800;margin-bottom:8px">ВЫВОДИМЫЙ СКИН</div>
       <div style="display:flex;align-items:center;gap:12px">
-        <img src="${it.img||''}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px" onerror="this.style.display='none'">
-        <div><div style="font-size:13px;font-weight:900;color:var(--white)">${it.name}</div><div style="font-size:12px;color:var(--red);font-weight:900">${it.price} G</div></div>
+        <img src="${esc(it.img||'')}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px" onerror="this.style.display='none'">
+        <div><div style="font-size:13px;font-weight:900;color:var(--white)">${esc(it.name)}</div><div style="font-size:12px;color:var(--red);font-weight:900">${(it.price||0).toLocaleString('ru-RU')} G</div></div>
       </div>
     </div>
     <input type="text" id="wdPattern" placeholder="🎯 Паттерн" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--white);outline:none;margin-bottom:12px">
     <button class="vip-buy-btn" onclick="submitWithdraw(${idx})">✅ ОТПРАВИТЬ</button>
   </div>`;
   document.body.appendChild(m);
+  setBodyLock(true);
 }
 async function submitWithdraw(idx){
   const patternEl=document.getElementById('wdPattern');
@@ -1079,7 +1130,7 @@ async function submitWithdraw(idx){
   try {
     const r = await fetch(BOT_URL + '/api/withdraw', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: apiHeaders(),
       body: JSON.stringify({ userId: getUserId(), skin: it, pattern })
     });
     const d = await r.json();
@@ -1087,7 +1138,7 @@ async function submitWithdraw(idx){
     
     inv.splice(idx,1);
     selectedItems=selectedItems.filter(x=>x!==it);
-    const wm=document.getElementById('wdModal'); if(wm)wm.remove();
+    const wm=document.getElementById('wdModal'); if(wm){wm.remove(); setBodyLock(false);}
     rendInv(); rendMain(); saveGame();
     toast('✅ Заявка создана! Ждите выдачи.','win');
   } catch(e) {
@@ -1106,7 +1157,7 @@ async function rendProfile(){
     const rank=getRank();
     const avDisplay=currentAvatar && currentAvatar!=='emoji1'
       ? getAvatarDisplay()
-      : (photo?`<img src="${photo}">`:'<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:30px">👤</div>');
+      : (photo?`<img src="${esc(photo)}">`:'<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:30px">👤</div>');
     const baseAvatar=`<div style="width:70px;height:70px;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:var(--panel-l);display:flex;justify-content:center;align-items:center">${avDisplay}</div>`;
     const frameCls=(FRAMES.find(f=>f.id===currentFrame)||{}).cls||'';
     const myAvatarHtml=frameCls?`<div class="${frameCls}">${baseAvatar}</div>`:baseAvatar;
@@ -1120,10 +1171,10 @@ async function rendProfile(){
       bestDropBlock=`<div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px">
         <div style="font-size:12px;font-weight:900;color:var(--gray2);text-transform:uppercase;margin-bottom:12px">🏆 ЛУЧШИЙ ДРОП</div>
         <div style="background:linear-gradient(135deg,#1a1408,#0a0800);border:2px solid var(--gold);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px">
-          ${bestDrop.img?`<img src="${bestDrop.img}" style="width:70px;height:70px;object-fit:contain" onerror="this.style.display='none'">`:''}
+          ${bestDrop.img?`<img src="${esc(bestDrop.img)}" style="width:70px;height:70px;object-fit:contain" onerror="this.style.display='none'">`:''}
           <div>
             <div style="font-size:10px;color:var(--gray2);font-weight:900">★ РЕКОРД</div>
-            <div style="font-size:14px;font-weight:900">${bestDrop.name}</div>
+            <div style="font-size:14px;font-weight:900">${esc(bestDrop.name)}</div>
             <div style="font-size:16px;font-weight:900;color:var(--gold)">${(bestDrop.price||0).toLocaleString('ru-RU')} G</div>
           </div>
         </div>
@@ -1140,10 +1191,10 @@ async function rendProfile(){
         <div style="display:flex;align-items:center;gap:12px">
           ${myAvatarHtml}
           <div>
-            <div style="font-size:16px;font-weight:900">${name}</div>
-            <div style="font-size:11px;color:var(--gray2);font-family:monospace">ID: #${getUserId().slice(-5)}</div>
+            <div style="font-size:16px;font-weight:900">${esc(name)}</div>
+            <div style="font-size:11px;color:var(--gray2);font-family:monospace">ID: #${esc(getUserId().slice(-5))}</div>
             <div style="display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap">
-              <span style="font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;background:var(--panel-l);border:1px solid var(--border)">${getRankName()}</span>
+              <span class="${titleCls}">${getRankName()}</span>
               <span style="font-size:10px;color:var(--gold);font-weight:900">LVL ${RANKS.indexOf(rank)+1}</span>
             </div>
             ${legendBadge}
@@ -1183,7 +1234,7 @@ async function rendProfile(){
             const un=unlockedAch.includes(a.id);
             return `<div style="flex-shrink:0;display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:10px;background:var(--panel-l);border:1px solid ${un?'var(--gold)':'var(--border)'};border-radius:12px;min-width:80px">
               <div style="font-size:28px;filter:${un?'grayscale(0)':'grayscale(1)'};opacity:${un?'1':'0.4'}">${a.ico}</div>
-              <div style="font-size:9px;font-weight:900;color:${un?'var(--gold)':'var(--gray2)'};text-align:center">${a.name}</div>
+              <div style="font-size:9px;font-weight:900;color:${un?'var(--gold)':'var(--gray2)'};text-align:center">${esc(a.name)}</div>
             </div>`;
           }).join('')}
         </div>
@@ -1205,7 +1256,7 @@ function updateTopAvatar(){
   if(currentAvatar && currentAvatar!=='emoji1'){ el.innerHTML=getAvatarDisplay(); }
   else{
     const u=getUser();
-    if(u && u.photo_url)el.innerHTML=`<img src="${u.photo_url}">`;
+    if(u && u.photo_url)el.innerHTML=`<img src="${esc(u.photo_url)}">`;
     else el.innerText='👤';
   }
 }
@@ -1216,14 +1267,14 @@ function rendSettings(){
   b.innerHTML=`
     <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800">
       <label>🔊 Звуки</label>
-      <div class="toggle ${soundEnabled?'on':''}" onclick="toggleSound()" style="width:44px;height:24px;border-radius:12px;background:${soundEnabled?'rgba(255,184,0,.2)':'var(--panel-l)'};position:relative;cursor:pointer;border:1px solid ${soundEnabled?'var(--gold)':'var(--border)'}">
-        <div style="position:absolute;top:2px;left:${soundEnabled?'22px':'2px'};width:18px;height:18px;border-radius:50%;background:${soundEnabled?'var(--gold)':'var(--gray2)'};transition:.2s"></div>
+      <div class="toggle ${soundEnabled?'on':''}" onclick="toggleSound()">
+        <div></div>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800">
       <label>📳 Вибрация</label>
-      <div class="toggle ${hapticEnabled?'on':''}" onclick="toggleHaptic()" style="width:44px;height:24px;border-radius:12px;background:${hapticEnabled?'rgba(255,184,0,.2)':'var(--panel-l)'};position:relative;cursor:pointer;border:1px solid ${hapticEnabled?'var(--gold)':'var(--border)'}">
-        <div style="position:absolute;top:2px;left:${hapticEnabled?'22px':'2px'};width:18px;height:18px;border-radius:50%;background:${hapticEnabled?'var(--gold)':'var(--gray2)'};transition:.2s"></div>
+      <div class="toggle ${hapticEnabled?'on':''}" onclick="toggleHaptic()">
+        <div></div>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800">
@@ -1243,10 +1294,51 @@ function getRank(){
 }
 function updateRankUI(){
   const r=getRank();
+  currentTitle=r.title;
+  localStorage.setItem('sfap_title',currentTitle);
   const rn=document.getElementById('rankNameTop');
   const rl=document.getElementById('rankLevelTop');
   if(rn)rn.innerText=r.name;
   if(rl)rl.innerText='LVL '+(RANKS.indexOf(r)+1);
+}
+
+// ========== КОРЗИНА ==========
+function openCart(){
+  if(!cart.length){toast('🛒 Корзина пуста','lose');return}
+  const m=document.createElement('div');
+  m.className='modal-overlay'; m.id='cartModal'; m.style.display='flex';
+  const total=cart.reduce((s,c)=>s+(c.price||0),0);
+  m.innerHTML=`<div class="modal-content" style="max-width:420px">
+    <button class="modal-close" onclick="document.getElementById('cartModal').remove(); setBodyLock(false);">✕</button>
+    <div style="text-align:center;font-size:16px;font-weight:900;margin-bottom:16px">🛒 КОРЗИНА</div>
+    <div style="max-height:300px;overflow-y:auto;margin-bottom:12px">
+      ${cart.map((c,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--panel-l);border-radius:10px;margin-bottom:8px">
+        <div style="flex:1;font-size:13px;font-weight:800">${esc(c.name)}</div>
+        <div style="font-size:13px;font-weight:900;color:var(--gold)">${(c.price||0).toLocaleString('ru-RU')} G</div>
+        <button onclick="cart.splice(${i},1); if(!cart.length){document.getElementById('cartModal').remove();setBodyLock(false);} else {document.getElementById('cartModal').remove();openCart();} updateCartBadge(); rendInv();" style="background:none;border:none;color:var(--red);font-size:18px;cursor:pointer">✕</button>
+      </div>`).join('')}
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:900;margin-bottom:16px">
+      <span>ИТОГО:</span><span style="color:var(--gold)">${total.toLocaleString('ru-RU')} G</span>
+    </div>
+    <button class="vip-buy-btn" onclick="checkoutCart()">💳 ОПЛАТИТЬ</button>
+  </div>`;
+  document.body.appendChild(m);
+  setBodyLock(true);
+}
+async function checkoutCart(){
+  const total=cart.reduce((s,c)=>s+(c.price||0),0);
+  if(gold<total){toast('❌ Недостаточно G','lose');return}
+  gold-=total;
+  cart.forEach(c=>{
+    const skin=allSkins.find(s=>s.name===c.name);
+    if(skin)inv.push({...skin});
+  });
+  cart=[];
+  updateCartBadge();
+  const cm=document.getElementById('cartModal'); if(cm){cm.remove(); setBodyLock(false);}
+  updateBal(); rendInv(); saveGame();
+  toast('✅ Покупка совершена!','win');
 }
 
 // ========== ИНИЦИАЛИЗАЦИЯ ==========
@@ -1262,6 +1354,7 @@ function updateRankUI(){
     updateRankUI();
     updateTopAvatar();
     checkHappyHour();
+    loadLiveFeed();
     try{
       if(window.Telegram && window.Telegram.WebApp){
         window.Telegram.WebApp.ready();
@@ -1274,6 +1367,23 @@ function updateRankUI(){
     console.error('INIT ERROR:',err);
   }
 })();
+
+// ========== LIVE ==========
+async function loadLiveFeed(){
+  try{
+    const r = await fetch(BOT_URL+'/api/live');
+    const d = await r.json();
+    const track = document.getElementById('liveTrack');
+    if(!track) return;
+    if(!d.ok || !d.list || !d.list.length){ track.innerHTML='<span class="live-empty">Пока нет рекордов</span>'; return; }
+    const html = d.list.slice(0,5).map(x=>`<div class="live-item">
+      <div class="live-info"><div class="live-name">${esc(x.playerName)}</div><div class="live-pct">${x.pct||0}%</div></div>
+      <img src="${esc(x.skinImg)}" class="live-skin" onerror="this.style.display='none'">
+    </div>`).join('');
+    track.innerHTML = html + html;
+  }catch(e){}
+}
+setInterval(loadLiveFeed, 30000);
 </script>
 </body>
   </html>
