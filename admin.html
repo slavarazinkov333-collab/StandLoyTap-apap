@@ -57,45 +57,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .empty-icon{font-size:60px;margin-bottom:16px;opacity:.5}
 .empty-title{font-size:16px;font-weight:900;color:#fff;margin-bottom:6px}
 .empty-sub{font-size:13px;color:var(--gray)}
-.promo-card{background:linear-gradient(165deg,rgba(30,30,35,.95),rgba(15,15,18,.95));border:1.5px solid rgba(76,175,80,.25);border-radius:16px;padding:14px;margin-bottom:10px;position:relative}
-.promo-code{font-size:20px;font-weight:900;color:var(--green);font-family:monospace;letter-spacing:2px;margin-bottom:6px}
-.promo-info{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--gray2);font-weight:700}
-.promo-info b{color:#fff}
-.promo-del{position:absolute;top:12px;right:12px;background:rgba(229,9,20,.15);border:1px solid var(--red);color:var(--red);width:30px;height:30px;border-radius:8px;cursor:pointer;font-weight:900;font-size:14px}
-.log-card{background:linear-gradient(165deg,rgba(30,30,35,.95),rgba(15,15,18,.95));border-left:3px solid var(--red);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:11px}
-.log-top{display:flex;justify-content:space-between;margin-bottom:4px}
-.log-action{font-weight:900;color:var(--red);text-transform:uppercase;letter-spacing:1px}
-.log-time{color:var(--gray);font-size:10px}
-.log-details{color:var(--gray2);font-weight:700;font-family:monospace;font-size:10px;word-break:break-all}
-.section-title{font-size:14px;font-weight:900;color:#fff;letter-spacing:1px;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
-.section-title::before{content:'';width:4px;height:16px;background:linear-gradient(135deg,var(--red),var(--red2));border-radius:2px}
-.form-group{margin-bottom:12px}
-.form-label{font-size:11px;color:var(--gray2);font-weight:800;margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase}
-.form-input{width:100%;background:var(--dark3);border:1.5px solid var(--dark4);color:#fff;padding:12px 14px;border-radius:10px;font-size:13px;font-weight:700;outline:none}
-.form-input:focus{border-color:var(--red)}
-.form-btn{width:100%;padding:14px;border-radius:12px;font-weight:900;font-size:13px;cursor:pointer;border:none;letter-spacing:1px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 20px rgba(229,9,20,.4);margin-bottom:16px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(10px);z-index:5000;display:flex;justify-content:center;align-items:center;padding:20px}
-.modal-inner{background:linear-gradient(165deg,#16161a,#0a0a0d);border:1.5px solid rgba(229,9,20,.3);border-radius:22px;padding:22px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.8);max-height:90vh;overflow-y:auto}
-.modal-title{font-size:18px;font-weight:900;color:#fff;margin-bottom:6px;text-align:center}
-.modal-sub{font-size:12px;color:var(--gray2);margin-bottom:18px;text-align:center;font-weight:700}
-.modal-info{background:var(--dark3);border-radius:12px;padding:12px;margin-bottom:14px;font-size:12px;color:var(--gray2);font-weight:700;text-align:center;border-left:3px solid var(--red)}
-.modal-info b{color:var(--yellow);font-size:14px;font-weight:900}
-.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.modal-btn{padding:14px;border-radius:12px;font-weight:900;font-size:13px;cursor:pointer;border:none;letter-spacing:1px}
-.modal-btn.primary{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff}
-.modal-btn.secondary{background:var(--dark3);color:var(--gray2)}
-.modal-btn.green{background:linear-gradient(135deg,var(--green),#2e7d32);color:#fff}
-.skins-grid{max-height:340px;overflow-y:auto;padding-right:4px;margin-bottom:12px}
-.skin-item{display:flex;align-items:center;gap:10px;background:var(--dark3);border:1.5px solid var(--dark4);border-radius:12px;padding:8px;margin-bottom:6px;cursor:pointer}
-.skin-item.sel{border-color:var(--red);background:rgba(229,9,20,.08)}
-.skin-item img{width:50px;height:50px;object-fit:contain;background:var(--dark);border-radius:8px;padding:4px;flex-shrink:0}
-.skin-info{flex:1;min-width:0}
-.skin-name{font-size:12px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.skin-price{font-size:11px;font-weight:900;color:var(--yellow);margin-top:2px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:rgba(10,10,10,.98);border:2px solid var(--red);border-radius:14px;padding:14px 24px;color:#fff;font-size:13px;font-weight:800;z-index:9999;transition:transform .3s ease;text-align:center;max-width:90%}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast.win{border-color:var(--green);color:var(--green)}
-.toast.lose{border-color:var(--red);color:var(--red)}
 .loading{text-align:center;padding:40px;color:var(--gray2);font-weight:800}
 .spinner{width:40px;height:40px;border:3px solid rgba(229,9,20,.2);border-top-color:var(--red);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -127,16 +88,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .wd-btn.accept{background:linear-gradient(135deg,var(--green),#2e7d32);color:#fff;box-shadow:0 0 15px rgba(76,175,80,.4)}
 .wd-btn.reject{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 0 15px rgba(229,9,20,.4)}
 .wd-btn:disabled{opacity:.5;cursor:not-allowed}
-.player-bal,.stat-val.y,.wd-skin-price,.wd-skin-list,.promo-info b{color:transparent !important;background:linear-gradient(135deg,#ffd700 0%,#4a9eff 60%,#1e5cb8 100%) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;font-weight:900 !important;filter:drop-shadow(0 0 8px rgba(74,158,255,.7)) drop-shadow(0 0 15px rgba(255,215,0,.5))}
-.spin-ctrl-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
-.spin-ctrl-btn{padding:10px 6px;border-radius:10px;font-size:10px;font-weight:900;cursor:pointer;border:1.5px solid rgba(255,255,255,.1);background:rgba(0,0,0,.4);color:var(--gray2);letter-spacing:.5px;transition:all .2s}
-.spin-ctrl-btn.win{border-color:rgba(76,175,80,.4);color:#4CAF50}
-.spin-ctrl-btn.win.active{background:linear-gradient(135deg,#4CAF50,#2e7d32);color:#fff;box-shadow:0 0 15px rgba(76,175,80,.6)}
-.spin-ctrl-btn.lose{border-color:rgba(229,9,20,.4);color:#e50914}
-.spin-ctrl-btn.lose.active{background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;box-shadow:0 0 15px rgba(229,9,20,.6)}
-.spin-ctrl-btn.off{border-color:rgba(255,255,255,.15);color:var(--gray2)}
-.spin-ctrl-btn.off.active{background:linear-gradient(135deg,#333,#111);color:#fff}
-</style></head><body>
+</style>
+</head>
+<body>
 <div id="lockScreen"><div class="lock-inner"><div class="lock-icon">🔒</div><div class="lock-title">ДОСТУП ЗАПРЕЩЁН</div><div class="lock-sub">Эта страница доступна только администратору.<br>Открой через Telegram.</div><div class="lock-id">ID: <span id="lockId">—</span></div></div></div>
 
 <div class="top">
@@ -192,7 +146,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 const BOT_URL='https://admin-bot-03ly.onrender.com';
 const ADMIN_ID='8683946808';
 const CDN_BASE='https://raw.githubusercontent.com/slavarazinkov333-collab/StandLoyTap-apap/main/';
-const allSkins=[/* ВСТАВЬ СЮДА МАССИВ СКИНОВ ИЗ index.html */];
+const allSkins=[
+  {name:'AKR Carbon',price:56,color:'#4a9eff',img:CDN_BASE+'skins/AKR_CARBON.jpg'},
+  {name:'G22 Nest',price:540,color:'#ff4444',img:CDN_BASE+'skins/G22_Nest.jpg'}
+];
 let adminUid='';
 let playersData=[];
 let withdrawsData=[];
@@ -201,34 +158,15 @@ let promosData={};
 let bansData={};
 let currentTab='players';
 let selectedSkinForGive=null;
-
 function getTgUser(){try{return window.Telegram?.WebApp?.initDataUnsafe?.user||null}catch(e){return null}}
 function toast(msg,type){const t=document.getElementById('toast');t.className='toast '+(type||'')+' show';t.innerText=msg;setTimeout(()=>t.classList.remove('show'),2500)}
 function fmt(n){return Math.floor(n||0).toLocaleString('ru-RU')}
 
-// ==================== ФИКС ОШИБКИ "Unexpected token '<'" ====================
 async function api(path,opts){
   opts=opts||{};
-  if(opts.body){
-    opts.headers={'Content-Type':'application/json'};
-    opts.body=JSON.stringify(opts.body);
-  }
-  const r = await fetch(BOT_URL + path, opts);
-  return await r.json(); // <-- Возвращает ошибку сервера как есть, без скрытия
-}
-  try {
-    const r=await fetch(BOT_URL+path,opts);
-    const text = await r.text();
-    try {
-      return JSON.parse(text);
-    } catch(e) {
-      console.error('Server returned HTML instead of JSON');
-      return { ok: false, error: 'Ошибка сервера' };
-    }
-  } catch(e) {
-    console.error('Network error:', e);
-    return { ok: false, error: 'Сеть недоступна' };
-  }
+  if(opts.body){ opts.headers={'Content-Type':'application/json'}; opts.body=JSON.stringify(opts.body); }
+  const r=await fetch(BOT_URL+path,opts);
+  return await r.json();
 }
 
 function initLock(){const u=getTgUser();const idEl=document.getElementById('lockId');if(!u||!u.id){if(idEl)idEl.innerText='нет Telegram';return false}if(idEl)idEl.innerText=String(u.id);if(String(u.id)!==ADMIN_ID)return false;adminUid=String(u.id);document.getElementById('lockScreen').style.display='none';return true}
@@ -253,7 +191,7 @@ async function unbanPlayer(id){if(!confirm('Разбанить '+id+'?'))return;
 
 async function loadWithdraws(){const list=document.getElementById('withdrawsList');list.innerHTML='<div class="loading"><div class="spinner"></div>Загрузка...</div>';try{const d=await api('/api/admin/withdraws?uid='+adminUid);if(!d.ok)throw new Error(d.error||'err');withdrawsData=d.list||[];renderWithdraws()}catch(e){list.innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Ошибка</div><div class="empty-sub">'+e.message+'</div></div>'}}
 function setWFilter(f){wFilter=f;document.getElementById('wFilterAll').classList.toggle('active',f==='all');document.getElementById('wFilterPending').classList.toggle('active',f==='pending');document.getElementById('wFilterDone').classList.toggle('active',f==='done');document.getElementById('wFilterRejected').classList.toggle('active',f==='rejected');renderWithdraws()}
-function renderWithdraws(){const list=document.getElementById('withdrawsList');let arr=withdrawsData.slice();if(wFilter!=='all')arr=arr.filter(x=>x.status===wFilter);if(arr.length===0){list.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Заявок нет</div><div class="empty-sub">Пока никто не выводил</div></div>';return}list.innerHTML=arr.map(x=>{let statusTxt,statusCls;if(x.status==='pending'){statusTxt='⏳ ОЖИДАНИЕ';statusCls='pending'}else if(x.status==='done'){statusTxt='✅ ОДОБРЕНО';statusCls='done'}else{statusTxt='❌ ОТКЛОНЕНО';statusCls='rejected'}const canAct=(x.status==='pending');return '<div class="wd-card"><div class="wd-head"><div class="wd-ava">👤</div><div class="wd-name-block"><div class="wd-name">'+x.skin+'</div><div class="wd-id">ID: '+x.userId+'</div></div><div class="wd-status '+statusCls+'">'+statusTxt+'</div></div><div class="wd-skin-block"><img class="wd-skin-img" src="'+(x.img||'')+'" onerror="this.style.background=\'linear-gradient(135deg,#e50914,#8b0000)\';this.src=\'\'"><div class="wd-skin-info"><div class="wd-skin-name">'+x.skinName+'</div><div class="wd-skin-price">💰 '+fmt(x.price)+' G</div><div class="wd-skin-list">🏷 Список: '+fmt(x.listPrice)+' G</div><div class="wd-pattern">🎯 Паттерн: <b>'+(x.pattern||'—')+'</b></div></div></div><div class="wd-time">📅 '+(x.time||'')+'</div>'+(canAct?'<div class="wd-actions"><button class="wd-btn accept" onclick="approveWD('+x.id+')">✅ ПРИНЯТЬ</button><button class="wd-btn reject" onclick="rejectWD('+x.id+')">❌ ОТКЛОНИТЬ</button></div>':'')+'</div>'}).join('')}
+function renderWithdraws(){const list=document.getElementById('withdrawsList');let arr=withdrawsData.slice();if(wFilter!=='all')arr=arr.filter(x=>x.status===wFilter);if(arr.length===0){list.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Заявок нет</div><div class="empty-sub">Пока никто не выводил</div></div>';return}list.innerHTML=arr.map(x=>{let statusTxt,statusCls;if(x.status==='pending'){statusTxt='⏳ ОЖИДАНИЕ';statusCls='pending'}else if(x.status==='done'){statusTxt='✅ ОДОБРЕНО';statusCls='done'}else{statusTxt='❌ ОТКЛОНЕНО';statusCls='rejected'}const canAct=(x.status==='pending');return '<div class="wd-card"><div class="wd-head"><div class="wd-ava">👤</div><div class="wd-name-block"><div class="wd-name">'+x.skinName+'</div><div class="wd-id">ID: '+x.userId+'</div></div><div class="wd-status '+statusCls+'">'+statusTxt+'</div></div><div class="wd-skin-block"><img class="wd-skin-img" src="'+(x.img||'')+'" onerror="this.style.background=\'linear-gradient(135deg,#e50914,#8b0000)\';this.src=\'\'"><div class="wd-skin-info"><div class="wd-skin-name">'+x.skinName+'</div><div class="wd-skin-price">💰 '+fmt(x.price)+' G</div><div class="wd-pattern">🎯 Паттерн: <b>'+(x.pattern||'—')+'</b></div></div></div><div class="wd-time">📅 '+(x.time||'')+'</div>'+(canAct?'<div class="wd-actions"><button class="wd-btn accept" onclick="approveWD(\''+x.id+'\')">✅ ПРИНЯТЬ</button><button class="wd-btn reject" onclick="rejectWD(\''+x.id+'\')">❌ ОТКЛОНИТЬ</button></div>':'')+'</div>'}).join('')}
 async function approveWD(id){if(!confirm('Принять заявку #'+id+'?'))return;try{const d=await api('/api/admin/withdrawApprove',{method:'POST',body:{uid:adminUid,targetId:id}});if(d.ok){toast('✅ Заявка одобрена','win');loadWithdraws()}else toast('❌ '+(d.error||'err'),'lose')}catch(e){toast('❌ '+e.message,'lose')}}
 function rejectWD(id){openModal('<div class="modal-title">❌ ОТКЛОНИТЬ ЗАЯВКУ</div><div class="modal-sub">Заявка #'+id+'</div><div class="form-group"><div class="form-label">Причина отказа</div><input class="form-input" id="rejReason" placeholder="Например: Неверный паттерн" autofocus></div><div class="modal-btns"><button class="modal-btn primary" onclick="doRejectWD('+id+')">❌ ОТКЛОНИТЬ</button><button class="modal-btn secondary" onclick="closeModal()">↩️ ОТМЕНА</button></div>')}
 async function doRejectWD(id){const reason=document.getElementById('rejReason').value.trim()||'Без причины';try{const d=await api('/api/admin/withdrawReject',{method:'POST',body:{uid:adminUid,targetId:id,reason}});if(d.ok){toast('❌ Заявка отклонена','lose');closeModal();loadWithdraws()}else toast('❌ '+(d.error||'err'),'lose')}catch(e){toast('❌ '+e.message,'lose')}}
@@ -262,77 +200,44 @@ async function loadPromos(){const list=document.getElementById('promosList');lis
 async function createPromo(){const code=(document.getElementById('promoCode').value||'').trim().toLowerCase();const amount=Number(document.getElementById('promoAmount').value);const maxUses=Number(document.getElementById('promoMax').value)||0;if(!code){toast('❌ Введи код','lose');return}if(!amount||amount<=0){toast('❌ Введи сумму','lose');return}try{const d=await api('/api/admin/promo',{method:'POST',body:{uid:adminUid,code,amount,maxUses}});if(d.ok){toast('✅ Промокод создан','win');document.getElementById('promoCode').value='';document.getElementById('promoAmount').value='';loadPromos()}else toast('❌ '+(d.error||'err'),'lose')}catch(e){toast('❌ '+e.message,'lose')}}
 async function deletePromo(code){if(!confirm('Удалить промокод '+code+'?'))return;try{const d=await api('/api/admin/promoDelete',{method:'POST',body:{uid:adminUid,code}});if(d.ok){toast('✅ Удалён','win');loadPromos()}}catch(e){toast('❌ '+e.message,'lose')}}
 
-async function loadStats(){const c=document.getElementById('statsContent');c.innerHTML='<div class="loading"><div class="spinner"></div>Загрузка...</div>';try{const d=await api('/api/admin/stats?uid='+adminUid);if(!d.ok)throw new Error(d.error||'err');const s=d.stats;c.innerHTML='<div class="stats-grid"><div class="stat-card"><div class="stat-label">👥 Игроков</div><div class="stat-val b">'+fmt(s.players)+'</div></div><div class="stat-card"><div class="stat-label">💰 Всего G</div><div class="stat-val y">'+fmt(s.totalGold)+'</div></div><div class="stat-card"><div class="stat-label">🎰 Спинов</div><div class="stat-val r">'+fmt(s.totalSpins)+'</div></div><div class="stat-card"><div class="stat-label">🏆 Побед</div><div class="stat-val g">'+fmt(s.totalWins)+'</div></div><div class="stat-card"><div class="stat-label">💀 Поражений</div><div class="stat-val r">'+fmt(s.totalLoses)+'</div></div><div class="stat-card"><div class="stat-label">🎒 Скинов</div><div class="stat-val b">'+fmt(s.totalInv)+'</div></div><div class="stat-card"><div class="stat-label">📤 Заявок</div><div class="stat-val o">'+fmt(s.withdrawsTotal)+'</div></div><div class="stat-card"><div class="stat-label">⏳ В ожидании</div><div class="stat-val o">'+fmt(s.withdrawsPending)+'</div></div><div class="stat-card"><div class="stat-label">✅ Выдано</div><div class="stat-val g">'+fmt(s.withdrawsDone)+'</div></div><div class="stat-card"><div class="stat-label">❌ Отклонено</div><div class="stat-val r">'+fmt(s.withdrawsRejected)+'</div></div><div class="stat-card"><div class="stat-label">💎 Всего выведено</div><div class="stat-val y">'+fmt(s.totalWithdrawn)+'</div></div><div class="stat-card"><div class="stat-label">🎟 Промокодов</div><div class="stat-val b">'+fmt(s.promos)+'</div></div><div class="stat-card"><div class="stat-label">🚫 Банов</div><div class="stat-val r">'+fmt(s.bans)+'</div></div></div>'}catch(e){c.innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Ошибка</div><div class="empty-sub">'+e.message+'</div></div>'}}
+async function loadStats(){const c=document.getElementById('statsContent');c.innerHTML='<div class="loading"><div class="spinner"></div>Загрузка...</div>';try{const d=await api('/api/admin/stats?uid='+adminUid);if(!d.ok)throw new Error(d.error||'err');const s=d.stats;c.innerHTML='<div class="stats-grid"><div class="stat-card"><div class="stat-label">👥 Игроков</div><div class="stat-val b">'+fmt(s.players)+'</div></div><div class="stat-card"><div class="stat-label">💰 Всего G</div><div class="stat-val y">'+fmt(s.totalGold)+'</div></div><div class="stat-card"><div class="stat-label">🎰 Спинов</div><div class="stat-val r">'+fmt(s.totalSpins)+'</div></div><div class="stat-card"><div class="stat-label">🏆 Побед</div><div class="stat-val g">'+fmt(s.totalWins)+'</div></div></div>'}catch(e){c.innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Ошибка</div><div class="empty-sub">'+e.message+'</div></div>'}}
 
 async function loadBans(){const list=document.getElementById('bansList');list.innerHTML='<div class="loading"><div class="spinner"></div>Загрузка...</div>';try{const d=await api('/api/admin/bans?uid='+adminUid);if(!d.ok)throw new Error(d.error||'err');bansData=d.bans||{};const keys=Object.keys(bansData);if(keys.length===0){list.innerHTML='<div class="empty"><div class="empty-icon">✅</div><div class="empty-title">Банов нет</div></div>';return}list.innerHTML=keys.map(k=>{const b=bansData[k];return '<div class="player-card" style="border-color:rgba(229,9,20,.5)"><div class="player-top"><div style="flex:1;min-width:0"><div class="player-id">🚫 '+k+'</div><div class="player-date">📅 '+(b.time||'')+'</div></div></div><div class="player-stats"><span>📝 <b>'+(b.reason||'—')+'</b></span></div><div class="player-actions" style="grid-template-columns:1fr"><button class="p-btn unban" onclick="unbanPlayer(\''+k+'\')">✅ РАЗБАНИТЬ</button></div></div>'}).join('')}catch(e){list.innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Ошибка</div></div>'}}
 
 async function loadLogs(){const list=document.getElementById('logsList');list.innerHTML='<div class="loading"><div class="spinner"></div>Загрузка...</div>';try{const d=await api('/api/admin/logs?uid='+adminUid);if(!d.ok)throw new Error(d.error||'err');const logs=d.logs||[];if(logs.length===0){list.innerHTML='<div class="empty"><div class="empty-icon">📜</div><div class="empty-title">Логов нет</div></div>';return}list.innerHTML=logs.map(l=>'<div class="log-card"><div class="log-top"><div class="log-action">'+l.action+'</div><div class="log-time">'+(l.time||'')+'</div></div><div class="log-details">'+JSON.stringify(l.details||{})+'</div></div>').join('')}catch(e){list.innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-title">Ошибка</div></div>'}}
 
-// ========== SPIN CONTROL ==========
 async function setSpinCtrl(id, result){
   try{
-    const d = await api('/api/admin/setSpinResult',{
-      method:'POST',
-      body:{uid:adminUid, targetId:id, result}
-    });
+    const d = await api('/api/admin/setSpinResult',{ method:'POST', body:{uid:adminUid, targetId:id, result} });
     if(!d.ok){toast('❌ '+(d.error||'Ошибка'),'lose');return}
-    ['win','lose','off'].forEach(r=>{
-      const el=document.getElementById('sctrl-'+id+'-'+r);
-      if(el)el.classList.remove('active');
-    });
-    const el=document.getElementById('sctrl-'+id+'-'+result);
-    if(el)el.classList.add('active');
+    ['win','lose','off'].forEach(r=>{ const el=document.getElementById('sctrl-'+id+'-'+r); if(el)el.classList.remove('active'); });
+    const el=document.getElementById('sctrl-'+id+'-'+result); if(el)el.classList.add('active');
     const names={win:'✅ ПОБЕДА',lose:'❌ ПРОИГРЫШ',off:'🚫 ВЫКЛ'};
     toast('🎯 '+names[result]+' для '+id.slice(-6),'win');
   }catch(e){toast('❌ '+e.message,'lose')}
 }
 
-// ========== ADD FRIENDS ==========
 function openAddFriends(id){
-  openModal(
-    '<div class="modal-title">👥 ДОБАВИТЬ ДРУЗЕЙ</div>'+
-    '<div class="modal-sub">Игроку <b style="color:#9b8aff;font-family:monospace">'+id+'</b></div>'+
-    '<div class="form-group"><div class="form-label">Сколько добавить</div>'+
-    '<input class="form-input" id="addFrCount" type="number" placeholder="10" value="10" autofocus></div>'+
-    '<div class="modal-info">При достижении <b>100</b> друзей игрок автоматически станет 👑 ЛЕГЕНДОЙ и получит 600 G</div>'+
-    '<div class="modal-btns">'+
-    '<button class="modal-btn" style="background:linear-gradient(135deg,#9b8aff,#6a4cff);color:#fff" onclick="doAddFriends(\''+id+'\')">✅ ДОБАВИТЬ</button>'+
-    '<button class="modal-btn secondary" onclick="closeModal()">❌ ОТМЕНА</button>'+
-    '</div>'
-  );
+  openModal('<div class="modal-title">👥 ДОБАВИТЬ ДРУЗЕЙ</div><div class="modal-sub">Игроку <b style="color:#9b8aff;font-family:monospace">'+id+'</b></div><div class="form-group"><div class="form-label">Сколько добавить</div><input class="form-input" id="addFrCount" type="number" placeholder="10" value="10" autofocus></div><div class="modal-info">При достижении <b>100</b> друзей игрок автоматически станет 👑 ЛЕГЕНДОЙ и получит 600 G</div><div class="modal-btns"><button class="modal-btn" style="background:linear-gradient(135deg,#9b8aff,#6a4cff);color:#fff" onclick="doAddFriends(\''+id+'\')">✅ ДОБАВИТЬ</button><button class="modal-btn secondary" onclick="closeModal()">❌ ОТМЕНА</button></div>');
 }
 async function doAddFriends(id){
   const count = Number(document.getElementById('addFrCount').value)||0;
   if(count<=0){toast('❌ Введи число > 0','lose');return}
   try{
-    const d = await api('/api/admin/addFriends',{
-      method:'POST',
-      body:{uid:adminUid, targetId:id, count}
-    });
-    if(d.ok){
-      toast('✅ +'+count+' друзей. Всего: '+(d.newInvited||0)+(d.isLegend?' 👑 ЛЕГЕНДА!':''),'win');
-      closeModal();
-      loadPlayers();
-    }else toast('❌ '+(d.error||'Ошибка'),'lose');
-  }catch(e){toast('❌ '+e.message,'lose')}
-}
-
-// ========== LEGEND ==========
-async function toggleLegend(id){
-  try{
-    const d = await api('/api/admin/setLegend',{
-      method:'POST',
-      body:{uid:adminUid, targetId:id, value:true}
-    });
-    if(d.ok){toast('👑 Легенда выдана','win');loadPlayers()}
+    const d = await api('/api/admin/addFriends',{ method:'POST', body:{uid:adminUid, targetId:id, count} });
+    if(d.ok){ toast('✅ +'+count+' друзей. Всего: '+(d.newInvited||0)+(d.isLegend?' 👑 ЛЕГЕНДА!':''),'win'); closeModal(); loadPlayers(); }
     else toast('❌ '+(d.error||'Ошибка'),'lose');
   }catch(e){toast('❌ '+e.message,'lose')}
 }
 
-// ========== SPIN PROFILE ==========
-function openSpinProfile(id){
-  toast('👤 Профиль: '+id,'win');
+async function toggleLegend(id){
+  try{
+    const d = await api('/api/admin/setLegend',{ method:'POST', body:{uid:adminUid, targetId:id, value:true} });
+    if(d.ok){toast('👑 Легенда выдана','win');loadPlayers()}
+    else toast('❌ '+(d.error||'Ошибка'),'lose');
+  }catch(e){toast('❌ '+e.message,'lose')}
 }
+function openSpinProfile(id){ toast('👤 Профиль: '+id,'win'); }
 function refreshAll(){loadPlayers();if(currentTab==='withdraws')loadWithdraws();if(currentTab==='promos')loadPromos();if(currentTab==='stats')loadStats();if(currentTab==='bans')loadBans();if(currentTab==='logs')loadLogs();toast('🔄 Обновлено','win')}
 
 (async function init(){
