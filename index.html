@@ -10,48 +10,50 @@ html,body{width:100%;height:100%;overflow:hidden;background:#05070a;font-family:
 #app{position:fixed;inset:0}
 canvas{display:block}
 
-/* ПОВОРОТ */
 #rotate{position:fixed;inset:0;display:none;justify-content:center;align-items:center;flex-direction:column;background:#05070a;z-index:600;color:#c9d1d9;text-align:center;padding:30px}
-#rotate .ico{font-size:56px;margin-bottom:16px;animation:spin 3s infinite}
-@keyframes spin{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+#rotate .ico{font-size:56px;margin-bottom:16px}
 #rotate .txt{font-size:15px;font-weight:700;letter-spacing:2px}
-@media(orientation:portrait){#rotate{display:flex}#menu{display:none!important}}
+@media(orientation:portrait){#rotate{display:flex}#menu{display:none!important}#cutscene{display:none!important}}
 
 /* МЕНЮ */
 #menu{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:100;overflow:hidden;background:#05070a}
 #menu::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(80,20,20,.35) 0%,rgba(5,7,10,.98) 70%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.25) 2px,rgba(0,0,0,.25) 4px);animation:flicker 4s infinite}
 @keyframes flicker{0%,100%{opacity:1}47%{opacity:1}48%{opacity:.7}49%{opacity:1}72%{opacity:.85}73%{opacity:1}}
-#menu-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:24px;padding:20px}
+#menu-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;padding:20px}
 #menu h1{color:#d4d4d4;font-size:clamp(38px,9vw,68px);font-weight:900;letter-spacing:8px;text-align:center;text-shadow:0 0 30px rgba(180,30,30,.6),0 4px 0 #2a0a0a;animation:titlePulse 3s infinite}
 #menu h1 .dead{color:#b81e1e;text-shadow:0 0 40px rgba(229,9,20,.9),0 4px 0 #3a0505}
 @keyframes titlePulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
 #menu .sub{color:#7a8a99;font-size:12px;letter-spacing:4px;text-transform:uppercase;margin-top:-14px}
-#menu .desc{color:#8899a6;font-size:13px;font-weight:600;text-align:center;max-width:420px;line-height:1.7;border-left:2px solid #b81e1e;padding-left:14px;text-align:left}
+#menu .desc{color:#8899a6;font-size:13px;font-weight:600;text-align:left;max-width:420px;line-height:1.7;border-left:2px solid #b81e1e;padding-left:14px}
 #playBtn{position:relative;background:linear-gradient(180deg,#2a0a0a,#1a0505);border:2px solid #b81e1e;color:#d4d4d4;font-weight:900;font-size:20px;padding:18px 70px;border-radius:6px;cursor:pointer;letter-spacing:6px;box-shadow:0 0 30px rgba(184,30,30,.4),inset 0 0 20px rgba(184,30,30,.15);transition:.2s}
-#playBtn:hover{background:linear-gradient(180deg,#3a0d0d,#2a0a0a);box-shadow:0 0 50px rgba(229,9,20,.7),inset 0 0 30px rgba(229,9,20,.3);color:#fff}
+#playBtn:hover{background:linear-gradient(180deg,#3a0d0d,#2a0a0a);box-shadow:0 0 50px rgba(229,9,20,.7);color:#fff}
 #playBtn:active{transform:scale(.97)}
 #menu .hint{color:#5a6a79;font-size:11px;letter-spacing:1px;text-align:center;line-height:1.8}
+
+/* КАТ-СЦЕНА */
+#cutscene{position:fixed;inset:0;display:none;z-index:150;background:#000}
+#cutscene.on{display:block}
+#cutsceneCanvas{position:absolute;inset:0}
+#cutsceneText{position:absolute;bottom:15%;left:50%;transform:translateX(-50%);color:#fff;font-size:clamp(16px,3vw,22px);font-weight:700;text-align:center;max-width:80%;text-shadow:0 2px 12px #000,0 0 30px rgba(0,0,0,.9);opacity:0;transition:opacity .6s;letter-spacing:1px;line-height:1.5;font-style:italic}
+#cutsceneText.on{opacity:1}
+#skipBtn{position:absolute;top:20px;right:20px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:12px;font-weight:900;padding:8px 16px;border-radius:4px;cursor:pointer;letter-spacing:2px;z-index:10}
+#fadeOverlay{position:absolute;inset:0;background:#000;opacity:0;transition:opacity 1.5s;pointer-events:none}
 
 /* HUD */
 #ui{position:fixed;inset:0;pointer-events:none;display:none;z-index:50}
 #ui.on{display:block}
-
-/* ПРИЦЕЛ */
 #crosshair{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;pointer-events:none}
 #crosshair::before,#crosshair::after{content:'';position:absolute;background:rgba(255,255,255,.8);box-shadow:0 0 3px #000}
 #crosshair::before{left:50%;top:0;width:1px;height:100%;transform:translateX(-50%)}
 #crosshair::after{top:50%;left:0;height:1px;width:100%;transform:translateY(-50%)}
-#crosshair.hit::before,#crosshair.hit::after{background:#e50914}
 
-/* ЗДОРОВЬЕ */
 #hpWrap{position:absolute;left:22px;bottom:22px;width:220px}
 #hpLabel{font-size:10px;font-weight:900;color:#c9d1d9;letter-spacing:3px;margin-bottom:5px;text-shadow:0 2px 4px #000}
-#hpBar{height:12px;background:rgba(0,0,0,.7);border:1px solid rgba(200,30,30,.5);border-radius:2px;overflow:hidden;position:relative}
+#hpBar{height:12px;background:rgba(0,0,0,.7);border:1px solid rgba(200,30,30,.5);border-radius:2px;overflow:hidden}
 #hpFill{height:100%;width:100%;background:linear-gradient(90deg,#b81e1e,#e50914);transition:width .2s;box-shadow:0 0 12px rgba(229,9,20,.6)}
 #hpFill.low{animation:hpPulse .8s infinite}
 @keyframes hpPulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-/* ПАТРОНЫ */
 #ammoWrap{position:absolute;right:22px;bottom:22px;text-align:right}
 #ammoVal{font-size:38px;font-weight:900;color:#d4d4d4;line-height:1;text-shadow:0 0 20px rgba(255,255,255,.2),0 3px 6px #000}
 #ammoVal small{font-size:16px;color:#7a8a99}
@@ -59,26 +61,26 @@ canvas{display:block}
 #ammoVal.empty{color:#e50914;animation:ammoFlash .5s infinite}
 @keyframes ammoFlash{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* СЧЁТЧИК ДЕТАЛЕЙ */
 #partsHud{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:rgba(5,7,10,.7);border:1px solid rgba(184,30,30,.4);border-radius:4px;padding:10px 20px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(4px)}
 #partsHud .ico{font-size:18px}
 #partsHud .txt{color:#c9d1d9;font-size:13px;font-weight:900;letter-spacing:2px}
 #partsHud .txt b{color:#ffb800;font-size:16px}
 #partsHud .txt small{color:#7a8a99;font-size:11px}
 
-/* ПОДСКАЗКА */
 #hintMsg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#d4d4d4;font-size:16px;font-weight:900;letter-spacing:3px;text-align:center;background:rgba(5,7,10,.85);border:1px solid rgba(184,30,30,.5);padding:14px 28px;border-radius:4px;opacity:0;transition:opacity .3s;pointer-events:none;max-width:80%}
 #hintMsg.on{opacity:1}
+
+/* ГОЛОС ИГРОКА */
+#voiceText{position:absolute;top:12%;left:50%;transform:translateX(-50%);color:#c9d1d9;font-size:clamp(14px,2.4vw,18px);font-weight:700;font-style:italic;text-align:center;max-width:80%;text-shadow:0 2px 8px #000,0 0 20px rgba(0,0,0,.8);opacity:0;transition:opacity .5s;pointer-events:none;letter-spacing:.5px;line-height:1.5}
+#voiceText.on{opacity:1}
 
 /* ДЖОЙСТИК */
 #leftZone{position:absolute;left:0;top:0;bottom:0;width:42%;pointer-events:auto}
 #joy{position:absolute;left:30px;bottom:60px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);pointer-events:none}
 #joyBase{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(184,30,30,.7);box-shadow:0 0 20px rgba(184,30,30,.5)}
 
-/* ПРАВАЯ ЗОНА */
 #rightZone{position:absolute;right:0;top:0;bottom:0;width:58%;pointer-events:auto}
 
-/* КНОПКИ */
 .hud-btn{position:absolute;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);pointer-events:auto;display:flex;justify-content:center;align-items:center;color:#d4d4d4;touch-action:none;backdrop-filter:blur(3px);font-weight:900}
 .hud-btn:active{background:rgba(184,30,30,.5);transform:scale(.94)}
 #fireBtn{right:40px;bottom:110px;width:88px;height:88px;font-size:32px;background:rgba(184,30,30,.2);border-color:rgba(229,9,20,.6)}
@@ -89,9 +91,8 @@ canvas{display:block}
 
 #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .06s}
 #damageVignette{position:absolute;inset:0;box-shadow:inset 0 0 140px rgba(184,30,30,.9);opacity:0;pointer-events:none;transition:opacity .25s}
-#darkOverlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.65) 100%);pointer-events:none}
+#darkOverlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.7) 100%);pointer-events:none}
 
-/* РЕЗУЛЬТАТ */
 #result{position:fixed;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;background:rgba(3,4,6,.96);z-index:300;gap:16px;padding:20px;text-align:center}
 #result.on{display:flex}
 #result h1{font-size:clamp(36px,8vw,58px);font-weight:900;letter-spacing:6px}
@@ -113,12 +114,20 @@ canvas{display:block}
     <h1>МЁРТВЫЙ <span class="dead">ГОРОД</span></h1>
     <div class="sub">DAY ZERO · ВЫЖИВАНИЕ</div>
     <div class="desc">
-      Город пал. Ты один. Где-то на карте — 5 деталей от вертолёта. Собери их и улетай.<br>
-      Патронов мало. Зомби слышат выстрелы. Фонарь не спасает.
+      Вертолёт упал. Ты один в городе, полном мертвецов.<br>
+      Найди 5 деталей от вертолёта и выберись. Патронов мало. Зомби слышат выстрелы.
     </div>
-    <button id="playBtn">ВЫЖИТЬ</button>
-    <div class="hint">Левая часть экрана — движение<br>Правая — обзор свайпом · 🔥 огонь · ⚡ фонарь · 🔄 перезарядка</div>
+    <button id="playBtn">НАЧАТЬ</button>
+    <div class="hint">Левая часть — движение · Правая — обзор<br>🔥 огонь · ⚡ фонарь · 🔄 перезарядка</div>
   </div>
+</div>
+
+<!-- КАТ-СЦЕНА -->
+<div id="cutscene">
+  <canvas id="cutsceneCanvas"></canvas>
+  <div id="cutsceneText"></div>
+  <div id="fadeOverlay"></div>
+  <button id="skipBtn">ПРОПУСТИТЬ ▸</button>
 </div>
 
 <div id="ui">
@@ -136,6 +145,7 @@ canvas{display:block}
     <div class="txt">ДЕТАЛИ: <b id="partsNum">0</b><small>/5</small></div>
   </div>
   <div id="hintMsg"></div>
+  <div id="voiceText"></div>
 
   <div id="leftZone"><div id="joy"><div id="joyBase"></div></div></div>
   <div id="rightZone"></div>
@@ -166,11 +176,219 @@ canvas{display:block}
 <script type="module">
 import * as THREE from 'three';
 
-// ========== СЦЕНА ==========
+// ==========================================
+// КАТ-СЦЕНА (отдельная сцена и рендерер)
+// ==========================================
+const cutScene = new THREE.Scene();
+cutScene.background = new THREE.Color(0x1a2a3a);
+cutScene.fog = new THREE.Fog(0x1a2a3a, 30, 120);
+
+const cutRenderer = new THREE.WebGLRenderer({ antialias: true });
+cutRenderer.setSize(innerWidth, innerHeight);
+cutRenderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+const cutCamera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 500);
+
+const cutLight = new THREE.AmbientLight(0x8899bb, 1.5);
+cutScene.add(cutLight);
+const cutSun = new THREE.DirectionalLight(0xffcc88, 2);
+cutSun.position.set(30, 40, 20);
+cutScene.add(cutSun);
+
+// земля
+const cutGround = new THREE.Mesh(
+  new THREE.PlaneGeometry(200, 200),
+  new THREE.MeshLambertMaterial({ color: 0x2a3a2a })
+);
+cutGround.rotation.x = -Math.PI/2;
+cutScene.add(cutGround);
+
+// вертолёт
+const heli = new THREE.Group();
+const heliBody = new THREE.Mesh(
+  new THREE.BoxGeometry(3, 2, 5),
+  new THREE.MeshLambertMaterial({ color: 0x3a4a3a })
+);
+heli.add(heliBody);
+const heliTail = new THREE.Mesh(
+  new THREE.BoxGeometry(0.5, 0.5, 3),
+  new THREE.MeshLambertMaterial({ color: 0x3a4a3a })
+);
+heliTail.position.set(0, 0.5, -3.5);
+heli.add(heliTail);
+const heliCockpit = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 12, 12),
+  new THREE.MeshLambertMaterial({ color: 0x2a5a7a })
+);
+heliCockpit.position.set(0, 0.4, 2);
+heliCockpit.scale.set(1, 0.8, 1.2);
+heli.add(heliCockpit);
+// лопасти
+const rotor = new THREE.Group();
+const bladeGeo = new THREE.BoxGeometry(0.15, 0.05, 6);
+for(let i=0;i<4;i++){
+  const b = new THREE.Mesh(bladeGeo, new THREE.MeshLambertMaterial({ color: 0x222222 }));
+  b.rotation.y = i * Math.PI/2;
+  rotor.add(b);
+}
+rotor.position.y = 1.3;
+heli.add(rotor);
+const tailRotor = new THREE.Group();
+const tb = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2, 0.05), new THREE.MeshLambertMaterial({ color: 0x222222 }));
+tailRotor.add(tb);
+tailRotor.position.set(0.3, 0.5, -5);
+heli.add(tailRotor);
+
+heli.position.set(0, 8, 0);
+cutScene.add(heli);
+
+// пилот (персонаж в вертолёте)
+const pilot = new THREE.Group();
+const pilotBody = new THREE.Mesh(
+  new THREE.CapsuleGeometry(0.4, 0.8, 6, 8),
+  new THREE.MeshLambertMaterial({ color: 0x2a6b9c })
+);
+pilotBody.position.y = 0.8;
+pilot.add(pilotBody);
+const pilotHead = new THREE.Mesh(
+  new THREE.SphereGeometry(0.3, 10, 10),
+  new THREE.MeshLambertMaterial({ color: 0xffe4b3 })
+);
+pilotHead.position.y = 1.5;
+pilot.add(pilotHead);
+pilot.position.set(0, 0, 1.5);
+heli.add(pilot);
+
+// кат-сцена UI
+const cutEl = document.getElementById('cutscene');
+const cutText = document.getElementById('cutsceneText');
+const fadeOverlay = document.getElementById('fadeOverlay');
+const skipBtn = document.getElementById('skipBtn');
+
+let cutActive = false;
+let cutTime = 0;
+let cutPhase = 0;
+let cutSkipped = false;
+
+const CUT_PHASES = [
+  { t: 0, text: '' },
+  { t: 1.5, text: 'Отсюда нет выхода...' },
+  { t: 4.0, text: '' },
+  { t: 4.5, text: 'Это конец.' },
+  { t: 7.0, text: '' },
+  { t: 9.0, text: 'НЕТ! ДЕРЖИСЬ!' },
+  { t: 11.0, text: '' }
+];
+
+function startCutscene(){
+  cutActive = true;
+  cutTime = 0;
+  cutPhase = 0;
+  cutSkipped = false;
+  cutEl.classList.add('on');
+  cutEl.appendChild(cutRenderer.domElement);
+  cutRenderer.domElement.id = 'cutsceneCanvas';
+  cutRenderer.domElement.style.position = 'absolute';
+  cutRenderer.domElement.style.inset = '0';
+  cutText.classList.remove('on');
+  fadeOverlay.style.opacity = '0';
+  heli.position.set(0, 10, 0);
+  heli.rotation.set(0, 0, 0);
+}
+
+function endCutscene(){
+  cutActive = false;
+  cutEl.classList.remove('on');
+  cutRenderer.domElement.remove();
+  startGame();
+}
+
+skipBtn.addEventListener('click', ()=>{
+  if(cutActive) { cutSkipped = true; endCutscene(); }
+});
+
+function animateCutscene(dt){
+  if(!cutActive) return;
+  cutTime += dt;
+
+  // вращение лопастей
+  rotor.rotation.y += dt * 20;
+  tailRotor.rotation.x += dt * 20;
+
+  // фазы текста
+  while(cutPhase < CUT_PHASES.length && cutTime >= CUT_PHASES[cutPhase].t){
+    const p = CUT_PHASES[cutPhase];
+    if(p.text){ cutText.innerText = p.text; cutText.classList.add('on'); }
+    else { cutText.classList.remove('on'); }
+    cutPhase++;
+  }
+
+  // вертолёт: летит, потом падает
+  if(cutTime < 4){
+    heli.position.y = 10 + Math.sin(cutTime*2)*0.3;
+    heli.position.z = Math.sin(cutTime*0.5)*5;
+  } else if(cutTime < 9){
+    // падение
+    const t = (cutTime - 4) / 5;
+    heli.position.y = 10 - t * 10;
+    heli.rotation.z = t * 0.8;
+    heli.rotation.x = t * 0.5;
+    if(t > 0.9){ 
+      heli.position.y = 0;
+      if(!cutScene.getObjectByName('fire')){
+        // огонь
+        const fire = new THREE.Mesh(
+          new THREE.SphereGeometry(2, 8, 8),
+          new THREE.MeshBasicMaterial({ color: 0xff6600, transparent: true, opacity: 0.7 })
+        );
+        fire.position.copy(heli.position);
+        fire.position.y = 1;
+        fire.name = 'fire';
+        cutScene.add(fire);
+      }
+    }
+  } else {
+    // огонь мерцает
+    const fire = cutScene.getObjectByName('fire');
+    if(fire) fire.material.opacity = 0.5 + Math.sin(cutTime*10)*0.2;
+    // затемнение
+    if(cutTime > 10.5){
+      const t = Math.min(1, (cutTime - 10.5) / 1.5);
+      fadeOverlay.style.opacity = String(t);
+    }
+    if(cutTime > 12){
+      endCutscene();
+      return;
+    }
+  }
+
+  // камера
+  if(cutTime < 9){
+    cutCamera.position.set(
+      Math.sin(cutTime*0.3)*15,
+      12 + Math.sin(cutTime*0.5)*2,
+      15
+    );
+    cutCamera.lookAt(heli.position.x, heli.position.y, heli.position.z);
+  } else {
+    cutCamera.position.set(
+      8 + Math.sin(cutTime*0.5)*2,
+      4,
+      8
+    );
+    cutCamera.lookAt(0, 1, 0);
+  }
+
+  cutRenderer.render(cutScene, cutCamera);
+}
+
+// ==========================================
+// ОСНОВНАЯ СЦЕНА
+// ==========================================
 const app = document.getElementById('app');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0d1117);
-scene.fog = new THREE.FogExp2(0x0d1117, 0.018);
+scene.fog = new THREE.FogExp2(0x0d1117, 0.02);
 
 const camera = new THREE.PerspectiveCamera(72, innerWidth/innerHeight, 0.05, 300);
 camera.position.set(0, 1.7, 0);
@@ -181,7 +399,7 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.shadowMap.enabled = false;
 app.appendChild(renderer.domElement);
 
-// ========== СВЕТ ==========
+// свет
 scene.add(new THREE.AmbientLight(0x1a2230, 2.2));
 const moon = new THREE.DirectionalLight(0x4a6080, 1.5);
 moon.position.set(-40, 60, 30);
@@ -190,114 +408,170 @@ const fill = new THREE.DirectionalLight(0x2a1a1a, 0.8);
 fill.position.set(30, 20, -30);
 scene.add(fill);
 
-// фонарь игрока
-const flashlight = new THREE.SpotLight(0xfff0d0, 0, 35, Math.PI/7, 0.5, 1.2);
-flashlight.position.set(0,0,0);
-flashlight.target.position.set(0,0,-1);
-camera.add(flashlight);
-camera.add(flashlight.target);
-scene.add(camera);
-let flashlightOn = false;
-
-// ========== ЗЕМЛЯ ==========
-const groundGeo = new THREE.PlaneGeometry(200, 200, 50, 50);
-const groundMat = new THREE.MeshLambertMaterial({ color: 0x1a1f14 });
-const ground = new THREE.Mesh(groundGeo, groundMat);
-ground.rotation.x = -Math.PI/2;
-scene.add(ground);
-
-// дорожное покрытие — тёмные пятна
-const roadMat = new THREE.MeshLambertMaterial({ color: 0x15151a });
-for(let i=0;i<12;i++){
-  const r = new THREE.Mesh(new THREE.PlaneGeometry(8 + Math.random()*6, 30 + Math.random()*20), roadMat);
-  r.rotation.x = -Math.PI/2;
-  r.rotation.z = Math.random()*Math.PI;
-  r.position.set((Math.random()-0.5)*120, 0.01, (Math.random()-0.5)*120);
-  scene.add(r);
-}
-
-// ========== ЗДАНИЯ ==========
-const buildings = [];
-const wallR = 85;
+// ==========================================
+// ГОРОД (расширенный, с заходимыми квартирами)
+// ==========================================
 const obstacleList = [];
+const wallR = 110;
+const buildingData = [];
 
-function makeBuilding(x, z, w, h, d){
+function makeBuilding(x, z, w, h, d, enterable){
   const g = new THREE.Group();
   const bodyMat = new THREE.MeshLambertMaterial({ color: 0x2a2f35 });
   const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), bodyMat);
   body.position.y = h/2;
   g.add(body);
 
-  // окна — светящиеся точки
+  // окна
   const winMat = new THREE.MeshBasicMaterial({ color: 0x3a2a1a });
   const winMatLit = new THREE.MeshBasicMaterial({ color: 0x8a6a2a });
   const winGeo = new THREE.BoxGeometry(0.6, 0.8, 0.1);
   for(let fy=1.5; fy<h-1; fy+=2.2){
     for(let fx=-w/2+1; fx<w/2-0.5; fx+=1.8){
-      const lit = Math.random() < 0.12;
+      if(Math.random() < 0.12) continue;
+      const lit = Math.random() < 0.1;
       const win = new THREE.Mesh(winGeo, lit ? winMatLit : winMat);
       win.position.set(fx + 0.3, fy, d/2 + 0.06);
       g.add(win);
     }
   }
+
   g.position.set(x, 0, z);
   scene.add(g);
-  buildings.push(g);
-  obstacleList.push({ x, z, r: Math.max(w,d)*0.55 });
-}
 
-// город — сетка кварталов
-const blockSize = 24;
-const blocks = 5;
-for(let i=-blocks; i<=blocks; i++){
-  for(let j=-blocks; j<=blocks; j++){
-    if(i===0 && j===0) continue; // центр свободен
-    const cx = i*blockSize + (Math.random()-0.5)*6;
-    const cz = j*blockSize + (Math.random()-0.5)*6;
-    if(Math.sqrt(cx*cx + cz*cz) > wallR - 10) continue;
-    if(Math.random() < 0.35) continue; // пропуски
-    const w = 6 + Math.random()*7;
-    const d = 6 + Math.random()*7;
-    const h = 6 + Math.random()*16;
-    makeBuilding(cx, cz, w, h, d);
+  if(enterable){
+    // ВХОД: делаем дверной проём — вырезаем переднюю стену через невидимую зону
+    // проще: делаем внутреннее помещение, а вход — это "дырка" (отсутствие коллизии в проёме)
+    // создаём внутренний пол и стены с проёмом
+    const innerW = w - 1.2, innerD = d - 1.2, innerH = h - 0.5;
+    // пол
+    const floor = new THREE.Mesh(
+      new THREE.BoxGeometry(innerW, 0.1, innerD),
+      new THREE.MeshLambertMaterial({ color: 0x1a1a1e })
+    );
+    floor.position.set(x, 0.05, z);
+    scene.add(floor);
+    // стены внутренние (4 стены с проёмом в одной)
+    const wallMatIn = new THREE.MeshLambertMaterial({ color: 0x22262c });
+    const wallThick = 0.2;
+    const wallH = innerH;
+    // задняя
+    const bw = new THREE.Mesh(new THREE.BoxGeometry(innerW, wallH, wallThick), wallMatIn);
+    bw.position.set(x, wallH/2, z + innerD/2);
+    scene.add(bw);
+    // передняя с проёмом
+    const doorW = 1.6;
+    const sideW = (innerW - doorW) / 2;
+    const fwL = new THREE.Mesh(new THREE.BoxGeometry(sideW, wallH, wallThick), wallMatIn);
+    fwL.position.set(x - (innerW/2 - sideW/2), wallH/2, z - innerD/2);
+    scene.add(fwL);
+    const fwR = new THREE.Mesh(new THREE.BoxGeometry(sideW, wallH, wallThick), wallMatIn);
+    fwR.position.set(x + (innerW/2 - sideW/2), wallH/2, z - innerD/2);
+    scene.add(fwR);
+    const fwTop = new THREE.Mesh(new THREE.BoxGeometry(doorW, wallH - 2.2, wallThick), wallMatIn);
+    fwTop.position.set(x, 2.2 + (wallH - 2.2)/2, z - innerD/2);
+    scene.add(fwTop);
+    // боковые
+    const lw = new THREE.Mesh(new THREE.BoxGeometry(wallThick, wallH, innerD), wallMatIn);
+    lw.position.set(x - innerW/2, wallH/2, z);
+    scene.add(lw);
+    const rw = new THREE.Mesh(new THREE.BoxGeometry(wallThick, wallH, innerD), wallMatIn);
+    rw.position.set(x + innerW/2, wallH/2, z);
+    scene.add(rw);
+    // потолок
+    const ceil = new THREE.Mesh(
+      new THREE.BoxGeometry(innerW, 0.1, innerD),
+      new THREE.MeshLambertMaterial({ color: 0x15181c })
+    );
+    ceil.position.set(x, wallH, z);
+    scene.add(ceil);
+    // лампочка внутри
+    const lampLight = new THREE.PointLight(0xffcc88, 0.8, 12, 2);
+    lampLight.position.set(x, wallH - 1, z);
+    scene.add(lampLight);
+    const lamp = new THREE.Mesh(
+      new THREE.SphereGeometry(0.15, 6, 6),
+      new THREE.MeshBasicMaterial({ color: 0xffcc88 })
+    );
+    lamp.position.set(x, wallH - 1, z);
+    scene.add(lamp);
+
+    // внутренние коллизии: стены (не проём)
+    obstacleList.push({ x, z: z + innerD/2, r: innerW/2 }); // задняя
+    obstacleList.push({ x: x - innerW/2, z, r: innerD/2 }); // левая
+    obstacleList.push({ x: x + innerW/2, z, r: innerD/2 }); // правая
+    // передняя с проёмом — две части
+    obstacleList.push({ x: x - (innerW/2 - sideW/2), z: z - innerD/2, r: sideW/2 });
+    obstacleList.push({ x: x + (innerW/2 - sideW/2), z: z - innerD/2, r: sideW/2 });
+
+    buildingData.push({ x, z, w, d, h, enterable: true, innerW, innerD, innerH });
+  } else {
+    obstacleList.push({ x, z, r: Math.max(w,d)*0.55 });
+    buildingData.push({ x, z, w, d, h, enterable: false });
   }
 }
 
-// стена по периметру — бетонный забор
+const blockSize = 28;
+const blocks = 5;
+for(let i=-blocks; i<=blocks; i++){
+  for(let j=-blocks; j<=blocks; j++){
+    if(i===0 && j===0) continue;
+    const cx = i*blockSize + (Math.random()-0.5)*8;
+    const cz = j*blockSize + (Math.random()-0.5)*8;
+    if(Math.sqrt(cx*cx + cz*cz) > wallR - 15) continue;
+    if(Math.random() < 0.3) continue;
+    const w = 8 + Math.random()*8;
+    const d = 8 + Math.random()*8;
+    const h = 8 + Math.random()*14;
+    const enterable = Math.random() < 0.4;
+    makeBuilding(cx, cz, w, h, d, enterable);
+  }
+}
+
+// забор по периметру
 const fenceMat = new THREE.MeshLambertMaterial({ color: 0x1a1a1e });
 const fenceGeo = new THREE.BoxGeometry(1, 4, 1);
-for(let i=0;i<120;i++){
-  const a = (i/120)*Math.PI*2;
+for(let i=0;i<150;i++){
+  const a = (i/150)*Math.PI*2;
   const x = Math.cos(a)*wallR, z = Math.sin(a)*wallR;
   const f = new THREE.Mesh(fenceGeo, fenceMat);
   f.position.set(x, 2, z);
   scene.add(f);
 }
 
-// ========== ДЕТАЛИ ВЕРТОЛЁТА ==========
+// ==========================================
+// ДЕТАЛИ
+// ==========================================
 const PARTS_TOTAL = 5;
 const partMeshes = [];
 const partPositions = [];
+
 function placeParts(){
-  // очистка старых
   partMeshes.forEach(p=>scene.remove(p));
   partMeshes.length = 0;
   partPositions.length = 0;
   for(let i=0;i<PARTS_TOTAL;i++){
     let x, z, ok = false, tries = 0;
-    while(!ok && tries < 100){
-      tries++;
-      const a = Math.random()*Math.PI*2;
-      const r = 20 + Math.random()*(wallR - 30);
-      x = Math.cos(a)*r; z = Math.sin(a)*r;
-      ok = true;
-      for(const o of obstacleList){
-        const dx = x-o.x, dz = z-o.z;
-        if(dx*dx + dz*dz < (o.r + 3)*(o.r + 3)){ ok = false; break; }
+    // стараемся класть часть деталей в дома
+    const inBuilding = i < 2 && buildingData.filter(b=>b.enterable).length > 0;
+    if(inBuilding){
+      const builds = buildingData.filter(b=>b.enterable);
+      const b = builds[Math.floor(Math.random()*builds.length)];
+      x = b.x; z = b.z;
+    } else {
+      while(!ok && tries < 100){
+        tries++;
+        const a = Math.random()*Math.PI*2;
+        const r = 25 + Math.random()*(wallR - 40);
+        x = Math.cos(a)*r; z = Math.sin(a)*r;
+        ok = true;
+        for(const o of obstacleList){
+          const dx = x-o.x, dz = z-o.z;
+          if(dx*dx + dz*dz < (o.r + 3)*(o.r + 3)){ ok = false; break; }
+        }
+        if(Math.abs(x) < 8 && Math.abs(z) < 8) ok = false;
       }
-      if(Math.abs(x) < 6 && Math.abs(z) < 6) ok = false;
     }
-    // визуал детали — ящик с подсветкой
     const g = new THREE.Group();
     const box = new THREE.Mesh(
       new THREE.BoxGeometry(0.8, 0.6, 0.8),
@@ -311,7 +585,6 @@ function placeParts(){
     );
     glow.position.y = 0.3;
     g.add(glow);
-    // столб света
     const beam = new THREE.Mesh(
       new THREE.CylinderGeometry(0.05, 0.15, 6, 6, 1, true),
       new THREE.MeshBasicMaterial({ color: 0xffb800, transparent: true, opacity: 0.12, side: THREE.DoubleSide })
@@ -325,8 +598,8 @@ function placeParts(){
   }
 }
 
-// точка эвакуации
-const evacPos = { x: 0, z: -60 };
+// эвакуация
+const evacPos = { x: 0, z: -85 };
 const evacMesh = new THREE.Mesh(
   new THREE.CylinderGeometry(4, 4, 0.15, 32),
   new THREE.MeshBasicMaterial({ color: 0x2266aa, transparent: true, opacity: 0.4 })
@@ -340,7 +613,9 @@ const evacBeam = new THREE.Mesh(
 evacBeam.position.set(evacPos.x, 10, evacPos.z);
 scene.add(evacBeam);
 
-// ========== ЗОМБИ ==========
+// ==========================================
+// ЗОМБИ
+// ==========================================
 const zombies = [];
 
 function buildZombie(){
@@ -349,22 +624,18 @@ function buildZombie(){
   const clothMat = new THREE.MeshLambertMaterial({ color: 0x2a2a26 });
   const darkMat = new THREE.MeshLambertMaterial({ color: 0x1a1a16 });
 
-  // торс
   const torso = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.95, 0.4), clothMat);
   torso.position.y = 1.15;
   g.add(torso);
-  // голова
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.3, 10, 10), skinMat);
   head.position.y = 1.85;
   g.add(head);
-  // глаза красные
   const eyeMat = new THREE.MeshBasicMaterial({ color: 0xe50914 });
   [-0.09, 0.09].forEach(x=>{
     const e = new THREE.Mesh(new THREE.SphereGeometry(0.045, 6, 6), eyeMat);
     e.position.set(x, 1.9, 0.27);
     g.add(e);
   });
-  // руки вытянуты вперёд
   const armL = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.18, 0.8), skinMat);
   armL.position.set(-0.45, 1.35, 0.3);
   armL.rotation.x = -0.1;
@@ -373,14 +644,12 @@ function buildZombie(){
   armR.position.set(0.45, 1.35, 0.3);
   armR.rotation.x = -0.1;
   g.add(armR);
-  // кисти
   const handL = new THREE.Mesh(new THREE.SphereGeometry(0.13, 8, 8), skinMat);
   handL.position.set(-0.45, 1.3, 0.72);
   g.add(handL);
   const handR = new THREE.Mesh(new THREE.SphereGeometry(0.13, 8, 8), skinMat);
   handR.position.set(0.45, 1.3, 0.72);
   g.add(handR);
-  // ноги
   const legL = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.85, 0.22), darkMat);
   legL.position.set(-0.18, 0.42, 0);
   g.add(legL);
@@ -399,8 +668,8 @@ function spawnZombie(x, z){
     ...zObj,
     x, z,
     hp: 100,
-    speed: 0.8 + Math.random()*0.9,
-    state: 'idle', // idle | wander | chase | attack
+    speed: 0.8 + Math.random()*1.1,
+    state: 'idle',
     wanderTarget: null,
     wanderTimer: 0,
     attackTimer: 0,
@@ -414,13 +683,12 @@ function spawnZombie(x, z){
 function spawnInitialZombies(){
   zombies.forEach(z=>scene.remove(z.group));
   zombies.length = 0;
-  const count = 22;
-  for(let i=0;i<count;i++){
+  for(let i=0;i<28;i++){
     let x, z, ok = false, tries = 0;
     while(!ok && tries < 80){
       tries++;
       const a = Math.random()*Math.PI*2;
-      const r = 15 + Math.random()*(wallR - 25);
+      const r = 18 + Math.random()*(wallR - 30);
       x = Math.cos(a)*r; z = Math.sin(a)*r;
       ok = true;
       for(const o of obstacleList){
@@ -433,7 +701,9 @@ function spawnInitialZombies(){
   }
 }
 
-// ========== ПУЛИ ==========
+// ==========================================
+// ПУЛИ
+// ==========================================
 const bullets = [];
 function spawnBullet(origin, dir){
   const geo = new THREE.SphereGeometry(0.06, 6, 6);
@@ -444,36 +714,42 @@ function spawnBullet(origin, dir){
   bullets.push({ mesh, dir: dir.clone().normalize(), speed: 90, life: 1.5 });
 }
 
-// ========== ОРУЖИЕ ОТ ПЕРВОГО ЛИЦА ==========
+// ==========================================
+// ОРУЖИЕ + ФОНАРЬ В РУКЕ
+// ==========================================
 const weaponGroup = new THREE.Group();
 camera.add(weaponGroup);
+
+// фонарь в руке — spotlight, который светит туда, куда смотрит камера
+const handFlashlight = new THREE.SpotLight(0xfff0d0, 0, 40, Math.PI/6, 0.5, 1.2);
+handFlashlight.position.set(0.14, -0.14, -0.5);
+handFlashlight.target.position.set(0, 0, -1);
+weaponGroup.add(handFlashlight);
+weaponGroup.add(handFlashlight.target);
+let flashlightOn = false;
 
 function buildWeapon(){
   const gunMat = new THREE.MeshLambertMaterial({ color: 0x1a1a1a });
   const metalMat = new THREE.MeshLambertMaterial({ color: 0x333333 });
   const skinMat = new THREE.MeshLambertMaterial({ color: 0xd4a574 });
   const sleeveMat = new THREE.MeshLambertMaterial({ color: 0x2a2a26 });
+  const flashMat = new THREE.MeshLambertMaterial({ color: 0x555555, emissive: 0x222222 });
 
-  // корпус пистолета
   const slide = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.12, 0.42), gunMat);
   slide.position.set(0.14, -0.14, -0.35);
   weaponGroup.add(slide);
-  // ствол
   const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.12, 8), metalMat);
   barrel.rotation.x = Math.PI/2;
   barrel.position.set(0.14, -0.14, -0.56);
   weaponGroup.add(barrel);
-  // рукоятка
   const grip = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.22, 0.1), gunMat);
   grip.position.set(0.14, -0.28, -0.25);
   grip.rotation.x = 0.25;
   weaponGroup.add(grip);
-  // магазин
   const mag = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.18, 0.08), metalMat);
   mag.position.set(0.14, -0.32, -0.24);
   mag.rotation.x = 0.25;
   weaponGroup.add(mag);
-  // прицельные
   const sight = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.03, 0.02), metalMat);
   sight.position.set(0.14, -0.06, -0.5);
   weaponGroup.add(sight);
@@ -495,9 +771,25 @@ function buildWeapon(){
   lHand.position.set(0.02, -0.25, -0.4);
   weaponGroup.add(lHand);
 
+  // ФОНАРЬ — фонарик в левой руке (крепление на стволе)
+  const torchBody = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.035, 0.04, 0.18, 8),
+    flashMat
+  );
+  torchBody.rotation.x = Math.PI/2;
+  torchBody.position.set(0.14, -0.08, -0.55);
+  weaponGroup.add(torchBody);
+  const torchLens = new THREE.Mesh(
+    new THREE.CircleGeometry(0.04, 12),
+    new THREE.MeshBasicMaterial({ color: 0xfff0d0, transparent: true, opacity: 0.5 })
+  );
+  torchLens.position.set(0.14, -0.08, -0.64);
+  torchLens.rotation.y = Math.PI;
+  weaponGroup.add(torchLens);
+
   // вспышка
-  const flashMat = new THREE.MeshBasicMaterial({ color: 0xffdd44, transparent: true, opacity: 0 });
-  const flash = new THREE.Mesh(new THREE.SphereGeometry(0.13, 6, 6), flashMat);
+  const flashMat2 = new THREE.MeshBasicMaterial({ color: 0xffdd44, transparent: true, opacity: 0 });
+  const flash = new THREE.Mesh(new THREE.SphereGeometry(0.13, 6, 6), flashMat2);
   flash.position.set(0.14, -0.14, -0.62);
   weaponGroup.add(flash);
 
@@ -505,16 +797,17 @@ function buildWeapon(){
 }
 const muzzleFlash = buildWeapon();
 
-// позиция покоя и отдачи
 const weaponBase = { x: 0.2, y: -0.05, z: -0.1 };
 const weaponRecoil = { x: 0, y: 0, z: 0 };
 const weaponSway = { x: 0, y: 0 };
-let reloadAnim = 0; // 0..1, 1 = полностью перезаряжен
+let reloadAnim = 0;
 let reloading = false;
 
 weaponGroup.position.set(weaponBase.x, weaponBase.y, weaponBase.z);
 
-// ========== ИГРОК ==========
+// ==========================================
+// ИГРОК
+// ==========================================
 const player = {
   x: 0, z: 0,
   y: 1.7,
@@ -527,7 +820,9 @@ const player = {
   partsCollected: 0
 };
 
-// ========== ВВОД ==========
+// ==========================================
+// ВВОД
+// ==========================================
 const keys = {};
 addEventListener('keydown', e=>{ keys[e.code]=true; if(e.code==='Space') e.preventDefault(); });
 addEventListener('keyup', e=>{ keys[e.code]=false; });
@@ -610,17 +905,13 @@ const flashlightBtn = document.getElementById('flashlightBtn');
 flashlightBtn.addEventListener('pointerdown', e=>{
   e.preventDefault(); e.stopPropagation();
   flashlightOn = !flashlightOn;
-  flashlight.intensity = flashlightOn ? 8 : 0;
+  handFlashlight.intensity = flashlightOn ? 12 : 0;
   flashlightBtn.classList.toggle('on', flashlightOn);
 });
 
 // мышь на десктопе
 renderer.domElement.addEventListener('mousedown', e=>{ if(e.button===0 && e.clientX > innerWidth*0.42) firing = true; });
 renderer.domElement.addEventListener('mouseup', ()=>{ firing = false; });
-renderer.domElement.addEventListener('mousemove', e=>{
-  if(!lookActive) return;
-});
-renderer.domElement.addEventListener('pointerlockchange', ()=>{});
 addEventListener('mousemove', e=>{
   if(document.pointerLockElement === renderer.domElement){
     player.yaw -= e.movementX * 0.002;
@@ -629,19 +920,19 @@ addEventListener('mousemove', e=>{
   }
 });
 renderer.domElement.addEventListener('click', ()=>{
-  if(!lookActive && innerWidth > 900){
-    renderer.domElement.requestPointerLock();
-  }
+  if(innerWidth > 900) renderer.domElement.requestPointerLock();
 });
 
-// ========== UI ==========
+// ==========================================
+// UI
+// ==========================================
 const hpFill = document.getElementById('hpFill');
 const ammoNum = document.getElementById('ammoNum');
 const ammoMaxEl = document.getElementById('ammoMax');
 const ammoVal = document.getElementById('ammoVal');
 const partsNum = document.getElementById('partsNum');
-const crosshair = document.getElementById('crosshair');
 const hintMsg = document.getElementById('hintMsg');
+const voiceText = document.getElementById('voiceText');
 const flashEl = document.getElementById('flash');
 const dmgEl = document.getElementById('damageVignette');
 const resultEl = document.getElementById('result');
@@ -650,11 +941,17 @@ const resultText = document.getElementById('resultText');
 
 let gameActive = false;
 let hintTimer = 0;
+let voiceTimer = 0;
 
 function showHint(text, duration = 2500){
   hintMsg.innerText = text;
   hintMsg.classList.add('on');
   hintTimer = duration/1000;
+}
+function showVoice(text, duration = 3500){
+  voiceText.innerText = text;
+  voiceText.classList.add('on');
+  voiceTimer = duration/1000;
 }
 function updateHpUI(){
   const pct = Math.max(0, player.hp / player.maxHp * 100);
@@ -666,9 +963,7 @@ function updateAmmoUI(){
   ammoMaxEl.innerText = player.maxAmmo;
   ammoVal.classList.toggle('empty', player.ammo === 0);
 }
-function updatePartsUI(){
-  partsNum.innerText = player.partsCollected;
-}
+function updatePartsUI(){ partsNum.innerText = player.partsCollected; }
 function hitDamageFlash(){ dmgEl.style.opacity = '1'; setTimeout(()=>dmgEl.style.opacity='0', 250); }
 function muzzleFlashShow(){
   muzzleFlash.material.opacity = 1;
@@ -676,11 +971,14 @@ function muzzleFlashShow(){
   setTimeout(()=>{ muzzleFlash.material.opacity = 0; flashEl.style.opacity = '0'; }, 55);
 }
 
-// ========== ПЕРЕЗАРЯДКА ==========
+// ==========================================
+// ПЕРЕЗАРЯДКА
+// ==========================================
 function startReload(){
   if(reloading || player.ammo === player.maxAmmo) return;
   reloading = true;
   reloadAnim = 1;
+  soundReload();
   setTimeout(()=>{
     player.ammo = player.maxAmmo;
     updateAmmoUI();
@@ -688,7 +986,9 @@ function startReload(){
   }, 1400);
 }
 
-// ========== ЗВУКИ (WebAudio, простые) ==========
+// ==========================================
+// ЗВУКИ
+// ==========================================
 let audioCtx = null;
 function getAudioCtx(){
   if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
@@ -704,7 +1004,6 @@ function soundShot(){
     g.gain.setValueAtTime(0.15, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
     o.start(); o.stop(ctx.currentTime + 0.12);
-    // шум выстрела
     const buf = ctx.createBuffer(1, ctx.sampleRate*0.1, ctx.sampleRate);
     const data = buf.getChannelData(0);
     for(let i=0;i<data.length;i++) data[i] = (Math.random()*2-1) * Math.exp(-i/data.length*6);
@@ -764,7 +1063,9 @@ function soundGroan(){
   }catch(e){}
 }
 
-// ========== КОЛЛИЗИИ ==========
+// ==========================================
+// КОЛЛИЗИИ
+// ==========================================
 function collides(x, z, radius){
   for(const o of obstacleList){
     const dx = x-o.x, dz = z-o.z;
@@ -776,19 +1077,18 @@ function collides(x, z, radius){
   return false;
 }
 
-// ========== ШУМ ==========
 function makeNoise(x, z, radius){
   for(const zb of zombies){
     if(zb.dead) continue;
     const dx = zb.x - x, dz = zb.z - z;
     const d = Math.sqrt(dx*dx + dz*dz);
-    if(d < radius){
-      zb.state = 'chase';
-    }
+    if(d < radius) zb.state = 'chase';
   }
 }
 
-// ========== СТАРТ ИГРЫ ==========
+// ==========================================
+// СТАРТ ИГРЫ
+// ==========================================
 function startGame(){
   player.x = 0; player.z = 0; player.y = 1.7;
   player.yaw = 0; player.pitch = 0;
@@ -811,21 +1111,41 @@ function startGame(){
   document.getElementById('ui').classList.add('on');
   resultEl.classList.remove('on');
   gameActive = true;
-  showHint('Найди 5 деталей 🔧 и доберись до синего круга', 4000);
+
+  // ночь — тёмный фон
+  scene.background = new THREE.Color(0x05070a);
+  scene.fog = new THREE.FogExp2(0x05070a, 0.025);
+
+  // голоса после пробуждения
+  setTimeout(()=>showVoice('Кажется, я пропал...', 3000), 500);
+  setTimeout(()=>showVoice('Надо выбираться отсюда.', 3000), 4000);
+  setTimeout(()=>showVoice('Пять деталей. Собрать и улететь.', 3500), 7500);
 }
 
-document.getElementById('playBtn').addEventListener('click', startGame);
-document.getElementById('restartBtn').addEventListener('click', startGame);
+document.getElementById('playBtn').addEventListener('click', ()=>{
+  startCutscene();
+});
+document.getElementById('restartBtn').addEventListener('click', ()=>{
+  resultEl.classList.remove('on');
+  startCutscene();
+});
 
-// ========== ЦИКЛ ==========
+// ==========================================
+// ЦИКЛ
+// ==========================================
 const clock = new THREE.Clock();
 
 function animate(){
   requestAnimationFrame(animate);
   const dt = Math.min(clock.getDelta(), 0.05);
 
+  if(cutActive){
+    animateCutscene(dt);
+    return;
+  }
+
   if(gameActive){
-    // ---- движение ----
+    // движение относительно камеры (правильный джойстик)
     let ix = 0, iz = 0;
     if(keys['KeyW'] || keys['ArrowUp']) iz -= 1;
     if(keys['KeyS'] || keys['ArrowDown']) iz += 1;
@@ -836,6 +1156,8 @@ function animate(){
     if(len > 1){ ix /= len; iz /= len; }
 
     if(len > 0.05){
+      // ДВИЖЕНИЕ ОТНОСИТЕЛЬНО КАМЕРЫ:
+      // если джойстик вверх (iz = -1), идём вперёд по направлению взгляда
       const wx = ix*Math.cos(player.yaw) - iz*Math.sin(player.yaw);
       const wz = ix*Math.sin(player.yaw) + iz*Math.cos(player.yaw);
       const nx = player.x + wx * player.speed * dt;
@@ -844,7 +1166,7 @@ function animate(){
       if(!collides(player.x, nz, 0.4)) player.z = nz;
     }
 
-    // ---- камера ----
+    // камера
     camera.position.set(player.x, player.y, player.z);
     const dir = new THREE.Vector3(
       -Math.sin(player.yaw) * Math.cos(player.pitch),
@@ -852,24 +1174,27 @@ function animate(){
       -Math.cos(player.yaw) * Math.cos(player.pitch)
     );
     camera.lookAt(player.x + dir.x, player.y + dir.y, player.z + dir.z);
-    flashlight.target.position.set(dir.x, dir.y, dir.z);
 
-    // ---- оружие: покачивание, отдача, перезарядка ----
+    // фонарь светит туда, куда смотрит камера (dir уже это направление)
+    if(flashlightOn){
+      handFlashlight.target.position.set(dir.x * 10, dir.y * 10, dir.z * 10);
+      handFlashlight.target.updateMatrixWorld();
+    }
+
+    // оружие: покачивание, отдача, перезарядка
     const bobSpeed = len > 0.05 ? 8 : 0;
     const bobX = Math.sin(performance.now()*0.001*bobSpeed) * 0.012 * (len>0.05?1:0);
     const bobY = Math.abs(Math.cos(performance.now()*0.001*bobSpeed)) * 0.015 * (len>0.05?1:0);
     weaponSway.x += (-bobX - weaponSway.x) * 0.15;
     weaponSway.y += (-bobY - weaponSway.y) * 0.15;
-
     weaponRecoil.x += (0 - weaponRecoil.x) * 0.2;
     weaponRecoil.y += (0 - weaponRecoil.y) * 0.2;
     weaponRecoil.z += (0 - weaponRecoil.z) * 0.2;
 
     let reloadOffsetY = 0;
     if(reloading){
-      const t = 1 - (reloadAnim);
+      const t = 1 - reloadAnim;
       reloadOffsetY = -Math.sin(t * Math.PI) * 0.35;
-      // крутим оружие
       weaponGroup.rotation.z = Math.sin(t * Math.PI) * 0.4;
     } else {
       weaponGroup.rotation.z += (0 - weaponGroup.rotation.z) * 0.2;
@@ -882,7 +1207,7 @@ function animate(){
     );
     weaponGroup.rotation.x = weaponRecoil.z * 0.5;
 
-    // ---- стрельба ----
+    // стрельба
     player.shootCooldown -= dt;
     player.hurtCooldown -= dt;
     if(firing && player.shootCooldown <= 0 && !reloading){
@@ -894,12 +1219,9 @@ function animate(){
         muzzleFlashShow();
         weaponRecoil.z = 0.08;
         weaponRecoil.y = 0.04;
-        // пуля
         const origin = new THREE.Vector3(player.x, player.y - 0.1, player.z);
         spawnBullet(origin, dir);
-        // шум привлекает зомби
         makeNoise(player.x, player.z, 30);
-        // отдача камеры
         player.pitch += 0.015;
         if(player.ammo === 0) startReload();
       } else {
@@ -908,13 +1230,12 @@ function animate(){
       }
     }
 
-    // ---- зомби ----
+    // зомби
     for(const z of zombies){
       if(z.dead) continue;
       const dx = player.x - z.x, dz = player.z - z.z;
       const dist = Math.sqrt(dx*dx + dz*dz);
 
-      // слышат игрока близко
       if(dist < 8 && z.state === 'idle') z.state = 'chase';
 
       z.groanTimer -= dt;
@@ -925,7 +1246,6 @@ function animate(){
 
       if(z.state === 'chase'){
         if(dist < 1.3){
-          // атака
           z.attackTimer -= dt;
           if(z.attackTimer <= 0 && player.hurtCooldown <= 0){
             z.attackTimer = 1.0;
@@ -948,11 +1268,9 @@ function animate(){
           const nz = z.z + (dz/dist) * z.speed * dt;
           if(!collides(nx, z.z, 0.4)) z.x = nx;
           if(!collides(z.x, nz, 0.4)) z.z = nz;
-          // поворот к игроку
           z.group.rotation.y = Math.atan2(dx, dz);
         }
       } else {
-        // блуждание
         z.wanderTimer -= dt;
         if(z.wanderTimer <= 0 || !z.wanderTarget){
           z.wanderTimer = 3 + Math.random()*5;
@@ -975,17 +1293,13 @@ function animate(){
         }
       }
 
-      // анимация ходьбы (шатание)
       const moving = z.state === 'chase' && dist >= 1.3;
       z.walkPhase += dt * (moving ? 6 : 2);
-      const sway = Math.sin(z.walkPhase) * 0.08;
-      z.group.rotation.z = sway;
+      z.group.rotation.z = Math.sin(z.walkPhase) * 0.08;
       z.group.position.set(z.x, Math.abs(Math.sin(z.walkPhase)) * 0.04, z.z);
-      // руки трясутся
       z.armL.rotation.x = -0.1 + Math.sin(z.walkPhase*1.3) * 0.15;
       z.armR.rotation.x = -0.1 - Math.sin(z.walkPhase*1.3) * 0.15;
 
-      // хит-флеш
       if(z.hitFlash > 0){
         z.hitFlash -= dt;
         z.group.traverse(c=>{ if(c.material && c.material.color) c.material.color.setHex(0xffffff); });
@@ -997,7 +1311,7 @@ function animate(){
       }
     }
 
-    // ---- пули ----
+    // пули
     for(let i = bullets.length - 1; i >= 0; i--){
       const b = bullets[i];
       b.life -= dt;
@@ -1005,7 +1319,6 @@ function animate(){
       b.mesh.position.addScaledVector(b.dir, b.speed * dt);
       if(b.mesh.position.y < 0.1){ scene.remove(b.mesh); bullets.splice(i,1); continue; }
       if(collides(b.mesh.position.x, b.mesh.position.z, 0.05)){ scene.remove(b.mesh); bullets.splice(i,1); continue; }
-      // попадание в зомби
       let hit = false;
       for(const z of zombies){
         if(z.dead) continue;
@@ -1027,10 +1340,9 @@ function animate(){
       if(hit){ scene.remove(b.mesh); bullets.splice(i,1); continue; }
     }
 
-    // ---- подбор деталей ----
+    // подбор деталей
     for(const p of partPositions){
       if(p.collected) continue;
-      // вращение и пульсация
       p.mesh.rotation.y += dt * 2;
       p.glow.material.opacity = 0.25 + Math.sin(performance.now()*0.003) * 0.15;
       const dx = player.x - p.x, dz = player.z - p.z;
@@ -1048,7 +1360,7 @@ function animate(){
       }
     }
 
-    // ---- эвакуация ----
+    // эвакуация
     if(player.partsCollected >= PARTS_TOTAL){
       const dx = player.x - evacPos.x, dz = player.z - evacPos.z;
       if(dx*dx + dz*dz < 4*4){
@@ -1060,11 +1372,8 @@ function animate(){
       }
     }
 
-    // подсказка-таймер
-    if(hintTimer > 0){
-      hintTimer -= dt;
-      if(hintTimer <= 0) hintMsg.classList.remove('on');
-    }
+    if(hintTimer > 0){ hintTimer -= dt; if(hintTimer <= 0) hintMsg.classList.remove('on'); }
+    if(voiceTimer > 0){ voiceTimer -= dt; if(voiceTimer <= 0) voiceText.classList.remove('on'); }
   }
 
   renderer.render(scene, camera);
@@ -1075,6 +1384,9 @@ addEventListener('resize', ()=>{
   camera.aspect = innerWidth/innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  cutCamera.aspect = innerWidth/innerHeight;
+  cutCamera.updateProjectionMatrix();
+  cutRenderer.setSize(innerWidth, innerHeight);
 });
 </script>
 </body>
