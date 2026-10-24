@@ -144,22 +144,6 @@ body.modal-open{overflow:hidden}
 .modal-close{position:absolute;top:16px;right:16px;background:var(--panel-l);border:none;color:var(--gray2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;z-index:10}
 
 .toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border:1px solid var(--border);padding:16px 24px;border-radius:12px;color:var(--white);font-size:13px;font-weight:800;z-index:9999;text-align:center;display:none;box-shadow:0 4px 20px rgba(0,0,0,.5)}
-
-/* ==== ДОБАВЛЕННЫЕ СТИЛИ ==== */
-.toggle{width:44px;height:24px;background:var(--panel-l);border-radius:12px;position:relative;cursor:pointer;transition:.2s;border:1px solid var(--border)}
-.toggle.on{background:var(--green)}
-.toggle div{position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.2s}
-.toggle.on div{left:22px}
-.title-novice{font-size:10px;color:var(--gray2);font-weight:900}
-.title-pro{font-size:10px;color:var(--blue);font-weight:900}
-.title-master{font-size:10px;color:var(--green-l);font-weight:900}
-.title-legend{font-size:10px;color:var(--gold);font-weight:900}
-.title-god{font-size:10px;color:var(--red);font-weight:900;text-shadow:0 0 8px rgba(229,9,20,.6)}
-.vip-buy-btn{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a1a;font-weight:900;font-size:14px;cursor:pointer;letter-spacing:1px}
-.vip-buy-btn:disabled{opacity:.5;cursor:default}
-.popup-win-card,.popup-lose-card{background:rgba(15,15,20,.9);border-radius:24px;padding:24px;border:1px solid rgba(255,255,255,.08)}
-.popup-item{position:relative}
-.frame-gold{border:2px solid var(--gold);border-radius:14px;padding:3px;box-shadow:0 0 20px rgba(255,184,0,.5)}
 </style>
 </head>
 <body>
@@ -421,11 +405,7 @@ function getUser(){
 }
 function getTgInitData(){ try{return window.Telegram.WebApp.initData||'';}catch(e){return'';} }
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-// FIX #4: безопасный JS-литерал + HTML-экранирование для inline-атрибутов в двойных кавычках
-function jsArg(v){
-  const json = JSON.stringify(String(v ?? ''));
-  return json.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function jsArg(v){ const json = JSON.stringify(String(v ?? '')); return json.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function apiHeaders(){ return {'Content-Type':'application/json','X-TG-Init-Data':getTgInitData()}; }
 function genUid(){ return Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,9); }
 function safeNumber(n, def){ const x = Number(n); return Number.isFinite(x) ? x : def; }
@@ -438,7 +418,6 @@ let cart=[], invMode='inv', bigTab='inv', shopTab='skins';
 let soundEnabled=localStorage.getItem('sfap_sound')!=='0';
 let hapticEnabled=localStorage.getItem('sfap_haptic')!=='0';
 let gameLoaded=false;
-// FIX #1: флаг неудачной загрузки — блокирует перезапись сохранения нулями
 let loadFailed=false;
 let lightningOn=false;
 let currentWheelAngle=0;
@@ -447,31 +426,27 @@ let refData={code:'',invited:0,earned:0,stage:1,nextGoal:10,isLegend:false};
 let refBoost={spinsLeft:0,expire:0};
 let vipData={isVip:false,expires:0};
 let customPcts=[...DEFAULT_PCTS];
-try{ const saved=JSON.parse(localStorage.getItem('sfap_pcts')||'null'); if(Array.isArray(saved)&&saved.length===6)customPcts=saved.map(Number).filter(n=>Number.isFinite(n)&&n>0&&n<=90); if(customPcts.length!==6) customPcts=[...DEFAULT_PCTS]; }catch(e){ customPcts=[...DEFAULT_PCTS]; }
+try{ const saved=JSON.parse(localStorage.getItem('sfap_pcts')||'null'); if(Array.isArray(saved)&&saved.length===6){ const cleaned = saved.map(Number).filter(n=>Number.isFinite(n)&&n>0&&n<=90); if(cleaned.length===6) customPcts = cleaned; } }catch(e){}
 let unlockedAch=[];
 try{ unlockedAch=JSON.parse(localStorage.getItem('sfap_ach')||'[]'); if(!Array.isArray(unlockedAch)) unlockedAch=[]; }catch(e){ unlockedAch=[]; }
 let currentAvatar=localStorage.getItem('sfap_avatar')||'emoji1';
 let currentFrame=localStorage.getItem('sfap_frame')||'none';
-let currentBg=localStorage.getItem('sfap_bg')||'default';
 let currentTitle=localStorage.getItem('sfap_title')||'novice';
-let dailyData={lastClaim:0,lastFortune:0,lastLottery:0};
-try{ dailyData=JSON.parse(localStorage.getItem('sfap_daily')||'{"lastClaim":0,"lastFortune":0,"lastLottery":0}'); }catch(e){}
 let happyHourEnd=Number(localStorage.getItem('sfap_happy')||0);
+if(!Number.isFinite(happyHourEnd)) happyHourEnd=0;
 
-// FIX #13: блокировка body считается по факту наличия открытых модалок/экранов
+let _saveDirty=false;
+function markDirty(){ _saveDirty=true; }
+
 function syncBodyLock(){
   const anyOpen = document.querySelector('.modal-overlay.open, .scr.open, #wdModal, #cartModal, #resultScreen') !== null;
   document.body.classList.toggle('modal-open', anyOpen);
 }
 
-// УТИЛИТЫ
 function haptic(t){ if(!hapticEnabled)return; try{ window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback && window.Telegram.WebApp.HapticFeedback.impactOccurred(t||'medium'); }catch(e){} }
 let audioCtx=null;
 function getAudioCtx(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==='suspended'){ audioCtx.resume().catch(()=>{}); } return audioCtx; }
-function beep(f,t,d,v){
-  if(!soundEnabled)return;
-  try{ const ctx=getAudioCtx(); const o=ctx.createOscillator(), g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value=f; o.type=t||'sine'; g.gain.setValueAtTime(v||.1,ctx.currentTime); g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d); o.start(); o.stop(ctx.currentTime+d); }catch(e){}
-}
+function beep(f,t,d,v){ if(!soundEnabled)return; try{ const ctx=getAudioCtx(); const o=ctx.createOscillator(), g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value=f; o.type=t||'sine'; g.gain.setValueAtTime(v||.1,ctx.currentTime); g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d); o.start(); o.stop(ctx.currentTime+d); }catch(e){} }
 function sClick(){beep(600,'square',.05,.05)}
 function sTick(){beep(1500,'sine',.04,.05)}
 function sWin(){beep(800,'sine',.3,.15);setTimeout(()=>beep(1300,'sine',.5,.15),200)}
@@ -486,79 +461,25 @@ function toast(m,t){
   clearTimeout(toast._t);
   toast._t=setTimeout(()=>e.style.display='none',2500);
 }
-function confetti(){
-  for(let i=0;i<40;i++){
-    const c=document.createElement('div');
-    c.style.cssText='position:fixed;width:8px;height:8px;background:'+['#ffb800','#fff','#4CAF50'][Math.floor(Math.random()*3)]+';left:'+(Math.random()*100)+'%;top:-20px;z-index:9998;pointer-events:none;transition:transform 2s linear,opacity 2s linear';
-    document.body.appendChild(c);
-    requestAnimationFrame(()=>{c.style.transform='translateY(110vh) rotate(720deg)';c.style.opacity='0'});
-    setTimeout(()=>c.remove(),2000);
-  }
-}
+function confetti(){ for(let i=0;i<40;i++){ const c=document.createElement('div'); c.style.cssText='position:fixed;width:8px;height:8px;background:'+['#ffb800','#fff','#4CAF50'][Math.floor(Math.random()*3)]+';left:'+(Math.random()*100)+'%;top:-20px;z-index:9998;pointer-events:none;transition:transform 2s linear,opacity 2s linear'; document.body.appendChild(c); requestAnimationFrame(()=>{c.style.transform='translateY(110vh) rotate(720deg)';c.style.opacity='0'}); setTimeout(()=>c.remove(),2000); } }
 function updateBal(){ const el=document.getElementById('goldTop'); if(el)el.innerText=Math.floor(gold).toLocaleString('ru-RU'); }
 function formatPct(p){ p=safeNumber(p,0); if(p<=0) return '0%'; if(p>=10) return p.toFixed(0)+'%'; if(p>=1) return p.toFixed(1)+'%'; if(p>=0.01) return p.toFixed(2)+'%'; return '0.01%'; }
 function isHappyHour(){ return happyHourEnd>Date.now(); }
-function checkHappyHour(){ if(happyHourEnd<Date.now()){ const lastEnd=Number(localStorage.getItem('sfap_happyLastEnd')||0); if(Date.now()-lastEnd>6*60*60*1000){ happyHourEnd=Date.now()+30*60*1000; localStorage.setItem('sfap_happy',String(happyHourEnd)); localStorage.setItem('sfap_happyLastEnd',String(happyHourEnd)); } } }
+function checkHappyHour(){ if(happyHourEnd<Date.now()){ const lastEnd=Number(localStorage.getItem('sfap_happyLastEnd')||0); if(!Number.isFinite(lastEnd)) return; if(Date.now()-lastEnd>6*60*60*1000){ happyHourEnd=Date.now()+30*60*1000; localStorage.setItem('sfap_happy',String(happyHourEnd)); localStorage.setItem('sfap_happyLastEnd',String(happyHourEnd)); } } }
 function openModal(id){ const el=document.getElementById(id); if(!el)return; el.classList.add('open'); syncBodyLock(); }
-function closeModal(id){
-  const el=document.getElementById(id); if(!el)return;
-  el.classList.remove('open'); syncBodyLock();
-  if(id==='dailyBonusModal' && window.bonusTimerInterval){ clearInterval(window.bonusTimerInterval); window.bonusTimerInterval=null; }
-}
+function closeModal(id){ const el=document.getElementById(id); if(!el)return; el.classList.remove('open'); syncBodyLock(); if(id==='dailyBonusModal' && window.bonusTimerInterval){ clearInterval(window.bonusTimerInterval); window.bonusTimerInterval=null; } }
 
-// НАВИГАЦИЯ
-function switchTab(tabName){
-  document.querySelectorAll('.main').forEach(el => el.classList.remove('active'));
-  const screen = document.getElementById('screen-' + tabName);
-  if(screen) screen.classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => (el.getAttribute('onclick')||'').includes(tabName));
-  if(btn) btn.classList.add('active');
-  if(tabName === 'tasks') loadTasks();
-  if(tabName === 'leaderboard') loadLeaderboard();
-}
-function toggleSidePanel(){
-  const panel = document.getElementById('sidePanel');
-  const overlay = document.getElementById('sideOverlay');
-  const willOpen = !panel.classList.contains('open');
-  panel.classList.toggle('open');
-  overlay.classList.toggle('open');
-  if(willOpen) {
-    const u = getUser();
-    document.getElementById('sideName').innerText = esc((u && u.first_name) ? u.first_name : 'Игрок');
-    document.getElementById('sideId').innerText = 'ID: #' + esc(getUserId().slice(-5));
-    const av = document.getElementById('topAv');
-    document.getElementById('sideAvatar').innerHTML = av.innerHTML;
-  }
-}
+function switchTab(tabName){ document.querySelectorAll('.main').forEach(el => el.classList.remove('active')); const screen = document.getElementById('screen-' + tabName); if(screen) screen.classList.add('active'); document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => (el.getAttribute('onclick')||'').includes(tabName)); if(btn) btn.classList.add('active'); if(tabName === 'tasks') loadTasks(); if(tabName === 'leaderboard') loadLeaderboard(); }
+function toggleSidePanel(){ const panel = document.getElementById('sidePanel'); const overlay = document.getElementById('sideOverlay'); const willOpen = !panel.classList.contains('open'); panel.classList.toggle('open'); overlay.classList.toggle('open'); if(willOpen) { const u = getUser(); document.getElementById('sideName').innerText = esc((u && u.first_name) ? u.first_name : 'Игрок'); document.getElementById('sideId').innerText = 'ID: #' + esc(getUserId().slice(-5)); const av = document.getElementById('topAv'); document.getElementById('sideAvatar').innerHTML = av.innerHTML || '👤'; } }
 function closeSidePanel(){ document.getElementById('sidePanel').classList.remove('open'); document.getElementById('sideOverlay').classList.remove('open'); }
 function openTopup(){ toast('💳 Пополнение скоро будет доступно!', 'win'); }
 function openS(id){ const el=document.getElementById(id); if(!el)return; el.classList.add('open'); syncBodyLock(); if(id==='profileScreen')rendProfile(); if(id==='settingsScreen')rendSettings(); }
 function closeS(id){ const el=document.getElementById(id); if(!el)return; el.classList.remove('open'); syncBodyLock(); }
 
-function drawTicks(){
-  const t=document.getElementById('wheelTicks'); if(!t)return;
-  const size=t.offsetWidth||300; const origin=size/2; let h='';
-  for(let i=0;i<36;i++){ const a=i*(360/36), maj=i%3===0; h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg;transform-origin:center ${origin}px"></div>`; }
-  t.innerHTML=h;
-}
+function drawTicks(){ const t=document.getElementById('wheelTicks'); if(!t)return; const size=t.offsetWidth||300; const origin=size/2; let h=''; for(let i=0;i<36;i++){ const a=i*(360/36), maj=i%3===0; h+=`<div class="tick ${maj?'major':''}" style="--a:${a}deg;transform-origin:center ${origin}px"></div>`; } t.innerHTML=h; }
 function renderPctRow(){ const b=document.getElementById('pcntRow'); if(!b)return; b.innerHTML=customPcts.map((p)=>`<button class="pb" data-pct="${safeNumber(p,0)}" onclick="setPct(${safeNumber(p,0)},this)">${safeNumber(p,0)}%</button>`).join(''); }
-function switchBigTab(m){
-  bigTab=m;
-  document.getElementById('bigTabInv').classList.toggle('active',m==='inv');
-  document.getElementById('bigTabTarget').classList.toggle('active',m==='target');
-  document.getElementById('panelInv').classList.toggle('active',m==='inv');
-  document.getElementById('panelTarget').classList.toggle('active',m==='target');
-  if(m==='target')rendTargetList();
-}
-function switchSub(m){
-  invMode=m;
-  document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none';
-  document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)';
-  document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none';
-  document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)';
-  const s=document.getElementById('searchInp'); if(s)s.value=''; rendInv();
-}
+function switchBigTab(m){ bigTab=m; document.getElementById('bigTabInv').classList.toggle('active',m==='inv'); document.getElementById('bigTabTarget').classList.toggle('active',m==='target'); document.getElementById('panelInv').classList.toggle('active',m==='inv'); document.getElementById('panelTarget').classList.toggle('active',m==='target'); if(m==='target')rendTargetList(); }
+function switchSub(m){ invMode=m; document.getElementById('subInv').style.background=m==='inv'?'var(--panel-l)':'none'; document.getElementById('subInv').style.color=m==='inv'?'var(--white)':'var(--gray2)'; document.getElementById('subShop').style.background=m==='shop'?'var(--panel-l)':'none'; document.getElementById('subShop').style.color=m==='shop'?'var(--white)':'var(--gray2)'; const s=document.getElementById('searchInp'); if(s)s.value=''; rendInv(); }
 
 function rendInv(){
   const b=document.getElementById('invList'); if(!b)return;
@@ -578,7 +499,6 @@ function rendInv(){
 let activeCardId=null;
 function expandCard(el){ if(activeCardId===el.id){closeAllCards();return} closeAllCards(); el.classList.add('expanded'); activeCardId=el.id; }
 function closeAllCards(){ document.querySelectorAll('.card.expanded').forEach(c=>c.classList.remove('expanded')); activeCardId=null; }
-
 function rendTargetList(){
   const b=document.getElementById('targetList'); if(!b)return;
   const q=((document.getElementById('targetSearchInp')||{}).value||'').toLowerCase();
@@ -591,15 +511,9 @@ function toggleCartByName(name, price){
   if(isSpinning)return;
   const i=cart.findIndex(c=>c.name===name);
   if(i>=0) cart.splice(i,1); else{ if(gold<price){toast('❌ Мало G','lose');return} cart.push({name,price,qty:1}); }
-  updateCartBadge(); rendInv();
+  updateCartBadge(); markDirty(); rendInv();
 }
-function removeCartItem(name){
-  cart = cart.filter(x=>x.name!==name);
-  updateCartBadge(); rendInv();
-  const cm=document.getElementById('cartModal'); if(cm) cm.remove();
-  syncBodyLock();
-  if(cart.length){ openCart(); }
-}
+function removeCartItem(name){ cart = cart.filter(x=>x.name!==name); updateCartBadge(); markDirty(); rendInv(); const cm=document.getElementById('cartModal'); if(cm) cm.remove(); syncBodyLock(); if(cart.length){ openCart(); } }
 function updateCartBadge(){ const b=document.getElementById('cartBadge'); if(!b)return; if(cart.length>0){b.style.display='block';b.innerText=cart.length} else b.style.display='none'; }
 function findInvIndexByUid(uid){ return inv.findIndex(x => (x.uid||x.name)===uid); }
 function addToUpgrade(uid){
@@ -621,22 +535,18 @@ function sellSkin(uid){
   const idx=findInvIndexByUid(uid); if(idx<0)return; const it=inv[idx];
   if(selectedItems.find(x=>x===it)){ toast('⚠️ Скин участвует в апгрейде','lose'); return; }
   const sp=Math.round((it.price||50)*0.7);
-  if(confirm(`Продать ${esc(it.name)} за ${sp} G?`)){ gold+=sp; inv.splice(idx,1); selectedItems=selectedItems.filter(i=>i!==it); updateBal(); saveGame(); rendInv(); rendMain(); toast('💸 +'+sp+' G','win'); }
+  if(confirm(`Продать ${esc(it.name)} за ${sp} G?`)){ gold+=sp; inv.splice(idx,1); selectedItems=selectedItems.filter(i=>i!==it); updateBal(); markDirty(); saveGame(); rendInv(); rendMain(); toast('💸 +'+sp+' G','win'); }
 }
-function recomputePct(){
-  if(selectedItems.length===0 || !targetSkin){ selPct=null; checkUpgradeBtn(); return; }
-  const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0);
-  selPct=clampPct((invSum/targetSkin.price)*100); updateWheelPct(selPct); checkUpgradeBtn();
-}
+function recomputePct(){ if(selectedItems.length===0 || !targetSkin){ selPct=null; checkUpgradeBtn(); return; } const invSum=selectedItems.reduce((s,it)=>s+(it.price||0),0); selPct=clampPct((invSum/targetSkin.price)*100); updateWheelPct(selPct); checkUpgradeBtn(); }
 function updateWheelPct(pct){
   const ptEl=document.getElementById('pt'); if(ptEl)ptEl.innerText=formatPct(pct);
   const fill=document.getElementById('wheelZoneFill'); if(!fill)return;
   const targetAngle=(clampPct(pct)/100)*360; fill.classList.add('visible');
   const startAngle=currentWheelAngle; const startTime=performance.now(); const duration=600;
   function anim(now){ const t=Math.min(1,(now-startTime)/duration); const eased=1-Math.pow(1-t,3); currentWheelAngle=startAngle+(targetAngle-startAngle)*eased; fill.style.setProperty('--pct-angle',currentWheelAngle+'deg'); if(t<1)wheelAnimId=requestAnimationFrame(anim); else wheelAnimId=null; }
-  if(wheelAnimId)cancelAnimationFrame(wheelAnimId); wheelAnimId=requestAnimationFrame(anim);
+  if(wheelAnimId){ cancelAnimationFrame(wheelAnimId); wheelAnimId=null; } wheelAnimId=requestAnimationFrame(anim);
 }
-function clearWheelPct(){ const ptEl=document.getElementById('pt'); if(ptEl)ptEl.innerText='?%'; const fill=document.getElementById('wheelZoneFill'); if(fill)fill.classList.remove('visible'); currentWheelAngle=0; if(wheelAnimId)cancelAnimationFrame(wheelAnimId); }
+function clearWheelPct(){ const ptEl=document.getElementById('pt'); if(ptEl)ptEl.innerText='?%'; const fill=document.getElementById('wheelZoneFill'); if(fill)fill.classList.remove('visible'); currentWheelAngle=0; if(wheelAnimId){ cancelAnimationFrame(wheelAnimId); wheelAnimId=null; } }
 function setPct(p,el){
   if(isSpinning)return; if(selectedItems.length===0){ toast('❌ Выбери скины','lose'); return; }
   const safePct=clampPct(parseFloat(p)||0);
@@ -646,8 +556,7 @@ function setPct(p,el){
   targetSkin={name:closest.name,price:closest.price,color:closest.color,img:closest.img};
   selPct=clampPct((invSum/targetSkin.price)*100);
   clearPctSelection();
-  const btns=document.querySelectorAll('.pb');
-  let bestBtn=null, bestDiff=Infinity;
+  const btns=document.querySelectorAll('.pb'); let bestBtn=null, bestDiff=Infinity;
   btns.forEach(btn=>{ const bp=parseFloat(btn.dataset.pct); const d=Math.abs(bp-selPct); if(d<bestDiff){bestDiff=d;bestBtn=btn;} });
   if(bestBtn) bestBtn.classList.add('sel'); else if(el) el.classList.add('sel');
   updateWheelPct(selPct); rendMain(); rendTargetList(); checkUpgradeBtn();
@@ -671,11 +580,7 @@ function pickTargetByName(name){
   rendMain(); rendTargetList(); checkUpgradeBtn();
 }
 function toggleLightning(){ if(isSpinning)return; lightningOn=!lightningOn; const btn=document.getElementById('lightningBtn'); if(!btn)return; if(lightningOn)btn.classList.add('on'); else btn.classList.remove('on'); }
-function lockUI(lock){
-  const ub=document.getElementById('upgradeBtn'); if(ub)ub.disabled=lock;
-  document.querySelectorAll('.pb').forEach(b=>b.disabled=lock);
-  document.querySelectorAll('.slot-clear, .big-tab, #subInv, #subShop').forEach(b=>{ if(lock) b.setAttribute('disabled',''); else b.removeAttribute('disabled'); });
-}
+function lockUI(lock){ const ub=document.getElementById('upgradeBtn'); if(ub)ub.disabled=lock; document.querySelectorAll('.pb').forEach(b=>b.disabled=lock); document.querySelectorAll('.slot-clear, .big-tab, #subInv, #subShop').forEach(b=>{ if(lock) b.setAttribute('disabled',''); else b.removeAttribute('disabled'); }); }
 
 let arrowAccumAngle=0;
 async function spinUpgrade(){
@@ -683,7 +588,18 @@ async function spinUpgrade(){
   isSpinning=true; lockUI(true); rendInv(); rendTargetList();
   const wrap=document.getElementById('arrowWrap'); const duration = (lightningOn||vipData.isVip) ? 2000 : 6000; const durSec=duration/1000; const spinPct=clampPct(selPct);
   const hasBoost=refBoost.spinsLeft>0; const hasVip=vipData.isVip; let bonusPct=0; if(hasBoost)bonusPct+=5; if(hasVip)bonusPct+=5; if(isHappyHour())bonusPct+=10; const totalPct=clampPct(bonusPct>0?spinPct+bonusPct:spinPct);
-  let win; try{ const sc=await fetch(BOT_URL+'/api/spinControl/'+encodeURIComponent(getUserId()), {headers:apiHeaders()}); const text = await sc.text(); let scd; try { scd = JSON.parse(text); } catch(e) { scd = null; } if(scd && scd.result==='win') win=true; else if(scd && scd.result==='lose') win=false; else win=Math.random()<0.45; }catch(e){ win=Math.random()<0.45; }
+  let win;
+  try{
+    const ctrl=new AbortController();
+    const tId=setTimeout(()=>ctrl.abort(),3000);
+    const sc=await fetch(BOT_URL+'/api/spinControl/'+encodeURIComponent(getUserId()), {headers:apiHeaders(),signal:ctrl.signal});
+    clearTimeout(tId);
+    const text=await sc.text();
+    let scd=null; try{ scd=JSON.parse(text); }catch(e){}
+    if(scd && scd.result==='win') win=true;
+    else if(scd && scd.result==='lose') win=false;
+    else win=Math.random()<0.45;
+  }catch(e){ win=Math.random()<0.45; }
   const winDeg=(totalPct/100)*360; const safeWinDeg=Math.max(winDeg,1); let targetArrowAngle;
   if(win){ targetArrowAngle = Math.random() * safeWinDeg * 0.8 + (safeWinDeg * 0.1); } else { const grayLen = 360 - safeWinDeg; targetArrowAngle = safeWinDeg + (Math.random() * grayLen * 0.8) + (grayLen * 0.1); }
   const targetMod=targetArrowAngle % 360; const fullTurns=10; const totalRotation=fullTurns*360+targetMod; arrowAccumAngle += totalRotation; const td=-arrowAccumAngle;
@@ -694,10 +610,10 @@ async function spinUpgrade(){
     const lostItems=[...selectedItems]; lostItems.forEach(lostItem => { const idx = inv.findIndex(x => x === lostItem); if (idx > -1) inv.splice(idx, 1); }); selectedItems=[];
     if(win){ const ws={...targetSkin, uid:genUid()}; inv.push(ws); stats.wins++; haptic('heavy'); if(!bestDrop||(ws.price||0)>(bestDrop.price||0)) bestDrop={name:ws.name,img:ws.img||'',price:ws.price||0,ts:Date.now()}; upgradeHistory.unshift({win:true,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:totalPct,targetImg:targetSkin.img||'',ts:Date.now()}); }
     else{ stats.loses++; haptic('light'); upgradeHistory.unshift({win:false,targetName:targetSkin.name,targetPrice:targetSkin.price,pct:totalPct,targetImg:targetSkin.img||'',ts:Date.now()}); }
-    if(upgradeHistory.length>100)upgradeHistory.pop();
+    if(upgradeHistory.length>100)upgradeHistory=upgradeHistory.slice(0,100);
     if(hasBoost)consumeBoost();
     stats.spins++; checkAchievements();
-    isSpinning=false; lockUI(false); updateRankUI(); saveGame();
+    isSpinning=false; lockUI(false); checkUpgradeBtn(); updateRankUI(); markDirty(); saveGame();
     if(win){ sWin(); confetti(); showWinModal(inv[inv.length-1]); }
     else { sLose(); showLoseModal(lostItems); }
     arrowAccumAngle = ((arrowAccumAngle % 360) + 360) % 360;
@@ -705,33 +621,26 @@ async function spinUpgrade(){
     wrap.style.transform=`rotate(${-arrowAccumAngle}deg)`;
   },duration);
 }
-function closeResult(){
-  const el=document.getElementById('resultScreen'); if(el)el.remove();
-  selectedItems=[]; targetSkin=null; selPct=null;
-  rendMain(); rendInv(); rendTargetList(); clearWheelPct(); clearPctSelection(); checkUpgradeBtn(); saveGame();
-  syncBodyLock();
-}
+function closeResult(){ const el=document.getElementById('resultScreen'); if(el)el.remove(); selectedItems=[]; targetSkin=null; selPct=null; rendMain(); rendInv(); rendTargetList(); clearWheelPct(); clearPctSelection(); checkUpgradeBtn(); markDirty(); saveGame(); syncBodyLock(); }
 function showWinModal(skin){
   const m=document.createElement('div'); m.id='resultScreen'; m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(76,175,80,.45),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
   m.innerHTML=`<div class="popup-win-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--green-l);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(76,175,80,.8)">★ ПОБЕДА ★</div><div style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">УСПЕХ!</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#1b5e20,#0a2e0a);border:3px solid #4CAF50;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(76,175,80,.8),inset 0 0 30px rgba(76,175,80,.3)">${skin.img?`<img src="${esc(skin.img)}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))" onerror="this.style.display='none'">`:''}</div><div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${esc(skin.name)}</div><div style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:28px;text-shadow:0 0 15px rgba(255,184,0,.6)">+${(skin.price||0).toLocaleString('ru-RU')} G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#ffd700,#ff9500);color:#1a1a1a;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer" onclick="closeResult()">🎁 ЗАБРАТЬ</button></div>`;
-  document.body.appendChild(m);
+  document.body.appendChild(m); syncBodyLock();
 }
 function showLoseModal(items){
   const lostSkin=items[0]||{name:'—',img:'',price:0}; const m=document.createElement('div'); m.id='resultScreen'; m.style.cssText='position:fixed;inset:0;background:radial-gradient(circle at center,rgba(229,9,20,.5),rgba(0,0,0,.98) 70%);z-index:4000;display:flex;justify-content:center;align-items:center;padding:24px;backdrop-filter:blur(12px)';
   m.innerHTML=`<div class="popup-lose-card" style="max-width:380px;width:100%;text-align:center"><div style="font-size:12px;font-weight:900;color:var(--red);letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 15px rgba(229,9,20,.8)">★ ПОРАЖЕНИЕ ★</div><div style="font-size:34px;font-weight:900;margin-bottom:20px;letter-spacing:2px">НЕУДАЧА</div><div class="popup-item" style="width:200px;height:200px;margin:0 auto 24px;background:linear-gradient(135deg,#5c0000,#1a0000);border:3px solid #e50914;border-radius:28px;display:flex;justify-content:center;align-items:center;padding:20px;box-shadow:0 0 60px rgba(229,9,20,.8),inset 0 0 30px rgba(229,9,20,.3)">${lostSkin.img?`<img src="${esc(lostSkin.img)}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 10px 25px rgba(0,0,0,.7))" onerror="this.style.display='none'">`:''}</div><div style="font-size:22px;font-weight:900;color:var(--white);margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)">${esc(lostSkin.name)}</div><div style="font-size:18px;font-weight:900;color:var(--red);margin-bottom:28px;text-shadow:0 0 15px rgba(229,9,20,.6)">-${(lostSkin.price||0).toLocaleString('ru-RU')} G</div><button style="width:100%;padding:18px;border-radius:14px;border:none;background:linear-gradient(135deg,#e50914,#8b0000);color:#fff;font-weight:900;font-size:16px;letter-spacing:2px;cursor:pointer" onclick="closeResult()">ПОНЯТНО</button></div>`;
-  document.body.appendChild(m);
+  document.body.appendChild(m); syncBodyLock();
 }
-function consumeBoost(){ if(refBoost.spinsLeft>0)refBoost.spinsLeft--; saveGame(); }
+function consumeBoost(){ if(refBoost.spinsLeft>0)refBoost.spinsLeft--; markDirty(); saveGame(); }
 
-// FIX #1: saveGame не пишет, если загрузка не удалась или gameLoaded=false
 function saveGame(){
   try{
     const uid=getUserId(); if(uid==='guest')return;
-    if(!gameLoaded)return;
-    if(loadFailed)return;
+    if(!gameLoaded)return; if(loadFailed)return;
     const data={gold,inv,stats,bestDrop,history,upgradeHistory,isLegend:refData.isLegend||false,isVip:vipData.isVip||false,vipExpires:vipData.expires||0,customPcts,currentAvatar,currentFrame,currentTitle,ts:Date.now()};
     localStorage.setItem('sfap_save_'+uid,JSON.stringify(data));
-    fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:apiHeaders(),body:JSON.stringify({userId:uid,data}),keepalive:true}).catch(()=>{});
+    fetch(BOT_URL+'/api/save-merge',{method:'POST',headers:apiHeaders(),body:JSON.stringify({userId:uid,data})}).catch(()=>{});
   }catch(e){}
 }
 async function loadGame(){
@@ -741,57 +650,53 @@ async function loadGame(){
     const r=await fetch(BOT_URL+'/api/load/'+encodeURIComponent(uid),{headers:apiHeaders()});
     if(r.ok){
       const d=await r.json();
-      if(d && d.ok && d.data){ applySaveData(d.data); try{localStorage.setItem('sfap_save_'+uid,JSON.stringify(d.data));}catch(e){} gameLoaded=true; return; }
+      if(d && d.ok && d.data && Object.keys(d.data).length){
+        applySaveData(d.data);
+        try{localStorage.setItem('sfap_save_'+uid,JSON.stringify(d.data));}catch(e){}
+        gameLoaded=true; return;
+      }
     }
-  }catch(e){ /* сеть — fallback на localStorage */ }
+  }catch(e){}
   const l=localStorage.getItem('sfap_save_'+uid);
-  if(l){
-    try{ applySaveData(JSON.parse(l)); }
-    catch(e){ console.warn('Corrupted local save', e); loadFailed=true; }
-  } else {
-    // FIX #1: сервер не ответил И локального сейва нет — не рискуем перезаписывать
-    loadFailed=true;
-  }
+  if(l){ try{ applySaveData(JSON.parse(l)); } catch(e){ console.warn('Corrupted local save', e); loadFailed=true; } }
+  else { loadFailed=true; }
   gameLoaded=true;
 }
 function applySaveData(d){
   if(!d)return;
   if(typeof d.gold==='number' && Number.isFinite(d.gold))gold=d.gold;
   if(Array.isArray(d.inv)) inv=d.inv.filter(x => x && typeof x.name==='string' && Number.isFinite(Number(x.price))).map(x => ({...x, price:Number(x.price), uid: x.uid || genUid()}));
-  if(d.stats && typeof d.stats==='object'){ stats={spins:safeNumber(d.stats.spins,0),wins:safeNumber(d.stats.wins,0),loses:safeNumber(d.stats.loses,0)}; }
+  if(d.stats && typeof d.stats==='object' && !Array.isArray(d.stats)){ stats={spins:safeNumber(d.stats.spins,0),wins:safeNumber(d.stats.wins,0),loses:safeNumber(d.stats.loses,0)}; }
   if(d.bestDrop && typeof d.bestDrop==='object')bestDrop={...d.bestDrop, price: safeNumber(d.bestDrop.price,0)};
   if(Array.isArray(d.history))history=d.history;
-  if(Array.isArray(d.upgradeHistory))upgradeHistory=d.upgradeHistory;
+  if(Array.isArray(d.upgradeHistory))upgradeHistory=d.upgradeHistory.slice(0,100);
   if(d.isLegend!==undefined)refData.isLegend=!!d.isLegend;
   if(d.isVip!==undefined)vipData.isVip=!!d.isVip;
   if(d.vipExpires!==undefined)vipData.expires=safeNumber(d.vipExpires,0);
-  // FIX #6: валидация customPcts с сервера
-  if(Array.isArray(d.customPcts) && d.customPcts.length===6){
-    const cleaned = d.customPcts.map(Number).filter(n=>Number.isFinite(n)&&n>0&&n<=90);
-    if(cleaned.length===6) customPcts = cleaned;
-  }
+  if(Array.isArray(d.customPcts) && d.customPcts.length===6){ const cleaned = d.customPcts.map(Number).filter(n=>Number.isFinite(n)&&n>0&&n<=90); if(cleaned.length===6) customPcts = cleaned; }
   if(typeof d.currentAvatar==='string' && AVATARS.find(a=>a.id===d.currentAvatar))currentAvatar=d.currentAvatar;
   if(typeof d.currentFrame==='string' && FRAMES.find(f=>f.id===d.currentFrame))currentFrame=d.currentFrame;
   if(typeof d.currentTitle==='string' && /^[a-z_]+$/.test(d.currentTitle)){currentTitle=d.currentTitle; localStorage.setItem('sfap_title',currentTitle);}
   if(typeof renderPctRow==='function') renderPctRow();
+  if(!Number.isFinite(happyHourEnd)) happyHourEnd=0;
 }
-setInterval(()=>{ if(!document.hidden) saveGame(); },5000);
+setInterval(()=>{ if(!document.hidden && _saveDirty){ _saveDirty=false; saveGame(); } },20000);
 
 function checkAchievements(){
   let newUnlocked=[];
   ACHIEVEMENTS.forEach(a=>{ if(!unlockedAch.includes(a.id) && a.cond(stats)){ unlockedAch.push(a.id); newUnlocked.push(a); } });
-  if(newUnlocked.length>0){ localStorage.setItem('sfap_ach',JSON.stringify(unlockedAch)); newUnlocked.forEach(a=>{ gold+=a.reward||0; toast('🏅 '+a.ico+' '+esc(a.name)+' +'+a.reward+'G','win'); }); updateBal(); saveGame(); }
+  if(newUnlocked.length>0){ localStorage.setItem('sfap_ach',JSON.stringify(unlockedAch)); newUnlocked.forEach(a=>{ gold+=a.reward||0; toast('🏅 '+a.ico+' '+esc(a.name)+' +'+a.reward+'G','win'); }); updateBal(); markDirty(); saveGame(); }
 }
 async function loadTasks(){
   const list = document.getElementById('tasksList'); if(!list)return;
   list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray2)">Загрузка...</div>';
   try { const r = await fetch(BOT_URL + '/api/tasks/status/' + encodeURIComponent(getUserId()), {headers:apiHeaders()}); const d = await r.json(); if(!d.ok || !Array.isArray(d.tasks)) throw new Error();
     list.innerHTML = d.tasks.map(t => { const done = t.progress >= t.need; return `<div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:13px;font-weight:900;color:var(--white)">${esc(t.title)}</div><div style="font-size:11px;color:var(--gray2);font-weight:800;margin-top:4px">${safeNumber(t.progress,0)} / ${safeNumber(t.need,0)}</div></div><button onclick="claimTask(${jsArg(t.id)})" style="padding:8px 12px;border-radius:8px;border:none;background:${done?'linear-gradient(135deg,#ffd700,#ff8c00)':'var(--panel-l)'};color:${done?'#1a1a1a':'var(--gray2)'};font-weight:900;font-size:11px;cursor:pointer" ${!done?'disabled':''}>${done ? 'ЗАБРАТЬ' : 'В ПРОЦЕССЕ'}</button></div>`; }).join('');
-  } catch(e) { list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red)">Ошибка загрузки</div>'; }
+  } catch(e) { console.warn('loadTasks',e); list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--red)">Ошибка загрузки</div>'; }
 }
 async function claimTask(id){
   try{ const r = await fetch(BOT_URL+'/api/tasks/claim',{method:'POST',headers:apiHeaders(),body:JSON.stringify({userId:getUserId(),taskId:id})}); const d = await r.json();
-    if(d.ok){ if(d.skin){ inv.push({...d.skin, uid:genUid()}); } if(Number.isFinite(Number(d.gold))){ gold += Number(d.gold); } updateBal(); rendInv(); saveGame(); toast('🎁 Награда получена!', 'win'); loadTasks(); } else toast('❌ ' + (d.error || 'Ошибка'), 'lose');
+    if(d.ok){ if(d.skin){ inv.push({...d.skin, uid:genUid()}); } if(Number.isFinite(Number(d.gold))){ gold += Number(d.gold); } updateBal(); rendInv(); markDirty(); saveGame(); toast('🎁 Награда получена!', 'win'); loadTasks(); } else toast('❌ ' + (d.error || 'Ошибка'), 'lose');
   }catch(e){ toast('❌ Ошибка', 'lose'); }
 }
 function withdrawSkinDirect(uid){
@@ -800,6 +705,7 @@ function withdrawSkinDirect(uid){
   if(selectedItems.find(x=>x===it)){ toast('⚠️ Скин участвует в апгрейде','lose'); return; }
   if(gold<10){toast('❌ Мин. 10 G для вывода','lose');return}
   const u=getUser(); const listPrice=Math.ceil((it.price||22)/0.8); const gg22Img=CDN_BASE+'skins/G22_flock.jpg'; const avImg=(u&&u.photo_url)?u.photo_url:'';
+  if(gold < listPrice){ toast('❌ Нужно '+listPrice+' G на обязательную покупку GG22 Flock','lose'); return; }
   const m=document.createElement('div'); m.className='modal-overlay open'; m.id='wdModal';
   m.innerHTML=`<div class="modal-content" style="max-width:420px"><button class="modal-close" onclick="document.getElementById('wdModal').remove(); syncBodyLock();">✕</button><div style="text-align:center;font-size:13px;font-weight:900;color:var(--red);letter-spacing:3px;margin-bottom:6px">📤 ВЫВОД</div><div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;text-align:center">${avImg?`<img src="${esc(avImg)}" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--blue);margin-bottom:8px;object-fit:cover" onerror="this.style.display='none'">`:''}<div style="font-size:11px;color:var(--white);font-weight:700">Поставь эту аву и добавь<br><b style="color:var(--blue)">@${u&&u.username?esc(u.username):'username'}</b></div></div><div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px;text-align:center"><div style="font-size:11px;color:var(--white);font-weight:700;margin-bottom:8px">Купи <b style="color:var(--green)">GG22 Flock</b> за</div><div style="font-size:20px;font-weight:900;color:var(--gold);margin-bottom:8px">${listPrice.toLocaleString('ru-RU')} G</div><img src="${esc(gg22Img)}" style="width:120px;height:80px;object-fit:contain" onerror="this.style.display='none'"></div><div style="background:var(--panel-l);border-radius:12px;padding:12px;margin-bottom:12px"><div style="font-size:10px;color:var(--gray2);font-weight:800;margin-bottom:8px">ВЫВОДИМЫЙ СКИН</div><div style="display:flex;align-items:center;gap:12px"><img src="${esc(it.img||'')}" style="width:50px;height:50px;object-fit:contain;background:var(--bg);border-radius:6px" onerror="this.style.display='none'"><div><div style="font-size:13px;font-weight:900;color:var(--white)">${esc(it.name)}</div><div style="font-size:12px;color:var(--red);font-weight:900">${(it.price||0).toLocaleString('ru-RU')} G</div></div></div></div><input type="text" id="wdPattern" placeholder="🎯 Паттерн" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--white);outline:none;margin-bottom:12px"><button class="vip-buy-btn" onclick="submitWithdraw(${jsArg(uid)})">✅ ОТПРАВИТЬ</button></div>`;
   document.body.appendChild(m); syncBodyLock();
@@ -814,7 +720,7 @@ async function submitWithdraw(uid){
     if (!d.ok) throw new Error(d.error || 'Ошибка сервера');
     inv.splice(idx,1); selectedItems=selectedItems.filter(x=>x!==it);
     const wm=document.getElementById('wdModal'); if(wm){wm.remove(); syncBodyLock();}
-    rendInv(); rendMain(); saveGame(); toast('✅ Заявка создана! Ждите выдачи.','win');
+    rendInv(); rendMain(); markDirty(); saveGame(); toast('✅ Заявка создана! Ждите выдачи.','win');
   } catch(e) { toast('❌ ' + (e.message || 'Ошибка сети'),'lose'); }
 }
 async function rendProfile(){
@@ -836,24 +742,11 @@ function rendSettings(){
   const b=document.getElementById('settingsBody'); if(!b)return;
   b.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800"><label>🔊 Звуки</label><div class="toggle ${soundEnabled?'on':''}" onclick="toggleSound()"><div></div></div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800"><label>📳 Вибрация</label><div class="toggle ${hapticEnabled?'on':''}" onclick="toggleHaptic()"><div></div></div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:800"><label>🗑 Сброс</label><button onclick="resetGame()" style="padding:8px 14px;border-radius:8px;border:none;font-weight:900;font-size:11px;cursor:pointer;color:#fff;background:var(--red)">СБРОС</button></div>`;
 }
-// FIX #15: сброс только sfap_* ключей
-function resetGame(){
-  if(!confirm('Сбросить игру?')) return;
-  try{
-    Object.keys(localStorage).filter(k=>k.startsWith('sfap_')).forEach(k=>localStorage.removeItem(k));
-  }catch(e){}
-  location.reload();
-}
+function resetGame(){ if(!confirm('Сбросить игру?')) return; try{ Object.keys(localStorage).filter(k=>k.startsWith('sfap_')).forEach(k=>localStorage.removeItem(k)); }catch(e){} location.reload(); }
 function toggleSound(){ soundEnabled=!soundEnabled; localStorage.setItem('sfap_sound',soundEnabled?'1':'0'); rendSettings(); }
 function toggleHaptic(){ hapticEnabled=!hapticEnabled; localStorage.setItem('sfap_haptic',hapticEnabled?'1':'0'); rendSettings(); }
 function getRank(){ let r=RANKS[0]; for(const rank of RANKS){ if(stats.spins>=rank.need)r=rank; else break; } return r; }
-function updateRankUI(){
-  const r=getRank();
-  if(!currentTitle || !currentTitle.startsWith('custom_')) currentTitle=r.title;
-  localStorage.setItem('sfap_title',currentTitle);
-  const rn=document.getElementById('rankNameTop'); const rl=document.getElementById('rankLevelTop');
-  if(rn)rn.innerText=r.name; if(rl)rl.innerText='LVL '+(RANKS.indexOf(r)+1);
-}
+function updateRankUI(){ const r=getRank(); if(!currentTitle || !currentTitle.startsWith('custom_')) currentTitle=r.title; localStorage.setItem('sfap_title',currentTitle); const rn=document.getElementById('rankNameTop'); const rl=document.getElementById('rankLevelTop'); if(rn)rn.innerText=r.name; if(rl)rl.innerText='LVL '+(RANKS.indexOf(r)+1); }
 
 function openCart(){
   if(!cart.length){toast('🛒 Корзина пуста','lose');return}
@@ -864,7 +757,6 @@ function openCart(){
 }
 async function checkoutCart(){
   if(!cart.length) return;
-  // FIX #8: сверяем актуальные цены из allSkins, предупреждаем, если что-то пропало
   const priced = cart.map(c=>{ const s=allSkins.find(x=>x.name===c.name); return s ? {name:s.name, price:s.price, img:s.img, color:s.color} : null; }).filter(Boolean);
   if(priced.length !== cart.length){
     toast('⚠️ Часть товаров недоступна, корзина обновлена','lose');
@@ -878,12 +770,14 @@ async function checkoutCart(){
   }
   const total=priced.reduce((s,c)=>s+c.price,0);
   if(gold<total){toast('❌ Недостаточно G','lose');return}
+  if(!Number.isFinite(gold) || gold < total){ toast('❌ Недостаточно G','lose'); return; }
   gold-=total;
+  if(gold < 0) gold = 0;
   priced.forEach(skin=>{ inv.push({...skin, uid:genUid()}); });
   cart=[]; updateCartBadge();
   const cm=document.getElementById('cartModal'); if(cm){cm.remove();}
   syncBodyLock();
-  updateBal(); rendInv(); saveGame(); toast('✅ Покупка совершена!','win');
+  updateBal(); rendInv(); markDirty(); saveGame(); toast('✅ Покупка совершена!','win');
 }
 
 async function loadLiveFeed(){
@@ -892,27 +786,18 @@ async function loadLiveFeed(){
     const track = document.getElementById('liveTrack'); if(!track) return;
     if(!d.ok || !Array.isArray(d.list) || !d.list.length){ track.innerHTML='<span class="live-empty">Пока нет рекордов</span>'; return; }
     const baseHtml = d.list.slice(0,5).map(x=>`<div class="live-item"><div class="live-info"><div class="live-name">${esc(x.playerName)}</div><div class="live-pct">${safeNumber(x.pct,0)}%</div></div><img src="${esc(x.skinImg)}" class="live-skin" onerror="this.style.display='none'"></div>`).join('');
-    const containerW = track.parentElement ? track.parentElement.offsetWidth : 300;
-    let copies = 1;
-    track.innerHTML = baseHtml;
-    while(track.scrollWidth < containerW * 2 && copies < 8){ track.innerHTML += baseHtml; copies++; }
-    if(copies === 1) track.innerHTML += baseHtml;
+    const copies = 4;
+    track.innerHTML = baseHtml.repeat(copies);
   }catch(e){}
 }
 
-// ==================== БОНУС, РЕФ, ПРОМО ====================
 async function openDailyBonus() { openModal('dailyBonusModal'); await checkDailyBonus(); }
 async function checkDailyBonus() {
   const content = document.getElementById('dailyBonusContent'); if(!content)return;
   content.innerHTML = '<div style="color:var(--gray2)">Загрузка...</div>';
   try { const r = await fetch(BOT_URL + '/api/daily/status/' + getUserId()); const d = await r.json(); if (!d.ok) throw new Error();
     if (d.canClaim) { content.innerHTML = `<button class="vip-buy-btn" onclick="claimDailyBonus()" style="font-size:16px;padding:16px">🎁 ЗАБРАТЬ 100 G</button>`; }
-    else {
-      const hours = Math.floor(d.timeLeft / (1000 * 60 * 60)); const minutes = Math.floor((d.timeLeft % (1000 * 60 * 60)) / (1000 * 60)); const seconds = Math.floor((d.timeLeft % (1000 * 60)) / 1000);
-      content.innerHTML = `<div style="background:var(--panel-l);padding:16px;border-radius:12px;margin-bottom:10px"><div style="font-size:11px;color:var(--gray2);font-weight:800;margin-bottom:8px">СЛЕДУЮЩИЙ БОНУС ЧЕРЕЗ:</div><div style="font-size:24px;font-weight:900;color:var(--gold)" id="bonusTimer">${hours}ч ${minutes}м ${seconds}с</div></div><button class="vip-buy-btn" disabled style="opacity:0.5;font-size:14px">УЖЕ ПОЛУЧЕНО</button>`;
-      if (window.bonusTimerInterval) clearInterval(window.bonusTimerInterval);
-      window.bonusTimerInterval = setInterval(() => { checkDailyBonusTimer(); }, 1000);
-    }
+    else { const hours = Math.floor(d.timeLeft / (1000 * 60 * 60)); const minutes = Math.floor((d.timeLeft % (1000 * 60 * 60)) / (1000 * 60)); const seconds = Math.floor((d.timeLeft % (1000 * 60)) / 1000); content.innerHTML = `<div style="background:var(--panel-l);padding:16px;border-radius:12px;margin-bottom:10px"><div style="font-size:11px;color:var(--gray2);font-weight:800;margin-bottom:8px">СЛЕДУЮЩИЙ БОНУС ЧЕРЕЗ:</div><div style="font-size:24px;font-weight:900;color:var(--gold)" id="bonusTimer">${hours}ч ${minutes}м ${seconds}с</div></div><button class="vip-buy-btn" disabled style="opacity:0.5;font-size:14px">УЖЕ ПОЛУЧЕНО</button>`; if (window.bonusTimerInterval) clearInterval(window.bonusTimerInterval); window.bonusTimerInterval = setInterval(() => { checkDailyBonusTimer(); }, 1000); }
   } catch(e) { content.innerHTML = '<div style="color:var(--red)">Ошибка загрузки</div>'; }
 }
 async function checkDailyBonusTimer() {
@@ -923,7 +808,7 @@ async function checkDailyBonusTimer() {
 }
 async function claimDailyBonus() {
   try { const r = await fetch(BOT_URL + '/api/daily/claim', { method: 'POST', headers: apiHeaders(), body: JSON.stringify({ userId: getUserId() }) }); const d = await r.json();
-    if (d.ok) { gold += safeNumber(d.reward,0); updateBal(); saveGame(); confetti(); toast('🎁 Бонус получен: +' + d.reward + ' G', 'win'); checkDailyBonus(); } else { toast('❌ ' + (d.error || 'Ошибка'), 'lose'); }
+    if (d.ok) { gold += safeNumber(d.reward,0); updateBal(); markDirty(); saveGame(); confetti(); toast('🎁 Бонус получен: +' + d.reward + ' G', 'win'); checkDailyBonus(); } else { toast('❌ ' + (d.error || 'Ошибка'), 'lose'); }
   } catch(e) { toast('❌ Ошибка сети', 'lose'); }
 }
 function openRef() { openModal('refModal'); const link = location.origin + location.pathname + '?ref=' + getUserId(); const rl=document.getElementById('refLink'); if(rl) rl.innerText = link; }
@@ -935,7 +820,7 @@ async function actPromo() {
   try {
     const r = await fetch(BOT_URL + '/api/promo/activate', { method: 'POST', headers: apiHeaders(), body: JSON.stringify({ userId: getUserId(), code }) });
     const d = await r.json();
-    if (d.ok) { gold += safeNumber(d.reward,0); updateBal(); saveGame(); toast('✅ +' + d.reward + ' G', 'win'); closeModal('promoModal'); }
+    if (d.ok) { gold += safeNumber(d.reward,0); updateBal(); markDirty(); saveGame(); toast('✅ +' + d.reward + ' G', 'win'); closeModal('promoModal'); }
     else toast('❌ ' + (d.error || 'Ошибка'), 'lose');
   } catch(e) { toast('❌ Ошибка сети', 'lose'); }
 }
@@ -945,10 +830,9 @@ async function loadLeaderboard() {
     if (!d.ok || !Array.isArray(d.list)) throw new Error();
     if(!d.list.length){ list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--gray2);font-size:13px;font-weight:800">Пока пусто</div>'; return; }
     list.innerHTML = d.list.map((p, i) => `<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--panel);border-radius:10px;margin-bottom:8px"><div style="width:24px;height:24px;border-radius:50%;background:${i===0?'#ffd700':i===1?'#c0c0c0':i===2?'#cd7f32':'var(--panel-l)'};color:#000;font-weight:900;display:flex;justify-content:center;align-items:center;font-size:11px">${i+1}</div><div style="flex:1;font-size:13px;font-weight:900">${esc(p.name)}</div><div style="font-size:13px;font-weight:900;color:var(--gold)">${safeNumber(p.gold,0).toLocaleString('ru-RU')} G</div></div>`).join('');
-  } catch(e) { list.innerHTML = 'Ошибка'; }
+  } catch(e) { console.warn('loadLeaderboard',e); list.innerHTML = 'Ошибка'; }
 }
 
-// ИНИЦИАЛИЗАЦИЯ
 (async()=>{
   try{
     await loadGame(); drawTicks(); renderPctRow(); updateBal(); rendMain(); rendInv(); rendTargetList(); updateRankUI(); updateTopAvatar(); checkHappyHour(); loadLiveFeed();
@@ -959,4 +843,4 @@ setInterval(loadLiveFeed, 30000);
 setInterval(checkHappyHour, 60*1000);
 </script>
 </body>
-  </html>
+</html>
