@@ -19,16 +19,16 @@ canvas{display:block}
 @media(orientation:portrait){#rotate{display:flex}#menu{display:none!important}#cutscene{display:none!important}}
 
 #menu{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:100;overflow:hidden;background:#0d1117}
-#menu::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(120,80,20,.3) 0%,rgba(13,17,23,.98) 70%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.2) 2px,rgba(0,0,0,.2) 4px);animation:flicker 4s infinite}
+#menu::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(40,80,40,.3) 0%,rgba(13,17,23,.98) 70%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.2) 2px,rgba(0,0,0,.2) 4px);animation:flicker 4s infinite}
 @keyframes flicker{0%,100%{opacity:1}47%{opacity:1}48%{opacity:.7}49%{opacity:1}72%{opacity:.85}73%{opacity:1}}
 #menu-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;padding:20px}
-#menu h1{color:#d4d4d4;font-size:clamp(38px,9vw,68px);font-weight:900;letter-spacing:8px;text-align:center;text-shadow:0 0 30px rgba(180,120,30,.6),0 4px 0 #2a1a0a;animation:titlePulse 3s infinite}
-#menu h1 .dead{color:#c97a1e;text-shadow:0 0 40px rgba(229,150,20,.9),0 4px 0 #3a1f05}
+#menu h1{color:#d4d4d4;font-size:clamp(38px,9vw,68px);font-weight:900;letter-spacing:8px;text-align:center;text-shadow:0 0 30px rgba(80,160,80,.6),0 4px 0 #0a2a0a;animation:titlePulse 3s infinite}
+#menu h1 .dead{color:#4a9e4a;text-shadow:0 0 40px rgba(100,200,100,.9),0 4px 0 #0a3a0a}
 @keyframes titlePulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
 #menu .sub{color:#7a8a99;font-size:12px;letter-spacing:4px;text-transform:uppercase;margin-top:-14px}
-#menu .desc{color:#8899a6;font-size:13px;font-weight:600;text-align:left;max-width:420px;line-height:1.7;border-left:2px solid #c97a1e;padding-left:14px}
-#playBtn{position:relative;background:linear-gradient(180deg,#2a1a0a,#1a0f05);border:2px solid #c97a1e;color:#d4d4d4;font-weight:900;font-size:20px;padding:18px 70px;border-radius:6px;cursor:pointer;letter-spacing:6px;box-shadow:0 0 30px rgba(201,122,30,.4),inset 0 0 20px rgba(201,122,30,.15);transition:.2s}
-#playBtn:hover{background:linear-gradient(180deg,#3a250d,#2a1a0a);box-shadow:0 0 50px rgba(229,150,20,.7);color:#fff}
+#menu .desc{color:#8899a6;font-size:13px;font-weight:600;text-align:left;max-width:420px;line-height:1.7;border-left:2px solid #4a9e4a;padding-left:14px}
+#playBtn{position:relative;background:linear-gradient(180deg,#0a2a0a,#051a05);border:2px solid #4a9e4a;color:#d4d4d4;font-weight:900;font-size:20px;padding:18px 70px;border-radius:6px;cursor:pointer;letter-spacing:6px;box-shadow:0 0 30px rgba(74,158,74,.4),inset 0 0 20px rgba(74,158,74,.15);transition:.2s}
+#playBtn:hover{background:linear-gradient(180deg,#0d3a0d,#0a2a0a);box-shadow:0 0 50px rgba(100,200,100,.7);color:#fff}
 #playBtn:active{transform:scale(.97)}
 #menu .hint{color:#5a6a79;font-size:11px;letter-spacing:1px;text-align:center;line-height:1.8}
 
@@ -48,7 +48,7 @@ canvas{display:block}
 
 #hpWrap{position:absolute;left:22px;bottom:22px;width:220px}
 #hpLabel{font-size:10px;font-weight:900;color:#c9d1d9;letter-spacing:3px;margin-bottom:5px;text-shadow:0 2px 4px #000}
-#hpBar{height:12px;background:rgba(0,0,0,.7);border:1px solid rgba(200,30,30,.5);border-radius:2px;overflow:hidden}
+#hpBar{height:12px;background:rgba(0,0,0,.7);border:1px solid rgba(76,175,80,.5);border-radius:2px;overflow:hidden}
 #hpFill{height:100%;width:100%;background:linear-gradient(90deg,#4CAF50,#66bb6a);transition:width .2s;box-shadow:0 0 12px rgba(76,175,80,.6)}
 
 #ammoWrap{position:absolute;right:22px;bottom:22px;text-align:right}
@@ -56,13 +56,13 @@ canvas{display:block}
 #ammoVal small{font-size:16px;color:#7a8a99}
 #ammoLabel{font-size:9px;font-weight:900;color:#7a8a99;letter-spacing:3px;margin-top:4px}
 
-#partsHud{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:rgba(13,17,23,.7);border:1px solid rgba(201,122,30,.5);border-radius:4px;padding:10px 20px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(4px)}
+#partsHud{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:rgba(13,17,23,.7);border:1px solid rgba(74,158,74,.5);border-radius:4px;padding:10px 20px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(4px)}
 #partsHud .ico{font-size:18px}
 #partsHud .txt{color:#c9d1d9;font-size:13px;font-weight:900;letter-spacing:2px}
 #partsHud .txt b{color:#ffb800;font-size:16px}
 #partsHud .txt small{color:#7a8a99;font-size:11px}
 
-#hintMsg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#d4d4d4;font-size:16px;font-weight:900;letter-spacing:3px;text-align:center;background:rgba(13,17,23,.85);border:1px solid rgba(201,122,30,.5);padding:14px 28px;border-radius:4px;opacity:0;transition:opacity .3s;pointer-events:none;max-width:80%}
+#hintMsg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#d4d4d4;font-size:16px;font-weight:900;letter-spacing:3px;text-align:center;background:rgba(13,17,23,.85);border:1px solid rgba(74,158,74,.5);padding:14px 28px;border-radius:4px;opacity:0;transition:opacity .3s;pointer-events:none;max-width:80%}
 #hintMsg.on{opacity:1}
 
 #voiceText{position:absolute;top:12%;left:50%;transform:translateX(-50%);color:#fff;font-size:clamp(14px,2.4vw,18px);font-weight:700;font-style:italic;text-align:center;max-width:80%;text-shadow:0 2px 8px #000,0 0 20px rgba(0,0,0,.8);opacity:0;transition:opacity .5s;pointer-events:none;letter-spacing:.5px;line-height:1.5}
@@ -70,38 +70,37 @@ canvas{display:block}
 
 #leftZone{position:absolute;left:0;top:0;bottom:0;width:42%;pointer-events:auto}
 #joy{position:absolute;left:30px;bottom:60px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);pointer-events:none}
-#joyBase{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(201,122,30,.8);box-shadow:0 0 20px rgba(201,122,30,.5)}
+#joyBase{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(74,158,74,.8);box-shadow:0 0 20px rgba(74,158,74,.5)}
 
 #rightZone{position:absolute;right:0;top:0;bottom:0;width:58%;pointer-events:auto}
 
 .hud-btn{position:absolute;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);pointer-events:auto;display:flex;justify-content:center;align-items:center;color:#fff;touch-action:none;backdrop-filter:blur(3px);font-weight:900}
-.hud-btn:active{background:rgba(201,122,30,.5);transform:scale(.94)}
-#fireBtn{right:40px;bottom:110px;width:88px;height:88px;font-size:32px;background:rgba(201,122,30,.25);border-color:rgba(229,150,20,.6)}
-#fireBtn:active{background:rgba(229,150,20,.7)}
+.hud-btn:active{background:rgba(74,158,74,.5);transform:scale(.94)}
+#fireBtn{right:40px;bottom:110px;width:88px;height:88px;font-size:32px;background:rgba(74,158,74,.25);border-color:rgba(100,200,100,.6)}
+#fireBtn:active{background:rgba(100,200,100,.7)}
 #reloadBtn{right:150px;bottom:60px;width:64px;height:64px;font-size:24px}
 #flashlightBtn{right:150px;bottom:140px;width:64px;height:64px;font-size:24px;background:rgba(255,220,120,.15);border-color:rgba(255,220,120,.5)}
 #flashlightBtn.on{background:rgba(255,220,120,.5);box-shadow:0 0 25px rgba(255,220,120,.6)}
 
-#actionBtn{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);padding:16px 40px;background:linear-gradient(180deg,#2a5a2a,#1a3a1a);border:2px solid #4CAF50;color:#fff;font-weight:900;font-size:16px;letter-spacing:3px;border-radius:8px;pointer-events:auto;display:none;cursor:pointer;box-shadow:0 0 30px rgba(76,175,80,.5)}
+#actionBtn{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);padding:16px 40px;background:linear-gradient(180deg,#0a2a0a,#051a05);border:2px solid #4a9e4a;color:#fff;font-weight:900;font-size:16px;letter-spacing:3px;border-radius:8px;pointer-events:auto;display:none;cursor:pointer;box-shadow:0 0 30px rgba(74,158,74,.5)}
 #actionBtn.on{display:block}
 #actionBtn:active{transform:translateX(-50%) scale(.96)}
 
 #repairBar{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70%;max-width:400px;display:none;flex-direction:column;align-items:center;gap:12px;pointer-events:none}
 #repairBar.on{display:flex}
 #repairLabel{color:#fff;font-size:14px;font-weight:900;letter-spacing:3px;text-shadow:0 2px 8px #000}
-#repairProgress{width:100%;height:20px;background:rgba(0,0,0,.6);border:2px solid rgba(76,175,80,.6);border-radius:10px;overflow:hidden}
+#repairProgress{width:100%;height:20px;background:rgba(0,0,0,.6);border:2px solid rgba(74,158,74,.6);border-radius:10px;overflow:hidden}
 #repairFill{height:100%;width:0%;background:linear-gradient(90deg,#4CAF50,#66bb6a);transition:width .1s}
 #repairTimer{color:#ffb800;font-size:28px;font-weight:900;text-shadow:0 0 20px rgba(255,184,0,.6)}
 
 #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .06s}
-#damageVignette{position:absolute;inset:0;box-shadow:inset 0 0 140px rgba(184,30,30,.9);opacity:0;pointer-events:none;transition:opacity .25s}
 
 #result{position:fixed;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;background:rgba(3,4,6,.96);z-index:300;gap:16px;padding:20px;text-align:center}
 #result.on{display:flex}
 #result h1{font-size:clamp(36px,8vw,58px);font-weight:900;letter-spacing:6px}
 #result h1.win{color:#66bb6a;text-shadow:0 0 50px rgba(102,187,106,.6)}
 #result p{color:#8899a6;font-size:14px;font-weight:600;max-width:420px;line-height:1.7;letter-spacing:1px}
-#result button{background:linear-gradient(180deg,#2a1a0a,#1a0f05);border:2px solid #c97a1e;color:#d4d4d4;font-weight:900;font-size:16px;padding:15px 44px;border-radius:6px;cursor:pointer;letter-spacing:4px;margin-top:10px}
+#result button{background:linear-gradient(180deg,#0a2a0a,#051a05);border:2px solid #4a9e4a;color:#d4d4d4;font-weight:900;font-size:16px;padding:15px 44px;border-radius:6px;cursor:pointer;letter-spacing:4px;margin-top:10px}
 </style>
 </head>
 <body>
@@ -115,7 +114,7 @@ canvas{display:block}
     <h1>МЁРТВЫЙ <span class="dead">ГОРОД</span></h1>
     <div class="sub">DAY ZERO · ВЫЖИВАНИЕ</div>
     <div class="desc">
-      Вертолёт упал. Ты один в городе.<br>
+      Боевой вертолёт упал. Ты один в городе.<br>
       Найди 5 деталей, почини вертолёт и улетай.
     </div>
     <button id="playBtn">НАЧАТЬ</button>
@@ -162,7 +161,6 @@ canvas{display:block}
   </div>
 
   <div id="flash"></div>
-  <div id="damageVignette"></div>
 </div>
 
 <div id="result">
@@ -197,16 +195,169 @@ function goFullscreen(){
 }
 
 // ==========================================
+// АУДИО-ДВИЖОК
+// ==========================================
+let audioCtx = null;
+function getAudioCtx(){
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return null; }
+  }
+  if(audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
+  return audioCtx;
+}
+
+// выстрел
+function soundShot(){
+  const ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    // шум
+    const buf = ctx.createBuffer(1, ctx.sampleRate*0.15, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i=0;i<data.length;i++) data[i] = (Math.random()*2-1) * Math.exp(-i/data.length*5);
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const g1 = ctx.createGain(); g1.gain.value = 0.4;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2000;
+    src.connect(lp); lp.connect(g1); g1.connect(ctx.destination); src.start();
+    // тон
+    const o = ctx.createOscillator(), g2 = ctx.createGain();
+    o.connect(g2); g2.connect(ctx.destination);
+    o.type = 'square'; o.frequency.setValueAtTime(220, ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.1);
+    g2.gain.setValueAtTime(0.2, ctx.currentTime);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+    o.start(); o.stop(ctx.currentTime + 0.12);
+  }catch(e){}
+}
+// перезарядка (4 щелчка)
+function soundReload(){
+  const ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    [0, 0.35, 0.75, 1.15].forEach((t,i)=>{
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'square'; o.frequency.value = 300 + i*150;
+      g.gain.setValueAtTime(0.08, ctx.currentTime + t);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.06);
+      o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + 0.06);
+    });
+  }catch(e){}
+}
+// подбор
+function soundPickup(){
+  const ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    [523, 659, 784, 1047].forEach((f,i)=>{
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.1, ctx.currentTime + i*0.08);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i*0.08 + 0.18);
+      o.start(ctx.currentTime + i*0.08); o.stop(ctx.currentTime + i*0.08 + 0.18);
+    });
+  }catch(e){}
+}
+// шаг
+function soundStep(){
+  const ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    const buf = ctx.createBuffer(1, ctx.sampleRate*0.08, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i=0;i<data.length;i++) data[i] = (Math.random()*2-1) * Math.exp(-i/data.length*3) * 0.4;
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const g = ctx.createGain(); g.gain.value = 0.06;
+    const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 400;
+    src.connect(lp); lp.connect(g); g.connect(ctx.destination); src.start();
+  }catch(e){}
+}
+// вертолётный рокот (непрерывный, через LFO)
+let heliSound = null;
+function startHeliSound(volume = 0.15){
+  const ctx = getAudioCtx(); if(!ctx || heliSound) return;
+  try{
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    const lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
+    o.type = 'sawtooth'; o.frequency.value = 60;
+    lfo.type = 'sine'; lfo.frequency.value = 18;
+    lfoGain.gain.value = 15;
+    lfo.connect(lfoGain); lfoGain.connect(o.frequency);
+    g.gain.value = volume;
+    o.connect(g); g.connect(ctx.destination);
+    o.start(); lfo.start();
+    heliSound = { o, g, lfo };
+  }catch(e){}
+}
+function stopHeliSound(){
+  if(!heliSound) return;
+  try{ heliSound.o.stop(); heliSound.lfo.stop(); }catch(e){}
+  heliSound = null;
+}
+function setHeliVolume(v){
+  if(heliSound) try{ heliSound.g.gain.value = v; }catch(e){}
+}
+// ремонт — стук
+function soundRepairTick(){
+  const ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(800 + Math.random()*300, ctx.currentTime);
+    g.gain.setValueAtTime(0.08, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+    o.start(); o.stop(ctx.currentTime + 0.05);
+    // металлический призвук
+    const o2 = ctx.createOscillator(), g2 = ctx.createGain();
+    o2.connect(g2); g2.connect(ctx.destination);
+    o2.type = 'sine'; o2.frequency.value = 2000 + Math.random()*1000;
+    g2.gain.setValueAtTime(0.04, ctx.currentTime);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+    o2.start(); o2.stop(ctx.currentTime + 0.04);
+  }catch(e){}
+}
+// взлёт — рёв
+function soundTakeoff(){
+  const ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(40, ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 2.5);
+    g.gain.setValueAtTime(0.001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + 0.5);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.5);
+    o.start(); o.stop(ctx.currentTime + 2.5);
+  }catch(e){}
+}
+// взрыв
+function soundExplosion(){
+  const ctx = getAudioCtx(); if(!ctx) return;
+  try{
+    const buf = ctx.createBuffer(1, ctx.sampleRate*1.2, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i=0;i<data.length;i++){
+      const t = i/data.length;
+      data[i] = (Math.random()*2-1) * Math.exp(-t*3) * (1 - t*0.5);
+    }
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const g = ctx.createGain(); g.gain.value = 0.5;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 800;
+    src.connect(lp); lp.connect(g); g.connect(ctx.destination); src.start();
+    const o = ctx.createOscillator(), g2 = ctx.createGain();
+    o.connect(g2); g2.connect(ctx.destination);
+    o.type = 'sine'; o.frequency.setValueAtTime(80, ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(20, ctx.currentTime + 1);
+    g2.gain.setValueAtTime(0.3, ctx.currentTime);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+    o.start(); o.stop(ctx.currentTime + 1.2);
+  }catch(e){}
+}
+
+// ==========================================
 // ГОЛОС
 // ==========================================
-let voiceReady = false;
-function initVoices(){
-  if(!window.speechSynthesis) return;
-  window.speechSynthesis.getVoices();
-  window.speechSynthesis.onvoiceschanged = ()=>{ voiceReady = true; };
-}
-initVoices();
-
 function speak(text, opts = {}){
   if(!window.speechSynthesis) return;
   try{
@@ -215,10 +366,10 @@ function speak(text, opts = {}){
     u.lang = 'ru-RU';
     u.rate = opts.rate || 0.85;
     u.pitch = opts.pitch || 0.7;
-    u.volume = opts.volume || 1;
+    u.volume = 1;
     const voices = window.speechSynthesis.getVoices();
-    const ruVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ru'));
-    if(ruVoice) u.voice = ruVoice;
+    const ru = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ru'));
+    if(ru) u.voice = ru;
     window.speechSynthesis.speak(u);
   }catch(e){}
 }
@@ -250,34 +401,150 @@ const cutGround = new THREE.Mesh(
 cutGround.rotation.x = -Math.PI/2;
 cutScene.add(cutGround);
 
-// вертолёт
-const heli = new THREE.Group();
-const heliMat = new THREE.MeshLambertMaterial({ color: 0x3a4a2a });
-const heliDark = new THREE.MeshLambertMaterial({ color: 0x1a1a1a });
-const glassMat = new THREE.MeshLambertMaterial({ color: 0x4a9eff, transparent: true, opacity: 0.5 });
+// ==========================================
+// БОЕВОЙ ВЕРТОЛЁТ (функция, используется дважды)
+// ==========================================
+function createCombatHeli(){
+  const g = new THREE.Group();
+  const camoMat = new THREE.MeshLambertMaterial({ color: 0x3a4a2a });
+  const camoDark = new THREE.MeshLambertMaterial({ color: 0x2a3a1a });
+  const metalMat = new THREE.MeshLambertMaterial({ color: 0x2a2a2a });
+  const glassMat = new THREE.MeshLambertMaterial({ color: 0x4a9eff, transparent: true, opacity: 0.55, emissive: 0x0a2a4a });
+  const redMat = new THREE.MeshBasicMaterial({ color: 0xff2222 });
+  const greenMat = new THREE.MeshBasicMaterial({ color: 0x22ff22 });
 
-const fuselage = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 12), heliMat);
-fuselage.scale.set(1, 0.9, 1.4);
-heli.add(fuselage);
-const nose = new THREE.Mesh(new THREE.SphereGeometry(1.1, 14, 12), glassMat);
-nose.position.set(0, -0.1, 1.4); nose.scale.set(1, 0.8, 0.9); heli.add(nose);
-const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.35, 4.5, 8), heliMat);
-tail.rotation.x = Math.PI/2; tail.position.set(0, 0.4, -3.2); heli.add(tail);
-const fin = new THREE.Mesh(new THREE.BoxGeometry(0.1, 1.2, 0.8), heliMat);
-fin.position.set(0, 1, -5); heli.add(fin);
-const skidGeo = new THREE.CylinderGeometry(0.06, 0.06, 3.5, 6);
-const skidL = new THREE.Mesh(skidGeo, heliDark); skidL.rotation.x = Math.PI/2; skidL.position.set(-0.9, -1.6, 0); heli.add(skidL);
-const skidR = new THREE.Mesh(skidGeo, heliDark); skidR.rotation.x = Math.PI/2; skidR.position.set(0.9, -1.6, 0); heli.add(skidR);
-[-0.9, 0.9].forEach(x=>{ [-0.6, 0.8].forEach(z=>{ const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.8, 6), heliDark); strut.position.set(x, -1.2, z); heli.add(strut); }); });
-const rotorHub = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.25, 8), heliDark); rotorHub.position.y = 1.7; heli.add(rotorHub);
-const rotor = new THREE.Group();
-const bladeGeo = new THREE.BoxGeometry(0.08, 0.04, 5.5);
-for(let i=0;i<4;i++){ const b = new THREE.Mesh(bladeGeo, heliDark); b.rotation.y = i * Math.PI/2; rotor.add(b); }
-rotor.position.y = 1.85; heli.add(rotor);
-const tailRotor = new THREE.Group();
-const tb = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1.6, 0.04), heliDark); tailRotor.add(tb);
-const tb2 = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1.6, 0.04), heliDark); tb2.rotation.y = Math.PI/2; tailRotor.add(tb2);
-tailRotor.position.set(0.15, 1, -5); heli.add(tailRotor);
+  // основной корпус (вытянутый, угловатый)
+  const bodyGeo = new THREE.BoxGeometry(1.8, 1.6, 4.5);
+  const body = new THREE.Mesh(bodyGeo, camoMat);
+  body.position.y = 1.8;
+  g.add(body);
+
+  // сужение к носу
+  const noseGeo = new THREE.BoxGeometry(1.4, 1.2, 1.8);
+  const nose = new THREE.Mesh(noseGeo, camoMat);
+  nose.position.set(0, 1.7, 2.8);
+  g.add(nose);
+
+  // кабина (стекло)
+  const canopy = new THREE.Mesh(
+    new THREE.BoxGeometry(1.5, 1.0, 2),
+    glassMat
+  );
+  canopy.position.set(0, 2.1, 2.5);
+  g.add(canopy);
+
+  // хвостовая балка
+  const tail = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.2, 0.4, 5, 8),
+    camoDark
+  );
+  tail.rotation.x = Math.PI/2;
+  tail.position.set(0, 2, -4.5);
+  g.add(tail);
+
+  // хвостовой киль (вертикальный)
+  const finV = new THREE.Mesh(new THREE.BoxGeometry(0.15, 1.8, 1.2), camoMat);
+  finV.position.set(0, 2.7, -6.5);
+  g.add(finV);
+
+  // горизонтальные стабилизаторы
+  const stabL = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.1, 0.8), camoDark);
+  stabL.position.set(-0.7, 2, -6);
+  g.add(stabL);
+  const stabR = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.1, 0.8), camoDark);
+  stabR.position.set(0.7, 2, -6);
+  g.add(stabR);
+
+  // хвостовой винт
+  const tailRotor = new THREE.Group();
+  const tb1 = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.6, 0.05), metalMat);
+  tailRotor.add(tb1);
+  const tb2 = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.6, 0.05), metalMat);
+  tb2.rotation.y = Math.PI/2;
+  tailRotor.add(tb2);
+  tailRotor.position.set(0.25, 2.7, -6.5);
+  g.add(tailRotor);
+
+  // полозья
+  const skidGeo = new THREE.CylinderGeometry(0.07, 0.07, 3.5, 8);
+  const skidL = new THREE.Mesh(skidGeo, metalMat);
+  skidL.rotation.x = Math.PI/2;
+  skidL.position.set(-1.0, 0.2, 0);
+  g.add(skidL);
+  const skidR = new THREE.Mesh(skidGeo, metalMat);
+  skidR.rotation.x = Math.PI/2;
+  skidR.position.set(1.0, 0.2, 0);
+  g.add(skidR);
+  // стойки
+  [[-1, -0.6], [-1, 0.8], [1, -0.6], [1, 0.8]].forEach(([x, z])=>{
+    const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1.4, 6), metalMat);
+    strut.position.set(x, 0.9, z);
+    g.add(strut);
+  });
+
+  // основной ротор (втулка + 4 лопасти)
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 0.3, 8), metalMat);
+  hub.position.y = 2.8;
+  g.add(hub);
+  const rotor = new THREE.Group();
+  for(let i=0;i<4;i++){
+    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.05, 6), metalMat);
+    blade.rotation.y = i * Math.PI/2;
+    rotor.add(blade);
+  }
+  rotor.position.y = 3;
+  g.add(rotor);
+
+  // РАКЕТНЫЕ ПОДВЕСКИ (по бокам)
+  [-1.2, 1.2].forEach(x=>{
+    const pod = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 1.8), camoDark);
+    pod.position.set(x, 1.4, -0.5);
+    g.add(pod);
+    // 4 ракеты в подвеске
+    for(let j=0;j<4;j++){
+      const rocket = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.5, 6), metalMat);
+      rocket.rotation.x = Math.PI/2;
+      rocket.position.set(x, 1.4 + (j<2?0.12:-0.12), -0.5 + (j%2===0?-0.3:0.3));
+      g.add(rocket);
+      // красный кончик
+      const tip = new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.1, 6), redMat);
+      tip.rotation.x = -Math.PI/2;
+      tip.position.set(x, 1.4 + (j<2?0.12:-0.12), -0.8 + (j%2===0?-0.3:0.3));
+      g.add(tip);
+    }
+  });
+
+  // ПУШКА В НОСУ (под кабиной)
+  const gunMount = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.3, 0.6), metalMat);
+  gunMount.position.set(0, 1.2, 3.5);
+  g.add(gunMount);
+  const gunBarrel = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1.2, 8), metalMat);
+  gunBarrel.rotation.x = Math.PI/2;
+  gunBarrel.position.set(0, 1.2, 4.3);
+  g.add(gunBarrel);
+
+  // ПИЛОТАЖНЫЕ ОГНИ
+  const lightL = new THREE.Mesh(new THREE.SphereGeometry(0.08, 6, 6), redMat);
+  lightL.position.set(-1.0, 2.2, 0);
+  g.add(lightL);
+  const lightR = new THREE.Mesh(new THREE.SphereGeometry(0.08, 6, 6), greenMat);
+  lightR.position.set(1.0, 2.2, 0);
+  g.add(lightR);
+
+  // антенна
+  const ant = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.8, 4), metalMat);
+  ant.position.set(0, 2.7, 3);
+  g.add(ant);
+
+  return { group: g, rotor, tailRotor, lightL, lightR };
+}
+
+const heliObj = createCombatHeli();
+const heli = heliObj.group;
+const rotor = heliObj.rotor;
+const tailRotor = heliObj.tailRotor;
+const heliLightL = heliObj.lightL;
+const heliLightR = heliObj.lightR;
 
 heli.position.set(0, 12, 0);
 cutScene.add(heli);
@@ -307,14 +574,15 @@ function startCutscene(){
   heli.position.set(0, 12, 0);
   heli.rotation.set(0, 0, 0);
   goFullscreen();
-  // прогреваем голос жестом
-  if(window.speechSynthesis){ window.speechSynthesis.getVoices(); }
+  if(window.speechSynthesis) window.speechSynthesis.getVoices();
+  startHeliSound(0.12);
 }
 
 function endCutscene(){
   cutActive = false;
   cutEl.classList.remove('on');
   cutRenderer.domElement.remove();
+  stopHeliSound();
   startGame();
 }
 
@@ -327,6 +595,11 @@ function animateCutscene(dt){
   cutTime += dt;
   rotor.rotation.y += dt * 25;
   tailRotor.rotation.y += dt * 30;
+
+  // мигание огней
+  const blink = Math.sin(cutTime * 8) > 0;
+  heliLightL.visible = blink;
+  heliLightR.visible = !blink;
 
   while(cutPhase < CUT_PHASES.length && cutTime >= CUT_PHASES[cutPhase].t){
     const p = CUT_PHASES[cutPhase];
@@ -345,7 +618,10 @@ function animateCutscene(dt){
     heli.rotation.z = t * 1.2;
     heli.rotation.x = t * 0.7;
     if(t > 0.88) heli.position.y = 0.5;
+    setHeliVolume(0.12 + t*0.3);
+    if(t > 0.85 && cutPhase < CUT_PHASES.length){ soundExplosion(); cutPhase = CUT_PHASES.length; }
   } else {
+    setHeliVolume(0);
     if(cutTime > 10.5){
       const t = Math.min(1, (cutTime - 10.5) / 1.5);
       fadeOverlay.style.opacity = String(t);
@@ -365,7 +641,7 @@ function animateCutscene(dt){
 }
 
 // ==========================================
-// ОСНОВНАЯ СЦЕНА — СОЛНЕЧНЫЙ ДЕНЬ
+// ОСНОВНАЯ СЦЕНА
 // ==========================================
 const app = document.getElementById('app');
 const scene = new THREE.Scene();
@@ -374,15 +650,13 @@ scene.fog = new THREE.Fog(0x87b6d9, 80, 250);
 
 const camera = new THREE.PerspectiveCamera(72, innerWidth/innerHeight, 0.05, 400);
 camera.position.set(0, 1.7, 0);
-scene.add(camera); // ВАЖНО: камера в сцене, чтобы фонарь работал
+scene.add(camera);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.shadowMap.enabled = false;
 app.appendChild(renderer.domElement);
 
-// солнце
 scene.add(new THREE.AmbientLight(0xffffff, 1.8));
 const sun = new THREE.DirectionalLight(0xffffff, 2.2);
 sun.position.set(50, 80, 30);
@@ -400,11 +674,9 @@ const buildingData = [];
 
 function makeBuilding(x, z, w, h, d, enterable){
   const g = new THREE.Group();
-  const bodyMat = new THREE.MeshLambertMaterial({ color: 0x8a8a90 });
-  const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), bodyMat);
+  const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshLambertMaterial({ color: 0x8a8a90 }));
   body.position.y = h/2;
   g.add(body);
-
   const winMat = new THREE.MeshBasicMaterial({ color: 0x4a5a6a });
   const winGeo = new THREE.BoxGeometry(0.6, 0.8, 0.1);
   for(let fy=1.5; fy<h-1; fy+=2.2){
@@ -415,7 +687,6 @@ function makeBuilding(x, z, w, h, d, enterable){
       g.add(win);
     }
   }
-
   g.position.set(x, 0, z);
   scene.add(g);
 
@@ -424,23 +695,15 @@ function makeBuilding(x, z, w, h, d, enterable){
     const floor = new THREE.Mesh(new THREE.BoxGeometry(innerW, 0.1, innerD), new THREE.MeshLambertMaterial({ color: 0x5a5040 }));
     floor.position.set(x, 0.05, z); scene.add(floor);
     const wallMatIn = new THREE.MeshLambertMaterial({ color: 0x9a9080 });
-    const wallThick = 0.2, wallH = innerH;
-    const bw = new THREE.Mesh(new THREE.BoxGeometry(innerW, wallH, wallThick), wallMatIn);
-    bw.position.set(x, wallH/2, z + innerD/2); scene.add(bw);
+    const wt = 0.2, wh = innerH;
+    const bw = new THREE.Mesh(new THREE.BoxGeometry(innerW, wh, wt), wallMatIn); bw.position.set(x, wh/2, z + innerD/2); scene.add(bw);
     const doorW = 1.6, sideW = (innerW - doorW) / 2;
-    const fwL = new THREE.Mesh(new THREE.BoxGeometry(sideW, wallH, wallThick), wallMatIn);
-    fwL.position.set(x - (innerW/2 - sideW/2), wallH/2, z - innerD/2); scene.add(fwL);
-    const fwR = new THREE.Mesh(new THREE.BoxGeometry(sideW, wallH, wallThick), wallMatIn);
-    fwR.position.set(x + (innerW/2 - sideW/2), wallH/2, z - innerD/2); scene.add(fwR);
-    const fwTop = new THREE.Mesh(new THREE.BoxGeometry(doorW, wallH - 2.2, wallThick), wallMatIn);
-    fwTop.position.set(x, 2.2 + (wallH - 2.2)/2, z - innerD/2); scene.add(fwTop);
-    const lw = new THREE.Mesh(new THREE.BoxGeometry(wallThick, wallH, innerD), wallMatIn);
-    lw.position.set(x - innerW/2, wallH/2, z); scene.add(lw);
-    const rw = new THREE.Mesh(new THREE.BoxGeometry(wallThick, wallH, innerD), wallMatIn);
-    rw.position.set(x + innerW/2, wallH/2, z); scene.add(rw);
-    const ceil = new THREE.Mesh(new THREE.BoxGeometry(innerW, 0.1, innerD), new THREE.MeshLambertMaterial({ color: 0x7a7060 }));
-    ceil.position.set(x, wallH, z); scene.add(ceil);
-
+    const fwL = new THREE.Mesh(new THREE.BoxGeometry(sideW, wh, wt), wallMatIn); fwL.position.set(x - (innerW/2 - sideW/2), wh/2, z - innerD/2); scene.add(fwL);
+    const fwR = new THREE.Mesh(new THREE.BoxGeometry(sideW, wh, wt), wallMatIn); fwR.position.set(x + (innerW/2 - sideW/2), wh/2, z - innerD/2); scene.add(fwR);
+    const fwTop = new THREE.Mesh(new THREE.BoxGeometry(doorW, wh - 2.2, wt), wallMatIn); fwTop.position.set(x, 2.2 + (wh - 2.2)/2, z - innerD/2); scene.add(fwTop);
+    const lw = new THREE.Mesh(new THREE.BoxGeometry(wt, wh, innerD), wallMatIn); lw.position.set(x - innerW/2, wh/2, z); scene.add(lw);
+    const rw = new THREE.Mesh(new THREE.BoxGeometry(wt, wh, innerD), wallMatIn); rw.position.set(x + innerW/2, wh/2, z); scene.add(rw);
+    const ceil = new THREE.Mesh(new THREE.BoxGeometry(innerW, 0.1, innerD), new THREE.MeshLambertMaterial({ color: 0x7a7060 })); ceil.position.set(x, wh, z); scene.add(ceil);
     obstacleList.push({ x, z: z + innerD/2, r: innerW/2 });
     obstacleList.push({ x: x - innerW/2, z, r: innerD/2 });
     obstacleList.push({ x: x + innerW/2, z, r: innerD/2 });
@@ -462,18 +725,13 @@ for(let i=-blocks; i<=blocks; i++){
     const cz = j*blockSize + (Math.random()-0.5)*10;
     if(Math.sqrt(cx*cx + cz*cz) > wallR - 20) continue;
     if(Math.random() < 0.25) continue;
-    const w = 9 + Math.random()*9;
-    const d = 9 + Math.random()*9;
-    const h = 6 + Math.random()*14;
-    const enterable = Math.random() < 0.35;
-    makeBuilding(cx, cz, w, h, d, enterable);
+    const w = 9 + Math.random()*9, d = 9 + Math.random()*9, h = 6 + Math.random()*14;
+    makeBuilding(cx, cz, w, h, d, Math.random() < 0.35);
   }
 }
 
-// деревья
 for(let i=0;i<40;i++){
-  const a = Math.random()*Math.PI*2;
-  const r = 10 + Math.random()*(wallR-20);
+  const a = Math.random()*Math.PI*2, r = 10 + Math.random()*(wallR-20);
   const x = Math.cos(a)*r, z = Math.sin(a)*r;
   let ok = true;
   for(const o of obstacleList){ const dx = x-o.x, dz = z-o.z; if(dx*dx + dz*dz < (o.r+2)*(o.r+2)){ ok = false; break; } }
@@ -485,7 +743,6 @@ for(let i=0;i<40;i++){
   obstacleList.push({ x, z, r: 0.5 });
 }
 
-// забор
 for(let i=0;i<160;i++){
   const a = (i/160)*Math.PI*2;
   const x = Math.cos(a)*wallR, z = Math.sin(a)*wallR;
@@ -494,24 +751,13 @@ for(let i=0;i<160;i++){
 }
 
 // ==========================================
-// ВЕРТОЛЁТ НА ЗЕМЛЕ (цель ремонта)
+// БОЕВОЙ ВЕРТОЛЁТ НА ЗЕМЛЕ
 // ==========================================
 const heliGroundPos = { x: 0, z: 15 };
-const heliGround = new THREE.Group();
-const hgBody = new THREE.Mesh(new THREE.SphereGeometry(1.6, 16, 12), new THREE.MeshLambertMaterial({ color: 0x3a4a2a }));
-hgBody.scale.set(1, 0.9, 1.4); hgBody.position.y = 1.6; heliGround.add(hgBody);
-const hgNose = new THREE.Mesh(new THREE.SphereGeometry(1.1, 14, 12), new THREE.MeshLambertMaterial({ color: 0x4a9eff, transparent: true, opacity: 0.5 }));
-hgNose.position.set(0, 1.5, 1.4); hgNose.scale.set(1, 0.8, 0.9); heliGround.add(hgNose);
-const hgTail = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.35, 4.5, 8), new THREE.MeshLambertMaterial({ color: 0x3a4a2a }));
-hgTail.rotation.x = Math.PI/2; hgTail.position.set(0, 2, -3.2); heliGround.add(hgTail);
-const hgSkidL = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 3.5, 6), new THREE.MeshLambertMaterial({ color: 0x1a1a1a }));
-hgSkidL.rotation.x = Math.PI/2; hgSkidL.position.set(-0.9, 0.2, 0); heliGround.add(hgSkidL);
-const hgSkidR = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 3.5, 6), new THREE.MeshLambertMaterial({ color: 0x1a1a1a }));
-hgSkidR.rotation.x = Math.PI/2; hgSkidR.position.set(0.9, 0.2, 0); heliGround.add(hgSkidR);
-const hgRotor = new THREE.Group();
-for(let i=0;i<4;i++){ const b = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.04, 5.5), new THREE.MeshLambertMaterial({ color: 0x1a1a1a })); b.rotation.y = i * Math.PI/2; hgRotor.add(b); }
-hgRotor.position.y = 3.5; heliGround.add(hgRotor);
-
+const heliGroundObj = createCombatHeli();
+const heliGround = heliGroundObj.group;
+const hgRotor = heliGroundObj.rotor;
+const hgTailRotor = heliGroundObj.tailRotor;
 heliGround.position.set(heliGroundPos.x, 0, heliGroundPos.z);
 scene.add(heliGround);
 obstacleList.push({ x: heliGroundPos.x, z: heliGroundPos.z, r: 2.5 });
@@ -560,44 +806,52 @@ function placeParts(){
 }
 
 // ==========================================
-// ОРУЖИЕ + ФОНАРЬ
+// ФОНАРЬ — ОТДЕЛЬНО ОТ ОРУЖИЯ, ПРИВЯЗАН К КАМЕРЕ
+// ==========================================
+const flashlight = new THREE.SpotLight(0xfff5e0, 0, 100, Math.PI/7, 0.35, 0.6);
+flashlight.position.set(0.15, -0.15, 0);
+camera.add(flashlight);
+
+const flashlightTarget = new THREE.Object3D();
+flashlightTarget.position.set(0, 0, -30);
+scene.add(flashlightTarget);
+flashlight.target = flashlightTarget;
+
+const flashlightWide = new THREE.SpotLight(0xfff5e0, 0, 60, Math.PI/4, 0.7, 1);
+flashlightWide.position.set(0.15, -0.15, 0);
+camera.add(flashlightWide);
+flashlightWide.target = flashlightTarget;
+
+const flashlightPoint = new THREE.PointLight(0xfff5e0, 0, 15, 2);
+flashlightPoint.position.set(0.15, -0.15, -0.5);
+camera.add(flashlightPoint);
+
+let flashlightOn = false;
+
+// ==========================================
+// ОРУЖИЕ
 // ==========================================
 const weaponGroup = new THREE.Group();
 camera.add(weaponGroup);
-
-const handFlashlight = new THREE.SpotLight(0xfff5e0, 0, 80, Math.PI/9, 0.4, 0.8);
-handFlashlight.position.set(0.14, -0.14, -0.5);
-weaponGroup.add(handFlashlight);
-const flashlightTarget = new THREE.Object3D();
-flashlightTarget.position.set(0, 0, -20);
-weaponGroup.add(flashlightTarget);
-handFlashlight.target = flashlightTarget;
-
-const handFlashlightWide = new THREE.SpotLight(0xfff5e0, 0, 50, Math.PI/5, 0.7, 1.2);
-handFlashlightWide.position.set(0.14, -0.14, -0.5);
-handFlashlightWide.target = flashlightTarget;
-weaponGroup.add(handFlashlightWide);
-
-let flashlightOn = false;
 
 function buildWeapon(){
   const gunMat = new THREE.MeshLambertMaterial({ color: 0x1a1a1a });
   const metalMat = new THREE.MeshLambertMaterial({ color: 0x333333 });
   const skinMat = new THREE.MeshLambertMaterial({ color: 0xd4a574 });
   const sleeveMat = new THREE.MeshLambertMaterial({ color: 0x2a2a26 });
-  const flashMat = new THREE.MeshLambertMaterial({ color: 0x555555, emissive: 0x333333 });
+  const torchMat = new THREE.MeshLambertMaterial({ color: 0x555555, emissive: 0x333333 });
 
   const slide = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.12, 0.42), gunMat); slide.position.set(0.14, -0.14, -0.35); weaponGroup.add(slide);
   const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.12, 8), metalMat); barrel.rotation.x = Math.PI/2; barrel.position.set(0.14, -0.14, -0.56); weaponGroup.add(barrel);
   const grip = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.22, 0.1), gunMat); grip.position.set(0.14, -0.28, -0.25); grip.rotation.x = 0.25; weaponGroup.add(grip);
   const mag = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.18, 0.08), metalMat); mag.position.set(0.14, -0.32, -0.24); mag.rotation.x = 0.25; weaponGroup.add(mag);
-
   const rArm = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 0.38), sleeveMat); rArm.position.set(0.2, -0.24, -0.18); rArm.rotation.set(0.3, -0.2, 0); weaponGroup.add(rArm);
   const rHand = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.1, 0.13), skinMat); rHand.position.set(0.15, -0.26, -0.26); weaponGroup.add(rHand);
   const lArm = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 0.4), sleeveMat); lArm.position.set(-0.06, -0.22, -0.3); lArm.rotation.set(0.2, 0.35, 0); weaponGroup.add(lArm);
   const lHand = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.12), skinMat); lHand.position.set(0.02, -0.25, -0.4); weaponGroup.add(lHand);
 
-  const torchBody = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, 0.2, 10), flashMat);
+  // фонарик на стволе
+  const torchBody = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, 0.2, 10), torchMat);
   torchBody.rotation.x = Math.PI/2; torchBody.position.set(0.14, -0.08, -0.58); weaponGroup.add(torchBody);
   const torchLens = new THREE.Mesh(new THREE.CircleGeometry(0.045, 12), new THREE.MeshBasicMaterial({ color: 0xfff5e0 }));
   torchLens.position.set(0.14, -0.08, -0.68); torchLens.rotation.y = Math.PI; weaponGroup.add(torchLens);
@@ -625,6 +879,7 @@ const player = {
   speed: 5.5,
   ammo: 12, maxAmmo: 12,
   shootCooldown: 0,
+  stepTimer: 0,
   partsCollected: 0,
   repaired: false,
   inHeli: false
@@ -701,8 +956,9 @@ reloadBtn.addEventListener('pointerdown', e=>{ e.preventDefault(); e.stopPropaga
 const flashlightBtn = document.getElementById('flashlightBtn');
 function setFlashlight(on){
   flashlightOn = on;
-  handFlashlight.intensity = on ? 35 : 0;
-  handFlashlightWide.intensity = on ? 15 : 0;
+  flashlight.intensity = on ? 40 : 0;
+  flashlightWide.intensity = on ? 18 : 0;
+  flashlightPoint.intensity = on ? 8 : 0;
   flashlightBtn.classList.toggle('on', on);
 }
 flashlightBtn.addEventListener('pointerdown', e=>{ e.preventDefault(); e.stopPropagation(); setFlashlight(!flashlightOn); });
@@ -729,6 +985,7 @@ let gameActive = false;
 let hintTimer = 0, voiceTimer = 0;
 let repairing = false;
 let repairStart = 0;
+let lastRepairTick = 0;
 const REPAIR_TIME = 30;
 
 function showHint(text, duration = 2500){ hintMsg.innerText = text; hintMsg.classList.add('on'); hintTimer = duration/1000; }
@@ -745,16 +1002,6 @@ function startReload(){
 }
 
 // ==========================================
-// ЗВУКИ
-// ==========================================
-let audioCtx = null;
-function getAudioCtx(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state === 'suspended') audioCtx.resume(); return audioCtx; }
-function soundShot(){ try{ const ctx = getAudioCtx(); const o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.type = 'square'; o.frequency.value = 180; g.gain.setValueAtTime(0.15, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12); o.start(); o.stop(ctx.currentTime + 0.12); }catch(e){} }
-function soundReload(){ try{ const ctx = getAudioCtx(); [0,0.3,0.7,1.1].forEach((t,i)=>{ const o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.type='square'; o.frequency.value = 400+i*100; g.gain.setValueAtTime(0.06, ctx.currentTime+t); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+t+0.08); o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.08); }); }catch(e){} }
-function soundPickup(){ try{ const ctx = getAudioCtx(); [523,659,784].forEach((f,i)=>{ const o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.type='sine'; o.frequency.value = f; g.gain.setValueAtTime(0.08, ctx.currentTime+i*0.1); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+i*0.1+0.2); o.start(ctx.currentTime+i*0.1); o.stop(ctx.currentTime+i*0.1+0.2); }); }catch(e){} }
-function soundStep(){ try{ const ctx = getAudioCtx(); const buf = ctx.createBuffer(1, ctx.sampleRate*0.06, ctx.sampleRate); const data = buf.getChannelData(0); for(let i=0;i<data.length;i++) data[i] = (Math.random()*2-1) * Math.exp(-i/data.length*4) * 0.5; const src = ctx.createBufferSource(); src.buffer = buf; const g = ctx.createGain(); g.gain.value = 0.05; src.connect(g); g.connect(ctx.destination); src.start(); }catch(e){} }
-
-// ==========================================
 // КОЛЛИЗИИ
 // ==========================================
 function collides(x, z, radius){
@@ -769,7 +1016,7 @@ function collides(x, z, radius){
 }
 
 // ==========================================
-// ДЕЙСТВИЕ (починка / посадка)
+// ДЕЙСТВИЕ
 // ==========================================
 actionBtn.addEventListener('pointerdown', e=>{
   e.preventDefault(); e.stopPropagation();
@@ -778,35 +1025,35 @@ actionBtn.addEventListener('pointerdown', e=>{
   if(dist > 5) return;
 
   if(!player.repaired && player.partsCollected >= PARTS_TOTAL){
-    // начать ремонт
     repairing = true;
     repairStart = performance.now();
     repairBar.classList.add('on');
     actionBtn.classList.remove('on');
     speak('Ремонт начат. Тридцать секунд.', {rate:0.9, pitch:0.7});
   } else if(player.repaired){
-    // сесть в вертолёт
     player.inHeli = true;
     actionBtn.classList.remove('on');
     showHint('Взлёт...', 2000);
     speak('Поехали!', {rate:0.9, pitch:0.8});
-    setTimeout(()=>{
-      // взлёт
-      let t = 0;
-      const lift = setInterval(()=>{
-        t += 0.05;
-        heliGround.position.y += 0.05;
-        hgRotor.rotation.y += 0.5;
-        if(t > 3){
-          clearInterval(lift);
-          gameActive = false;
-          resultTitle.innerText = 'ТЫ УЛЕТЕЛ';
-          resultTitle.className = 'win';
-          resultText.innerText = 'Ты выбрался из мёртвого города на вертолёте.';
-          resultEl.classList.add('on');
-        }
-      }, 50);
-    }, 500);
+    soundTakeoff();
+    startHeliSound(0.1);
+    let t = 0;
+    const lift = setInterval(()=>{
+      t += 0.05;
+      heliGround.position.y += 0.08;
+      hgRotor.rotation.y += 0.6;
+      hgTailRotor.rotation.y += 0.8;
+      setHeliVolume(0.1 + t*0.4);
+      if(t > 3){
+        clearInterval(lift);
+        stopHeliSound();
+        gameActive = false;
+        resultTitle.innerText = 'ТЫ УЛЕТЕЛ';
+        resultTitle.className = 'win';
+        resultText.innerText = 'Ты выбрался из мёртвого города на боевом вертолёте.';
+        resultEl.classList.add('on');
+      }
+    }, 50);
   }
 });
 
@@ -822,6 +1069,7 @@ function startGame(){
   player.repaired = false;
   player.inHeli = false;
   player.shootCooldown = 0;
+  player.stepTimer = 0;
   reloading = false; reloadAnim = 0;
   repairing = false;
   repairBar.classList.remove('on');
@@ -841,7 +1089,7 @@ function startGame(){
   setTimeout(()=>showVoice('Пять деталей. Собрать и починить вертолёт.', 3500), 7800);
 }
 
-document.getElementById('playBtn').addEventListener('click', ()=>{ goFullscreen(); startCutscene(); });
+document.getElementById('playBtn').addEventListener('click', ()=>{ getAudioCtx(); goFullscreen(); startCutscene(); });
 document.getElementById('restartBtn').addEventListener('click', ()=>{ resultEl.classList.remove('on'); startCutscene(); });
 
 // ==========================================
@@ -856,7 +1104,6 @@ function animate(){
   if(cutActive){ animateCutscene(dt); return; }
 
   if(gameActive){
-    // движение
     let ix = 0, iz = 0;
     if(keys['KeyW'] || keys['ArrowUp']) iz -= 1;
     if(keys['KeyS'] || keys['ArrowDown']) iz += 1;
@@ -867,14 +1114,17 @@ function animate(){
     if(len > 1){ ix /= len; iz /= len; }
 
     if(len > 0.05 && !player.inHeli){
-      // ПРАВИЛЬНОЕ ДВИЖЕНИЕ ОТНОСИТЕЛЬНО КАМЕРЫ:
-      // iz = -1 (джойстик вверх) → идём вперёд по направлению взгляда
+      // правильное движение: iz=-1 → вперёд по камере
       const wx = ix*Math.cos(player.yaw) + iz*Math.sin(player.yaw);
       const wz = -ix*Math.sin(player.yaw) + iz*Math.cos(player.yaw);
       const nx = player.x + wx * player.speed * dt;
       const nz = player.z + wz * player.speed * dt;
       if(!collides(nx, player.z, 0.4)) player.x = nx;
       if(!collides(player.x, nz, 0.4)) player.z = nz;
+
+      // шаги
+      player.stepTimer -= dt;
+      if(player.stepTimer <= 0){ player.stepTimer = 0.55; soundStep(); }
     }
 
     if(!player.inHeli){
@@ -886,8 +1136,12 @@ function animate(){
       );
       camera.lookAt(player.x + dir.x, player.y + dir.y, player.z + dir.z);
 
-      // фонарь светит по направлению взгляда — цель в 20 юнитов вперёд
-      flashlightTarget.position.set(dir.x * 20, dir.y * 20, dir.z * 20);
+      // фонарь — цель в 30 юнитов по взгляду
+      flashlightTarget.position.set(
+        player.x + dir.x * 30,
+        player.y + dir.y * 30,
+        player.z + dir.z * 30
+      );
       flashlightTarget.updateMatrixWorld();
 
       // оружие
@@ -912,7 +1166,6 @@ function animate(){
       weaponGroup.rotation.x = weaponRecoil.z * 0.5;
       weaponGroup.visible = true;
 
-      // стрельба
       player.shootCooldown -= dt;
       if(firing && player.shootCooldown <= 0 && !reloading){
         if(player.ammo > 0){
@@ -943,7 +1196,7 @@ function animate(){
       }
     }
 
-    // кнопка действия у вертолёта
+    // кнопка у вертолёта
     const hdx = player.x - heliGroundPos.x, hdz = player.z - heliGroundPos.z;
     const hdist = Math.sqrt(hdx*hdx + hdz*hdz);
     if(hdist < 5 && player.partsCollected >= PARTS_TOTAL && !player.repaired && !repairing){
@@ -962,12 +1215,15 @@ function animate(){
       const left = Math.max(0, REPAIR_TIME - elapsed);
       repairFill.style.width = ((REPAIR_TIME - left) / REPAIR_TIME * 100) + '%';
       repairTimer.innerText = Math.ceil(left);
+      // стук каждые 0.4 сек
+      if(performance.now() - lastRepairTick > 400){ lastRepairTick = performance.now(); soundRepairTick(); }
       if(left <= 0){
         repairing = false;
         player.repaired = true;
         repairBar.classList.remove('on');
         showHint('Вертолёт починен! Садись и улетай.', 4000);
         speak('Вертолёт починен. Садись и улетай.', {rate:0.9, pitch:0.8});
+        soundPickup();
       }
     }
 
